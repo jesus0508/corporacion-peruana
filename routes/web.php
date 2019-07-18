@@ -15,5 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('Gcliente', function(){
+	return view('gcliente');
+});
+
+
+Route::get('forms2', function(){
+	return view('forms2');
+});
+
+Route::get('forms', function(){
+	return view('forms');
+});
+
+
+Route::get('login', function(){
+	return view('login');
+});
+
 Route::resource('/clientes','ClienteController');
 Route::resource('/proveedor','ProveedorController');
