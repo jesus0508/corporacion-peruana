@@ -28,10 +28,7 @@ Route::get('forms', function(){
 	return view('forms');
 });
 
-
-Route::get('login', function(){
-	return view('login');
-});
-
+Auth::routes(['register' => false]);
+Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/clientes','ClienteController');
 Route::resource('/proveedores','ProveedorController');
