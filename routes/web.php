@@ -34,4 +34,4 @@ Route::get('login', function(){
 });
 
 Route::resource('/clientes','ClienteController');
-Route::resource('/proveedor','ProveedorController');
+Route::resource('/proveedores','ProveedorController');

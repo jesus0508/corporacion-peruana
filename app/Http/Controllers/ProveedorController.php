@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CorporacionPeru\Http\Controllers;
 
-use App\Proveedor;
+use CorporacionPeru\Proveedor;
 use Illuminate\Http\Request\StoreProveedorRequest;
 use Illuminate\Http\Request;
 
@@ -42,7 +42,7 @@ class ProveedorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Proveedor  $proveedor
+     * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
     public function show(Proveedor $proveedor)
@@ -53,7 +53,7 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Proveedor  $proveedor
+     * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
     public function edit(Proveedor $proveedor)
@@ -65,7 +65,7 @@ class ProveedorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Proveedor  $proveedor
+     * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
     public function update(StoreProveedorRequest $request, Proveedor $proveedor)
@@ -76,7 +76,7 @@ class ProveedorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Proveedor  $proveedor
+     * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
     public function destroy(Proveedor $proveedor)

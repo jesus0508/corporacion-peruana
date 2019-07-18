@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
 

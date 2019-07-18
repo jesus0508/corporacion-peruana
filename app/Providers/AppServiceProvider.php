@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace CorporacionPeru\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
