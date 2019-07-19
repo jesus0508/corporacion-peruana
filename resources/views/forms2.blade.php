@@ -1,6 +1,6 @@
-@extends('plantilla')
+@extends('layouts.main')
 
-@section('section')
+@section('content')
 
        
         <!-- Content Header (Page header) -->

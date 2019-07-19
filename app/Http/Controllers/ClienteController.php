@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Cliente;
 use CorporacionPeru\Http\Requests;
-use Illuminate\Http\Request\StoreClienteRequest;
+use CorporacionPeru\Http\Requests\StoreClienteRequest;
 
 class ClienteController extends Controller
 {
@@ -15,7 +15,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $clientes=Cliente::all();
+        return view('clientes.index',compact('clientes'));
     }
 
     /**
@@ -26,6 +27,7 @@ class ClienteController extends Controller
     public function create()
     {
         //
+        return view('cliente.create');
     }
 
     /**
@@ -37,6 +39,7 @@ class ClienteController extends Controller
     public function store(StoreClienteRequest $request)
     {
         //
+        Cliente::create($request->validated());
     }
 
     /**
@@ -47,7 +50,8 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return $cliente;
+        //return view('clientes.show',compact('cliente'));
     }
 
     /**
@@ -59,6 +63,7 @@ class ClienteController extends Controller
     public function edit(Cliente $cliente)
     {
         //
+        return view('clientes.edit',compact('cliente'));
     }
 
     /**
@@ -71,6 +76,8 @@ class ClienteController extends Controller
     public function update(StoreClienteRequest $request, Cliente $cliente)
     {
         //
+        $cliente->update($request->validate());
+        return $cliente;
     }
 
     /**

@@ -13,7 +13,7 @@ class StoreClienteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreClienteRequest extends FormRequest
             'ruc'=>'required|max: 11',
             'razon_social'=>'required',
             'direccion'=>'max: 255',
-            'tipo'=>'max: 20'
+            'tipo'=>'required'
         ];
     }
 }

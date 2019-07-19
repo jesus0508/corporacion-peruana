@@ -16,6 +16,8 @@ class ProveedorController extends Controller
     public function index()
     {
         //
+        $proveedores=Proveedor::all();
+        return view('proveedor.index',compact('proveedores'));
     }
 
     /**
