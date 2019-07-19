@@ -15,9 +15,11 @@ class CreateProveedoresTable extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ruc',11);
+            $table->string('planta');
             $table->string('razon_social');
-            $table->string('direccion');
+            $table->string('representante')->default('NINGUNO');
+            $table->string('celular');
+
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateProveedoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proveedors');
+        Schema::dropIfExists('proveedores');
     }
 }
