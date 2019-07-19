@@ -3,8 +3,8 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Proveedor;
-use Illuminate\Http\Request\StoreProveedorRequest;
-use Illuminate\Http\Request;
+use CorporacionPeru\Http\Requests;
+use CorporacionPeru\Http\Requests\StoreProveedorRequest;
 
 class ProveedorController extends Controller
 {
@@ -17,7 +17,7 @@ class ProveedorController extends Controller
     {
         //
         $proveedores=Proveedor::all();
-        return view('proveedor.index',compact('proveedores'));
+        return view('proveedores.index',compact('proveedores'));
     }
 
     /**
@@ -27,6 +27,8 @@ class ProveedorController extends Controller
      */
     public function create()
     {
+
+         return view('proveedores.create');
         //
     }
 
@@ -39,6 +41,7 @@ class ProveedorController extends Controller
     public function store(StoreProveedorRequest $request)
     {
         //
+          Proveedor::create($request->validated());
     }
 
     /**
@@ -50,6 +53,7 @@ class ProveedorController extends Controller
     public function show(Proveedor $proveedor)
     {
         //
+        return $proveedor;
     }
 
     /**
