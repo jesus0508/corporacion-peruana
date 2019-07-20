@@ -23,9 +23,8 @@ class StoreClienteRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->cliente->id);
         return [
-            'ruc'=>'required|min: 11|unique:clientes,ruc,'.$this->cliente->id,
+            'ruc'=>'required|min: 11|unique:clientes,ruc',
             'razon_social'=>'required',
             'direccion'=>'max: 255',
             'tipo'=>'required'

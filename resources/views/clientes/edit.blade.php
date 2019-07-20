@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-edit-cliente" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('clientes.update')}}" method="post" class="modal-content">
+    <form action="{{route('clientes.update',$cliente->id)}}" method="post" class="modal-content">
       @csrf
       @method('PUT')
       <div class="modal-header">
