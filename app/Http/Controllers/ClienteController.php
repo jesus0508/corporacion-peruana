@@ -40,6 +40,7 @@ class ClienteController extends Controller
     {
         //
         Cliente::create($request->validated());
+        return back()->with('status','Cliente Registrado con exito');
     }
 
     /**
@@ -62,8 +63,8 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
-        return view('clientes.edit',compact('cliente'));
+        return $cliente;
+        //return view('clientes.edit',compact('cliente'));
     }
 
     /**
@@ -76,8 +77,9 @@ class ClienteController extends Controller
     public function update(StoreClienteRequest $request, Cliente $cliente)
     {
         //
-        $cliente->update($request->validate());
-        return $cliente;
+        //dd($request);
+        $cliente->update($request->validated());
+        return  back()->with('status','Cliente editado con exito');;
     }
 
     /**
@@ -89,5 +91,6 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
+        return $cliente;
     }
 }
