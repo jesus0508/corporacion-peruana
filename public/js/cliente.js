@@ -8,6 +8,7 @@ $('#modal-edit-cliente').on('show.bs.modal', function (event) {
   $(event.currentTarget).find('#razon_social-edit').val(razon_social);
   $(event.currentTarget).find('#tipo-edit').val(tipo);
   $(event.currentTarget).find('#direccion-edit').val(direccion);
+  $(event.currentTarget).find('#id-edit').val(id);
 })
 
 $('#modal-show-cliente').on('show.bs.modal', function (event) {    

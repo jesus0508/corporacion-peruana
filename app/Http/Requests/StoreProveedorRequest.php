@@ -24,12 +24,10 @@ class StoreProveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            return [
             'planta'=>'max: 255',
             'razon_social'=>'required',
             'representante'=>'max: 255',
             'celular'=>'max: 9',
-      
         ];
     }
 }

@@ -42,14 +42,17 @@
                               data-razonsocial="{{$cliente->razon_social}}" data-direccion="{{$cliente->direccion}}">
                       <span class="glyphicon glyphicon-edit"></span>
                     </button>
-                    <button class="btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                    <form style="display:inline" method="POST" action="{{ route('clientes.destroy', $cliente->id) }}">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                    </form>
                   </td>
                 </tr>
               @endforeach
             </tbody>
           </table>
+          {!!$clientes->render()!!} 
         </div>
       </div> <!-- end box -->
     </div>

@@ -18,11 +18,11 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="ruc-show">RUC</label>
-                  <input id="ruc-show" type="text" class="form-control" name="ruc" placeholder="Ingrese su RUC">
+                  <input id="ruc-show" type="text" class="form-control" disabled>
                 </div>
                 <div class="form-group">
                   <label for="razon_social-show">Razon Social</label>
-                  <input id="razon_social-show" type="text" class="form-control" name="razon_social" placeholder="Ingrese la Razon Social">
+                  <input id="razon_social-show" type="text" class="form-control" disabled>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -36,14 +36,14 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="tipo-show">Tipo</label>
-                  <select id="tipo-show" class="form-control" name="tipo">
+                  <select id="tipo-show" class="form-control" disabled>
                     <option value="1">Grifo</option>
                     <option value="2">Normal</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="direccion-show">Direccion</label>
-                  <input id="direccion-show" type="text" class="form-control" name="direccion" placeholder="Ingrese la direccion">
+                  <input id="direccion-show" type="text" class="form-control" disabled>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->

@@ -15,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes=Cliente::all();
+        $clientes=Cliente::orderBy('id','DESC')->paginate(5);
         return view('clientes.index',compact('clientes'));
     }
 
@@ -52,7 +52,6 @@ class ClienteController extends Controller
     public function show(Cliente $cliente)
     {
         return $cliente;
-        //return view('clientes.show',compact('cliente'));
     }
 
     /**
@@ -64,7 +63,6 @@ class ClienteController extends Controller
     public function edit(Cliente $cliente)
     {
         return $cliente;
-        //return view('clientes.edit',compact('cliente'));
     }
 
     /**
@@ -77,7 +75,7 @@ class ClienteController extends Controller
     public function update(StoreClienteRequest $request, Cliente $cliente)
     {
         //
-        //dd($request);
+        $cliente=Cliente::findOrFail($request->id);
         $cliente->update($request->validated());
         return  back()->with('status','Cliente editado con exito');;
     }
