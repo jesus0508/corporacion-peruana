@@ -15,10 +15,10 @@ class CreateProveedoresTable extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('planta');
             $table->string('razon_social');
-            $table->string('representante')->default('NINGUNO');
-            $table->string('celular');
+            $table->string('direccion');
+            $table->string('representante')->nullable();
+            $table->string('celular')->nullable();
 
             $table->timestamps();
         });
