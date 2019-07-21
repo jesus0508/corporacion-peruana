@@ -1,6 +1,7 @@
 <?php
 
 namespace CorporacionPeru\Http\Controllers;
+use Illuminate\Http\Request;
 
 use CorporacionPeru\Proveedor;
 use CorporacionPeru\Http\Requests;
@@ -42,6 +43,7 @@ class ProveedorController extends Controller
     {
         //
           Proveedor::create($request->validated());
+        return  back()->with('status','Proveedor creado con exito');
     }
 
     /**
@@ -76,7 +78,12 @@ class ProveedorController extends Controller
      */
     public function update(StoreProveedorRequest $request, Proveedor $proveedor)
     {
-        //
+        
+        $var = $proveedor->get('id');
+        $jsonProv = $var[0] ; 
+        $proveedor=Proveedor::findOrFail($jsonProv['id']);
+        $proveedor->update($request->validated());
+        return  back()->with('status','proveedor editado con exito');;
     }
 
     /**
@@ -87,6 +94,10 @@ class ProveedorController extends Controller
      */
     public function destroy(Proveedor $proveedor)
     {
-        //
+
+            $var = $proveedor->get('id');
+             $jsonProv = $var[0] ;
+             Proveedor::destroy($jsonProv['id']);   
+       return  back()->with('status','Proveedor borrado con exito');
     }
 }
