@@ -10,14 +10,21 @@
         </div><!-- /.box-header -->
         {{-- <form role="form"> --}}
           <div class="box-body">
-            <div class="form-group">
-              <label for="planta">Planta</label>
-              <input id="planta" type="text" class="form-control" name="planta" placeholder="Ingrese planta" required>
-            </div>
-            <div class="form-group">
+               <div class="form-group @error('razon_social') has-error @enderror">
               <label for="razon_social">Razon Social</label>
               <input id="razon_social" type="text" class="form-control" name="razon_social" placeholder="Ingrese la Razon Social" required>
+              @error('razon_social')
+            <span class="help-block" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
             </div>
+
+            <div class="form-group">
+              <label for="direccion">Dirección</label>
+              <input id="direccion" type="text" class="form-control" name="direccion" placeholder="Ingrese direccion" required>
+            </div>
+         
           </div><!-- /.box-body -->
         {{-- </form> --}}
       </div><!-- /.box -->
@@ -38,9 +45,14 @@
                <input id="representante" type="text" class="form-control" name="representante" placeholder="Ingrese  representate">
            
             </div>
-            <div class="form-group">
+            <div class="form-group  @error('celular') has-error @enderror">
               <label for="celular">Celular Representante</label>
               <input id="celular" type="text" class="form-control" name="celular" placeholder="Ingrese celular">
+              @error('celular')
+            <span class="help-block" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
             </div>
           </div><!-- /.box-body -->
         {{-- </form> --}}
