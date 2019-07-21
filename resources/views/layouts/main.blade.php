@@ -32,6 +32,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+   <!-- DATATABLES -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -383,7 +385,16 @@ desired effect
 <script src="{{ asset('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!--  JS entidades -->
 <script src="{{ asset('js/cliente.js') }}"></script>
+<script src="{{ asset('js/pedido.js') }}"></script>
+<script src="{{ asset('js/proveedor.js') }}"></script>
+<!-- DATATABLES -->
+
+<script src="{{ asset('js/datatableProv.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
