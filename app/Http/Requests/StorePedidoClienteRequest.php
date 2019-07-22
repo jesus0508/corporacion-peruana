@@ -24,13 +24,13 @@ class StorePedidoClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nro_pedido'=>'required|unique:pedidos',
-            'grifo'=>'required',
-            'scop'=>'required',
-            'galones'=>'required',
+            'nro_pedido'=>'required|unique:pedido_clientes,nro_pedido,'.$this->id,
+            'grifo'=>'min: 3|max: 255|required',
+            'scop'=>'min: 3|max: 15|required',
+            'galones'=>'numeric|required',
             'planta'=>'required',
-            'horario_descarga'=>'required',
-            'observacion'=>'required'
+            'horario_descarga'=>'max: 255',
+            'observacion'=>'max: 255'
         ];
     }
 }

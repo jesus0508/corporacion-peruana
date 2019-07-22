@@ -27,12 +27,14 @@
                   <td>
                     <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-cliente"
                               data-id="{{$cliente->id}}" data-ruc="{{$cliente->ruc}}" data-tipo="{{$cliente->tipo}}"
-                              data-razonSocial="{{$cliente->razon_social}}" data-direccion="{{$cliente->direccion}}">
+                              data-razon_social="{{$cliente->razon_social}}" data-telefono="{{$cliente->telefono}}"
+                              data-direccion="{{$cliente->direccion}}">
                       <span class="glyphicon glyphicon-eye-open"></span>
                     </button>
                     <button class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-cliente"
                               data-id="{{$cliente->id}}" data-ruc="{{$cliente->ruc}}" data-tipo="{{$cliente->tipo}}"
-                              data-razonsocial="{{$cliente->razon_social}}" data-direccion="{{$cliente->direccion}}">
+                              data-razon_social="{{$cliente->razon_social}}" data-telefono="{{$cliente->telefono}}"
+                              data-direccion="{{$cliente->direccion}}">
                       <span class="glyphicon glyphicon-edit"></span>
                     </button>
                     <form style="display:inline" method="POST" action="{{ route('clientes.destroy', $cliente->id) }}">

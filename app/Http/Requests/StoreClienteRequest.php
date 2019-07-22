@@ -25,8 +25,9 @@ class StoreClienteRequest extends FormRequest
     {
         return [
             'ruc'=>'required|min: 11|unique:clientes,ruc,'.$this->id,
+            'telefono'=>'regex:/^([9]{1})([0-9]{8})$/i',
             'razon_social'=>'required',
-            'direccion'=>'max: 255',
+            'direccion'=>'max: 255|min: 5',
             'tipo'=>'required'
         ];
     }

@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-edit-pedido_cliente" style="display: none;">
+<div class="modal fade" id="modal-show-pedido_cliente" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
       @csrf
@@ -31,8 +31,8 @@
                   <input id="grifo-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="galones-edit">Galones</label>
-                    <input id="galones-edit" type="number" class="form-control" readonly>
+                    <label for="galones-show">Galones</label>
+                    <input id="galones-show" type="number" class="form-control" readonly>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -59,7 +59,7 @@
                 </div>
                 <div class="form-group">
                   <label for="observacion-show">Observacion</label>
-                  <textarea id="observacion-show" type="text" class="form-control" readonly>
+                  <textarea id="observacion-show" type="text" class="form-control" readonly></textarea>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -67,7 +67,7 @@
         </div> <!-- /.row-top -->
       </div>
       <div class="modal-footer">
-        <button type="" class="btn btn-primary pull-left">Aceptar</button>
+        <button type="" class="btn btn-primary pull-right" data-dismiss="modal">Aceptar</button>
       </div>
     </div><!-- /.form-modal-content -->
   </div><!-- /.modal-dialog -->
