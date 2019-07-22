@@ -15,6 +15,12 @@ class CreateVentasTable extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            // $table->string('nro_factura')->nullable();
+            // $table->decinal('fecha');
+            // $table->decimal('precio_galon',9,5);
+            // $table->integer('cantidad');
+            // $table->integer('id_cliente');
+            // $table->integer('estado');
             $table->timestamps();
         });
     }

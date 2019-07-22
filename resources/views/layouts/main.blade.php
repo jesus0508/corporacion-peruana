@@ -264,9 +264,7 @@ desired effect
         <li class="active"><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> <span>Gestion de Proveedores</span></a></li>
         <li class="active"><a href="{{route('clientes.index')}}"><i class="fa fa-user"></i> <span>Gestion de Clientes</span></a></li>
         <li class="active"><a href="{{route('pedidos.index')}}"><i class="fa fa-train"></i> <span>Gestion de Pedidos Proveedores</span></a></li>
-        <li class="active"><a href="#"><i class="fa fa-truck"></i> <span>Gestion de Pedidos Clientes</span></a></li>
-
-
+        <li class="active"><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-truck"></i> <span>Gestion de Pedidos Clientes</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -389,6 +387,7 @@ desired effect
 <script src="{{ asset('js/cliente.js') }}"></script>
 <script src="{{ asset('js/pedido.js') }}"></script>
 <script src="{{ asset('js/proveedor.js') }}"></script>
+<script src="{{ asset('js/pedido_cliente.js') }}"></script>
 <!-- DATATABLES -->
 
 <script src="{{ asset('js/datatableProv.js') }}"></script>

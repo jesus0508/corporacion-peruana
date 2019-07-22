@@ -20,10 +20,20 @@
             @enderror
           </div>
           <div class="form-group @error('razon_social') has-error @enderror">
-            <label for="razon_social">Razon Social</label>
+            <label for="razon_social">Razón Social</label>
             <input id="razon_social" type="text" class="form-control" 
                     name="razon_social" placeholder="Ingrese la Razon Social">
             @error('razon_social')
+            <span class="help-block" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+          </div>
+          <div class="form-group @error('telefono') has-error @enderror">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" type="tel" class="form-control"
+                    name="telefono" placeholder="Ingrese el numero de telefono">
+            @error('telefono')
             <span class="help-block" role="alert">
               <strong>{{ $message }}</strong>
             </span>
@@ -54,7 +64,7 @@
             @enderror
           </div>
           <div class="form-group @error('dirrecion') has-error @enderror">
-            <label for="direccion">Direccion</label>
+            <label for="direccion">Dirección</label>
             <input id="direccion" type="text" class="form-control" 
                     name="direccion" placeholder="Ingrese la direccion">
             @error('direccion')

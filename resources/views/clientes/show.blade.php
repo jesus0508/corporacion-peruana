@@ -21,8 +21,12 @@
                   <input id="ruc-show" type="text" class="form-control" disabled>
                 </div>
                 <div class="form-group">
-                  <label for="razon_social-show">Razon Social</label>
+                  <label for="razon_social-show">Razón Social</label>
                   <input id="razon_social-show" type="text" class="form-control" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="telefono-show">Teléfono</label>
+                  <input id="telefono-show" type="tel" class="form-control" disabled>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -42,7 +46,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="direccion-show">Direccion</label>
+                  <label for="direccion-show">Dirección</label>
                   <input id="direccion-show" type="text" class="form-control" disabled>
                 </div>
               </div><!-- /.box-body -->

@@ -17,6 +17,7 @@ class CreateClientesTable extends Migration
             $table->bigIncrements('id');
             $table->string('ruc',11)->unique();
             $table->string('razon_social');
+            $table->string('telefono');
             $table->string('direccion');
             $table->unsignedInteger('tipo')->default('1');
             $table->timestamps();

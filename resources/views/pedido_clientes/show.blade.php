@@ -1,0 +1,75 @@
+<div class="modal fade" id="modal-edit-pedido_cliente" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      @csrf
+      @method('PUT')
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Ver informacion del pedido</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Detalles</h3>
+              </div><!-- /.box-header -->
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="nro_pedido-show">Número de Pedido</label>
+                  <input id="nro_pedido-show" type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="scop-show">SCOP</label>
+                  <input id="scop-show" type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="grifo-show">Grifo</label>
+                  <input id="grifo-show" type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="galones-edit">Galones</label>
+                    <input id="galones-edit" type="number" class="form-control" readonly>
+                </div>
+              </div><!-- /.box-body -->
+            </div><!-- /.box -->
+          </div><!--/.col (left) -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title"></h3>
+              </div><!-- /.box-header -->
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="planta-show">Planta</label>
+                  <select class="form-control" name="planta-show" id="planta-show" disabled>
+                      <option>Pampilla</option>
+                      <option>Callao</option>
+                      <option>PBF</option>
+                      <option>Conchan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="horario_descarga-show">Horario para descarga</label>
+                  <input id="horario_descarga-show" type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="observacion-show">Observacion</label>
+                  <textarea id="observacion-show" type="text" class="form-control" readonly>
+                </div>
+              </div><!-- /.box-body -->
+            </div><!-- /.box -->
+          </div><!--/.col (right) -->
+        </div> <!-- /.row-top -->
+      </div>
+      <div class="modal-footer">
+        <button type="" class="btn btn-primary pull-left">Aceptar</button>
+      </div>
+    </div><!-- /.form-modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+    

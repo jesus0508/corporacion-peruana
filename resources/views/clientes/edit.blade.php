@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-edit-cliente" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('clientes.update',$cliente->id)}}" method="post" class="modal-content">
+    <form action="{{route('clientes.update',0)}}" method="post" class="modal-content">
       @csrf
       @method('PUT')
       <div class="modal-header">
@@ -24,9 +24,14 @@
                           name="ruc" placeholder="Ingrese su RUC" required>
                 </div>
                 <div class="form-group">
-                  <label for="razon_social-edit">Razon Social</label>
-                  <input id="razon_social-edit" type="text" class="form-control" value=""
+                  <label for="razon_social-edit">Razón Social</label>
+                  <input id="razon_social-edit" type="text" class="form-control"
                           name="razon_social" placeholder="Ingrese la Razon Social" required>
+                </div>
+                <div class="form-group">
+                  <label for="telefono-edit">Teléfono</label>
+                  <input id="telefono-edit" type="tel" class="form-control"
+                          name="telefono" placeholder="Ingrese el numero telefonico" required>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -46,7 +51,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="direccion-edit">Direccion</label>
+                  <label for="direccion-edit">Dirección</label>
                   <input id="direccion-edit" type="text" class="form-control" 
                           name="direccion" placeholder="Ingrese la direccion">
                 </div>

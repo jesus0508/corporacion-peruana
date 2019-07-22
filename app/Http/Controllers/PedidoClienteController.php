@@ -2,11 +2,11 @@
 
 namespace CorporacionPeru\Http\Controllers;
 
-use CorporacionPeru\Cliente;
-use CorporacionPeru\Http\Requests;
-use CorporacionPeru\Http\Requests\StoreClienteRequest;
+use CorporacionPeru\PedidoCliente;
+use CorporacionPeru\Http\Requests\StorePedidoClienteRequest;
+use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class PedidoClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes=Cliente::orderBy('id','DESC')->paginate(5);
-        return view('clientes.index',compact('clientes'));
+        //
+        $pedido_clientes=PedidoCliente::all();
+        return view('pedido_clientes.index',compact('pedido_clientes'));
     }
 
     /**
@@ -27,7 +28,6 @@ class ClienteController extends Controller
     public function create()
     {
         //
-        return view('cliente.create');
     }
 
     /**
@@ -36,33 +36,33 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClienteRequest $request)
+    public function store(StorePedidoClienteRequest $request)
     {
         //
-        Cliente::create($request->validated());
-        return back()->with('status','Cliente Registrado con exito');
+        PedidoCliente::create($request->validated());
+        return back()->with('status','Pedido Registrado con exito');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \CorporacionPeru\Cliente  $cliente
+     * @param  \CorporacionPeru\PedidoCliente  $pedidoCliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(PedidoCliente $pedidoCliente)
     {
-        return $cliente;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \CorporacionPeru\Cliente  $cliente
+     * @param  \CorporacionPeru\PedidoCliente  $pedidoCliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(PedidoCliente $pedidoCliente)
     {
-        return $cliente;
+        //
     }
 
     /**
@@ -72,23 +72,22 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreClienteRequest $request, $id)
+    public function update(StorePedidoClienteRequest $request, $id)
     {
         //
         $id=$request->id;
-        Cliente::findOrFail($id)->update($request->validated());
-        return  back()->with('status','Cliente editado con exito');
+        PedidoCliente::findOrFail($id)->update($request->validated());
+        return  back()->with('status','Pedido editado con exito');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \CorporacionPeru\Cliente  $cliente
+     * @param  \CorporacionPeru\PedidoCliente  $pedidoCliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(PedidoCliente $pedidoCliente)
     {
         //
-        return $cliente;
     }
 }
