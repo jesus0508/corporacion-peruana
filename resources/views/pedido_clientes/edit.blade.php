@@ -6,7 +6,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Editar datos del cliente</h4>
+        <h4 class="modal-title">Editar datos del pedido</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -34,9 +34,9 @@
                           name="grifo" placeholder="Ingrese el nombre del Grifo">
                 </div>
                 <div class="form-group">
-                  <label for="galones-edit">Galones</label>
-                  <input id="galones-edit" type="number" class="form-control" 
-                          name="galones" placeholder="Ingrese el numero de galones">
+                  <label for="horario_descarga-edit">Horario para descarga</label>
+                  <input id="horario_descarga-edit" type="text" class="form-control"
+                          name="horario_descarga" placeholder="Ingrese el horario para descarga">
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -45,9 +45,19 @@
             <!-- general form elements -->
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title"></h3>
+                <h3 class="box-title">DIESEL B5 (S50) UV</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
+                <div class="form-group">
+                  <label for="galones-edit">Galones</label>
+                  <input id="galones-edit" type="number" class="form-control" 
+                          name="galones" placeholder="Ingrese el numero de galones">
+                </div>
+                <div class="form-group">
+                  <label for="precio_galon-edit">Precio x Galones</label>
+                  <input id="precio_galon-edit" type="number" class="form-control" 
+                          name="precio_galon" placeholder="Ingrese el precio por galon">
+                </div>
                 <div class="form-group">
                   <label for="planta-edit">Planta</label>
                   <select class="form-control" name="planta" id="planta-edit">
@@ -58,14 +68,9 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="horario_descarga-edit">Horario para descarga</label>
-                  <input id="horario_descarga-edit" type="text" class="form-control"
-                          name="horario_descarga" placeholder="Ingrese el horario para descarga">
-                </div>
-                <div class="form-group">
                   <label for="observacion-edit">Observacion</label>
                   <textarea id="observacion-edit" type="text" class="form-control"
-                          name="observacion" placeholder="Ingrese alguna observacion imporante"></textarea>
+                          name="observacion" placeholder="Ingrese alguna observacion importante"></textarea>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->

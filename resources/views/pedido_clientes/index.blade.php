@@ -11,6 +11,7 @@
 <section class="content">
   <h2>LISTA DE PEDIDOS</h2>
   @include('pedido_clientes.table')
+  @include('pedido_clientes.confirmar_pedido')
   @include('pedido_clientes.show')
   @include('pedido_clientes.edit')
   @include('partials.session-status')  

@@ -20,8 +20,10 @@ class CreatePedidoClientesTable extends Migration
             $table->integer('galones');
             $table->string('horario_descarga')->nullable();
             $table->string('scop');
+            $table->integer('estado')->default(1);
             $table->string('transportista')->nullable();
             $table->string('planta');
+            $table->decimal('precio_galon',9,5);
             $table->string('observacion')->nullable();
             $table->date('fecha_pedido')->nullable();
             $table->string('cod_osinergmin')->nullable();

@@ -9,12 +9,14 @@
             <thead>
               <tr>
                 <th>Nro Pedido</th>
-                <th>Scop</th>
+                <th>Fecha de Pedido</th>
+                <th>SCOP</th>
                 <th>Grifo</th>
-                <th>Galones</th>
                 <th>Planta</th>
                 <th>Horario</th>
-                <th>Observacion</th>
+                <th>Cantidad GLS</th>
+                <th>Monto Total</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -22,31 +24,15 @@
               @foreach ($pedido_clientes as $pedido_cliente)
                 <tr>
                   <td>{{$pedido_cliente->nro_pedido}}</td>
+                  <td>{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}</td>
                   <td>{{$pedido_cliente->scop}}</td>
                   <td>{{$pedido_cliente->grifo}}</td>
-                  <td>{{$pedido_cliente->galones}}</td>
                   <td>{{$pedido_cliente->planta}}</td>
                   <td>{{$pedido_cliente->horario_descarga}}</td>
-                  <td>{{$pedido_cliente->observacion}}</td>
-                  <td>
-                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-pedido_cliente"
-                            data-id="{{$pedido_cliente->id}}" data-nro_pedido="{{$pedido_cliente->nro_pedido}}" data-grifo="{{$pedido_cliente->grifo}}"
-                            data-galones="{{$pedido_cliente->galones}}" data-planta="{{$pedido_cliente->planta}}" data-scop="{{$pedido_cliente->scop}}" 
-                            data-horario_descarga="{{$pedido_cliente->horario_descarga}}" data-observacion="{{$pedido_cliente->observacion}}" >
-                      <span class="glyphicon glyphicon-eye-open"></span>
-                    </button>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-pedido_cliente"
-                            data-id="{{$pedido_cliente->id}}" data-nro_pedido="{{$pedido_cliente->nro_pedido}}" data-grifo="{{$pedido_cliente->grifo}}"
-                            data-galones="{{$pedido_cliente->galones}}" data-planta="{{$pedido_cliente->planta}}" data-scop="{{$pedido_cliente->scop}}" 
-                            data-horario_descarga="{{$pedido_cliente->horario_descarga}}" data-observacion="{{$pedido_cliente->observacion}}">
-                      <span class="glyphicon glyphicon-edit"></span>
-                    </button>
-                    <form style="display:inline" method="POST" action="{{ route('pedido_clientes.destroy', $pedido_cliente->id) }}">
-                      @csrf
-                      @method('DELETE')
-                      <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-                    </form>
-                  </td>
+                  <td>{{$pedido_cliente->galones}}</td>
+                  <td>S/&nbsp;{{$pedido_cliente->getPrecioTotal()}}</td>
+                  @includeWhen($pedido_cliente->isConfirmed(), 'pedido_clientes.partials.acciones_confirmado')
+                  @includeWhen(!$pedido_cliente->isConfirmed(), 'pedido_clientes.partials.acciones_sin_confirmar')
                 </tr>
               @endforeach
             </tbody>

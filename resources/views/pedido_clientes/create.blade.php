@@ -39,11 +39,11 @@
             </span>
             @enderror
           </div>
-          <div class="form-group @error('galones') has-error @enderror">
-            <label for="galones">Galones</label>
-            <input id="galones" type="number" class="form-control" 
-                    name="galones" placeholder="Ingrese el numero galones">
-            @error('grifo')
+          <div class="form-group @error('horario_descarga') has-error @enderror">
+            <label for="horario_descarga">Horario para descarga</label>
+            <input id="horario_descarga" type="text" class="form-control"
+                    name="horario_descarga" placeholder="Ingrese el horario para descarga">
+            @error('horario_descarga')
             <span class="help-block" role="alert">
               <strong>{{ $message }}</strong>
             </span>
@@ -56,9 +56,29 @@
       <!-- general form elements -->
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title"></h3>
+          <h3 class="box-title"> DIESEL B5 (S50) UV</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
+          <div class="form-group @error('galones') has-error @enderror">
+            <label for="galones">Galones</label>
+            <input id="galones" type="number" class="form-control" 
+                    name="galones" placeholder="Ingrese el numero galones">
+            @error('grifo')
+            <span class="help-block" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+          </div>
+          <div class="form-group @error('precio_galon') has-error @enderror">
+            <label for="precio_galon">Precio x Galones</label>
+            <input id="precio_galon" type="number" class="form-control" 
+                    name="precio_galon" placeholder="Ingrese el precio por galon">
+            @error('grifo')
+            <span class="help-block" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+          </div>
           <div class="form-group @error('planta') has-error @enderror">
             <label for="planta">Planta</label>
             <select class="form-control" name="planta" id="planta">
@@ -68,16 +88,6 @@
                 <option>Conchan</option>
             </select>
             @error('planta')
-            <span class="help-block" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-          </div>
-          <div class="form-group @error('horario_descarga') has-error @enderror">
-            <label for="horario_descarga">Horario para descarga</label>
-            <input id="horario_descarga" type="text" class="form-control"
-                    name="horario_descarga" placeholder="Ingrese el horario para descarga">
-            @error('horario_descarga')
             <span class="help-block" role="alert">
               <strong>{{ $message }}</strong>
             </span>

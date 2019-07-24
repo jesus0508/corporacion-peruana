@@ -23,6 +23,10 @@
                   <input id="nro_pedido-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
+                    <label for="fecha_pedido-show">Fecha de Pedido</label>
+                    <input id="fecha_pedido-show" type="text" class="form-control" readonly>
+                  </div>
+                <div class="form-group">
                   <label for="scop-show">SCOP</label>
                   <input id="scop-show" type="text" class="form-control" readonly>
                 </div>
@@ -31,8 +35,13 @@
                   <input id="grifo-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="galones-show">Galones</label>
-                    <input id="galones-show" type="number" class="form-control" readonly>
+                  <label for="planta-show">Planta</label>
+                  <select class="form-control" id="planta-show" disabled>
+                      <option>Pampilla</option>
+                      <option>Callao</option>
+                      <option>PBF</option>
+                      <option>Conchan</option>
+                  </select>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -41,24 +50,27 @@
             <!-- general form elements -->
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title"></h3>
+                <h3 class="box-title">DIESEL B5 (S50) UV</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
-                  <label for="planta-show">Planta</label>
-                  <select class="form-control" name="planta-show" id="planta-show" disabled>
-                      <option>Pampilla</option>
-                      <option>Callao</option>
-                      <option>PBF</option>
-                      <option>Conchan</option>
-                  </select>
+                    <label for="galones-show">Galones</label>
+                    <input id="galones-show" type="number" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="precio_galon-show">Precio Galon</label>
+                    <input id="precio_galon-show" type="number" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="precio_total-show">Total</label>
+                    <input id="precio_total-show" type="number" class="form-control" readonly>
                 </div>
                 <div class="form-group">
                   <label for="horario_descarga-show">Horario para descarga</label>
                   <input id="horario_descarga-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="observacion-show">Observacion</label>
+                  <label for="observacion-show">Precio Total</label>
                   <textarea id="observacion-show" type="text" class="form-control" readonly></textarea>
                 </div>
               </div><!-- /.box-body -->
