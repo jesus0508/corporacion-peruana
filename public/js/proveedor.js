@@ -12,3 +12,7 @@ $('#modal-edit-proveedor').on('show.bs.modal', function (event) {
 
 })
 
+$('#treeview-proveedores').on('click',function(event){
+  $('#treeview-clientes').removeClass("active");
+  $('#treeview-proveedores').addClass("active");
+})

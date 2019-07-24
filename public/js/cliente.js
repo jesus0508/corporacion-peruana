@@ -11,7 +11,7 @@ $('#modal-edit-cliente').on('show.bs.modal', function (event) {
   $(event.currentTarget).find('#tipo-edit').val(tipo);
   $(event.currentTarget).find('#direccion-edit').val(direccion);
   $(event.currentTarget).find('#id-edit').val(id);
-})
+});
 
 $('#modal-show-cliente').on('show.bs.modal', function (event) {    
   var id = $(event.relatedTarget).data().id;
@@ -25,7 +25,14 @@ $('#modal-show-cliente').on('show.bs.modal', function (event) {
   $(event.currentTarget).find('#telefono-show').val(telefono);
   $(event.currentTarget).find('#tipo-show').val(tipo);
   $(event.currentTarget).find('#direccion-show').val(direccion);
+});
+
+$('#treeview-clientes').on('click',function(event){
+  $('#treeview-proveedores').removeClass("active");
+  $('#treeview-clientes').addClass("active");
 })
+
+
 
 $(document).ready(function() {
   $('#tabla-clientes').DataTable({
