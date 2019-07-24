@@ -67,7 +67,6 @@
     </div>
   </div><!-- end row -->
     @include('proveedores.edit')
-    @include('partials.session-status') 
 </section>
 
 @endsection

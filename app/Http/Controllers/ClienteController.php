@@ -40,7 +40,7 @@ class ClienteController extends Controller
     {
         //
         Cliente::create($request->validated());
-        return back()->with('status','Cliente Registrado con exito');
+        return back()->with('alert-type','success')->with('status','Cliente Registrado con exito');
     }
 
     /**
@@ -77,7 +77,7 @@ class ClienteController extends Controller
         //
         $id=$request->id;
         Cliente::findOrFail($id)->update($request->validated());
-        return  back()->with('status','Cliente editado con exito');
+        return  back()->with('alert-type','success')->with('status','Cliente editado con exito');
     }
 
     /**

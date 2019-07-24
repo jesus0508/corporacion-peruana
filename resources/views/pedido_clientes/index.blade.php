@@ -13,7 +13,6 @@
   @include('pedido_clientes.table')
   @include('pedido_clientes.confirmar_pedido')
   @include('pedido_clientes.show')
-  @include('pedido_clientes.edit')
-  @include('partials.session-status')  
+  @include('pedido_clientes.edit') 
 </section>
 @endsection

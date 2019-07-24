@@ -46,7 +46,7 @@ class PedidoController extends Controller
     {
         //
           Pedido::create($request->validated());
-          return  back()->with('status','Pedido creado con exito');
+          return  back()->with('alert-type','success')->with('status','Pedido creado con exito');
     }
 
         /**
@@ -83,7 +83,7 @@ class PedidoController extends Controller
                 $pedido->nro_factura = 'FF03-000'.$pedido->id;
                 $pedido->save();
 
-              return  back()->with('status','Pedido procesado con exito');
+              return  back()->with('alert-type','success')->with('status','Pedido procesado con exito');
 
                 # code...
             } elseif ($monto_restante-$monto_pago >0) 
@@ -93,14 +93,14 @@ class PedidoController extends Controller
                         $pedido->saldo = $monto_restante - $monto_pago;
                         $pedido->save();
 
-                        return  back()->with('status','Inicio de proceso de pago de pedido con exito');
+                        return  back()->with('alert-type','success')->with('status','Inicio de proceso de pago de pedido con exito');
 
 
                      }
 
             else{
 
-               return  back()->with('status','Limite de pago excedido, try again');
+               return  back()->with('alert-type','warning')->with('status','Limite de pago excedido, try again');
             }                   
            
 
@@ -147,14 +147,14 @@ class PedidoController extends Controller
         if($request->get('nro_pedido') == $pedido->nro_pedido){
            
             $pedido->save();
-         return  back()->with('status','Pedido editado con exito');
+         return  back()->with('alert-type','success')->with('status','Pedido editado con exito');
 
         } else {//sino, vemos si ya existe ese nro_pedido
 
                $count = Pedido::where('nro_pedido', $request->get('nro_pedido'))->count();
                 if ($count>0) {
                     
-                    return  back()->with('status','Pedido no editado, nro_pedido ya existe');
+                    return  back()->with('alert-type','error')->with('status','Pedido no editado, nro_pedido ya existe');
                     
                 }else{
 
@@ -162,7 +162,7 @@ class PedidoController extends Controller
                   
                     $pedido->save();
 
-                    return  back()->with('status','Pedido editado con exito');
+                    return  back()->with('alert-type','success')->with('status','Pedido editado con exito');
 
                 }
                 

@@ -12,6 +12,5 @@
   @include('clientes.show')
   @include('clientes.edit')
   <!--/.end-modales-->
-  @include('partials.session-status')
 </section>
 @endsection

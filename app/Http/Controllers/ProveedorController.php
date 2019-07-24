@@ -43,7 +43,7 @@ class ProveedorController extends Controller
     {
         //
           Proveedor::create($request->validated());
-        return  back()->with('status','Proveedor creado con exito');
+        return  back()->with('alert-type','success')->with('status','Proveedor creado con exito');
     }
 
     /**
@@ -83,7 +83,7 @@ class ProveedorController extends Controller
         $jsonProv = $var[0] ; 
         $proveedor=Proveedor::findOrFail($jsonProv['id']);
         $proveedor->update($request->validated());
-        return  back()->with('status','proveedor editado con exito');;
+        return  back()->with('alert-type','success')->with('status','proveedor editado con exito');;
     }
 
     /**
@@ -98,6 +98,6 @@ class ProveedorController extends Controller
             $var = $proveedor->get('id');
              $jsonProv = $var[0] ;
              Proveedor::destroy($jsonProv['id']);   
-       return  back()->with('status','Proveedor borrado con exito');
+       return  back()->with('alert-type','success')->with('status','Proveedor borrado con exito');
     }
 }

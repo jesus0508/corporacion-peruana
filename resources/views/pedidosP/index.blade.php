@@ -156,6 +156,5 @@
   @include('pedidosP.process')
   @include('pedidosP.show')
   @include('pedidosP.edit')
-  @include('partials.session-status')  
 </section>
 @endsection

@@ -41,7 +41,7 @@ class PedidoClienteController extends Controller
     {
         //
         PedidoCliente::create($request->validated());
-        return back()->with('status','Pedido Registrado con exito');
+        return back()->with('alert-type','success')->with('status','Pedido Registrado con exito');
     }
 
     /**
@@ -78,7 +78,7 @@ class PedidoClienteController extends Controller
         //
         $id=$request->id;
         PedidoCliente::findOrFail($id)->update($request->validated());
-        return back()->with('status','Pedido editado con exito');
+        return back()->with('alert-type','success')->with('status','Pedido editado con exito');
     }
 
     public function procesarPedido(PorcesarPedidoCliente $request){
@@ -86,7 +86,7 @@ class PedidoClienteController extends Controller
         /*Logica para actualizar pedido pendiente*/
         $pedido->estado=2;
         $pedido->save();
-        return  back()->with('status','Pedido confirmado con exito con exito');
+        return  back()->with('alert-type','success')->with('status','Pedido confirmado con exito con exito');
     }
 
     /**
