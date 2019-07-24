@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name', 'Laravel') }} |{{ __('Login') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} | {{ __('Login') }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- CSRF Token -->
@@ -69,7 +69,7 @@
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="{{ asset('adminlte/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ asset('adminlte/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset('adminlte/bootstrap/js/bootstrap.min.js')}}"></script>
     <!-- iCheck -->

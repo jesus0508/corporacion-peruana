@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
-  <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-blue.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-green.min.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,14 +55,14 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>Cor</b>P</span>
       <!-- logo for regular state and mobile devices -->
@@ -375,10 +375,11 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
+
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="{{ asset('adminlte/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('adminlte/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
