@@ -21,6 +21,7 @@ class CreateClientesTable extends Migration
             $table->string('direccion');
             $table->unsignedInteger('tipo')->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

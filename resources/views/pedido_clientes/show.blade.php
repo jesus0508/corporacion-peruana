@@ -13,7 +13,7 @@
           <!-- left column -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="box box-primary">
+            <div class="box box-success">
               <div class="box-header with-border">
                 <h3 class="box-title">Detalles</h3>
               </div><!-- /.box-header -->
@@ -25,23 +25,19 @@
                 <div class="form-group">
                     <label for="fecha_pedido-show">Fecha de Pedido</label>
                     <input id="fecha_pedido-show" type="text" class="form-control" readonly>
-                  </div>
-                <div class="form-group">
-                  <label for="scop-show">SCOP</label>
-                  <input id="scop-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
                   <label for="grifo-show">Grifo</label>
                   <input id="grifo-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="planta-show">Planta</label>
-                  <select class="form-control" id="planta-show" disabled>
-                      <option>Pampilla</option>
-                      <option>Callao</option>
-                      <option>PBF</option>
-                      <option>Conchan</option>
-                  </select>
+                  <label for="fecha_descarga">Fecha para descarga</label>
+                  <input id="fecha_descarga" type="text" class="tuiker form-control"
+                  name="fecha_descarga" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="horario_descarga-show">Horario para descarga</label>
+                  <input id="horario_descarga-show" type="text" class="form-control" readonly>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -64,10 +60,6 @@
                 <div class="form-group">
                     <label for="precio_total-show">Total</label>
                     <input id="precio_total-show" type="number" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                  <label for="horario_descarga-show">Horario para descarga</label>
-                  <input id="horario_descarga-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
                   <label for="observacion-show">Precio Total</label>

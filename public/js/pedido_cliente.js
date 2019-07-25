@@ -59,6 +59,15 @@ $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
   $(event.currentTarget).find('#observacion-show').val(observacion);
 });
 
+
+
+$(document).ready(function() { 
+  $("#cliente").prop("selectedIndex", -1);
+  $("#cliente").select2({
+    placeholder: "Ingresa la razon social",
+    allowClear:true
+})});
+
 $(document).ready(function() {
   $('#tabla-pedido_clientes').DataTable({
     'language': {

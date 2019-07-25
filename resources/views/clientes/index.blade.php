@@ -14,3 +14,7 @@
   <!--/.end-modales-->
 </section>
 @endsection
+
+@section('scripts')
+<script src="{{ asset('js/cliente.js') }}"></script>    
+@endsection

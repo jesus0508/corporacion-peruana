@@ -1,11 +1,6 @@
 <td> <span class="label label-danger">SIN CONFIRMAR</span> </td>
 <td>
-  <button class="btn btn-info" data-toggle="modal" data-target="#modal-confirmar-pedido"
-  data-id="{{$pedido_cliente->id}}" data-nro_pedido="{{$pedido_cliente->nro_pedido}}" data-fecha_pedido="{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}"
-  data-horario_descarga="{{$pedido_cliente->horario_descarga}}" data-observacion="{{$pedido_cliente->observacion}}">
-    Confirmar
-  </button>
-
+  <a href="{{route('pedidos.index')}}" class="btn btn-success">CONFIRMAR</a>
   <button class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-pedido_cliente"
     data-id="{{$pedido_cliente->id}}" data-nro_pedido="{{$pedido_cliente->nro_pedido}}" data-fecha_pedido="{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}" 
     data-scop="{{$pedido_cliente->scop}}" data-grifo="{{$pedido_cliente->grifo}}" data-planta="{{$pedido_cliente->planta}}"

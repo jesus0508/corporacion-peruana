@@ -4,11 +4,19 @@
     <!-- left column -->
     <div class="col-md-6">
       <!-- general form elements -->
-      <div class="box box-primary">
+      <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title">Formulario</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
+          <div class="form-group @error('cliente') has-error @enderror">
+            <label for="cliente">Cliente</label>
+            <select class="form-control" id="cliente" >
+              @foreach ( $clientes as $cliente)
+                <option value="{{$cliente->id}}">{{$cliente->razon_social}}</option>
+              @endforeach
+            </select>
+          </div>
           <div class="form-group @error('nro_pedido') has-error @enderror">
             <label for="nro_pedido">Número de Pedido</label>
             <input id="nro_pedido" type="text" class="form-control" 
@@ -19,21 +27,21 @@
             </span>
             @enderror
           </div>
-          <div class="form-group @error('scop') has-error @enderror">
-            <label for="scop">SCOP</label>
-            <input id="scop" type="text" class="form-control"
-                    name="scop" placeholder="Ingrese el SCOP">
-            @error('scop')
-            <span class="help-block" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-          </div>
           <div class="form-group @error('grifo') has-error @enderror">
             <label for="grifo">Grifo</label>
             <input id="grifo" type="text" class="form-control" 
                     name="grifo" placeholder="Ingrese el nombre del Grifo">
             @error('grifo')
+            <span class="help-block" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+          </div>
+          <div class="form-group @error('fecha_descarga') has-error @enderror">
+            <label for="fecha_descarga">Fecha para descarga</label>
+            <input autocomplete="off" id="fecha_descarga" type="text" class="tuiker form-control"
+            name="fecha_descarga" placeholder="Ingrese la fecha de descarga">
+            @error('fecha_descarga')
             <span class="help-block" role="alert">
               <strong>{{ $message }}</strong>
             </span>
@@ -54,7 +62,7 @@
     </div><!--/.col (left) -->
     <div class="col-md-6">
       <!-- general form elements -->
-      <div class="box box-primary">
+      <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title"> DIESEL B5 (S50) UV</h3>
         </div><!-- /.box-header -->
@@ -74,20 +82,6 @@
             <input id="precio_galon" type="number" class="form-control" 
                     name="precio_galon" placeholder="Ingrese el precio por galon">
             @error('grifo')
-            <span class="help-block" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-          </div>
-          <div class="form-group @error('planta') has-error @enderror">
-            <label for="planta">Planta</label>
-            <select class="form-control" name="planta" id="planta">
-                <option>Pampilla</option>
-                <option>Callao</option>
-                <option>PBF</option>
-                <option>Conchan</option>
-            </select>
-            @error('planta')
             <span class="help-block" role="alert">
               <strong>{{ $message }}</strong>
             </span>

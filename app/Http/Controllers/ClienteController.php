@@ -89,6 +89,7 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
-        return $cliente;
+        $cliente->delete();
+        return  back()->with('alert-type','warning')->with('status','Cliente eliminado con exito');
     }
 }

@@ -26,7 +26,6 @@ class CreatePedidosTable extends Migration
             $table->string('nro_factura')->nullable();
             $table->decimal('pago_acta',9,2)->nullable();
             $table->date('fecha_pago')->nullable();
-
             $table->timestamps();
         });
     }

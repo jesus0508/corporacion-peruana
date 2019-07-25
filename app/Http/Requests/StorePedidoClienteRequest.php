@@ -25,11 +25,10 @@ class StorePedidoClienteRequest extends FormRequest
     {
         return [
             'nro_pedido'=>'required|unique:pedido_clientes,nro_pedido,'.$this->id,
-            'grifo'=>'min: 3|max: 255|required',
-            'scop'=>'min: 3|max: 15|required',
-            'galones'=>'numeric|required',
-            'precio_galon'=>'numeric|gt:0',
-            'planta'=>'required',
+            'grifo'=>'required|min: 3|max: 255',
+            'galones'=>'required|numeric|gt:0',
+            'precio_galon'=>'required|numeric|gt:0',
+            'fecha_descarga'=>'date_format:"d/m/Y"',
             'horario_descarga'=>'max: 255',
             'observacion'=>'max: 255'
         ];

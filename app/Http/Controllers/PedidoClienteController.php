@@ -5,6 +5,7 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\PedidoCliente;
 use CorporacionPeru\Http\Requests\StorePedidoClienteRequest;
 use CorporacionPeru\Http\Requests\PorcesarPedidoCliente;
+use CorporacionPeru\Cliente;
 use Illuminate\Http\Request;
 
 class PedidoClienteController extends Controller
@@ -18,7 +19,8 @@ class PedidoClienteController extends Controller
     {
         //
         $pedido_clientes=PedidoCliente::all();
-        return view('pedido_clientes.index',compact('pedido_clientes'));
+        $clientes=Cliente::all();
+        return view('pedido_clientes.index',compact('pedido_clientes','clientes'));
     }
 
     /**
@@ -98,5 +100,7 @@ class PedidoClienteController extends Controller
     public function destroy(PedidoCliente $pedidoCliente)
     {
         //
+        $pedidoCliente->delete();
+        return  back()->with('alert-type','warning')->with('status','Pedido eliminado con exito');
     }
 }

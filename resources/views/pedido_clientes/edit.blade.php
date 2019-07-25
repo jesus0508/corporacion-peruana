@@ -13,7 +13,7 @@
           <!-- left column -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="box box-primary">
+            <div class="box box-success">
               <div class="box-header with-border">
                 <h3 class="box-title">Formulario</h3>
               </div><!-- /.box-header -->
@@ -24,14 +24,14 @@
                           name="nro_pedido" placeholder="Ingrese el numero de pedido">
                 </div>
                 <div class="form-group">
-                  <label for="scop-edit">SCOP</label>
-                  <input id="scop-edit" type="text" class="form-control"
-                          name="scop" placeholder="Ingrese el SCOP">
-                </div>
-                <div class="form-group">
                   <label for="grifo-edit">Grifo</label>
                   <input id="grifo-edit" type="text" class="form-control" 
                           name="grifo" placeholder="Ingrese el nombre del Grifo">
+                </div>
+                <div class="form-group">
+                  <label for="fecha_descarga-edit">Fecha para descarga</label>
+                  <input id="fecha_descarga-edit" type="text" class="tuiker form-control"
+                  name="fecha_descarga" placeholder="Ingrese la fecha de descarga">
                 </div>
                 <div class="form-group">
                   <label for="horario_descarga-edit">Horario para descarga</label>
@@ -43,7 +43,7 @@
           </div><!--/.col (left) -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="box box-primary">
+            <div class="box box-success">
               <div class="box-header with-border">
                 <h3 class="box-title">DIESEL B5 (S50) UV</h3>
               </div><!-- /.box-header -->
@@ -57,15 +57,6 @@
                   <label for="precio_galon-edit">Precio x Galones</label>
                   <input id="precio_galon-edit" type="number" class="form-control" 
                           name="precio_galon" placeholder="Ingrese el precio por galon">
-                </div>
-                <div class="form-group">
-                  <label for="planta-edit">Planta</label>
-                  <select class="form-control" name="planta" id="planta-edit">
-                      <option>Pampilla</option>
-                      <option>Callao</option>
-                      <option>PBF</option>
-                      <option>Conchan</option>
-                  </select>
                 </div>
                 <div class="form-group">
                   <label for="observacion-edit">Observacion</label>

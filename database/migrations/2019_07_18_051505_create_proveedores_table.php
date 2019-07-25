@@ -19,7 +19,6 @@ class CreateProveedoresTable extends Migration
             $table->string('direccion');
             $table->string('representante')->nullable();
             $table->string('celular')->nullable();
-
             $table->timestamps();
         });
     }
