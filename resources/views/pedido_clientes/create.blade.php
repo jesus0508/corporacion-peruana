@@ -9,15 +9,15 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Pedidos</a></li>
+  <li><a href="#">Ventas</a></li>
   <li><a href="#">Registro Pedidos</a></li>
 </ol>
 @endsection
 
 @section('content')
-<section class="content-header">
+<section class="content">
   {{-- <button class="btn btn-info pull-right">Limpiar</button> --}}
-  <h1>REGISTRO PEDIDOS CLIENTES</h1>
+  <h2>REGISTRO PEDIDOS CLIENTES</h2>
   <form action="{{route('pedido_clientes.store')}}" method="post">
     @csrf
     <div class="row">

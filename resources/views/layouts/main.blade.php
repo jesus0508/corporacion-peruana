@@ -437,26 +437,27 @@ desired effect
 <script src="{{ asset('js/datatableProv.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-@yield('scripts')
 <script>
-  $('#fecha_descarga').datepicker({
-    closeText: 'Cerrar',
-    prevText: '< Ant',
-    nextText: 'Sig >',
-    currentText: 'Hoy',
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-    weekHeader: 'Sm',
-    dateFormat: 'dd/mm/yy',
-    firstDay: 1,
-    isRTL: false,
-    showMonthAfterYear: false,
-    yearSuffix: ''
-  });
+ $.datepicker.regional['es'] = {
+  closeText: 'Cerrar',
+  prevText: '< Ant',
+  nextText: 'Sig >',
+  currentText: 'Hoy',
+  monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+  monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+  dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+  dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+  dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+  weekHeader: 'Sm',
+  dateFormat: 'dd/mm/yy',
+  firstDay: 1,
+  isRTL: false,
+  showMonthAfterYear: false,
+  yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
 </script>
+@yield('scripts')
 @include('partials.session-status')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

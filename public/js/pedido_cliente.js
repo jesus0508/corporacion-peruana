@@ -59,6 +59,7 @@ $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
   $(event.currentTarget).find('#observacion-show').val(observacion);
 });
 
+/**Activar/Desactivar Inputs del formulario */
 $(document).ready(function() { 
   $("#datos-pedido :input").prop("disabled", true);
   $('#datos-producto :input').prop("disabled",true);
@@ -71,11 +72,10 @@ $(document).ready(function() {
     var id=$("#cliente").val();
     var deshabilitar=true;
     if(id){
-      getRUC(id);
+      findByRazonSocial(id);
       deshabilitar=false;
     }else{
       $('#ruc').val('');
-      deshabilitar=true;
     }
     $("#datos-pedido :input").prop("disabled", deshabilitar);
     $('#datos-producto :input').prop("disabled",deshabilitar);
@@ -83,17 +83,38 @@ $(document).ready(function() {
 
 });
 
+/* Agregar filtro datatable */
+$.fn.dataTable.ext.search.push(
+  function( settings, data, dataIndex ) {
+      var sInicio=$('#fecha_inicio').val();
+      var sFin=$('#fecha_fin').val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio) || new Date();
+      var fin = $.datepicker.parseDate('d/m/yy', sFin)  || new Date();
+      var dia = $.datepicker(new Date());
+      if ( fin>=dia && inicio<=dia ){
+        return true;
+      }
+      return false;
+  }
+);
+
+/**Inicializar DataTable */
 $(document).ready(function() {
   $('#tabla-pedido_clientes').DataTable({
     'language': {
         'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
       }
   });
+  $('#filtrar').on('click',function(){
+    $('#tabla-pedido_clientes').DataTable().draw();
+  });
 });
 
+/** Inicializar datos  */
 $(document).ready(function() { 
   fechaActual();
   calcularTotal();
+  validateDates();
 });
 
 function calcularTotal(){
@@ -110,7 +131,26 @@ function fechaActual(){
   $("#fecha_pedido").val($.datepicker.formatDate('d/m/yy', new Date()));
 }
 
-function getRUC(id){
+function validateDates(){
+  $("#fecha_inicio").datepicker({
+    numberOfMonths: 2,
+    onSelect: function(selected) {
+      $("#fecha_fin").datepicker("option","minDate", selected)
+    }
+  });
+  $("#fecha_fin").datepicker({ 
+    numberOfMonths: 2,
+    onSelect: function(selected) {
+      $("#fecha_inicio").datepicker("option","maxDate", selected)
+    }
+  });  
+  $("#fecha_descarga").datepicker({ 
+    minDate: 0,
+  });
+}
+
+/* AJAX Buscar por Razon Social */
+function findByRazonSocial(id){
   $.ajax({
     type: 'GET',
     url:`../clientes/${id}`,

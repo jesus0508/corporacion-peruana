@@ -6,3 +6,12 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.opciones{
+  display:flex;
+  justify-content: flex-end;
+}
+
+.opciones .btn{
+  margin: 0px 5px;
+}
