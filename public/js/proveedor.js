@@ -1,18 +1,34 @@
-$('#modal-edit-proveedor').on('show.bs.modal', function (event) {          
-  var id = $(event.relatedTarget).data().id;
-  var razon_social = $(event.relatedTarget).data().razon_social;
-  var direccion = $(event.relatedTarget).data().direccion;
-  var representante = $(event.relatedTarget).data().representante;
-  var celular = $(event.relatedTarget).data().celular;
-  
-  $(event.currentTarget).find('#razon_social-edit').val(razon_social);
-  $(event.currentTarget).find('#direccion-edit').val(direccion);
-  $(event.currentTarget).find('#representante-edit').val(representante);
-  $(event.currentTarget).find('#celular-edit').val(celular);
-
-})
-
 $('#treeview-proveedores').on('click',function(event){
   $('#treeview-clientes').removeClass("active");
   $('#treeview-proveedores').addClass("active");
 })
+
+
+$(document).ready(function() {
+    $('#tabla-proveedores').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "pagingType": "full_numbers",
+
+          
+          "ajax": {
+              "url": "proveedores_data",
+              "type": 'get'},
+
+        
+          "columns": [
+            {data: 'id'},            
+            {data: 'razon_social'},
+            {data: 'ruc'},
+            {data: 'representante'},
+            {data: 'btn' , "bSortable": false },
+            ],
+              "order": [[ 0, "desc" ]],
+      
+        'language': {
+        'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+      }
+    });
+} );
+
+
