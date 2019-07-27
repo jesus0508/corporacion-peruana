@@ -8,5 +8,5 @@
     data-precio_total="{{$pedido_cliente->getPrecioTotal()}}" data-observacion="{{$pedido_cliente->observacion}}">
     <span class="glyphicon glyphicon-eye-open"></span>
   </button>
-  <a href="#" class="btn btn-success">Operaciones</a>
+  <a href="#" class="btn btn-success">Pagos</a>
 </td>

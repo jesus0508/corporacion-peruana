@@ -11,10 +11,17 @@ class PedidoCliente extends Model
     use SoftDeletes;
     protected $table = 'pedido_clientes';
     protected $fillable= ['nro_pedido','grifo','galones','horario_descarga', 'estado',
-                            'precio_galon', 'planta' , 'observacion','fecha_descarga',
-                            'cod_osinergmin','cod_cliente','usuario_osinerming'];
+                            'precio_galon', 'planta' , 'observacion','fecha_descarga','cliente_id'];
     protected $dates = ['deleted_at'];
-                            
+                   
+    public function cliente(){
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function pagoClientes(){
+        return $this->hasMany(PagoCliente::class);
+    }
+
     public function getPrecioTotal(){
         return $this->precio_galon*$this->galones;
     }

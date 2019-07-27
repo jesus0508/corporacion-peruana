@@ -59,14 +59,29 @@ $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
   $(event.currentTarget).find('#observacion-show').val(observacion);
 });
 
-
-
 $(document).ready(function() { 
+  $("#datos-pedido :input").prop("disabled", true);
+  $('#datos-producto :input').prop("disabled",true);
   $("#cliente").prop("selectedIndex", -1);
   $("#cliente").select2({
     placeholder: "Ingresa la razon social",
     allowClear:true
-})});
+  });
+  $("#cliente").on('change',function(){
+    var id=$("#cliente").val();
+    var deshabilitar=true;
+    if(id){
+      getRUC(id);
+      deshabilitar=false;
+    }else{
+      $('#ruc').val('');
+      deshabilitar=true;
+    }
+    $("#datos-pedido :input").prop("disabled", deshabilitar);
+    $('#datos-producto :input').prop("disabled",deshabilitar);
+  });
+
+});
 
 $(document).ready(function() {
   $('#tabla-pedido_clientes').DataTable({
@@ -75,3 +90,32 @@ $(document).ready(function() {
       }
   });
 });
+
+$(document).ready(function() { 
+  fechaActual();
+  calcularTotal();
+});
+
+function calcularTotal(){
+  $("#producto").on('keyup',function(){
+    var total=0;
+    var galones=$('#galones').val();
+    var precio=$('#precio_galon').val();
+    total=galones*precio;
+    $('#total').val(total);
+  });
+}
+
+function fechaActual(){
+  $("#fecha_pedido").val($.datepicker.formatDate('d/m/yy', new Date()));
+}
+
+function getRUC(id){
+  $.ajax({
+    type: 'GET',
+    url:`../clientes/${id}`,
+    success: (data)=>{
+      $('#ruc').val(data.ruc);
+    }
+  });
+}

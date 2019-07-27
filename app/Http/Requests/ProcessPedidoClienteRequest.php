@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PorcesarPedidoCliente extends FormRequest
+class ProcessPedidoClienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class PorcesarPedidoCliente extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**

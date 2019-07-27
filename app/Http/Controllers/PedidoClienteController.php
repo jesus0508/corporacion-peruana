@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\PedidoCliente;
 use CorporacionPeru\Http\Requests\StorePedidoClienteRequest;
-use CorporacionPeru\Http\Requests\PorcesarPedidoCliente;
+use CorporacionPeru\Http\Requests\ProcessPedidoClienteRequest;
 use CorporacionPeru\Cliente;
 use Illuminate\Http\Request;
 
@@ -31,6 +31,8 @@ class PedidoClienteController extends Controller
     public function create()
     {
         //
+        $clientes=Cliente::all();
+        return view('pedido_clientes.create',compact('clientes'));
     }
 
     /**
@@ -83,7 +85,7 @@ class PedidoClienteController extends Controller
         return back()->with('alert-type','success')->with('status','Pedido editado con exito');
     }
 
-    public function procesarPedido(PorcesarPedidoCliente $request){
+    public function procesarPedido(ProcessPedidoClienteRequest $request){
         $pedido=PedidoCliente::findOrFail($request->id);
         /*Logica para actualizar pedido pendiente*/
         $pedido->estado=2;

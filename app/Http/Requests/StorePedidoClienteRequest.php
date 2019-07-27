@@ -25,6 +25,7 @@ class StorePedidoClienteRequest extends FormRequest
     {
         return [
             'nro_pedido'=>'required|unique:pedido_clientes,nro_pedido,'.$this->id,
+            'cliente_id'=>'required|numeric',
             'grifo'=>'required|min: 3|max: 255',
             'galones'=>'required|numeric|gt:0',
             'precio_galon'=>'required|numeric|gt:0',

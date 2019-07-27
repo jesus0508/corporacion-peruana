@@ -95,7 +95,7 @@ desired effect
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -180,14 +180,14 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
                 <p>
                   {{ Auth::user()->name }}
@@ -237,7 +237,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ Auth::user()->name }}</p>
@@ -258,11 +258,23 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('clientes.index')}}"><i class="fa fa fa-user"></i> Gestion</a></li>
-            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-train"></i> Pedidos</a></li>
-            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li>
+            <li><a href="{{route('clientes.index')}}"><i class="fa fa fa-user"></i>Gestion</a></li>
           </ul>
         </li>
+
+        <li id="treeview-ventas" class="treeview">
+          <a href="#">
+            <i class="fa fa-cart-plus"></i> <span>Ventas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-list"></i>Ver Pedidos</a></li>
+            <li><a href="{{route('pedido_clientes.create')}}"><i class="fa fa-pencil"></i>Registrar Pedido</a></li>
+          </ul>
+        </li>
+
         <li id="treeview-proveedores" class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Proveedores</span>
@@ -275,6 +287,30 @@ desired effect
             <li><a href="{{route('pedidos.index')}}"><i class="fa train"></i> Pedido</a></li>
           </ul>
         </li>
+
+        <li id="treeview-reportes" class="treeview">
+          <a href="#">
+            <i class="fa fa-money"></i> <span>Pagos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-users"></i> Clientes</a></li>
+          </ul>
+        </li>
+
+        <li id="treeview-reportes" class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i> <span>Reportes</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -284,14 +320,9 @@ desired effect
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-  
-
+      @yield('breadcrumb')
     <!-- Main content -->
-
-
-        @yield('content')
-
-
+      @yield('content')
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

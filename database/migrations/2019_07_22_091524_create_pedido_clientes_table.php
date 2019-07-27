@@ -22,9 +22,11 @@ class CreatePedidoClientesTable extends Migration
             $table->decimal('precio_galon',9,3);
             $table->date('fecha_descarga')->nullable();
             $table->string('horario_descarga')->nullable();
-            $table->string('observacion')->nullable();
+            $table->text('observacion')->nullable();
+            $table->unsignedBigInteger('cliente_id');
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 
@@ -35,6 +37,10 @@ class CreatePedidoClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedido_clientes');
+        Schema::table('pedido_clientes', function (Blueprint $table) {
+            $table->dropForeign(['cliente_id']);
+        });
+        Schema::dropIfExists(['pedido_clientes']);
+
     }
 }
