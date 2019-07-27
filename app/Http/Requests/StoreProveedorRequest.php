@@ -26,9 +26,9 @@ class StoreProveedorRequest extends FormRequest
         return [
             //'razon_social'=>'required|max: 255|unique:proveedores,razon_social,'.$this->id,
             'razon_social'=>'required|max: 255',
-            'direccion'=>'required|max: 255',
+             'ruc' => 'required|max: 14',
             'representante'=>'max: 255',
-            'celular'=>'max: 9',
+            
       
         ];
     }
