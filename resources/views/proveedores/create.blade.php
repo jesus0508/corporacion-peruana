@@ -20,8 +20,8 @@
             @enderror
             </div>
             <div class="form-group">
-                <label for="ruc_proveedor">RUC*</label>
-               <input id="ruc_proveedor" type="text" class="form-control" name="ruc_proveedor" placeholder="Ingrese  el ruc del proveedor">           
+                <label for="ruc">RUC*</label>
+               <input id="ruc" type="text" class="form-control" name="ruc" placeholder="Ingrese  el ruc del proveedor">           
             </div>
 
           
