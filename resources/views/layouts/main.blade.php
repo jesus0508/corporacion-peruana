@@ -284,11 +284,25 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
-            <li><a href="{{route('pedidos.index')}}"><i class="fa train"></i> Pedido</a></li>
+            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedido</a></li>
+            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
+          </ul>
+        </li>
+        <li id="treeview-transportistas" class="treeview">
+          <a href="#">
+            <i class="fa fa-truck"></i> <span>Transportistas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
+            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedido</a></li>
+            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
           </ul>
         </li>
 
-        <li id="treeview-reportes" class="treeview">
+        <li id="treeview-pagos" class="treeview">
           <a href="#">
             <i class="fa fa-money"></i> <span>Pagos</span>
             <span class="pull-right-container">
