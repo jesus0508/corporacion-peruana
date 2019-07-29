@@ -4,7 +4,7 @@
     <!-- left column -->
     <div class="col-md-6">
       <!-- general form elements -->
-      <div class="box box-primary">
+      <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title">Datos principales*</h3>
         </div><!-- /.box-header -->
@@ -25,13 +25,18 @@
               <input id="scop_pedido" type="text" class="form-control" name="scop" placeholder="Ingrese el SCOP" pattern="[0-9]+" required>
             </div>
 
- 
+            <div class="form-group">
+              <label for="proveedor">Proveedor</label>
+              <input id="proveedor" type="text" class="form-control" name="proveedor" placeholder="Proveedor" disabled>
+            </div>
 
+ 
+<!--
             <div class="form-group">
               <label for="fecha_despacho">Fecha pedido</label>
               <input id="fecha_despacho" type="date" class="form-control" name="fecha_despacho" placeholder="Ingrese la Fecha de despacho del pedido" required>
             </div>
-
+-->
 
           </div><!-- /.box-body -->
         {{-- </form> --}}
@@ -41,7 +46,7 @@
   
     <div class="col-md-6">
       <!-- general form elements -->
-      <div class="box box-primary">
+      <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title"><b> DIESEL B5 (S50) UV</b> </h3>
         </div><!-- /.box-header -->
@@ -61,12 +66,11 @@
             <div class="form-group">
 
                  <label for="planta">Planta</label>
-                 <select class="form-control" name="planta" id="planta">
-                  <option>Pampilla</option>
-                  <option>Callao</option>
-                  <option>PBF</option>
-                  <option>Conchan</option>
-                 </select>
+                  <select class="form-control" id="planta" name="planta_id">
+                    @foreach ( $plantas as $planta)
+                      <option value="{{$planta->proveedor_id}}">{{$planta->planta}}</option>
+                    @endforeach
+                  </select>
 
             </div>
 
@@ -80,7 +84,7 @@
   </div> <!-- /.row-top -->
   <div class="row">
     <div class="col-md-12">
-      <button type="submit" class="btn btn-lg btn-primary">
+      <button type="submit" class="btn btn-lg btn-success">
         <i class="fa fa-plus-square-o"> </i>
         Registrar nuevo Pedido
       </button>
