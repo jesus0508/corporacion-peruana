@@ -1,3 +1,38 @@
+$(document).ready(function() { 
+
+  $("#planta").prop("selectedIndex", -1);
+
+  $("#planta").select2({
+    placeholder: "Ingresa la razon social",
+    allowClear:true
+  });
+
+  $("#planta").on('change',function(){
+    var id=$("#planta").val();
+
+    if(id){//id del proveedor
+
+      findByPlanta(id);
+
+    }else{
+      $('#proveedor').val('');
+    }
+
+  });
+
+});
+
+function findByPlanta(id){
+  $.ajax({
+    type: 'GET',
+    url: 'public/proveedores/'+id,
+    success: (data)=>{
+      console.log(data);
+      $('#proveedor').val(data.razon_social);
+    }
+  });
+}
+
 $('#modal-process-pedido').on('show.bs.modal', function (event) {          
   var id = $(event.relatedTarget).data().id;
   var costo_total = $(event.relatedTarget).data().costo_total;
@@ -47,3 +82,4 @@ $('#modal-show-pedido').on('show.bs.modal', function (event) {
   $(event.currentTarget).find('#estado-show').val(estado);
   $(event.currentTarget).find('#nro_factura-show').val(nro_factura);
 })
+

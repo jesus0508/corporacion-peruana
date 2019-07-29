@@ -1,7 +1,13 @@
 $('#treeview-proveedores').on('click',function(event){
   $('#treeview-clientes').removeClass("active");
+  $('#treeview-pagos').removeClass("active");
+  $('#treeview-ventas').removeClass("active");
+  $('#treeview-reportes').removeClass("active");
+  $('#treeview-transportista').removeClass("active");
   $('#treeview-proveedores').addClass("active");
 })
+
+
 
 
 $(document).ready(function() {
