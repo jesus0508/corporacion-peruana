@@ -21,8 +21,11 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('/pedido_clientes','PedidoClienteController');
 	Route::put('/procesar/{id}','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
   Route::resource('/pago_clientes', 'PagoClienteController');
-    Route::resource('/planta','PlantaController');
-    Route::get('proveedores_data', 'ProveedorController@datatable');
+  Route::resource('/planta','PlantaController');
+  Route::resource('factura_proveedor', 'FacturaProveedorController');
+	Route::resource('transportista', 'TransportistaController');
+	Route::resource('vehiculo', 'VehiculoController');    
+  Route::get('proveedores_data', 'ProveedorController@datatable');
 	Route::get('plantas_data/{id}', 'PlantaController@show');
 	Route::get('planta_delete/{id}', 'PlantaController@destroy');
 });
