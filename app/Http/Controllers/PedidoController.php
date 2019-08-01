@@ -3,6 +3,7 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Proveedor;
+use CorporacionPeru\Planta;
 use CorporacionPeru\Http\Requests;
 use CorporacionPeru\Http\Requests\StorePedidoRequest;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class PedidoController extends Controller
     {
         //
         $pedidos=Pedido::all();
-        return view('pedidosP.index',compact('pedidos'));
+        $plantas = Planta::all();
+        return view('pedidosP.index',compact('pedidos','plantas'));
     }
 
     /**
@@ -30,9 +32,11 @@ class PedidoController extends Controller
      */
     public function create()
     {
-            $pedido=Pedido::all();
+            //$pedido=Pedido::all();
+        $plantas = Planta::all();
 
-         return view('pedidosP.create', compact('pedido'));
+
+         return view('pedidosP.create', compact('plantas'));
         //
     }
 
