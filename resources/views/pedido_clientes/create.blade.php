@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Clientes')
+@section('title','Venta')
 @section('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
@@ -17,7 +17,6 @@
 @section('content')
 <section class="content">
   {{-- <button class="btn btn-info pull-right">Limpiar</button> --}}
-  <h2>REGISTRO PEDIDOS CLIENTES</h2>
   <form action="{{route('pedido_clientes.store')}}" method="post">
     @csrf
     <div class="row">
@@ -145,7 +144,7 @@
               <div class="col-md-6">
                 <div class="form-group @error('precio_galon') has-error @enderror">
                   <label for="precio_galon">Precio x Galones</label>
-                  <input id="precio_galon" type="number" class="form-control" 
+                  <input id="precio_galon" type="number" step="any" class="form-control" 
                           name="precio_galon" placeholder="Ingrese el precio por galon">
                   @error('grifo')
                   <span class="help-block" role="alert">
@@ -177,11 +176,11 @@
             </div>
             <div class="row">
               <div class="col-lg-4">
-                <label for="total">Monto Total</label>
+                <label for="saldo">Monto Total</label>
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <input id="total" type="text" class="form-control" disabled>
+                  <input name="saldo" id="saldo" type="number" class="form-control" readonly>
                 </div>
               </div>
             </div>

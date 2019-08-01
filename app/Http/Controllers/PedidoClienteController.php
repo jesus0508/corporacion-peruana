@@ -85,8 +85,8 @@ class PedidoClienteController extends Controller
         return back()->with('alert-type','success')->with('status','Pedido editado con exito');
     }
 
-    public function procesarPedido(ProcessPedidoClienteRequest $request){
-        $pedido=PedidoCliente::findOrFail($request->id);
+    public function procesarPedido($id){
+        $pedido=PedidoCliente::findOrFail($id);
         /*Logica para actualizar pedido pendiente*/
         $pedido->estado=2;
         $pedido->save();

@@ -1,12 +1,12 @@
-<form action="{{route('clientes.store')}}" method="post">
-  @csrf
-  <div class="row">
-    <!-- left column -->
+<div class="row">
+  <!-- left column -->
+  <form class="" action="{{route('clientes.store')}}" method="post">
+    @csrf
     <div class="col-md-6">
       <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Datos principales</h3>
+          <h2 class="box-title">Registro Cliente</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="form-group @error('ruc') has-error @enderror">
@@ -41,14 +41,13 @@
           </div>
         </div><!-- /.box-body -->
       </div><!-- /.box -->
-    </div>
-    <!--/.col (left) -->
+    </div><!--/.col (left) -->
   
     <div class="col-md-6">
       <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Datos secundarios</h3>
+          <h2 class="box-title">Datos complementarios</h2>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="form-group @error('tipo') has-error @enderror">
@@ -75,15 +74,17 @@
           </div>
         </div><!-- /.box-body -->
       </div><!-- /.box -->
-    </div>
-    <!--/.col (right) -->
-  </div> <!-- /.row-top -->
-  <div class="row">
+    </div><!--/.col (right) -->
+
     <div class="col-md-12">
-      <button type="submit" class="btn btn-lg btn-primary">
-        <i class="fa fa-plus-square-o"> </i>
-        Registrar nuevo cliente
-      </button>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary">
+          <i class="fa fa-plus-square-o"> </i>
+          Registrar nuevo cliente
+        </button>
+      </div>
     </div>
-  </div> <!-- /.row-bottom -->
-</form>
+  </form>
+</div> <!-- /.row-top -->
+
+

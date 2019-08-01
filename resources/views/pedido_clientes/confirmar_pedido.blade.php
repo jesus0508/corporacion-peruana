@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-confirmar-pedido" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('pedido_clientes.procesarPedido')}}" method="post" class="modal-content">
+    <form action="" method="post" class="modal-content">
       @csrf
       @method('PUT')
       <div class="modal-header">

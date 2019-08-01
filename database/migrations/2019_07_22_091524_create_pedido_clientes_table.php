@@ -23,6 +23,7 @@ class CreatePedidoClientesTable extends Migration
             $table->date('fecha_descarga')->nullable();
             $table->string('horario_descarga')->nullable();
             $table->text('observacion')->nullable();
+            $table->float('saldo');
             $table->unsignedBigInteger('cliente_id');
             $table->timestamps();
             $table->softDeletes();
@@ -40,7 +41,7 @@ class CreatePedidoClientesTable extends Migration
         Schema::table('pedido_clientes', function (Blueprint $table) {
             $table->dropForeign(['cliente_id']);
         });
-        Schema::dropIfExists(['pedido_clientes']);
+        Schema::dropIfExists('pedido_clientes');
 
     }
 }

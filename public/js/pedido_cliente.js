@@ -59,6 +59,17 @@ $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
   $(event.currentTarget).find('#observacion-show').val(observacion);
 });
 
+$('#modal-create-pago').on('show.bs.modal',function(event){
+  var id= $(event.relatedTarget).data('id');
+  var nro_pedido= $(event.relatedTarget).data('nro_pedido');
+  var fecha_pedido=$.datepicker.parseDate('d/m/yy',$(event.relatedTarget).data('fecha_pedido'));
+  $(event.currentTarget).find('#nro_pedido-pago').val(nro_pedido);
+  $(event.currentTarget).find('#pedido_cliente_id-pago').val(id);
+  $("#fecha_operacion").datepicker({
+    minDate:fecha_pedido,
+  });
+});
+
 /**Activar/Desactivar Inputs del formulario */
 $(document).ready(function() { 
   $("#datos-pedido :input").prop("disabled", true);
@@ -83,21 +94,6 @@ $(document).ready(function() {
 
 });
 
-/* Agregar filtro datatable */
-$.fn.dataTable.ext.search.push(
-  function( settings, data, dataIndex ) {
-      var sInicio=$('#fecha_inicio').val();
-      var sFin=$('#fecha_fin').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio) || new Date();
-      var fin = $.datepicker.parseDate('d/m/yy', sFin)  || new Date();
-      var dia = $.datepicker(new Date());
-      if ( fin>=dia && inicio<=dia ){
-        return true;
-      }
-      return false;
-  }
-);
-
 /**Inicializar DataTable */
 $(document).ready(function() {
   $('#tabla-pedido_clientes').DataTable({
@@ -109,6 +105,22 @@ $(document).ready(function() {
     $('#tabla-pedido_clientes').DataTable().draw();
   });
 });
+
+/* Agregar filtro datatable */
+$.fn.dataTable.ext.search.push(
+  function( settings, data, dataIndex ) {
+      var sInicio=$('#fecha_inicio').val();
+      var sFin=$('#fecha_fin').val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio) ;
+      var fin = $.datepicker.parseDate('d/m/yy', sFin)  ;
+      var dia = $.datepicker.parseDate('d/m/yy',data[1]) ;
+      
+      if (!inicio || !dia || fin>=dia && inicio<=dia ){
+        return true;
+      }
+      return false;
+  }
+);
 
 /** Inicializar datos  */
 $(document).ready(function() { 
@@ -123,7 +135,7 @@ function calcularTotal(){
     var galones=$('#galones').val();
     var precio=$('#precio_galon').val();
     total=galones*precio;
-    $('#total').val(total);
+    $('#saldo').val(total);
   });
 }
 
@@ -159,3 +171,9 @@ function findByRazonSocial(id){
     }
   });
 }
+
+$('#treeview-ventas').on('click',function(event){
+  $('#treeview-proveedores').removeClass("active");
+  $('#treeview-clientes').removeClass("active");
+  $('#treeview-ventas').addClass("active");
+})

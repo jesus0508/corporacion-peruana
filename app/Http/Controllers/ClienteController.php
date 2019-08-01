@@ -3,6 +3,7 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Cliente;
+use CorporacionPeru\PedidoCliente;
 use CorporacionPeru\Http\Requests;
 use CorporacionPeru\Http\Requests\StoreClienteRequest;
 
@@ -89,7 +90,11 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
+        $exists=PedidoCliente::where('cliente_id', $cliente->id)->exists();
+        if($exists){
+            return  back()->with('alert-type','warning')->with('status','Cliente tiene un saldo pendiente');
+        }
         $cliente->delete();
-        return  back()->with('alert-type','warning')->with('status','Cliente eliminado con exito');
+        return  back()->with('alert-type','success')->with('status','Cliente eliminado con exito');
     }
 }

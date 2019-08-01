@@ -3,6 +3,7 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class PagoCliente extends Model
 {
@@ -10,7 +11,11 @@ class PagoCliente extends Model
     protected $fillable= ['fecha_operacion','monto_operacion','banco','pedido_cliente_id'];
     
     public function pedidoCliente(){
-        $this->belongsTo(PedidoCliente::class);
+        return $this->belongsTo(PedidoCliente::class);
+    }
+    
+    public function setFechaOperacionAttribute($value){ 
+        $this->attributes['fecha_operacion']=Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
     }
     
 }

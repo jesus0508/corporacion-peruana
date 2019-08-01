@@ -3,7 +3,9 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\PagoCliente;
+use CorporacionPeru\PedidoCliente;
 use Illuminate\Http\Request;
+use CorporacionPeru\Http\Requests\StorePagoRequest;
 
 class PagoClienteController extends Controller
 {
@@ -15,6 +17,8 @@ class PagoClienteController extends Controller
     public function index()
     {
         //
+        $pagos=PagoCliente::all();
+        return view('pago_clientes.index',compact('pagos'));
     }
 
     /**
@@ -33,9 +37,14 @@ class PagoClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePagoRequest $request)
     {
         //
+        PagoCliente::create($request->validated());
+        $pedidoCliente=PedidoCliente::findOrFail($request->pedido_cliente_id);
+        $pedidoCliente->saldo-=$request->monto_operacion;
+        $pedidoCliente->save();
+        return back()->with('alert-type','success')->with('status','Pago registrado con exito');
     }
 
     /**

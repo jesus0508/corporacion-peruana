@@ -34,6 +34,6 @@ class CreatePagoClientesTable extends Migration
         Schema::table('pago_clientes', function (Blueprint $table) {
             $table->dropForeign(['pedido_cliente_id']);
         });
-        Schema::dropIfExists(['pago_clientes']);
+        Schema::dropIfExists('pago_clientes');
     }
 }

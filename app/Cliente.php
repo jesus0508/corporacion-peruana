@@ -15,4 +15,17 @@ class Cliente extends Model
     public function pedidoClientes(){
         return $this->hasMany(PedidoCliente::class);
     }
+
+    public function getTipo(){
+        $result="";
+        switch($this->tipo){
+            case 1: 
+                $result="Grifo";
+                break;
+            case 2:
+                $result="Normal";
+                break;
+        }
+        return $result;
+    }
 }
