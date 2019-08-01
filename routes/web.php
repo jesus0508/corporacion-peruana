@@ -20,6 +20,9 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('/pedidos','PedidoController');
 	Route::resource('/pedido_clientes','PedidoClienteController');
     Route::resource('/planta','PlantaController');
+    Route::resource('factura_proveedor', 'FacturaProveedorController');
+	Route::resource('transportista', 'TransportistaController');
+	Route::resource('vehiculo', 'VehiculoController');
 	Route::put('/pedido_clientes','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
     
     Route::get('proveedores_data', 'ProveedorController@datatable');
