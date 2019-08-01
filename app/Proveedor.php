@@ -3,9 +3,19 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
+use CorporacionPeru\Planta;
 
 class Proveedor extends Model
 {
     protected $table = 'proveedores';
-    protected $fillable= ['razon_social','direccion' ,'representante','celular'];
+    protected $primaryKey = 'id';
+    protected $fillable= ['id','razon_social','ruc' ,'representante'];
+
+
+    public function plantas()
+    {
+    	//return $this->hasMany('App\PlantaModel', 'id_empleado');
+    	return $this->hasMany(Planta::class,'proveedor_id');
+    } 
 }
+
