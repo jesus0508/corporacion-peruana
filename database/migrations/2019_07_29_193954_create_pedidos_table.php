@@ -26,9 +26,9 @@ class CreatePedidosTable extends Migration
             //$table->string('nro_factura')->nullable();
             //$table->decimal('pago_acta',9,2)->nullable();
             //$table->date('fecha_pago')->nullable();
-            $table->unsignedBigInteger('factura_proveedor_id');
+            $table->unsignedBigInteger('factura_proveedor_id')->nullable();
             $table->foreign('factura_proveedor_id')->references('id')->on('factura_proveedors');
-            $table->unsignedBigInteger('vehiculo_id');
+            $table->unsignedBigInteger('vehiculo_id')->nullable();
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
             $table->unsignedBigInteger('planta_id');
             $table->foreign('planta_id')->references('id')->on('plantas');
