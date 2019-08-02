@@ -11,6 +11,7 @@ $('#treeview-proveedores').on('click',function(event){
 
 
 $(document).ready(function() {
+  
     $('#tabla-proveedores').DataTable({
           "processing": true,
           "serverSide": true,
