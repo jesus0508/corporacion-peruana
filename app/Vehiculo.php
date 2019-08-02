@@ -11,9 +11,9 @@ class Vehiculo extends Model
     protected $fillable= ['id', 'transportista_id','placa','tipo' ,'modelo','marca'];
 
 
-    public function transportistas()
+    public function transportista()
     {
     	
-    	return $this->belongsTo(Proveedor::class,'transportista_id');
+    	return $this->belongsTo(Transportista::class,'transportista_id');
     } 
 }
