@@ -3,6 +3,8 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use Illuminate\Http\Request;
+use CorporacionPeru\Transportista;
+use CorporacionPeru\Vehiculo;
 
 class VehiculoController extends Controller
 {
@@ -13,7 +15,7 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -23,7 +25,8 @@ class VehiculoController extends Controller
      */
     public function create()
     {
-        //
+        $transportistas = Transportista::all()->sortByDesc('id');
+        return view('vehiculos.create',compact('transportistas'));
     }
 
     /**
@@ -34,7 +37,8 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         Vehiculo::create($request->all());
+        return back()->with('alert-type','success')->with('status','Vehiculo Asignado con exito');
     }
 
     /**
@@ -45,7 +49,10 @@ class VehiculoController extends Controller
      */
     public function show($id)
     {
-        //
+        $vehiculos=Vehiculo::where('transportista_id',"=",$id)->get();
+        $transportista = Transportista::findOrFail($id);
+
+        return view('vehiculos.index',compact('vehiculos','transportista'));
     }
 
     /**
@@ -68,7 +75,9 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $id=$request->id;
+        Vehiculo::findOrFail($id)->update($request->all());
+        return  back()->with('alert-type','success')->with('status','Vehiculo editado con exito');
     }
 
     /**
@@ -79,6 +88,7 @@ class VehiculoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Vehiculo::destroy($id);
+             return  back()->with('alert-type','warning')->with('status','Vehiculo borrado con exito');
     }
 }

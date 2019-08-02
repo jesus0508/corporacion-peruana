@@ -4,6 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use Illuminate\Http\Request;
 use CorporacionPeru\Planta;
+use CorporacionPeru\Proveedor;
 use CorporacionPeru\Http\Requests;
 use CorporacionPeru\Http\Requests\StorePLantaRequest;
 
@@ -48,7 +49,7 @@ class PlantaController extends Controller
     public function store(StorePlantaRequest $request)
     {
         //
-          Planta::create($request->validated());
+          Planta::create($request->all());
           
         return  back()->with('alert-type','success')->with('status','Planta agregada con exito');
     }
@@ -56,8 +57,8 @@ class PlantaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \CorporacionPeru\Proveedor  $proveedor
-     * @return \Illuminate\Http\Response
+     * @param  \CorporacionPeru\Planta  $planta
+     * @return \Illuminate\Http\Response proveedor
      */
     public function show($id)
     {
@@ -83,14 +84,24 @@ class PlantaController extends Controller
      * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePlantaRequest $request, Planta $planta)
+    public function update(StorePlantaRequest $request,  $id)
     {
         
-        $var = $planta->get('id');
-        $jsonProv = $var[0] ; 
-        $planta=planta::findOrFail($jsonProv['id']);
-        $planta->update($request->validated());
-        return  back()->with('alert-type','success')->with('status','planta editada con exito');;
+       
+        $planta=planta::findOrFail($id);
+        $planta->update($request->all());
+        return response()->json([
+             "mensaje"=>"Actualizacion de registro correcto." 
+        ]);
+    }
+
+       public function modificar(StorePlantaRequest $request,  $id)
+    {
+        
+       
+        $planta=planta::findOrFail($id);
+        $planta->update($request->all());
+        return  back()->with('alert-type','success')->with('status','planta editada con exito');
     }
 
     /**

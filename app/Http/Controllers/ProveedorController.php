@@ -55,10 +55,12 @@ class ProveedorController extends Controller
      * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $proveedor)
+    public function show(Proveedor $proveedor,$id)
     {
         //
-        return $proveedor;
+       // return $proveedor;
+         $proveedor=Proveedor::findOrFail($id);
+         return $proveedor;
     }
 
     /**
@@ -101,10 +103,6 @@ class ProveedorController extends Controller
         $plantas=Planta::where('proveedor_id',"=",$id)->get();
         $contador = count($plantas);
 
-
-            //$var = $proveedor->get('id');
-             //$jsonProv = $var[0] ;
-            // $id=$request->id;
         if( $contador <= 0){
              Proveedor::destroy($id);
              return  back()->with('alert-type','success')->with('status','Proveedor borrado con exito');

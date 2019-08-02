@@ -4,7 +4,10 @@ namespace CorporacionPeru\Http\Controllers;
 
 use Illuminate\Http\Request;
 use CorporacionPeru\Pedido;
-
+use CorporacionPeru\Planta;
+use CorporacionPeru\Vehiculo;
+use CorporacionPeru\FacturaProveedor;
+use CorporacionPeru\Http\Requests\StoreFacturaProveedorRequest;
 class FacturaProveedorController extends Controller
 {
     /**
@@ -24,8 +27,9 @@ class FacturaProveedorController extends Controller
      */
     public function create()
     {
-        $pedidos = Pedido::all();
-        return view( 'facturas.create',compact(  'pedidos' ) );
+        $pedidos = Pedido::where('estado','=',1)->get();
+        $vehiculos = Vehiculo::all();
+        return view( 'facturas.create',compact(  'pedidos' , 'vehiculos' ) );
     }
 
     /**
@@ -34,9 +38,31 @@ class FacturaProveedorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFacturaProveedorRequest $request)
     {
-        //
+        //verificamos q existe el pedido seleccionad
+        $id_pedido = $request->nro_pedido;
+        $pedido = Pedido::find($id_pedido);
+        if ($pedido == null) {
+
+           return back()->with('alert-type','error')->with('status','No seleccionaste el número de Proveedor');
+        }
+         //GUARDAMOS LA FACTURA
+        FacturaProveedor::create($request->validated());
+       
+        //LE ASIGNAMOS LA FACTURA AL PEDIDO
+        $facturaCreada = FacturaProveedor::where('nro_factura_proveedor','=',$request->nro_factura_proveedor)->first();
+        $id_factura_proveedor = $facturaCreada->id;
+        $pedido->factura_proveedor_id = $id_factura_proveedor;
+        if( $pedido->vehiculo_id != null ){
+            $pedido->estado = 2;
+        }
+
+        $pedido->save();
+
+        return  back()->with('alert-type','success')->with('status','Factura asignada con exito');
+       
+
     }
 
     /**
@@ -48,7 +74,8 @@ class FacturaProveedorController extends Controller
       public function show($id)
     {
         
-         $pedido=Pedido::findOrFail($id);
+         $pedido=Pedido::with('planta')->where('id','=',$id)->first();
+         
          return $pedido;
     }
 
@@ -72,7 +99,23 @@ class FacturaProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $id_pedido = $request->id_pedido;
+        $pedido = Pedido::find($id_pedido);
+        if ($pedido == null) {
+
+           return back()->with('alert-type','error')->with('status','No seleccionaste el número de Proveedor');
+        }
+        $pedido->vehiculo_id = $request->placa;
+
+        if( $pedido->factura_proveedor_id != null ){
+            $pedido->estado = 2;
+        }
+        $pedido->save();
+
+      return  back()->with('alert-type','success')->with('status','Transportista asignado con exito');
+
+
+
     }
 
     /**
