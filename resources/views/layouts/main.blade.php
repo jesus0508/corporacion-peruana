@@ -286,9 +286,11 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
             <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedido</a></li>
-            {{-- <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li> --}}
+            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
           </ul>
         </li>
+               
+
         <li id="treeview-transportistas" class="treeview">
           <a href="#">
             <i class="fa fa-truck"></i> <span>Transportistas</span>
@@ -297,9 +299,9 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
+            <li><a href="{{route('transportista.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
             <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedido</a></li>
-            {{-- <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li> --}}
+            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
           </ul>
         </li>
 
@@ -433,7 +435,6 @@ desired effect
 
 <!--  JS entidades -->
 
-<script src="{{ asset('js/pedido.js') }}"></script>
 <script src="{{ asset('js/proveedor.js') }}"></script>
 <!-- DATATABLES -->
 
