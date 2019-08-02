@@ -1,11 +1,11 @@
  @if(!empty($pedido))
 
-<div class="modal fade" id="modal-edit-pedido" style="display: none;">
+<div class="modal fade" id="modal-edit-pedido-proveedor" style="display: none;">
   <div class="modal-dialog">
  
 
     <form action="{{route('pedidos.update',$pedido->id)}}" method="post" class="modal-content">
-      @csrf
+     @csrf
       @method('PUT')
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -33,9 +33,14 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="planta-edit">PLANTA </label>
-                  <input id="planta-edit" type="text" class="form-control" name="planta" placeholder="Ingrese la planta">
+                  <label for="planta" > Planta </label>
+                  <select class="form-control" id="planta-edit" style="width: 100%;" name="planta_id">
+                    @foreach ( $plantas as $planta)
+                      <option value="{{$planta->id}}">{{$planta->planta}}</option>
+                    @endforeach
+                  </select>
                 </div>
+
 
 
               </div><!-- /.box-body -->
@@ -48,11 +53,7 @@
                 <h3 class="box-title"> DIESEL B5 (S50) UV</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                 <div class="form-group">
-                  <label for="fecha_despacho-edit">Fecha despacho </label>
-                  <input id="fecha_despacho-edit" type="text" class="form-control datepicker" name="fecha_despacho" placeholder="Ingrese fecha de despacho" pattern="\d{1,2}/\d{1,2}/\d{4}">
-                </div>
-
+                
                  <div class="form-group">
                   <label for="galones-edit"> Galones  </label>
                   <input id="galones-edit" type="text" class="form-control" name="galones" placeholder="Ingrese cantidad de galones">
@@ -61,6 +62,11 @@
                  <div class="form-group">
                   <label for="costo_galon-edit"> Costo galón  </label>
                   <input id="costo_galon-edit" type="text" class="form-control" name="costo_galon" placeholder="Ingrese el precio del galón">
+                </div>
+
+                <div class="form-group">
+                  <label for="monto_total"> Monto Total </label>
+                  <input id="monto_total" type="text" class="form-control" name="monto_total" placeholder="Ingrese el precio del galón" disabled>
                 </div>
             
             
@@ -78,3 +84,4 @@
   </div><!-- /.modal-dialog -->
 </div>
 @endif
+

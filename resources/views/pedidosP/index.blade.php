@@ -20,42 +20,8 @@
   @include('pedidosP.table')
 
 @endsection
+
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="{{ asset('js/pedido.js') }}"></script> 
-<script>
-$(document).ready(function() { 
-
-  $("#planta").prop("selectedIndex", -1);
-
-  $("#planta").select2({
-    placeholder: "Ingresa la planta",
-    allowClear:true
-  });
-
-  $("#planta").on('change',function(){
-    var id=$("#planta").val();
-
-    if(id){//id del proveedor
-
-      findByPlanta(id);
-
-    }else{
-      $('#proveedor').val('');
-    }
-
-  });
-
-});
-
-function findByPlanta(id){
-  $.ajax({
-    type: 'GET',
-    url:`proveedores/${id}`,
-    success: (data)=>{
-      console.log(data);
-      $('#proveedor').val(data.razon_social);
-    }
-  });
-}</script>
+<script src="{{ asset('js/pedidos.js') }}"></script> 
 @endsection

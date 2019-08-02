@@ -26,17 +26,17 @@
             </div>
 
             <div class="form-group">
-              <label for="proveedor">Proveedor</label>
-              <input id="proveedor" type="text" class="form-control" name="proveedor" placeholder="Proveedor" disabled>
+
+                 <label for="planta">Planta</label>
+                  <select class="form-control" id="planta" name="planta_id">
+                    @foreach ( $plantas as $planta)
+                      <option value="{{$planta->proveedor_id}}">{{$planta->planta}}</option>
+                    @endforeach
+                  </select>
+
             </div>
 
  
-<!--
-            <div class="form-group">
-              <label for="fecha_despacho">Fecha pedido</label>
-              <input id="fecha_despacho" type="date" class="form-control" name="fecha_despacho" placeholder="Ingrese la Fecha de despacho del pedido" required>
-            </div>
--->
 
           </div><!-- /.box-body -->
         {{-- </form> --}}
@@ -63,16 +63,11 @@
               <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon">
             </div>
 
+
             <div class="form-group">
-
-                 <label for="planta">Planta</label>
-                  <select class="form-control" id="planta" name="planta_id">
-                    @foreach ( $plantas as $planta)
-                      <option value="{{$planta->proveedor_id}}">{{$planta->planta}}</option>
-                    @endforeach
-                  </select>
-
-            </div>
+              <label for="proveedor">Proveedor</label>
+              <input id="proveedor" type="text" class="form-control" name="proveedor" placeholder="Proveedor" disabled>
+            </div>            
 
         
 

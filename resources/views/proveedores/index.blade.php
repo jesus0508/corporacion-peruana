@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@section('styles')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
+@endsection
 
 @section('content')
 <section class="content-header">
@@ -40,4 +45,19 @@
 
 </section>
 <!-- BOTONES EN views/actions/proveedor  -->
+@endsection
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script type="text/javascript">
+  
+ $("#btn-prueba").click(function(e){
+
+  e.preventDefault();
+  alert('se abrió');
+
+
+   
+
+  });
+</script>
 @endsection

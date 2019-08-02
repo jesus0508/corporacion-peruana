@@ -1,6 +1,5 @@
 
 
-
  <button class="btn btn-success" data-toggle="modal" data-target="#modal-agregar-planta" 
 	data-id="{{$id}}"
 	data-razon_social="{{$razon_social}}">
@@ -42,7 +41,21 @@ Gestion planta
 @include('proveedores.addPlanta')
 @include('proveedores.plantasShow')
 
-<script >
+
+
+<script type="text/javascript">
+  
+ $("#btn-prueba").click(function(e){
+
+  e.preventDefault();
+  alert('se abrió');
+
+
+   
+
+  });
+</script>
+<script type="text/javascript">
 
 $('#modal-edit-proveedor').on('show.bs.modal', function (event) {          
   var id = $(event.relatedTarget).data().id;
@@ -68,13 +81,14 @@ $('#modal-agregar-planta').on('show.bs.modal', function (event) {
 })
 
 //OBTENER DATOS DE UNA QUERY( plantas de 1 proveedor)
-//$(document).ready(function(){
+$(document).ready(function(){
+
   $("#modal-show-plantas").on("show.bs.modal", function(event) {
-            var id = $(event.relatedTarget).data().id;
-              var razon_social = $(event.relatedTarget).data().razon_social;
+      var id = $(event.relatedTarget).data().id;
+      var razon_social = $(event.relatedTarget).data().razon_social;
 
           //$(event.currentTarget).find('#proveedor_id-add').val(id);
-          $(event.currentTarget).find('#razon_social-show').val(razon_social);
+      $(event.currentTarget).find('#razon_social-show').val(razon_social);
 
     //var request = new XMLHttpRequest();
    
@@ -89,7 +103,10 @@ $('#modal-agregar-planta').on('show.bs.modal', function (event) {
          console.log(keys);
           
         if( val != null ){ 
+            html +=   '<form>';
+            html +=  '<input type="hidden" name="_csrf" value="${_csrf.token}"/>';
             
+                  
             html +=  '<div class="row">';
             html +=  '  <div class="col-md-6">';
       
@@ -98,15 +115,15 @@ $('#modal-agregar-planta').on('show.bs.modal', function (event) {
             html +=  '        <h3 class="box-title">Datos de la planta</h3>';
             html +=  '      </div>';
             html +=  '      <div class="box-body">';
-            html +=  '        <input type="hidden"  name="proveedor_id">';
+            html +=  '        <input type="hidden"  id="id_planta" name="id_planta" value="'+val['id']+'">';
             html +=  '        <div class="form-group">';
             html +=  '          <label for="planta">Planta</label>';
-            html +=  '          <input id="planta" type="text" class="form-control" value="'+val['planta']+
-                                    '" name="planta" placeholder="Ingrese planta" required> ';
+            html +=  '          <input id="planta" type="text" class="form-control" value="'+val['planta']+'" name="planta" placeholder="Ingrese planta" required> ';
             html +=  '        </div>';
             html +=  '        <div class="form-group">';
             html +=  '          <label for="direccion_planta">direccion_planta</label>';
             html +=  '          <input id="direccion_planta" type="text" class="form-control" value="'+val['direccion_planta']+'" name="direccion_planta" placeholder="Ingrese direccion_planta" required> ';
+            html +=  '<button type="button" id="" onclick="mi_funcion()"> Guardar</button>';
             html +=  '        </div>';
             html +=  '      </div>';//box-body
             html +=  '    </div>';//.box
@@ -123,28 +140,33 @@ $('#modal-agregar-planta').on('show.bs.modal', function (event) {
             html +=  '        <div class="form-group">';
             html +=  '          <label for="celular_planta">celular_planta</label>';
             html +=  '          <input id="celular_planta" type="text" class="form-control" value="'+val['celular_planta']+'" name="celular_planta" placeholder="Ingrese celular de planta"> ';
+            
             html +=  '        </div>';
             html +=  '      </div>';//box-body
             html +=  '    </div>';//.box
             html +=  '  </div>';//md-6
             html +=  '</div>';// <!-- /.row- -->
-
+            
+            html +=   '</form>';
             html += '<div class="row">';
             html +=  '  <div class="col-md-12">';
 
-            html +=   '<button type="submit" class="btn btn-sm pull-left btn-success">Guardar Cambios</button>';
 
+            
+            
+            html +=   '<button type="" id="btn-prueba" class="btn btn-sm pull-left btn-success btn-prueba" ">Guardar PRUEBA</button>';
             html += '<form style="display:inline" method="get" action="planta_delete/'+val['id']+'">';
             html +=  '<input type="hidden"  name="proveedor_id" value"'+val['id']+'">';
             
             html +=   '<button type="" class="btn btn-sm pull-right btn-danger">Eliminar </button>';
-            html +=   '</form>';
+            html += '</form>'
+            
 
 
             html += '</div>';//md-12 <!-- /.row- -->
             html += '</div>';// <!-- /.row- --> 
             html += '<p></br></p>' ;
-
+              $(".show-plantas").html(html);
                   } //fin if
       else{
         html = "";
@@ -153,16 +175,16 @@ $('#modal-agregar-planta').on('show.bs.modal', function (event) {
          $(".show-plantas").html(html);
            }
             
-         });
-
+         });    
           
-          $(".show-plantas").html(html);
         
 
     });    
+ 
 
   });
-//});
+      
+});
 
 </script>
 

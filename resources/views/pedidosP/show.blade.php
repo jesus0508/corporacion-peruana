@@ -55,8 +55,8 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                  <div class="form-group">
-                  <label for="fecha_despacho-show">Fecha despacho </label>
-                  <input id="fecha_despacho-show" type="text" class="form-control" name="fecha_despacho" disabled>
+                  <label for="fecha_factura_proveedor-show">Fecha factura </label>
+                  <input id="fecha_factura_proveedor-show" type="text" class="form-control" name="fecha_factura_proveedor" disabled>
                 </div>
 
                  <div class="form-group">
@@ -72,6 +72,11 @@
                  <div class="form-group">
                   <label for="costo_total-show"> Costo total </label>
                   <input id="costo_total-show" type="text" class="form-control" name="costo_total"  disabled>
+                </div>
+
+                <div class="form-group">
+                  <label for="placa-show"> Placa Vehiculo </label>
+                  <input id="placa-show" type="text" class="form-control" name="placa"  disabled>
                 </div>
             
             

@@ -29,26 +29,17 @@
               @foreach ($pedidos as $pedido)
                 <tr>
                   <td>{{$pedido->nro_pedido}}</td>
-                  <td>{{$pedido->planta}}</td>
+                  <td>{{$pedido->planta->planta}}</td>
                   <td>{{$pedido->scop}}</td>
             <!--      <td>{{date('d/m/Y', strtotime($pedido->fecha_despacho))}}</td> -->
                   <td>{{$pedido->galones}}</td>
              <!--     <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
                   <td>S/&nbsp;{{number_format((float)
                     $pedido->galones*$pedido->costo_galon, 2, '.', '') }}</td>
-                  <td> <span class="label label-danger">SIN CONFIRMAR</span> </td>
-                  <td>
-                    <a href="{{route('factura_proveedor.create')}}" class="btn btn-success"><i class="fa fa-check-square-o"> &nbsp; </i>CONFIRMAR</a>
-                    <button class="btn btn-info" > <span class="glyphicon glyphicon-eye-open"></span>
-                    </button>
-                    <button class="btn btn-warning" > <span class="glyphicon glyphicon-edit"></span>
-                    </button>
-
-                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-
-                  </td>                 
-              
-                    
+                 
+                  @includeWhen($pedido->isConfirmed(), 'actions.pedido.acciones_confirmado')
+                  @includeWhen($pedido->isUnconfirmed(), 'actions.pedido.acciones_sin_confirmar')
+                  @includeWhen($pedido->isPaid(), 'actions.pedido.acciones_pagado')             
 
                 </tr>
               @endforeach
@@ -58,7 +49,6 @@
       </div> <!-- end box -->
     </div>
   </div><!-- end row -->
-  @include('pedidosP.process')
-  @include('pedidosP.show')
+
   @include('pedidosP.edit')
 </section>
