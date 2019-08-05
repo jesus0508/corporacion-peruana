@@ -24,14 +24,9 @@
                           name="nro_pedido" placeholder="Ingrese el numero de pedido">
                 </div>
                 <div class="form-group">
-                  <label for="grifo-edit">Grifo</label>
-                  <input id="grifo-edit" type="text" class="form-control" 
-                          name="grifo" placeholder="Ingrese el nombre del Grifo">
-                </div>
-                <div class="form-group">
                   <label for="fecha_descarga-edit">Fecha para descarga</label>
                   <input id="fecha_descarga-edit" type="text" class="tuiker form-control"
-                  name="fecha_descarga" placeholder="Ingrese la fecha de descarga">
+                  name="fecha_descarga" placeholder="Ingrese la fecha de descarga" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="horario_descarga-edit">Horario para descarga</label>
@@ -55,7 +50,7 @@
                 </div>
                 <div class="form-group">
                   <label for="precio_galon-edit">Precio x Galones</label>
-                  <input id="precio_galon-edit" type="number" class="form-control" 
+                  <input id="precio_galon-edit" type="number" step="any" class="form-control" 
                           name="precio_galon" placeholder="Ingrese el precio por galon">
                 </div>
                 <div class="form-group">

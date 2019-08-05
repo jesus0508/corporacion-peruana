@@ -1,23 +1,28 @@
 $('#modal-edit-pedido_cliente').on('show.bs.modal',function(event){
   var id= $(event.relatedTarget).data('id');
-  var nro_pedido= $(event.relatedTarget).data('nro_pedido');
-  var scop= $(event.relatedTarget).data('scop');
-  var galones= $(event.relatedTarget).data('galones');
-  var precio_galon= $(event.relatedTarget).data('precio_galon');
-  var grifo= $(event.relatedTarget).data('grifo');
-  var planta= $(event.relatedTarget).data('planta');
-  var horario_descarga= $(event.relatedTarget).data('horario_descarga'); 
-  var observacion= $(event.relatedTarget).data('observacion'); 
-
-  $(event.currentTarget).find('#nro_pedido-edit').val(nro_pedido);
-  $(event.currentTarget).find('#scop-edit').val(scop);
-  $(event.currentTarget).find('#galones-edit').val(galones);
-  $(event.currentTarget).find('#precio_galon-edit').val(precio_galon);
-  $(event.currentTarget).find('#grifo-edit').val(grifo);
-  $(event.currentTarget).find('#planta-edit').val(planta);
-  $(event.currentTarget).find('#horario_descarga-edit').val(horario_descarga);
-  $(event.currentTarget).find('#observacion-edit').val(observacion);
-  $(event.currentTarget).find('#id-edit').val(id);
+  $.ajax({
+    type: 'GET',
+    url:`./pedido_clientes/${id}/edit`,
+    data: {
+      'id' : $(`#id`).val(),
+    },
+    success: (data)=>{
+      console.log(data.pedidoCliente.id);
+      $(event.currentTarget).find('#nro_pedido-edit').val(data.pedidoCliente.nro_pedido);
+      $(event.currentTarget).find('#galones-edit').val(data.pedidoCliente.galones);
+      $(event.currentTarget).find('#precio_galon-edit').val(data.pedidoCliente.precio_galon);
+      $(event.currentTarget).find('#fecha_descarga-edit').val(data.pedidoCliente.fecha_descarga);
+      $(event.currentTarget).find('#horario_descarga-edit').val(data.pedidoCliente.horario_descarga);
+      $(event.currentTarget).find('#observacion-edit').val(data.pedidoCliente.observacion);
+      $(event.currentTarget).find('#id-edit').val(data.pedidoCliente.id);
+    },
+    error: (error)=>{
+      toastr.error('Ocurrio un Error!', 'Error Alert', {timeOut: 2000});
+    }
+  });
+  $("#fecha_descarga-edit").datepicker({
+    minDate:0,
+  });
 });
 
 $('#modal-confirmar-pedido').on('show.bs.modal',function(event){
@@ -35,38 +40,54 @@ $('#modal-confirmar-pedido').on('show.bs.modal',function(event){
 });
 
 $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
-  var nro_pedido= $(event.relatedTarget).data('nro_pedido');
-  var scop= $(event.relatedTarget).data('scop');
-  var fecha_pedido= $(event.relatedTarget).data('fecha_pedido');
-  var galones= $(event.relatedTarget).data('galones');
-  var grifo= $(event.relatedTarget).data('grifo');
-  var planta= $(event.relatedTarget).data('planta');
-  var precio_galon= $(event.relatedTarget).data('precio_galon'); 
-  var precio_total= $(event.relatedTarget).data('precio_total'); 
-  var horario_descarga= $(event.relatedTarget).data('horario_descarga'); 
-  var observacion= $(event.relatedTarget).data('observacion'); 
- 
-
-  $(event.currentTarget).find('#nro_pedido-show').val(nro_pedido);
-  $(event.currentTarget).find('#scop-show').val(scop);
-  $(event.currentTarget).find('#fecha_pedido-show').val(fecha_pedido);
-  $(event.currentTarget).find('#grifo-show').val(grifo);
-  $(event.currentTarget).find('#galones-show').val(galones);
-  $(event.currentTarget).find('#planta-show').val(planta);
-  $(event.currentTarget).find('#precio_galon-show').val(precio_galon);
-  $(event.currentTarget).find('#precio_total-show').val(precio_total);
-  $(event.currentTarget).find('#horario_descarga-show').val(horario_descarga);
-  $(event.currentTarget).find('#observacion-show').val(observacion);
+  var id= $(event.relatedTarget).data('id');
+  $.ajax({
+    type: 'GET',
+    url:`./pedido_clientes/${id}`,
+    data: {
+      'id' : $(`#id`).val(),
+    },
+    success: (data)=>{
+      $(event.currentTarget).find('#cliente-show').val(data.pedidoCliente.cliente.razon_social);
+      $(event.currentTarget).find('#ruc-show').val(data.pedidoCliente.cliente.ruc);
+      $(event.currentTarget).find('#numero-show').val(data.pedidoCliente.cliente.telefono);
+      $(event.currentTarget).find('#nro_pedido-show').val(data.pedidoCliente.nro_pedido);
+      $(event.currentTarget).find('#galones-show').val(data.pedidoCliente.galones);
+      $(event.currentTarget).find('#precio_galon-show').val(data.pedidoCliente.precio_galon);
+      $(event.currentTarget).find('#fecha_descarga-show').val(data.pedidoCliente.fecha_descarga);
+      $(event.currentTarget).find('#horario_descarga-show').val(data.pedidoCliente.horario_descarga);
+      $(event.currentTarget).find('#observacion-show').val(data.pedidoCliente.observacion);
+      $(event.currentTarget).find('#fecha_pedido-show').val(data.pedidoCliente.created_at);
+      $(event.currentTarget).find('#id-show').val(data.pedidoCliente.id);
+      var total=parseFloat(data.pedidoCliente.galones*data.pedidoCliente.precio_galon).toFixed(2);
+      $(event.currentTarget).find('#precio_total-show').val(total);
+    },
+    error: (error)=>{
+      toastr.error('Ocurrio un Error!', 'Error Alert', {timeOut: 2000});
+    }
+  });
+  $("#fecha_descarga-show").datepicker({
+    minDate:0,
+  });
 });
 
 $('#modal-create-pago').on('show.bs.modal',function(event){
+  var fecha_pedido=0;
   var id= $(event.relatedTarget).data('id');
-  var nro_pedido= $(event.relatedTarget).data('nro_pedido');
-  var fecha_pedido=$.datepicker.parseDate('d/m/yy',$(event.relatedTarget).data('fecha_pedido'));
-  $(event.currentTarget).find('#nro_pedido-pago').val(nro_pedido);
-  $(event.currentTarget).find('#pedido_cliente_id-pago').val(id);
+  $.ajax({
+    type: 'GET',
+    url:`./pedido_clientes/${id}`,
+    data: {
+      'id' : $(`#id`).val(),
+    },
+    success: (data)=>{
+      $(event.currentTarget).find('#nro_pedido-pago').val(data.pedidoCliente.nro_pedido);
+      $(event.currentTarget).find('#pedido_cliente_id-pago').val(data.pedidoCliente.id);
+      // fecha_pedido=$.datepicker.parseDate('d/m/yy',data.pedidoCliente.created_at);
+    }
+  });
   $("#fecha_operacion").datepicker({
-    minDate:fecha_pedido,
+    // minDate:fecha_pedido,
   });
 });
 
@@ -97,9 +118,9 @@ $(document).ready(function() {
 /**Inicializar DataTable */
 $(document).ready(function() {
   $('#tabla-pedido_clientes').DataTable({
-    'language': {
-        'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-      }
+    language: {
+      url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+    }
   });
   $('#filtrar').on('click',function(){
     $('#tabla-pedido_clientes').DataTable().draw();
@@ -109,16 +130,15 @@ $(document).ready(function() {
 /* Agregar filtro datatable */
 $.fn.dataTable.ext.search.push(
   function( settings, data, dataIndex ) {
-      var sInicio=$('#fecha_inicio').val();
-      var sFin=$('#fecha_fin').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio) ;
-      var fin = $.datepicker.parseDate('d/m/yy', sFin)  ;
-      var dia = $.datepicker.parseDate('d/m/yy',data[1]) ;
-      
-      if (!inicio || !dia || fin>=dia && inicio<=dia ){
-        return true;
-      }
-      return false;
+    var sInicio=$('#fecha_inicio').val();
+    var sFin=$('#fecha_fin').val();
+    var inicio = $.datepicker.parseDate('d/m/yy', sInicio) ;
+    var fin = $.datepicker.parseDate('d/m/yy', sFin)  ;
+    var dia = $.datepicker.parseDate('d/m/yy',data[1]) ;
+    if (!inicio || !dia || fin>=dia && inicio<=dia ){
+      return true;
+    }
+    return false;
   }
 );
 
@@ -135,6 +155,7 @@ function calcularTotal(){
     var galones=$('#galones').val();
     var precio=$('#precio_galon').val();
     total=galones*precio;
+    total=parseFloat(total).toFixed(2);
     $('#saldo').val(total);
   });
 }
@@ -161,6 +182,12 @@ function validateDates(){
   });
 }
 
+$('#btn-eliminar').on('click',function(event){
+  event.preventDefault();
+  var id=$(this).data('id');
+  deletePedido(id);
+});
+
 /* AJAX Buscar por Razon Social */
 function findByRazonSocial(id){
   $.ajax({
@@ -172,8 +199,33 @@ function findByRazonSocial(id){
   });
 }
 
+function updatePedido(id){
+
+}
+
+function deletePedido(id){
+  $.ajax({
+    type: 'DELETE',
+    url:`./pedido_clientes/${id}`,
+    data: {
+      '_token': $('input[name="_token"]').val(),
+    },
+    success: (data)=>{
+      toastr.success(data.status, 'Success Alert', {timeOut: 2000});
+    },
+    error: (error)=>{
+      toastr.error('Ocurrio un Error!', 'Error Alert', {timeOut: 2000});
+    }
+  });
+}
+
 $('#treeview-ventas').on('click',function(event){
   $('#treeview-proveedores').removeClass("active");
   $('#treeview-clientes').removeClass("active");
   $('#treeview-ventas').addClass("active");
+})
+
+$('.box').on('click',function(){
+  $('.box').removeClass('box-success');
+  $(this).addClass('box-success');
 })

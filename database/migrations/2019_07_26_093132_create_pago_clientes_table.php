@@ -16,6 +16,7 @@ class CreatePagoClientesTable extends Migration
         Schema::create('pago_clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('fecha_operacion');
+            $table->string('codigo_operacion');
             $table->float('monto_operacion');
             $table->string('banco');
             $table->unsignedBigInteger('pedido_cliente_id');

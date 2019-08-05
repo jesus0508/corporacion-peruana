@@ -1,16 +1,20 @@
 
 <td> <span class="label label-success">CONFIRMADO</span> </td>
 <td>
-  <button  class="btn btn-success" data-toggle="modal" data-target="#modal-create-pago" data-id="{{$pedido_cliente->id}}"
-      data-nro_pedido="{{$pedido_cliente->nro_pedido}}" data-fecha_pedido="{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}">
-    Amortizar
-  </button>
-  <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-pedido_cliente"
-    data-id="{{$pedido_cliente->id}}" data-nro_pedido="{{$pedido_cliente->nro_pedido}}" data-fecha_pedido="{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}"
-    data-fecha_descarga="{{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}" data-grifo="{{$pedido_cliente->grifo}}" data-galones="{{$pedido_cliente->galones}}"
-    data-precio_galon="{{$pedido_cliente->precio_galon}}" data-horario_descarga="{{$pedido_cliente->horario_descarga}}"
-    data-precio_total="{{$pedido_cliente->getPrecioTotal()}}" data-observacion="{{$pedido_cliente->observacion}}">
-    <span class="glyphicon glyphicon-eye-open"></span>
-  </button>
-
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="fa fa-wrench"></span> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="#modal-create-pago" data-toggle="modal" data-target="#modal-create-pago" data-id="{{$pedido_cliente->id}}"><span class="glyphicon glyphicon-check"></span>Amortizar</a>
+      </li>
+      <li>
+        <a href="#modal-show-pedido_cliente" data-toggle="modal" data-target="#modal-show-pedido_cliente" data-id="{{$pedido_cliente->id}}"><span class="glyphicon glyphicon-eye-open"></span>Detalles Pedido</a>
+      </li>
+      <li>
+        <a href="{{route('pago_clientes.index')}}"><span class="glyphicon glyphicon-eye-open"></span>Detalles Pagos</a>
+      </li>
+    </ul>
+  </div>
 </td>

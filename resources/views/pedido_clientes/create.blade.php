@@ -28,7 +28,17 @@
           </div><!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="tipo">Tipo</label>
+                  <select class="form-control" id="tipo" name="tipo">
+                    <option value="0">Todos</option>
+                    <option value="1">Grifo</option>
+                    <option value="2">Normal</option>
+                  </select>
+                </div>
+              </div><!-- end tipo -->
+              <div class="col-md-4">
                 <div class="form-group @error('cliente_id') has-error @enderror">
                   <label for="cliente">Cliente</label>
                   <select class="form-control" id="cliente" name="cliente_id">
@@ -38,7 +48,7 @@
                   </select>
                 </div>
               </div><!-- end razon -->
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="ruc">RUC</label>
                   <input id="ruc" type="text" class="form-control" 
@@ -55,7 +65,7 @@
           </div><!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group @error('nro_pedido') has-error @enderror">
                   <label for="nro_pedido">Número de Pedido</label>
                   <input id="nro_pedido" type="text" class="form-control" 
@@ -66,22 +76,8 @@
                   </span>
                   @enderror
                 </div>
-              </div><!-- /.numero-pedido -->
-              <div class="col-md-6">
-                <div class="form-group @error('grifo') has-error @enderror">
-                  <label for="grifo">Grifo</label>
-                  <input id="grifo" type="text" class="form-control" 
-                          name="grifo" placeholder="Ingrese el nombre del Grifo">
-                  @error('grifo')
-                  <span class="help-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-                </div>
-              </div><!-- /.grifo -->
-            </div><!-- /.first-row -->
-            <div class="row">
-              <div class="col-md-6">
+              </div>
+              <div class="col-md-4">
                 <div class="form-group @error('fecha_descarga') has-error @enderror">
                   <label for="fecha_descarga">Fecha para descarga</label>
                   <input autocomplete="off" id="fecha_descarga" type="text" class="tuiker form-control"
@@ -93,7 +89,7 @@
                   @enderror
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group @error('horario_descarga') has-error @enderror">
                   <label for="horario_descarga">Horario para descarga</label>
                   <input id="horario_descarga" type="text" class="form-control"
@@ -105,7 +101,7 @@
                   @enderror
                 </div>
               </div>
-            </div><!-- /.second-row -->
+            </div><!-- /.first-row -->
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group @error('observacion') has-error @enderror">
@@ -119,7 +115,7 @@
                   @enderror
                 </div>
               </div>
-            </div><!-- /.third-row -->
+            </div><!-- /.second-row -->
           </div><!-- /.box-body -->
         </div><!-- /.box datos pedido -->
 
@@ -134,7 +130,7 @@
                   <label for="galones">Galones</label>
                   <input id="galones" type="number" class="form-control" 
                           name="galones" placeholder="Ingrese el numero galones">
-                  @error('grifo')
+                  @error('galones')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
@@ -146,7 +142,7 @@
                   <label for="precio_galon">Precio x Galones</label>
                   <input id="precio_galon" type="number" step="any" class="form-control" 
                           name="precio_galon" placeholder="Ingrese el precio por galon">
-                  @error('grifo')
+                  @error('precio_galon')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
@@ -186,8 +182,8 @@
             </div>
             <div class="row">
               <div class="col-md-12 top-button">
-                <button type="submit" class="btn btn-lg btn-primary">
-                  <i class="fa fa-plus-square-o"> </i>
+                <button type="submit" class="btn btn-lg btn-success">
+                  <i class="fa fa-save"> </i>
                   Registrar pedido
                 </button>
               </div>

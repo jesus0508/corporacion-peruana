@@ -270,8 +270,8 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-list"></i>Ver Pedidos</a></li>
             <li><a href="{{route('pedido_clientes.create')}}"><i class="fa fa-pencil"></i>Registrar Pedido</a></li>
+            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-list"></i>Ver Pedidos</a></li>
             <li><a href="{{route('pago_clientes.index')}}"><i class="fa fa-money"></i> Ver Pagos</a></li>
           </ul>
         </li>

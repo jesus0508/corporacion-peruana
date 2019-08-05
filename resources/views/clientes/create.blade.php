@@ -45,7 +45,7 @@
   
     <div class="col-md-6">
       <!-- general form elements -->
-      <div class="box box-success">
+      <div class="box">
         <div class="box-header with-border">
           <h2 class="box-title">Datos complementarios</h2>
         </div><!-- /.box-header -->
@@ -78,8 +78,8 @@
 
     <div class="col-md-12">
       <div class="form-group">
-        <button type="submit" class="btn btn-lg btn-primary">
-          <i class="fa fa-plus-square-o"> </i>
+        <button type="submit" class="btn btn-lg btn-success">
+          <i class="fa fa-save"> </i>
           Registrar nuevo cliente
         </button>
       </div>

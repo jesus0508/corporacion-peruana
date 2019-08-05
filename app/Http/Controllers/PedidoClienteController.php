@@ -4,6 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\PedidoCliente;
 use CorporacionPeru\Http\Requests\StorePedidoClienteRequest;
+use CorporacionPeru\Http\Requests\UpdatePedidoClienteRequest;
 use CorporacionPeru\Http\Requests\ProcessPedidoClienteRequest;
 use CorporacionPeru\Cliente;
 use Illuminate\Http\Request;
@@ -57,6 +58,8 @@ class PedidoClienteController extends Controller
     public function show(PedidoCliente $pedidoCliente)
     {
         //
+        $pedidoCliente->load('cliente');
+        return response()->json(['pedidoCliente'=>$pedidoCliente]);
     }
 
     /**
@@ -68,6 +71,7 @@ class PedidoClienteController extends Controller
     public function edit(PedidoCliente $pedidoCliente)
     {
         //
+        return response()->json(['pedidoCliente'=>$pedidoCliente]);
     }
 
     /**
@@ -77,7 +81,7 @@ class PedidoClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePedidoClienteRequest $request, $id)
+    public function update(UpdatePedidoClienteRequest $request, $id)
     {
         //
         $id=$request->id;
@@ -103,6 +107,8 @@ class PedidoClienteController extends Controller
     {
         //
         $pedidoCliente->delete();
-        return  back()->with('alert-type','warning')->with('status','Pedido eliminado con exito');
+        return response()->json(['status'=>'Pedido eliminado con exito']);
     }
+
+
 }

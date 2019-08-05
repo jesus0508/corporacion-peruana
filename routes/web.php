@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('/proveedores','ProveedorController');
 	Route::resource('/pedidos','PedidoController');
 	Route::resource('/pedido_clientes','PedidoClienteController');
-	Route::put('/procesar/{id}','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
+	Route::get('/procesar/{id}','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
   Route::resource('/pago_clientes', 'PagoClienteController');
   Route::resource('/planta','PlantaController');
   Route::resource('factura_proveedor', 'FacturaProveedorController');

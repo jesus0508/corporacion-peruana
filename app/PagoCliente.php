@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class PagoCliente extends Model
 {
     protected $table = 'pago_clientes';
-    protected $fillable= ['fecha_operacion','monto_operacion','banco','pedido_cliente_id'];
+    protected $fillable= ['fecha_operacion','codigo_operacion','monto_operacion','banco','pedido_cliente_id'];
     
     public function pedidoCliente(){
         return $this->belongsTo(PedidoCliente::class);

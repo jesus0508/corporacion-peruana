@@ -22,14 +22,22 @@
                           name="fecha_operacion" placeholder="Ingrese la fecha" required>
                 </div>
                 <div class="form-group">
+                    <label for="codigo_operacion">Codigo de operacion</label>
+                    <input id="codigo_operacion" type="text" class="form-control"
+                            name="codigo_operacion" placeholder="Ingrese el codigo de la operacion" required>
+                  </div>
+                <div class="form-group">
                   <label for="monto_operacion">Monto</label>
                   <input id="monto_operacion" type="number" step="any" class="form-control"
                           name="monto_operacion" placeholder="Ingrese el monto de la operacion" required>
                 </div>
                 <div class="form-group">
                   <label for="banco">Banco</label>
-                  <input id="banco" type="tel" class="form-control"
-                          name="banco" placeholder="Ingrese el banco" required>
+                  <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco">
+                    <option value="BCP">BCP</option>
+                    <option value="BBVA">BBVA</option>
+                    <option value="SCOTIBANK">SCOTIBANK</option>
+                  </select>
                 </div>
                 <input id="nro_pedido-pago" type="hidden" name="nro_pedido">
                 <input id="pedido_cliente_id-pago" type="hidden" name="pedido_cliente_id">
