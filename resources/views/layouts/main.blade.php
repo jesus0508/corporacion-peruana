@@ -285,10 +285,21 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
-            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedido</a></li>
-            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
           </ul>
         </li>
+
+        <li id="treeview-proveedores" class="treeview">
+          <a href="#">
+            <i class="fa fa-building-o"></i> <span>Compras</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedidos</a></li>
+            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
+          </ul>
+        </li> 
                
 
         <li id="treeview-transportistas" class="treeview">
@@ -300,8 +311,6 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('transportista.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
-            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedido</a></li>
-            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
           </ul>
         </li>
 
@@ -438,7 +447,6 @@ desired effect
 <script src="{{ asset('js/proveedor.js') }}"></script>
 <!-- DATATABLES -->
 
-<script src="{{ asset('js/datatableProv.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <script>
