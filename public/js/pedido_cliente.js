@@ -182,10 +182,11 @@ function validateDates(){
   });
 }
 
-$('#btn-eliminar').on('click',function(event){
+$('.btn-eliminar').on('click',function(event){
   event.preventDefault();
   var id=$(this).data('id');
   deletePedido(id);
+  
 });
 
 /* AJAX Buscar por Razon Social */
@@ -211,6 +212,7 @@ function deletePedido(id){
       '_token': $('input[name="_token"]').val(),
     },
     success: (data)=>{
+      document.location.reload();
       toastr.success(data.status, 'Success Alert', {timeOut: 2000});
     },
     error: (error)=>{
@@ -229,3 +231,23 @@ $('.box').on('click',function(){
   $('.box').removeClass('box-success');
   $(this).addClass('box-success');
 })
+
+
+$('#tipo').on('change',function(event){
+  var $cliente = $("#cliente");
+  var tipo=$(this).val();
+  $.ajax({
+    type: 'GET',
+    url:`../clientes/tipo/${tipo}`,
+    success: (data)=>{
+      console.log(data);
+      $cliente.empty();
+      $cliente.select2({
+        placeholder: "Ingresa la razon social",
+        allowClear:true,
+        data:data.clientes
+      });
+      $cliente.trigger('change')
+    }
+  });
+});

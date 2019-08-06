@@ -16,6 +16,7 @@ Route::view('/', 'welcome');
 Route::middleware(['auth'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('/clientes','ClienteController');
+	Route::get('/clientes/tipo/{tipo}','ClienteController@getByTipo');
 	Route::resource('/proveedores','ProveedorController');
 	Route::resource('/pedidos','PedidoController');
 	Route::resource('/pedido_clientes','PedidoClienteController');

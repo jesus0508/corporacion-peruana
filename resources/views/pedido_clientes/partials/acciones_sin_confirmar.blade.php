@@ -21,7 +21,7 @@
         </a>
       </li>
       <li>
-        <a id="btn-eliminar" href="" data-id="{{$pedido_cliente->id}}"><span class="glyphicon glyphicon-trash"></span>Eliminar</a>
+        <a class="btn-eliminar" href="" data-id="{{$pedido_cliente->id}}"><span class="glyphicon glyphicon-trash"></span>Eliminar</a>
       </li>
     </ul>
   </div>

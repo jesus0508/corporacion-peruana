@@ -97,4 +97,13 @@ class ClienteController extends Controller
         $cliente->delete();
         return  back()->with('alert-type','success')->with('status','Cliente eliminado con exito');
     }
+
+    public function getByTipo($tipo){
+        if($tipo==0){
+            $clientes=Cliente::select('id','razon_social as text')->get();
+        }else{
+            $clientes=Cliente::select('id','razon_social as text')->where('tipo',$tipo)->get();
+        }
+        return response()->json(['clientes'=>$clientes]);
+    }
 }

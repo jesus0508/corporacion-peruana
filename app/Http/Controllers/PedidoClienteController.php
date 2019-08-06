@@ -19,7 +19,7 @@ class PedidoClienteController extends Controller
     public function index()
     {
         //
-        $pedido_clientes=PedidoCliente::all();
+        $pedido_clientes=PedidoCliente::with('cliente')->get();
         $clientes=Cliente::all();
         return view('pedido_clientes.index',compact('pedido_clientes','clientes'));
     }
@@ -32,7 +32,7 @@ class PedidoClienteController extends Controller
     public function create()
     {
         //
-        $clientes=Cliente::all();
+        $clientes=Cliente::select('id','ruc','razon_social');
         return view('pedido_clientes.create',compact('clientes'));
     }
 
@@ -106,6 +106,7 @@ class PedidoClienteController extends Controller
     public function destroy(PedidoCliente $pedidoCliente)
     {
         //
+        
         $pedidoCliente->delete();
         return response()->json(['status'=>'Pedido eliminado con exito']);
     }
