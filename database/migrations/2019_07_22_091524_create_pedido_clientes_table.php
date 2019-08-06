@@ -17,6 +17,7 @@ class CreatePedidoClientesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nro_pedido')->unique();
             $table->integer('galones');
+            $table->integer('galones_asignados')->default(0);
             $table->integer('estado')->default(1);
             $table->decimal('precio_galon',9,5);
             $table->date('fecha_descarga')->nullable();
