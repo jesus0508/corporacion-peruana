@@ -63,12 +63,12 @@ $(document).ready(function() {
     var total=$("#total").val();
 
     if(monto>0 && total>0){
-      var diferencia = total-monto;
+      var diferencia = monto-total;
      // Math.round(diferencia*100)/100;
       diferencia = parseFloat(diferencia).toFixed(2);
       
       
-      if( diferencia < 0 ){
+      if( diferencia > 0 ){
         var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#e53935";
           dif.style.color = "black";

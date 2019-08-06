@@ -24,4 +24,27 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script src="{{ asset('js/pedidos.js') }}"></script> 
+<script>
+
+$(document).ready(function() {
+$('#proveedores').DataTable({
+      'language': {
+               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+          },
+
+        "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                    if ( aData[4] >= aData[5] )
+
+                    {
+
+                        
+                    }
+                    else 
+                    {
+                        $('td', nRow).css('background-color', '#ffcdd2');
+                    }
+                }
+    });
+} );
+</script>
 @endsection

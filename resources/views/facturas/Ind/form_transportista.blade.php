@@ -13,7 +13,7 @@
                      ASIGNAR TRANSPORTISTA</button>
                 </div>
               </div>
-           <input type="hidden" id="pedido_asignar_transportista" name="id_pedido">
+           <input type="hidden" id="pedido_asignar_transportista" name="id_pedido" value="{{$pedido->id}}">
 
           </div><!-- /.box-header -->
           <div class="box-body">

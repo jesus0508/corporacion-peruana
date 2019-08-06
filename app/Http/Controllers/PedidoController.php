@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Pedido;
 use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
+use CorporacionPeru\PedidoCliente;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -71,6 +73,134 @@ class PedidoController extends Controller
                 
         return view( 'facturas.show.createDirecto',compact(  'pedido' , 'transportista' ) );
      
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \CorporacionPeru\Pedido  $pedido
+     * @return \Illuminate\Http\Response
+     */
+
+    public function distribuir($id){
+        $pedido = Pedido::where('id','=',$id)->with('planta')->first();
+
+        $pedidos_clientes_confirmados
+            = PedidoCliente::where('estado','=',2)->with('cliente')->orderBy('id','desc')->get();
+        $pedidos_cl = $pedidos_clientes_confirmados;
+       // return $pedido;
+        return view('distribucion.index',compact( 'pedido' , 'pedidos_cl' ));
+
+
+    }
+
+    public function ver_distribucion($id){
+
+        $pedido = Pedido::findOrFail($id);
+        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id',$id)->get();
+       // $pedidos_cl =  $pedidos_cl->pedidos->wherePivot('pedido_id','=',$request->pedido_id)->get();
+       // $pedidos_cl->where('pivot.pedido_id','=',1);
+       // return $pedidos_cl;
+        return view('distribucion.resumen.index',compact( 'pedido' , 'pedidos_cl' ));
+
+
+
+    }
+
+
+
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  \CorporacionPeru\Pedido  $pedido
+     * @return \Illuminate\Http\Response
+     */
+
+    public function distribuir_pedido(Request $request){
+
+    try {
+
+        DB::beginTransaction();
+
+        $cantDistribuir = $request->galones_dist;
+        $pedido = Pedido::findOrFail($request->pedido_id);
+       //    $contador = 1;
+
+        $pedidos_cl = PedidoCliente::where('estado','=',2)->with('cliente')->orderBy('galones_asignados','asc')->get();
+        $galonaje_stock = $cantDistribuir;
+       // return $pedidos_cl;
+        foreach ($pedidos_cl as $pedido_cl) {
+                            // 1200 - 1200
+            $restanteXasignar = $pedido_cl->galones - $pedido_cl->galones_asignados;
+            if(  $pedido->getGalonesStock() <= 0 or 
+                  $galonaje_stock == 0){
+
+                break; //sale del foreach
+
+            }
+            //galonaje en stock <= galonaje x asignar
+           if( $restanteXasignar >= $galonaje_stock ){
+
+                $cantAsignada = $pedido_cl->galones_asignados + $galonaje_stock;
+                if ( $cantAsignada <= $pedido_cl->galones ) {
+
+                   $pedido_cl->galones_asignados = $cantAsignada;
+                    $pedido->galones_distribuidos += $galonaje_stock; 
+                    $galonaje_stock = 0;
+                    //se le asigna el pedido proveedor al pedido cliente
+                    $pedido->pedidosCliente()->attach($pedido_cl->id);
+                    // $pedido_cl->pedidos()->attach($pedido_cl->id);
+                    $pedido->save();
+                    $pedido_cl->save();
+                    break;                
+                }             
+                
+           } else{//si el stock es mayor a lo q se distribuira
+                //  + 1200
+                $cantAsignada = $pedido_cl->galones_asignados + $pedido_cl->galones;
+
+                if( $cantAsignada <= $pedido_cl->galones ){
+
+                    $pedido_cl->galones_asignados = $cantAsignada;
+                    $galonaje_stock -= $pedido_cl->galones;
+                    $pedido->galones_distribuidos += $pedido_cl->galones;
+                    //  $pedido_cl->estado = 3;
+                    // se le asigna el pedido proveedor al pedido cliente
+                    // $pedido_cl->pedidos()->attach($pedido_cl->id);
+                    $pedido->pedidosCliente()->attach($pedido_cl->id);
+                    $pedido->save();
+                    $pedido_cl->save();
+                }
+           }
+         //  $contador++;
+          
+
+        }//FIN FOREACH
+         DB::commit();
+
+        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id',$request->pedido_id)->get();
+       // $pedidos_cl =  $pedidos_cl->pedidos->wherePivot('pedido_id','=',$request->pedido_id)->get();
+       // $pedidos_cl->where('pivot.pedido_id','=',1);
+       //return $pedidos_cl;
+        return view('distribucion.resumen.index',compact( 'pedido' , 'pedidos_cl' ));
+    } //fin try
+        catch (Exception $e) {
+
+            $pedido = Pedido::where('id','=',$id)->with('planta')->first();
+
+            $pedidos_clientes_confirmados
+            = PedidoCliente::where('estado','=',2)->with('cliente')->orderBy('galones_asignados','asc')->get();
+            $pedidos_cl = $pedidos_clientes_confirmados;
+
+            DB::rollback();
+
+        return view('distribucion.index',compact( 'pedido' , 'pedidos_cl' ))->with('alert-type','error')->with('status','Ocurrio un error inesperado!');
+           
+        } 
+
+
     }
 
 

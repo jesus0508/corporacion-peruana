@@ -20,6 +20,7 @@ class CreatePedidosTable extends Migration
             $table->string('scop');
             //$table->date('fecha_despacho');
             $table->integer('galones');
+            $table->integer('galones_distribuidos')->default(0);
             $table->decimal('costo_galon',9,5);
             $table->integer('estado')->default(1);
             $table->decimal('saldo',9,2)->nullable();

@@ -21,6 +21,10 @@ class PedidoCliente extends Model
     public function pagoClientes(){
         return $this->hasMany(PagoCliente::class);
     }
+    
+    public function pedidos(){
+        return $this->belongsToMany(Pedido::class,'pedido_proveedor_clientes');        
+    }
 
     public function getPrecioTotal(){
         return $this->precio_galon*$this->galones;

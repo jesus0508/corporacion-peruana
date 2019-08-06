@@ -21,8 +21,17 @@ class Pedido extends Model
         return $this->belongsTo(Vehiculo::class);
     }
 
+    public function pedidosCliente(){
+        return $this->belongsToMany(PedidoCliente::class,'pedido_proveedor_clientes')->with('pedidos');
+    }
+
     public function facturaProveedor(){
         return $this->belongsTo(FacturaProveedor::class);
+    }
+
+    
+    public function getGalonesStock(){
+        return $this->galones-$this->galones_distribuidos;
     }
 
     public function getPrecioTotal(){

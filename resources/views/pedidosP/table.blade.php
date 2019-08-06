@@ -4,7 +4,8 @@
     <div class="col-xs-12">
       <div class="box box-success">
         <div class="box-header">
-          <h3 class="box-title">Lista de COMPRAS A PROVEEDORES - Table</h3>
+          <h3 class="box-title">Lista de COMPRAS A PROVEEDORES &nbsp; &nbsp; &nbsp;</h3>                    
+                    <a href="{{route('factura_proveedor.create')}}" class="btn btn-lg btn-success"><i class="fa fa-money"> &nbsp; </i>PAGAR</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -18,6 +19,7 @@
                 <th>Cantidad GLS</th>
             <!--    <th>Precio galon/u</th> -->
                 <th>Monto</th>
+                <th>Saldo</th>
                 <th>Estado</th>
                  <th>Acciones</th>
 
@@ -27,6 +29,7 @@
             </thead>
             <tbody>
               @foreach ($pedidos as $pedido)
+
                 <tr>
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->planta->planta}}</td>
@@ -36,6 +39,14 @@
              <!--     <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
                   <td>S/&nbsp;{{number_format((float)
                     $pedido->galones*$pedido->costo_galon, 2, '.', '') }}</td>
+                    <td>
+                    @if($pedido->saldo == null)
+                    S/&nbsp;{{number_format((float)
+                    $pedido->galones*$pedido->costo_galon, 2, '.', '')}}
+                    @else
+                    S/&nbsp;{{$pedido->saldo  }}
+                    @endif                      
+                    </td>
                  
                   @includeWhen($pedido->isConfirmed(), 'actions.pedido.acciones_confirmado')
                   @includeWhen($pedido->isUnconfirmed(), 'actions.pedido.acciones_sin_confirmar')

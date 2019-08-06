@@ -57,7 +57,8 @@ class FacturaProveedorController extends Controller
         if( $pedido->vehiculo_id != null ){
             $pedido->estado = 2;
         }
-
+        $pedido->saldo = $request->monto_factura;
+        
         $pedido->save();
 
         return  back()->with('alert-type','success')->with('status','Factura asignada con exito');
