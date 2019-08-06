@@ -13,7 +13,7 @@
               <th>Fecha Operacion</th>
               <th>Nro Pedido</th>
               <th>Cliente</th>
-              <th>Monto</th>
+              <th>Abono</th>
               <th>Saldo</th>
               <th>Banco</th>
               <th>Acciones</th>
@@ -27,7 +27,7 @@
                 <td>{{$pago->pedidoCliente->nro_pedido}}</td>
                 <td>{{$pago->pedidoCliente->cliente->razon_social}}</td>
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
-                <td>S/&nbsp;{{$pago->pedidoCliente->saldo}}</td>
+                <td>S/&nbsp;{{$pago->saldo}}</td>
                 <td>{{$pago->banco}}</td>
                 <td>Gaaaaaaaaaaa</td>
               </tr>

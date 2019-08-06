@@ -40,9 +40,14 @@ class PagoClienteController extends Controller
     public function store(StorePagoRequest $request)
     {
         //
-        PagoCliente::create($request->validated());
+        $pago=PagoCliente::create($request->validated());
         $pedidoCliente=PedidoCliente::findOrFail($request->pedido_cliente_id);
         $pedidoCliente->saldo-=$request->monto_operacion;
+        $pago->saldo=$pedidoCliente->saldo;
+        if($pedidoCliente->saldo<=0){
+            $pedidoCliente->estado=3;
+        }
+        $pago->save();
         $pedidoCliente->save();
         return back()->with('alert-type','success')->with('status','Pago registrado con exito');
     }

@@ -27,6 +27,7 @@ class StorePagoRequest extends FormRequest
             'fecha_operacion'=>'required|date_format:"d/m/Y"',
             'codigo_operacion'=>'required',
             'monto_operacion'=>'required',
+            'saldo'=>'required',
             'banco'=>'required|max: 255',
             'pedido_cliente_id'=>'required'
         ];

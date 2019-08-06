@@ -27,7 +27,8 @@
                 <td>{{$pedido_cliente->galones}}</td>
                 <td>S/&nbsp;{{$pedido_cliente->getPrecioTotal()}}</td>
                 @includeWhen($pedido_cliente->isConfirmed(), 'pedido_clientes.partials.acciones_confirmado')
-                @includeWhen(!$pedido_cliente->isConfirmed(), 'pedido_clientes.partials.acciones_sin_confirmar')
+                @includeWhen($pedido_cliente->isUnconfirmed(), 'pedido_clientes.partials.acciones_sin_confirmar')
+                @includeWhen($pedido_cliente->isPaid(), 'pedido_clientes.partials.acciones_pagado')
               </tr>
             @endforeach
           </tbody> 

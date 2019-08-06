@@ -38,11 +38,15 @@ class PedidoCliente extends Model
         return Carbon::createFromFormat('Y-m-d',$value)->format('d/m/Y');
     }
 
+    public function isUnconfirmed(){
+        return $this->estado==1;
+    }
+
     public function isConfirmed(){
         return $this->estado==2;
     }
 
-    public function isUnconfirmed(){
-        return $this->estado==1;
+    public function isPaid(){
+        return $this->estado==3;
     }
 }

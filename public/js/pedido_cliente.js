@@ -83,12 +83,23 @@ $('#modal-create-pago').on('show.bs.modal',function(event){
     success: (data)=>{
       $(event.currentTarget).find('#nro_pedido-pago').val(data.pedidoCliente.nro_pedido);
       $(event.currentTarget).find('#pedido_cliente_id-pago').val(data.pedidoCliente.id);
+      $(event.currentTarget).find('#saldo-pago').val(data.pedidoCliente.saldo);
       // fecha_pedido=$.datepicker.parseDate('d/m/yy',data.pedidoCliente.created_at);
     }
   });
   $("#fecha_operacion").datepicker({
     // minDate:fecha_pedido,
   });
+});
+
+$('form button[type=submit]').on('click',function(event){
+  var $saldo=$('#saldo-pago');
+  var monto=$('#monto_operacion').val();
+  if(monto>0){
+    var newSaldo=$saldo.val()-monto;
+    $saldo.val(newSaldo);
+  }
+  $('.pago').submit();
 });
 
 /**Activar/Desactivar Inputs del formulario */

@@ -20,10 +20,10 @@ class CreatePedidoClientesTable extends Migration
             $table->integer('galones_asignados')->default(0);
             $table->integer('estado')->default(1);
             $table->decimal('precio_galon',9,5);
+            $table->float('saldo');
             $table->date('fecha_descarga')->nullable();
             $table->string('horario_descarga')->nullable();
             $table->text('observacion')->nullable();
-            $table->float('saldo');
             $table->unsignedBigInteger('cliente_id');
             $table->timestamps();
             $table->softDeletes();

@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-create-pago" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('pago_clientes.store')}}" method="post" class="modal-content">
+    <form action="{{route('pago_clientes.store')}}" method="post" class="modal-content pago">
       @csrf
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -41,6 +41,7 @@
                 </div>
                 <input id="nro_pedido-pago" type="hidden" name="nro_pedido">
                 <input id="pedido_cliente_id-pago" type="hidden" name="pedido_cliente_id">
+                <input id="saldo-pago" type="hidden" name="saldo">
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->
