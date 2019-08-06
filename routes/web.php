@@ -15,6 +15,7 @@ Auth::routes(['register' => false]);
 Route::view('/', 'welcome');
 Route::middleware(['auth'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::resource('/users','UserController');
 	Route::resource('/clientes','ClienteController');
 	Route::get('/clientes/tipo/{tipo}','ClienteController@getByTipo');
 	Route::resource('/proveedores','ProveedorController');

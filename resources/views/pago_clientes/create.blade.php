@@ -22,15 +22,27 @@
                           name="fecha_operacion" placeholder="Ingrese la fecha" required>
                 </div>
                 <div class="form-group">
-                    <label for="codigo_operacion">Codigo de operacion</label>
-                    <input id="codigo_operacion" type="text" class="form-control"
-                            name="codigo_operacion" placeholder="Ingrese el codigo de la operacion" required>
-                  </div>
-                <div class="form-group">
-                  <label for="monto_operacion">Monto</label>
-                  <input id="monto_operacion" type="number" step="any" class="form-control"
-                          name="monto_operacion" placeholder="Ingrese el monto de la operacion" required>
+                  <label for="codigo_operacion">Codigo de operacion</label>
+                  <input id="codigo_operacion" type="text" class="form-control"
+                          name="codigo_operacion" placeholder="Ingrese el codigo de la operacion" required>
                 </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="monto_operacion">Monto</label>
+                      <input id="monto_operacion" type="number" step="any" class="form-control"
+                              name="monto_operacion" placeholder="Ingrese el monto de la operacion" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="saldo-pago">Saldo</label>
+                      <input id="saldo-pago" type="number" step="any" class="form-control"
+                              name="saldo" readonly>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label for="banco">Banco</label>
                   <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco">
@@ -41,7 +53,7 @@
                 </div>
                 <input id="nro_pedido-pago" type="hidden" name="nro_pedido">
                 <input id="pedido_cliente_id-pago" type="hidden" name="pedido_cliente_id">
-                <input id="saldo-pago" type="hidden" name="saldo">
+                
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->
