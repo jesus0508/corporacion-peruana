@@ -23,8 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('telefono')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            // $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 

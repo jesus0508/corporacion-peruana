@@ -166,7 +166,7 @@ class PedidoController extends Controller
                     $pedido_cl->galones_asignados = $cantAsignada;
                     $galonaje_stock -= $pedido_cl->galones;
                     $pedido->galones_distribuidos += $pedido_cl->galones;
-                    //  $pedido_cl->estado = 3;
+                    $pedido_cl->estado = 3;
                     // se le asigna el pedido proveedor al pedido cliente
                     // $pedido_cl->pedidos()->attach($pedido_cl->id);
                     $pedido->pedidosCliente()->attach($pedido_cl->id);

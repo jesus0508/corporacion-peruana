@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
 
     public function getFechaNacimientoAttribute($value){ 
-        return Carbon::createFromFormat('Y-m-d',$value)->format('d/m/Y');
+        return $value ? Carbon::createFromFormat('Y-m-d',$value)->format('d/m/Y') : $value;
     }
 
     public function setPasswordAttribute($value){ 

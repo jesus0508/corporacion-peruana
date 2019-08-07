@@ -44,8 +44,9 @@ class PagoClienteController extends Controller
         $pedidoCliente=PedidoCliente::findOrFail($request->pedido_cliente_id);
         $pedidoCliente->saldo-=$request->monto_operacion;
         $pago->saldo=$pedidoCliente->saldo;
+        $pedidoCliente->estado=4;
         if($pedidoCliente->saldo<=0){
-            $pedidoCliente->estado=3;
+            $pedidoCliente->estado=5;
         }
         $pago->save();
         $pedidoCliente->save();

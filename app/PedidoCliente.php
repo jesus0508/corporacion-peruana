@@ -46,7 +46,15 @@ class PedidoCliente extends Model
         return $this->estado==2;
     }
 
-    public function isPaid(){
+    public function isDistributed(){
         return $this->estado==3;
+    }
+
+    public function isAmortized(){
+        return $this->estado==4;
+    }
+
+    public function isPaid(){
+        return $this->estado==5;
     }
 }

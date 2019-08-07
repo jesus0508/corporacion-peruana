@@ -24,7 +24,7 @@
                   <td>{{$user->nombres}}</td>
                   <td>{{$user->apellido_paterno}}</td>
                   <td>{{$user->email}}</td>
-                  <td>{{$user->fecha_nacimiento}}</td>
+                  <td>{{date('d/m/Y', strtotime($user->fecha_nacimiento))}}</td>
                   <td>{{$user->telefono}}</td>
                   <td>
                     <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-user"
