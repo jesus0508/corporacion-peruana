@@ -71,9 +71,18 @@
                 </div>
               </div>
             </div>
+            @php
+            $suma = 0;
+            @endphp
+
+            @foreach ($pedidos_cl as $pedido_cliente)
+              @php
+                $suma += $pedido_cliente->galones - $pedido_cliente->galones_asignados;
+              @endphp
+            @endforeach
             <div class="row">
               <div class="col-md-12 top-button">
-                @if( $pedido->getGalonesStock() == 0 )
+                @if( $pedido->getGalonesStock() == 0 or $suma == 0 )
                 <button type="submit" class="btn btn-lg btn-success" disabled>
                   <i class="fa fa-th"> </i>
                   Distribuir

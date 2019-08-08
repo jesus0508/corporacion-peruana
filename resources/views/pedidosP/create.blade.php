@@ -30,7 +30,7 @@
                  <label for="planta">Planta</label>
                   <select class="form-control" id="planta" name="planta_id">
                     @foreach ( $plantas as $planta)
-                      <option value="{{$planta->proveedor_id}}">{{$planta->planta}}</option>
+                      <option value="{{$planta->id}}">{{$planta->planta}}</option>
                     @endforeach
                   </select>
 
