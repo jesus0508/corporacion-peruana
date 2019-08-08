@@ -13,6 +13,7 @@
               <th>TIPO</th>
               <th>Cantidad GLS</th>
               <th>Galones Asignados</th>
+              <th>cant/Acción</th>
               <th>Estado</th>
 
             </tr>
@@ -25,6 +26,18 @@
                 <td>{{$pedido_cliente->cliente->getTipo()}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
                 <td>{{$pedido_cliente->galones_asignados}}</td>
+                <td>
+                <form method="POST" action="{{route('asignar_gls')}}">
+
+                    @csrf 
+                    <input type="hidden" name="id_pedido_cliente" value="{{$pedido_cliente->id}}">
+                    <input type="hidden" name="galones_pedido_cl" value="{{$pedido_cliente->galones-$pedido_cliente->galones_asignados}}">
+                    <input  type="hidden" name="id_pedido_pr" value="{{$pedido->id}}">
+                    <input placeholder="gls" type="number" style="width: 50px;" name="galones_stock">
+                   <button class="btn btn-primary">Asignar gls</button>
+                </form>
+
+                </td>
                 <td>  
             
                        <?php 

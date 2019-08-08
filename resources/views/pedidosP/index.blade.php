@@ -25,6 +25,38 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script src="{{ asset('js/pedidos.js') }}"></script> 
 <script>
+$(document).ready(function(){
+
+  $("#modal-pagar-proveedor").on("show.bs.modal", function(event) {
+      
+    $.get('pago_proveedors/create', function( data ) {
+        var html = "";
+        data.forEach(function(val) {
+          var keys = Object.keys(val);
+          console.log(val);
+          if( val != null ){ 
+            html +='<div class="row">';
+            html +=  '<div class="col-md-2"></div>';
+            html +=  '<div class="col-md-8">';
+            html +=    '<a href="pago_proveedors/'+val['id']+'" class="btn  btn-block btn-lg btn-success">'+val['razon_social'];
+            html +=    '</a> ';
+            html +=  '</div>';
+            html +=  ' <div class="col-md-2"></div>';
+            html +='</div>';
+            html +='</br>';            
+
+            $(".show-proveedores").html(html);
+          }
+
+        });
+
+      
+
+    });
+
+   
+  });
+});
 
 $(document).ready(function() {
 $('#proveedores').DataTable({

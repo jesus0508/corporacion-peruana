@@ -9,6 +9,7 @@
           <thead>
             <tr>
               <th>Fecha de Pedido</th>
+              <th>Nro pedido cliente</th>
               <th>Cliente</th>
               <th>TIPO</th>
               <th>Cantidad GLS</th>
@@ -23,12 +24,13 @@
             @foreach ($pedidos_cl as $pedido_cliente)
               <tr>
                 <td>{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}</td>
+                <td> {{$pedido_cliente->nro_pedido}}</td>
                 <td>{{$pedido_cliente->cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->cliente->getTipo()}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
                 <td>{{$pedido_cliente->galones_asignados}}</td>
 
-                <td>  
+                <td> 
                     <button class="btn btn-primary">
                       Ver Pedido
                     </button>

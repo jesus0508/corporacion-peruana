@@ -17,6 +17,10 @@ class Pedido extends Model
         return $this->belongsTo(Planta::class);
     }
 
+    public function facturaProveedor(){
+        return $this->belongsTo(FacturaProveedor::class);
+    }
+
     public function vehiculo(){
         return $this->belongsTo(Vehiculo::class);
     }
@@ -25,10 +29,9 @@ class Pedido extends Model
         return $this->belongsToMany(PedidoCliente::class,'pedido_proveedor_clientes')->with('pedidos');
     }
 
-    public function facturaProveedor(){
-        return $this->belongsTo(FacturaProveedor::class);
+    public function pagosProveedor(){
+        return $this->belongsToMany(PagoProveedor::class,'pago_pedido_proveedors');
     }
-
     
     public function getGalonesStock(){
         return $this->galones-$this->galones_distribuidos;

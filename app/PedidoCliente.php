@@ -30,6 +30,10 @@ class PedidoCliente extends Model
         return $this->precio_galon*$this->galones;
     }
 
+    public function galonesXasignar(){
+        return $this->galones-$this->galones_asignados;
+    }
+
     public function setFechaDescargaAttribute($value){ 
         $this->attributes['fecha_descarga']=Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
     }
