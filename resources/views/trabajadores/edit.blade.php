@@ -1,12 +1,12 @@
-<div class="modal fade" id="modal-edit-user" style="display: none;">
+<div class="modal fade" id="modal-edit-trabajador" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('users.update',0)}}" method="post" class="modal-content">
+    <form action="{{route('trabajadores.update',0)}}" method="post" class="modal-content">
       @csrf
       @method('PUT')
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Editar datos del Usuario</h4>
+        <h4 class="modal-title">Editar datos del Trabajador</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -14,7 +14,7 @@
             <!-- general form elements -->
             <div class="box box-success">
               <div class="box-header with-border">
-                <h2 class="box-title">Registro Usuario</h3>
+                <h2 class="box-title">Registro Trabajador</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">

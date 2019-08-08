@@ -24,6 +24,8 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('/pedido_clientes','PedidoClienteController');
 	Route::get('/pedido_clientes/detalles/{id}','PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');
 	Route::get('/procesar/{id}','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
+	Route::resource('/trabajadores','TrabajadorController');
+	
     Route::resource('/pago_clientes', 'PagoClienteController');
     Route::resource('/planta','PlantaController');
     Route::resource('factura_proveedor', 'FacturaProveedorController');

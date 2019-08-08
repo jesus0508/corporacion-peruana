@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#tabla-users').DataTable({
+  $('#tabla-trabajadores').DataTable({
     language: {
       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
     }
@@ -9,7 +9,7 @@ $(document).ready(function() {
   });
 });
 
-$('#modal-edit-user').on('show.bs.modal', function (event) {          
+$('#modal-edit-trabajador').on('show.bs.modal', function (event) {          
   var id = $(event.relatedTarget).data().id;
   var nombres = $(event.relatedTarget).data().nombres;
   var apellido_paterno = $(event.relatedTarget).data('apellido_paterno');
@@ -30,7 +30,7 @@ $('#modal-edit-user').on('show.bs.modal', function (event) {
   });
 });
 
-$('#modal-show-user').on('show.bs.modal', function (event) {    
+$('#modal-show-trabajador').on('show.bs.modal', function (event) {    
   var id = $(event.relatedTarget).data().id;
   var nombres = $(event.relatedTarget).data().nombres;
   var apellido_paterno = $(event.relatedTarget).data().apellido_paterno;
@@ -46,6 +46,8 @@ $('#modal-show-user').on('show.bs.modal', function (event) {
   $(event.currentTarget).find('#fecha_nacimiento-show').val(fecha_nacimiento);
 });
 
-$(document).ready(function() { 
-
+$('#modal-create-user').on('show.bs.modal', function (event) {    
+  var trabajador_id = $(event.relatedTarget).data().trabajador_id;
+  $(event.currentTarget).find('#trabajador_id').val(trabajador_id);
 });
+

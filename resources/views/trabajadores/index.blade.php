@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Usuarios')
+@section('title','Trabajadores')
 
 @section('styles')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -8,18 +8,19 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Usuarios</a></li>
+  <li><a href="#">Trabajadores</a></li>
   <li><a href="#">Gestion</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('users.create')
-  @include('users.table')
+  @include('trabajadores.create')
+  @include('trabajadores.table')
   <!--modales-->
-  @include('users.show')
-  @include('users.edit')
+  @include('trabajadores.show')
+  @include('trabajadores.edit')
+  @include('user.create')
   <!--/.end-modales-->
 </section>
 @endsection

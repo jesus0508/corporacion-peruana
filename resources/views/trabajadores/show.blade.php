@@ -1,10 +1,10 @@
-<div class="modal fade" id="modal-show-user" style="display: none;">
+<div class="modal fade" id="modal-show-trabajador" style="display: none;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">showar datos del Usuario</h4>
+        <h4 class="modal-title">Ver datos del Trabajador</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -12,7 +12,7 @@
             <!-- general form elements -->
             <div class="box box-success">
               <div class="box-header with-border">
-                <h2 class="box-title">Registro Usuario</h3>
+                <h2 class="box-title">Ver Trabajador</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">

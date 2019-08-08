@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class StoreTrabajadorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,15 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|unique:users,email,'.$this->id,
-            'password'=>'required',
-            'role_id'=>'required',
+            //
+            'dni'=>'required|unique:trabajadores,dni',
+            'nombres'=>'required',
+            'apellido_paterno'=>'required',
+            'apellido_materno'=>'required',
+            'telefono'=>'',
+            'email'=>'',
+            'direccion'=>'',
+            'fecha_nacimiento'=>'',
         ];
     }
 }

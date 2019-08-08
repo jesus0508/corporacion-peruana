@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombres','apellido_paterno','apellido_materno','telefono','fecha_nacimiento', 'email', 'password',
+        'email', 'password','trabajador_id','role_id'
     ];
     
     /**
@@ -38,12 +38,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function setFechaNacimientoAttribute($value){ 
-        $this->attributes['fecha_nacimiento']=Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
-    }
-
-    public function getFechaNacimientoAttribute($value){ 
-        return $value ? Carbon::createFromFormat('Y-m-d',$value)->format('d/m/Y') : $value;
+    public function trabajador()
+    {
+    	return $this->belongsTo(Trabajador::class,'trabajador_id');
     }
 
     public function setPasswordAttribute($value){ 

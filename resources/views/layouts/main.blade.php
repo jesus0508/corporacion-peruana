@@ -182,7 +182,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the usernombres on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ Auth::user()->nombres }}</span>
+              <span class="hidden-xs">{{ Auth::user()->trabajador->nombres }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -190,7 +190,7 @@ desired effect
                 <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ Auth::user()->nombres }}
+                  {{ Auth::user()->trabajador->nombres }}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -240,7 +240,7 @@ desired effect
           <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{ Auth::user()->nombres }}</p>
+          <p>{{ Auth::user()->trabajador->nombres }}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -327,13 +327,13 @@ desired effect
         </li>
         <li id="treeview-usuarios" class="treeview">
           <a href="#">
-            <i class="fa fa-users"></i> <span>Usuarios</span>
+            <i class="fa fa-users"></i> <span>Trabajadores</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('users.index')}}"><i class="fa fa fa-user"></i>Gestion</a></li>
+            <li><a href="{{route('trabajadores.index')}}"><i class="fa fa fa-user"></i>Gestion</a></li>
           </ul>
         </li>
 

@@ -24,13 +24,10 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombres'=>'required',
-            'apellido_paterno'=>'required',
-            'apellido_materno'=>'required',
-            'telefono'=>'',
-            'fecha_nacimiento'=>'',
             'email'=>'required|unique:users,email',
             'password'=>'required',
+            'trabajador_id'=>'required',
+            'role_id'=>'',
         ];
     }
 }
