@@ -54,9 +54,8 @@ class FacturaProveedorController extends Controller
         $facturaCreada = FacturaProveedor::where('nro_factura_proveedor','=',$request->nro_factura_proveedor)->first();
         $id_factura_proveedor = $facturaCreada->id;
         $pedido->factura_proveedor_id = $id_factura_proveedor;
-        if( $pedido->vehiculo_id != null ){
-            $pedido->estado = 2;
-        }
+        $pedido->estado = 2;
+
         $pedido->saldo = $request->monto_factura;
         
         $pedido->save();
@@ -107,10 +106,6 @@ class FacturaProveedorController extends Controller
            return back()->with('alert-type','error')->with('status','No seleccionaste el número de Proveedor');
         }
         $pedido->vehiculo_id = $request->placa;
-
-        if( $pedido->factura_proveedor_id != null ){
-            $pedido->estado = 2;
-        }
         $pedido->save();
 
       return  back()->with('alert-type','success')->with('status','Transportista asignado con exito');

@@ -89,7 +89,7 @@ class PedidoController extends Controller
         $pedidos_clientes_confirmados
             = PedidoCliente::where('estado','=',2)->with('cliente')->orderBy('id','desc')->get();
         $pedidos_cl = $pedidos_clientes_confirmados;
-       // return $pedido;
+        //return $pedidos_cl;
         return view('distribucion.index',compact( 'pedido' , 'pedidos_cl' ));
 
 
@@ -104,6 +104,47 @@ class PedidoController extends Controller
        // return $pedidos_cl;
         return view('distribucion.resumen.index',compact( 'pedido' , 'pedidos_cl' ));
 
+
+
+    }
+
+    public function asignar_individual(Request $request){
+
+        $pedido_cl = PedidoCliente::findOrFail($request->id_pedido_cliente);
+        $cantDistribuir = $request->galonesXasignar;
+        $pedido = Pedido::findOrFail($request->id_pedido_pr);
+        $galonaje_stock = $request->galones_stock;
+
+        if(  $pedido->getGalonesStock() < $request->galones_stock or 
+                  $cantDistribuir > $pedido_cl->galonesXasignar() ){
+
+            return back()->with('alert-type','error')->with('status','Galonaje incorrecto!');
+
+        }
+        $restanteXasignar = $request->galones_pedido_cl;
+
+       if( $restanteXasignar > $galonaje_stock ){
+
+            $pedido_cl->galones_asignados += $galonaje_stock;
+            $pedido->galones_distribuidos += $galonaje_stock; 
+            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $pedido->save();
+            $pedido_cl->save();
+
+       } else{//si el stock es mayor a lo q se distribuira
+
+                    $pedido_cl->galones_asignados += $restanteXasignar;
+                    $pedido->galones_distribuidos += $pedido_cl->galones;
+                    $pedido_cl->estado = 3;
+                    $pedido->pedidosCliente()->attach($pedido_cl->id);
+                    $pedido->save();
+                    $pedido_cl->save();
+
+       }
+
+        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id',$request->id_pedido_pr)->get();
+ 
+        return view('distribucion.resumen.index',compact( 'pedido' , 'pedidos_cl' ));
 
 
     }
@@ -146,7 +187,7 @@ class PedidoController extends Controller
                 $cantAsignada = $pedido_cl->galones_asignados + $galonaje_stock;
                 if ( $cantAsignada <= $pedido_cl->galones ) {
 
-                   $pedido_cl->galones_asignados = $cantAsignada;
+                    $pedido_cl->galones_asignados = $cantAsignada;
                     $pedido->galones_distribuidos += $galonaje_stock; 
                     $galonaje_stock = 0;
                     //se le asigna el pedido proveedor al pedido cliente
