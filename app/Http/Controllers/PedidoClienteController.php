@@ -62,6 +62,15 @@ class PedidoClienteController extends Controller
         return response()->json(['pedidoCliente'=>$pedidoCliente]);
     }
 
+    public function getDetalles($id){
+        $pedidoCliente=PedidoCliente::with('cliente')->where('id',$id)->first();
+        if($pedidoCliente->estado>2){
+            $pedidoCliente->load('pedidos');
+            return view('pedido_clientes.detalles',compact('pedidoCliente'));
+        }
+        return back()->with('alert-type','error')->with('status','Ocurrio un erro al ver detalles');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

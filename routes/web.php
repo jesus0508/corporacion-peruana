@@ -13,6 +13,7 @@
 Auth::routes(['register' => false]);
 
 Route::view('/', 'welcome');
+Route::view('/detalles', 'pedido_clientes.detalles');
 Route::middleware(['auth'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('/users','UserController');
@@ -21,6 +22,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('/proveedores','ProveedorController');
 	Route::resource('/pedidos','PedidoController');
 	Route::resource('/pedido_clientes','PedidoClienteController');
+	Route::get('/pedido_clientes/detalles/{id}','PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');
 	Route::get('/procesar/{id}','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
     Route::resource('/pago_clientes', 'PagoClienteController');
     Route::resource('/planta','PlantaController');
