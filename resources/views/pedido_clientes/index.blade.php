@@ -20,6 +20,7 @@
   @include('pedido_clientes.show')
   @include('pedido_clientes.edit') 
   @include('pago_clientes.create')
+  @include('pago_clientes.bloque')
 </section>
 @endsection
 

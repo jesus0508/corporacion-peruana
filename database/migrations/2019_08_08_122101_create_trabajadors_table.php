@@ -19,8 +19,11 @@ class CreateTrabajadorsTable extends Migration
             $table->string('nombres');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
-            $table->string('telefono')->nullable();
             $table->date('fecha_nacimiento')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('genero',1)->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

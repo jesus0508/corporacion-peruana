@@ -52,7 +52,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        return $cliente;
+        return response()->json(['cliente'=>$cliente]);
     }
 
     /**
@@ -63,7 +63,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        return $cliente;
+        return response()->json(['cliente'=>$cliente]);
     }
 
     /**
@@ -106,4 +106,6 @@ class ClienteController extends Controller
         }
         return response()->json(['clientes'=>$clientes]);
     }
+
+
 }

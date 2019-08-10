@@ -18,24 +18,29 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
+                  <label for="dni-edit">DNI</label>
+                  <input id="dni-edit" type="text" class="form-control" 
+                          name="dni" placeholder="Ingrese el dni" required>
+                </div>
+                <div class="form-group">
                   <label for="nombres-edit">Nombres</label>
                   <input id="nombres-edit" type="text" class="form-control" 
-                          name="nombres" placeholder="Ingrese sus nombres">
+                          name="nombres" placeholder="Ingrese sus nombres" required>
                 </div>
                 <div class="form-group">
                   <label for="apellido_paterno-edit">Apellido Paterno</label>
                   <input id="apellido_paterno-edit" type="text" class="form-control" 
-                          name="apellido_paterno" placeholder="Ingrese el apellido paterno">
+                          name="apellido_paterno" placeholder="Ingrese el apellido paterno" required>
                 </div>
                 <div class="form-group">
                   <label for="apellido_materno-edit">Apellido Materno</label>
                   <input id="apellido_materno-edit" type="text" class="form-control"
-                          name="apellido_materno" placeholder="Ingrese el apellido materno">
+                          name="apellido_materno" placeholder="Ingrese el apellido materno" required>
                 </div>
                 <div class="form-group">
                   <label for="fecha_nacimiento-edit">Fecha de nacimiento</label>
                   <input id="fecha_nacimiento-edit" type="text" class="form-control" 
-                          name="fecha_nacimiento" placeholder="Ingrese la fecha nacimiento">
+                          name="fecha_nacimiento" placeholder="Ingrese la fecha nacimiento" required>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -54,21 +59,31 @@
                           name="email" placeholder="Ingrese el email">
                 </div>
                 <div class="form-group">
-                  <label for="password-edit">Contraseña</label>
-                  <input id="password-edit" type="text" class="form-control" 
-                          name="password" placeholder="Ingrese la contraseña">
-                </div>
-                <div class="form-group">
                   <label for="telefono-edit">Telefono</label>
                   <input id="telefono-edit" type="text" class="form-control" 
                           name="telefono" placeholder="Ingrese el telefono">
                 </div>
                 <div class="form-group">
-                  <label for="rol_id-edit">Rol</label>
-                  <select id="rol_id-edit" class="form-control" name="rol_id">
-                    <option value="1">Administrador</option>
-                    <option value="2">Secretaria</option>
-                  </select>
+                  <label for="genero-edit">Genero</label>
+                  <div class="form-inline">
+                    <div class="radio">
+                      <label>
+                        <input id="genero-edit-1" type="radio" name="genero-edit" value="1">
+                        Masculino
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input id="genero-edit-2" type="radio" name="genero-edit" value="2">
+                        Femenino
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="direccion-edit">Direccion</label>
+                  <input id="direccion-edit" type="text" class="form-control" 
+                          name="direccion" placeholder="Ingrese la direccion">
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
