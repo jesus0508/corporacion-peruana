@@ -18,11 +18,9 @@ class CreatePagoClientesTable extends Migration
             $table->date('fecha_operacion');
             $table->string('codigo_operacion');
             $table->float('monto_operacion');
-            $table->float('saldo')->default(0);;
+            $table->float('saldo')->default(0);
             $table->string('banco');
-            $table->unsignedBigInteger('pedido_cliente_id');
             $table->timestamps();
-            $table->foreign('pedido_cliente_id')->references('id')->on('pedido_clientes');
         });
     }
 
