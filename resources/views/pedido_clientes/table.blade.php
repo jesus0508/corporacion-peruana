@@ -3,23 +3,9 @@
     <div class="box box-success">
       <div class="box-header with-border">
         <h2 class="box-title">Lista de Pedidos</h2>
-        <div class="pull-right">
-          <a href="{{route('pedido_clientes.create')}}" class="btn btn-primary">
-            <i class="fa fa-plus-square-o"></i>
-            Nuevo pedido
-          </a>
-          <button data-toggle="modal" data-target="#modal-create-pago_bloque" class="btn btn-success">
-            <i class="fa fa-money"> </i>
-            Pagar en Bloque
-          </button>
-          <a href="{{route('pedido_clientes.create')}}" class="btn btn-default">
-            <i class="fa  fa-file-excel-o"></i>
-            Exportar a Excel
-          </a>
-        </div>
       </div><!-- /.box-header -->
       <div class="box-body">
-
+        @include('pedido_clientes.partials.opciones')
         <table id="tabla-pedido_clientes" class="table table-bordered table-striped">
           <thead>
             <tr>
@@ -51,7 +37,14 @@
         </table>
       </div>
       <div class="box-footer">
-
+        <a href="{{route('pedido_clientes.create')}}" class="btn btn-primary">
+          <i class="fa fa-plus-square-o"></i>
+          Nuevo pedido
+        </a>
+        <a href="{{route('pedido_clientes.create')}}" class="btn btn-default">
+          <i class="fa  fa-file-excel-o"></i>
+          Exportar a Excel
+        </a>
       </div>
     </div> <!-- end box -->
   </div>

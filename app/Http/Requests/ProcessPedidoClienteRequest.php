@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePagoBloqueRequest extends FormRequest
+class ProcessPedidoClienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StorePagoBloqueRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,11 +24,7 @@ class StorePagoBloqueRequest extends FormRequest
     public function rules()
     {
         return [
-            'fecha_operacion'=>'required|date_format:"d/m/Y"',
-            'codigo_operacion'=>'required',
-            'monto_operacion'=>'required',
-            'banco'=>'required|max: 255',
-            'cliente_id'=>'required'
+            'id'=>'required'
         ];
     }
 }

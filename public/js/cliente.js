@@ -1,73 +1,47 @@
-$('#modal-edit-cliente').on('show.bs.modal', function (event) {     
-  var id= $(event.relatedTarget).data('id');
-  $.ajax({
-    type: 'GET',
-    url:`./clientes/${id}`,
-    dataType : 'json',
-    data: {
-      id : $(`#id`).val(),
-    },
-    success: (data)=>{
-      $(event.currentTarget).find('#ruc-edit').val(data.cliente.ruc);
-      $(event.currentTarget).find('#razon_social-edit').val(data.cliente.razon_social);
-      $(event.currentTarget).find('#telefono-edit').val(data.cliente.telefono);
-      $(event.currentTarget).find('#tipo-edit').val(data.cliente.tipo);
-      $(event.currentTarget).find('#direccion-edit').val(data.cliente.direccion);
-      $(event.currentTarget).find('#linea_credito-edit').val(data.cliente.linea_credito);
-      $(event.currentTarget).find('#periocidad-edit').val(data.cliente.periocidad);
-      $(event.currentTarget).find('#id-edit').val(data.cliente.id);
-    },
-    error: (error)=>{
-      toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
-    }
-  });
+$('#modal-edit-cliente').on('show.bs.modal', function (event) {          
+  var id = $(event.relatedTarget).data().id;
+  var ruc = $(event.relatedTarget).data().ruc;
+  var razon_social = $(event.relatedTarget).data().razon_social;
+  var telefono = $(event.relatedTarget).data().telefono;
+  var tipo = $(event.relatedTarget).data().tipo;
+  var direccion = $(event.relatedTarget).data().direccion;
+  $(event.currentTarget).find('#ruc-edit').val(ruc);
+  $(event.currentTarget).find('#razon_social-edit').val(razon_social);
+  $(event.currentTarget).find('#telefono-edit').val(telefono);
+  $(event.currentTarget).find('#tipo-edit').val(tipo);
+  $(event.currentTarget).find('#direccion-edit').val(direccion);
+  $(event.currentTarget).find('#id-edit').val(id);
 });
-
 
 $('#modal-show-cliente').on('show.bs.modal', function (event) {    
-  var id= $(event.relatedTarget).data('id');
-  $.ajax({
-    type: 'GET',
-    url:`./clientes/${id}/edit`,
-    dataType : 'json',
-    data: {
-      'id' : $(`#id`).val(),
-    },
-    success: (data)=>{
-      $(event.currentTarget).find('#ruc-show').val(data.cliente.ruc);
-      $(event.currentTarget).find('#razon_social-show').val(data.cliente.razon_social);
-      $(event.currentTarget).find('#telefono-show').val(data.cliente.telefono);
-      $(event.currentTarget).find('#tipo-show').val(data.cliente.tipo);
-      $(event.currentTarget).find('#direccion-show').val(data.cliente.direccion);
-      $(event.currentTarget).find('#linea_credito-show').val(data.cliente.linea_credito);
-      $(event.currentTarget).find('#periocidad-show').val(data.cliente.periocidad);
-    },
-    error: (error)=>{
-      toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
-    }
-  });
+  var id = $(event.relatedTarget).data().id;
+  var ruc = $(event.relatedTarget).data().ruc;
+  var razon_social = $(event.relatedTarget).data().razon_social;
+  var telefono = $(event.relatedTarget).data().telefono;
+  var tipo = $(event.relatedTarget).data().tipo;
+  var direccion = $(event.relatedTarget).data().direccion;
+  $(event.currentTarget).find('#ruc-show').val(ruc);
+  $(event.currentTarget).find('#razon_social-show').val(razon_social);
+  $(event.currentTarget).find('#telefono-show').val(telefono);
+  $(event.currentTarget).find('#tipo-show').val(tipo);
+  $(event.currentTarget).find('#direccion-show').val(direccion);
 });
+
+$('#treeview-clientes').on('click',function(event){
+  $('#treeview-proveedores').removeClass("active");
+  $('#treeview-clientes').addClass("active");
+})
+
+
 
 $(document).ready(function() {
   $('#tabla-clientes').DataTable({
-    language: {
-       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-    }, 
-    columnDefs: [ 
-    { 
-      orderable: false, 
-      targets: [ -1 ] 
-    },
-    { 
-      searchable: false, 
-      targets: [-1] 
-    },
-    ] 
+    'language': {
+             'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+        }
   });
-  } 
-);
+} );
 
-//Cambiar un archivo en general JS en el main
 $('.box').on('click',function(){
   $('.box').removeClass('box-success');
   $(this).addClass('box-success');

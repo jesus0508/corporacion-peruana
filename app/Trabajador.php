@@ -10,8 +10,7 @@ class Trabajador extends Model
     //
     protected $table = 'trabajadores';
     protected $fillable=[
-        'dni','nombres','apellido_paterno','apellido_materno','fecha_nacimiento',
-        'telefono','genero','email','direccion'
+        'dni','nombres','apellido_paterno','apellido_materno','telefono','fecha_nacimiento'
     ];
 
     public function user()

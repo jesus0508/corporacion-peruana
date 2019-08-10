@@ -16,24 +16,19 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
-                  <label for="dni-show">DNI</label>
-                  <input id="dni-show" type="text" class="form-control" readonly>
-                </div>
-                <div class="form-group">
                   <label for="nombres-show">Nombres</label>
-                  <input id="nombres-show" type="text" class="form-control" readonly>
+                  <input id="nombres-show" type="text" class="form-control" 
+                          name="nombres" placeholder="Ingrese sus nombres" readonly>
                 </div>
                 <div class="form-group">
                   <label for="apellido_paterno-show">Apellido Paterno</label>
-                  <input id="apellido_paterno-show" type="text" class="form-control" readonly>
+                  <input id="apellido_paterno-show" type="text" class="form-control" 
+                          name="apellido_paterno" placeholder="Ingrese el apellido paterno" readonly>
                 </div>
                 <div class="form-group">
                   <label for="apellido_materno-show">Apellido Materno</label>
-                  <input id="apellido_materno-show" type="text" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                  <label for="fecha_nacimiento-show">Fecha de nacimiento</label>
-                  <input id="fecha_nacimiento-show" type="text" class="form-control" readonly>
+                  <input id="apellido_materno-show" type="text" class="form-control"
+                          name="apellido_materno" placeholder="Ingrese el apellido materno" readonly>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -48,19 +43,18 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="email-show">Correo Electronico</label>
-                  <input id="email-show" type="text" class="form-control" readonly>
+                  <input id="email-show" type="text" class="form-control" 
+                          name="email" placeholder="Ingrese el email" readonly>
                 </div>
                 <div class="form-group">
                   <label for="telefono-show">Telefono</label>
-                  <input id="telefono-show" type="text" class="form-control" readonly>
+                  <input id="telefono-show" type="text" class="form-control" 
+                          name="telefono" placeholder="Ingrese el telefono" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="genero-show">Genero</label>
-                  <input id="genero-show" type="text" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                  <label for="direccion-show">Direccion</label>
-                  <input id="direccion-show" type="text" class="form-control" readonly>
+                  <label for="fecha_nacimiento-show">Fecha de nacimiento</label>
+                  <input id="fecha_nacimiento-show" type="text" class="form-control" 
+                          name="fecha_nacimiento" placeholder="Ingrese la fecha nacimiento" readonly>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->

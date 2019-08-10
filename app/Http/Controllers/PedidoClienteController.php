@@ -120,9 +120,5 @@ class PedidoClienteController extends Controller
         return response()->json(['status'=>'Pedido eliminado con exito']);
     }
 
-    public function getByRazonSocial($razon_social){
-        $cliente=Cliente::where('razon_social',$razon_social)->first();
-        $total_deuda=$cliente->pedidoClientes()->sum('saldo');
-        return response()->json(['total_deuda'=>$total_deuda,'cliente_id'=>$cliente->id]);
-    }
+
 }

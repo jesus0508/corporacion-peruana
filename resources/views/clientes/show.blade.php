@@ -18,22 +18,15 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="ruc-show">RUC</label>
-                  <input id="ruc-show" type="text" class="form-control" readonly>
+                  <input id="ruc-show" type="text" class="form-control" disabled>
                 </div>
                 <div class="form-group">
                   <label for="razon_social-show">Razón Social</label>
-                  <input id="razon_social-show" type="text" class="form-control" readonly>
+                  <input id="razon_social-show" type="text" class="form-control" disabled>
                 </div>
                 <div class="form-group">
                   <label for="telefono-show">Teléfono</label>
-                  <input id="telefono-show" type="tel" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                  <label for="tipo-show">Tipo</label>
-                  <select id="tipo-show" class="form-control" disabled>
-                    <option value="1">Grifo</option>
-                    <option value="2">Normal</option>
-                  </select>
+                  <input id="telefono-show" type="tel" class="form-control" disabled>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -46,16 +39,15 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
-                  <label for="linea_credito-show">Linea de credito</label>
-                  <input id="linea_credito-show" type="number" step="any" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                  <label for="periocidad-show">Periocidad</label>
-                  <input id="periocidad-show" type="number" step="any" class="form-control" readonly>
+                  <label for="tipo-show">Tipo</label>
+                  <select id="tipo-show" class="form-control" disabled>
+                    <option value="1">Grifo</option>
+                    <option value="2">Normal</option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="direccion-show">Dirección</label>
-                  <input id="direccion-show" type="text" class="form-control" readonly>
+                  <input id="direccion-show" type="text" class="form-control" disabled>
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->

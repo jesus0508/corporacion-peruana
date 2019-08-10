@@ -24,7 +24,7 @@
                 <div class="form-group">
                   <label for="codigo_operacion">Codigo de operacion</label>
                   <input id="codigo_operacion" type="text" class="form-control"
-                          name="codigo_operacion" placeholder="Ingrese el codigo de la operacion">
+                          name="codigo_operacion" placeholder="Ingrese el codigo de la operacion" required>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
@@ -45,7 +45,7 @@
 
                 <div class="form-group">
                   <label for="banco">Banco</label>
-                  <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco" required>
+                  <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco">
                     <option value="BCP">BCP</option>
                     <option value="BBVA">BBVA</option>
                     <option value="SCOTIBANK">SCOTIBANK</option>

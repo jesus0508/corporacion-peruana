@@ -33,8 +33,8 @@
                   <label for="tipo">Tipo</label>
                   <select class="form-control" id="tipo" name="tipo">
                     <option value="0">Todos</option>
-                    <option value="1">Normal</option>
-                    <option value="2">Grifo</option>
+                    <option value="1">Grifo</option>
+                    <option value="2">Normal</option>
                   </select>
                 </div>
               </div><!-- end tipo -->

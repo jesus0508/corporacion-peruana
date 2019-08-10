@@ -2,14 +2,10 @@
 
 namespace CorporacionPeru\Http\Controllers;
 
-use CorporacionPeru\Cliente;
 use CorporacionPeru\PagoCliente;
 use CorporacionPeru\PedidoCliente;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StorePagoRequest;
-use CorporacionPeru\Http\Requests\StorePagoBloqueRequest;
-use Illuminate\Support\Facades\DB;
-use Log;
 
 class PagoClienteController extends Controller
 {
@@ -45,21 +41,16 @@ class PagoClienteController extends Controller
     {
         //
         $pago=PagoCliente::create($request->validated());
-        $pedido_cliente=PedidoCliente::findOrFail($request->pedido_cliente_id);
-        $pedido_cliente->saldo-=$request->monto_operacion;
-        $pago->saldo=$pedido_cliente->saldo;
-        $pedido_cliente->estado=4;
-        if($pedido_cliente->saldo<=0){
-            $pedido_cliente->estado=5;
+        $pedidoCliente=PedidoCliente::findOrFail($request->pedido_cliente_id);
+        $pedidoCliente->saldo-=$request->monto_operacion;
+        $pago->saldo=$pedidoCliente->saldo;
+        $pedidoCliente->estado=4;
+        if($pedidoCliente->saldo<=0){
+            $pedidoCliente->estado=5;
         }
         $pago->save();
-        $pedido_cliente->save();
+        $pedidoCliente->save();
         return back()->with('alert-type','success')->with('status','Pago registrado con exito');
-    }
-
-    public function pagoBloque(StorePagoBloqueRequest $request,Cliente $cliente)
-    {
-
     }
 
     /**

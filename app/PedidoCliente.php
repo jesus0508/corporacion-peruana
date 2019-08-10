@@ -19,7 +19,7 @@ class PedidoCliente extends Model
     }
 
     public function pagoClientes(){
-        return $this->belongsToMany(PagoCliente::class);
+        return $this->hasMany(PagoCliente::class);
     }
     
     public function pedidos(){

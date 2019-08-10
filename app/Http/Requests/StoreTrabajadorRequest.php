@@ -30,7 +30,6 @@ class StoreTrabajadorRequest extends FormRequest
             'apellido_paterno'=>'required',
             'apellido_materno'=>'required',
             'telefono'=>'',
-            'genero'=>'required',
             'email'=>'',
             'direccion'=>'',
             'fecha_nacimiento'=>'',

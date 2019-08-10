@@ -26,11 +26,15 @@
                 <td>{{$cliente->direccion}}</td>
                 <td>
                   <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-cliente"
-                            data-id="{{$cliente->id}}">
+                            data-id="{{$cliente->id}}" data-ruc="{{$cliente->ruc}}" data-tipo="{{$cliente->tipo}}"
+                            data-razon_social="{{$cliente->razon_social}}" data-telefono="{{$cliente->telefono}}"
+                            data-direccion="{{$cliente->direccion}}">
                     <span class="glyphicon glyphicon-eye-open"></span>
                   </button>
                   <button class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-cliente"
-                            data-id="{{$cliente->id}}">
+                            data-id="{{$cliente->id}}" data-ruc="{{$cliente->ruc}}" data-tipo="{{$cliente->tipo}}"
+                            data-razon_social="{{$cliente->razon_social}}" data-telefono="{{$cliente->telefono}}"
+                            data-direccion="{{$cliente->direccion}}">
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
                   @if($cliente->pedidoClientes->isEmpty())

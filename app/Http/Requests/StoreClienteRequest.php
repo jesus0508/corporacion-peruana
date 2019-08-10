@@ -28,9 +28,7 @@ class StoreClienteRequest extends FormRequest
             'telefono'=>'regex:/^([9]{1})([0-9]{8})$/i',
             'razon_social'=>'required',
             'direccion'=>'max: 255|min: 5',
-            'tipo'=>'',
-            'linea_credito'=>'required',
-            'periocidad'=>'required',
+            'tipo'=>'required'
         ];
     }
 }

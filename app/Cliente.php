@@ -9,7 +9,7 @@ class Cliente extends Model
 {
     use SoftDeletes;
     protected $table = 'clientes';
-    protected $fillable= ['ruc','razon_social','tipo','direccion','telefono','linea_credito','periocidad'];
+    protected $fillable= ['ruc','razon_social','tipo','direccion','telefono'];
     protected $dates = ['deleted_at'];
 
     public function pedidoClientes(){

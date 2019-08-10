@@ -3,8 +3,11 @@ $('#modal-edit-pedido_cliente').on('show.bs.modal',function(event){
   $.ajax({
     type: 'GET',
     url:`./pedido_clientes/${id}/edit`,
-    dataType : 'json',
+    data: {
+      'id' : $(`#id`).val(),
+    },
     success: (data)=>{
+      console.log(data.pedidoCliente.id);
       $(event.currentTarget).find('#nro_pedido-edit').val(data.pedidoCliente.nro_pedido);
       $(event.currentTarget).find('#galones-edit').val(data.pedidoCliente.galones);
       $(event.currentTarget).find('#precio_galon-edit').val(data.pedidoCliente.precio_galon);
@@ -17,9 +20,23 @@ $('#modal-edit-pedido_cliente').on('show.bs.modal',function(event){
       toastr.error('Ocurrio un Error!', 'Error Alert', {timeOut: 2000});
     }
   });
-  $('#fecha_descarga-edit').datepicker({
+  $("#fecha_descarga-edit").datepicker({
     minDate:0,
   });
+});
+
+$('#modal-confirmar-pedido').on('show.bs.modal',function(event){
+  var id= $(event.relatedTarget).data('id');
+  var nro_pedido= $(event.relatedTarget).data('nro_pedido');
+  var fecha_pedido= $(event.relatedTarget).data('fecha_pedido');
+  var horario_descarga= $(event.relatedTarget).data('horario_descarga'); 
+  var observacion= $(event.relatedTarget).data('observacion'); 
+
+  $(event.currentTarget).find('#nro_pedido-confirmar').val(nro_pedido);
+  $(event.currentTarget).find('#fecha_pedido-confirmar').val(fecha_pedido);
+  $(event.currentTarget).find('#horario_descarga-confirmar').val(horario_descarga);
+  $(event.currentTarget).find('#observacion-confirmar').val(observacion);
+  $(event.currentTarget).find('#id-confirmar').val(id);
 });
 
 $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
@@ -27,7 +44,9 @@ $('#modal-show-pedido_cliente').on('show.bs.modal',function(event){
   $.ajax({
     type: 'GET',
     url:`./pedido_clientes/${id}`,
-    dataType : 'json',
+    data: {
+      'id' : $(`#id`).val(),
+    },
     success: (data)=>{
       $(event.currentTarget).find('#cliente-show').val(data.pedidoCliente.cliente.razon_social);
       $(event.currentTarget).find('#ruc-show').val(data.pedidoCliente.cliente.ruc);
@@ -58,9 +77,8 @@ $('#modal-create-pago').on('show.bs.modal',function(event){
   $.ajax({
     type: 'GET',
     url:`./pedido_clientes/${id}`,
-    dataType : 'json',
     data: {
-      'id' : $('#id').val(),
+      'id' : $(`#id`).val(),
     },
     success: (data)=>{
       $(event.currentTarget).find('#nro_pedido-pago').val(data.pedidoCliente.nro_pedido);
@@ -97,7 +115,7 @@ $(document).ready(function() {
     var id=$("#cliente").val();
     var deshabilitar=true;
     if(id){
-      findById(id);
+      findByRazonSocial(id);
       deshabilitar=false;
     }else{
       $('#ruc').val('');
@@ -113,12 +131,27 @@ $(document).ready(function() {
   $('#tabla-pedido_clientes').DataTable({
     language: {
       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-    },
-    dom: '<"form-group"f>rt<"bottom"lip><"clear">'
+    }
   });
-  
-
+  $('#filtrar').on('click',function(){
+    $('#tabla-pedido_clientes').DataTable().draw();
+  });
 });
+
+/* Agregar filtro datatable */
+$.fn.dataTable.ext.search.push(
+  function( settings, data, dataIndex ) {
+    var sInicio=$('#fecha_inicio').val();
+    var sFin=$('#fecha_fin').val();
+    var inicio = $.datepicker.parseDate('d/m/yy', sInicio) ;
+    var fin = $.datepicker.parseDate('d/m/yy', sFin)  ;
+    var dia = $.datepicker.parseDate('d/m/yy',data[1]) ;
+    if (!inicio || !dia || fin>=dia && inicio<=dia ){
+      return true;
+    }
+    return false;
+  }
+);
 
 /** Inicializar datos  */
 $(document).ready(function() { 
@@ -167,13 +200,13 @@ $('.btn-eliminar').on('click',function(event){
   
 });
 
-/* AJAX Buscar por ID */
-function findById(id){
+/* AJAX Buscar por Razon Social */
+function findByRazonSocial(id){
   $.ajax({
     type: 'GET',
     url:`../clientes/${id}`,
     success: (data)=>{
-      $('#ruc').val(data.cliente.ruc);
+      $('#ruc').val(data.ruc);
     }
   });
 }
@@ -218,6 +251,7 @@ $('#tipo').on('change',function(event){
     type: 'GET',
     url:`../clientes/tipo/${tipo}`,
     success: (data)=>{
+      console.log(data);
       $cliente.empty();
       $cliente.select2({
         placeholder: "Ingresa la razon social",
@@ -228,74 +262,3 @@ $('#tipo').on('change',function(event){
     }
   });
 });
-
-$(document).ready(function() { 
-  $('#modal-create-pago_bloque').on('show.bs.modal',function(event){
-    $('#datos-pago :input').prop("disabled",true);
-    var razon_social=$("#tabla-pedido_clientes_filter input[type='search']").val();
-    if(razon_social){
-      $('#razon_social-pago').val(razon_social);
-      findByRazonSocial(razon_social);
-    }
-  });
-  
-  $('#btn-buscar').on('click',function(){
-    var razon_social=$("#razon_social-pago").val();
-    if(razon_social){
-      findByRazonSocial(razon_social);
-    }else{
-      $('#datos-pago :input').prop("disabled",true);
-    }
-    
-  });
-
-  $('#btn-').on('click',function(){
-    var fecha_operacion=$('#fecha_operacion-pago_bloque').val();
-    var codigo_operacion=$('#codigo_operacion-pago_bloque').val();
-    var monto_operacion=$('#monto_operacion-pago_bloque').val();
-    var banco=$('#banco-pago_bloque').val();
-    var cliente_id=$('#cliente_id-pago_bloque').val();
-    $.ajax({
-      type: 'POST',
-      url:`./pago_clientes/pedidos/${cliente_id}`,
-      data:{
-        '_token': $('input[name=_token]').val(),
-        'fecha_operacion' : fecha_operacion,
-        'codigo_operacion' : codigo_operacion,
-        'monto_operacion' : monto_operacion,
-        'banco' : banco
-      },
-      success: (data)=>{
-        console.log(data);
-      },
-      error:(error)=>{
-        console.log(error);
-      }
-  });
-  });
-  
-  function findByRazonSocial(razon_social){
-    $.ajax({
-      type: 'GET',
-      url:`./pedido_clientes/cliente/${razon_social}`,
-      success: (data)=>{
-        if(data.total_deuda!=null){
-          console.log(data);
-          $('#datos-pago :input').prop("disabled",false);
-          $('#saldo-pago_bloque').val((data.total_deuda).toFixed(2));
-          $('#cliente_id-pago_bloque').val(data.cliente_id);
-          toastr.success('Cliente encontrado con exito', 'Success Alert', {timeOut: 2000});
-        }else{
-          $('#datos-pago :input').prop("disabled",true);
-          toastr.warning('Cliente no se encuentra registrado', 'Warning Alert', {timeOut: 2000});
-        }
-      },
-      error: (error)=>{
-        toastr.error('Ocurrio un error al buscar', 'Error Alert', {timeOut: 2000});
-      }
-    });
-  }
-});
-
-
-
