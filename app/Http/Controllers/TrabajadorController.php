@@ -85,7 +85,7 @@ class TrabajadorController extends Controller
      * @param  \CorporacionPeru\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trabajador $trabajador)
+    public function destroy(Trabajador $trabajadore)
     {
         //
         $trabajador->delete();

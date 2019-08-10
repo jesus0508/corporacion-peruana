@@ -30,13 +30,15 @@
                   <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-show-trabajador"
                             data-id="{{$trabajador->id}}" data-dni="{{$trabajador->dni}}" data-nombres="{{$trabajador->nombres}}" 
                             data-apellido_paterno="{{$trabajador->apellido_paterno}}" data-apellido_materno="{{$trabajador->apellido_materno}}"
-                            data-fecha_nacimiento="{{$trabajador->fecha_nacimiento}}" data-telefono="{{$trabajador->telefono}}">
+                            data-fecha_nacimiento="{{$trabajador->fecha_nacimiento}}" data-telefono="{{$trabajador->telefono}}"
+                            data-email="{{$trabajador->email}}" data-direccion="{{$trabajador->direccion}}" data-genero="{{$trabajador->genero}}">
                     <span class="glyphicon glyphicon-eye-open"></span>
                   </button>
                   <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-edit-trabajador"
-                            data-id="{{$trabajador->id}}" data-dni="{{$trabajador->dni}}" data-nombres="{{$trabajador->nombres}}" 
+                            data-dni="{{$trabajador->dni}}" data-nombres="{{$trabajador->nombres}}" data-genero="{{$trabajador->genero}}"
                             data-apellido_paterno="{{$trabajador->apellido_paterno}}" data-apellido_materno="{{$trabajador->apellido_materno}}"
-                            data-fecha_nacimiento="{{$trabajador->fecha_nacimiento}}" data-telefono="{{$trabajador->telefono}}">
+                            data-fecha_nacimiento="{{$trabajador->fecha_nacimiento}}" data-telefono="{{$trabajador->telefono}}"
+                            data-email="{{$trabajador->email}}" data-direccion="{{$trabajador->direccion}}">
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
                   <form style="display:inline" method="POST" action="{{ route('trabajadores.destroy', $trabajador->id) }}">

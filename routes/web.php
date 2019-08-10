@@ -18,15 +18,19 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('/users','UserController');
 	Route::resource('/clientes','ClienteController');
+
 	Route::get('/clientes/tipo/{tipo}','ClienteController@getByTipo');
 	Route::resource('/proveedores','ProveedorController');
 	Route::resource('/pedidos','PedidoController');
 	Route::resource('/pedido_clientes','PedidoClienteController');
+	Route::get('/pedido_clientes/cliente/{razon_social}','PedidoClienteController@getByRazonSocial')->where('razon_social', '[A-Za-z]+');
 	Route::get('/pedido_clientes/detalles/{id}','PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');
 	Route::get('/procesar/{id}','PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
 	Route::resource('/trabajadores','TrabajadorController');
-	
-    Route::resource('/pago_clientes', 'PagoClienteController');
+	Route::resource('/pago_clientes', 'PagoClienteController');
+	Route::post('/pago_clientes/pedidos/{cliente}','PagoClienteController@pagoBloque')->name('pago_clientes.pagoBloque');
+
+  
     Route::resource('/planta','PlantaController');
     Route::resource('factura_proveedor', 'FacturaProveedorController');
 	Route::resource('transportista', 'TransportistaController');

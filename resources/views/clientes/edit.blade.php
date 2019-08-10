@@ -33,6 +33,13 @@
                   <input id="telefono-edit" type="tel" class="form-control"
                           name="telefono" placeholder="Ingrese el numero telefonico" required>
                 </div>
+                <div class="form-group">
+                  <label for="tipo-edit">Tipo</label>
+                  <select id="tipo-edit" class="form-control" name="tipo">
+                    <option value="1">Normal</option>
+                    <option value="2">Grifo</option>
+                  </select>
+                </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->
@@ -44,16 +51,19 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
-                  <label for="tipo-edit">Tipo</label>
-                  <select id="tipo-edit" class="form-control" name="tipo">
-                    <option value="1">Grifo</option>
-                    <option value="2">Normal</option>
-                  </select>
+                  <label for="linea_credito-edit">Linea de credito</label>
+                  <input id="linea_credito-edit" type="number" step="any" class="form-control"
+                        name="linea_credito" placeholder="Ingrese la linea de credito" required min="0">
+                </div>
+                <div class="form-group">
+                  <label for="periocidad-edit">Periocidad</label>
+                  <input id="periocidad-edit" type="number" step="any" class="form-control"
+                        name="periocidad" placeholder="Ingrese la linea de credito" required min="0">
                 </div>
                 <div class="form-group">
                   <label for="direccion-edit">Dirección</label>
                   <input id="direccion-edit" type="text" class="form-control" 
-                          name="direccion" placeholder="Ingrese la direccion">
+                          name="direccion" placeholder="Ingrese la direccion" required minlength="5">
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
