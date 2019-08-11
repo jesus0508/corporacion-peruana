@@ -1,7 +1,5 @@
- @if(!empty($id))
-
-<div class="modal fade" id="modal-edit-proveedor" style="display: none;">
-  <div class="modal-dialog" style="width: 500px;">
+<div class="modal fade" id="modal-edit-proveedor" role="dialog">
+  <div class="modal-dialog">
  
 
     <form action="{{route('proveedores.update',0)}}" method="post" class="modal-content">
@@ -30,16 +28,16 @@
                           name="razon_social" placeholder="Ingrese la Razon Social" required>
                 </div>
 
-                <div class="form-group">
-                  <label for="ruc-edit">RUC</label>
-                  <input id="ruc-edit" type="text" class="form-control" value=""
-                          name="ruc" placeholder="Ingrese el RUC" required>
-                </div>
+              <div class="form-group @error('ruc') has-error @enderror">
+                <label for="ruc">RUC*</label>
+                <input id="ruc-edit" type="text" class="form-control" name="ruc" placeholder="Ingrese su RUC" value="{{ old('ruc') }}">
+                @error('ruc')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
 
-                
-               
-
-              
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->
@@ -50,14 +48,15 @@
                 <h3 class="box-title">Datos secundarios</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                
-                <div class="form-group">
-                  <label for="representante-edit">Representante</label>
-                  <input id="representante-edit" type="text" class="form-control" 
-                          name="representante" placeholder="Ingrese el nombre del representante">
-                </div>
-                
-                
+                <div class="form-group @error('email') has-error @enderror">
+                  <label for="email">Email</label>
+                  <input id="email-edit" type="text" class="form-control" name="email" placeholder="proveedor@ejemplo.com" value="{{ old('email') }}">
+                  @error('email')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>  
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (right) -->
@@ -70,4 +69,3 @@
     </form><!-- /.form-modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
-@endif

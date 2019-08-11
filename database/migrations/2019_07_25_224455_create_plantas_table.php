@@ -16,7 +16,7 @@ class CreatePlantasTable extends Migration
         Schema::create('plantas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('planta');
-            $table->string('direccion_planta');
+            $table->string('direccion_planta')->nullable();
             $table->string('celular_planta')->nullable();
             $table->unsignedBigInteger('proveedor_id'); 
             $table->foreign('proveedor_id')

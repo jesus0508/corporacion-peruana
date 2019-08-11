@@ -17,7 +17,7 @@ class ProveedorController extends Controller
     public function index()
     {
         //
-        $proveedores=Proveedor::all();
+        $proveedores = Proveedor::all();
         return view('proveedores.index',compact('proveedores'));
     }
 
@@ -27,9 +27,11 @@ class ProveedorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    { 
 
-         return view('proveedores.create');
+        $proveedores=Proveedor::orderBy('id','asc')->get();
+
+        return view('proveedores.index_create',compact('proveedores'));
         //
     }
 
@@ -41,10 +43,13 @@ class ProveedorController extends Controller
      */
     public function store(StoreProveedorRequest $request)
     {
-        //
-          Proveedor::create($request->validated());
+   
+        Proveedor::create($request->validated());
 
-        return  back()->with('alert-type','success')->with('status','Proveedor creado con exito');
+
+    return  redirect()->action('ProveedorController@index')->with('alert-type','success')->with('status','Proveedor creado con exito');
+     
+
     }
 
   
@@ -55,12 +60,11 @@ class ProveedorController extends Controller
      * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $proveedor,$id)
+    public function show($id)
     {
-        //
-       // return $proveedor;
-         $proveedor=Proveedor::findOrFail($id);
-         return $proveedor;
+        $proveedor = Proveedor::findOrFail($id);
+        return $proveedor;
+        //return response()->json(['proveedor'=>$proveedor]);
     }
 
     /**
@@ -105,7 +109,7 @@ class ProveedorController extends Controller
 
         if( $contador <= 0){
              Proveedor::destroy($id);
-             return  back()->with('alert-type','success')->with('status','Proveedor borrado con exito');
+             return  back()->with('alert-type','warning')->with('status','Proveedor borrado con exito');
 
         } else{
 

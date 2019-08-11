@@ -9,7 +9,7 @@ class Proveedor extends Model
 {
     protected $table = 'proveedores';
     protected $primaryKey = 'id';
-    protected $fillable= ['id','razon_social','ruc' ,'representante'];
+    protected $fillable= ['id','razon_social','ruc' ,'representante', 'email'];
 
 
     public function plantas()

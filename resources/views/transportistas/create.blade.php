@@ -18,7 +18,7 @@
           <div class="form-group">
             <label for="nombre_transportista">Nombre*</label>
             <input id="nombre_transportista" type="text" class="form-control" 
-                    name="nombre_transportista" placeholder="Ingrese su Nombre">
+                    name="nombre_transportista" value="{{old('nombre_transportista')}}" placeholder="Ingrese su Nombre">
             
           </div>
           <div class="form-group">

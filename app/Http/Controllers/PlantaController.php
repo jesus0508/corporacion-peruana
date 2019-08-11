@@ -38,7 +38,6 @@ class PlantaController extends Controller
         //
     }
 
-  
 
      /**
      * Store a newly created resource in storage.
@@ -49,9 +48,12 @@ class PlantaController extends Controller
     public function store(StorePlantaRequest $request)
     {
         //
-          Planta::create($request->all());
+        $planta = Planta::create($request->validated());
+        $id = $planta->proveedor_id;
           
-        return  back()->with('alert-type','success')->with('status','Planta agregada con exito');
+        return  
+        redirect()->route('planta.show',compact('id'))->with('alert-type','success')->with('status','Planta creada con exito');
+        
     }
 
     /**
@@ -63,15 +65,10 @@ class PlantaController extends Controller
     public function show($id)
     {
        $proveedor_id = $id;
+       $proveedor = Proveedor::findOrFail($id); 
+       $plantas = Planta::where('proveedor_id',"=",$proveedor_id)->get();
 
-        $plantas=Planta::where('proveedor_id',"=",$proveedor_id)->get();
-       // $planta= $plantas[0]->planta;
-        //$planta1= $plantas[0];
-    
-    // return view('proveedores.plantasShow',compact('plantas'))->toJson();
-    //	return  response()->json($plantas[0]->planta);
- 		//return $plantas->render();
-	return $plantas;
+        return view('proveedores.planta.index',compact('plantas','proveedor'));
  		
     }
 
@@ -86,13 +83,11 @@ class PlantaController extends Controller
      */
     public function update(StorePlantaRequest $request,  $id)
     {
-        
+        $id = $request->id;
        
         $planta=planta::findOrFail($id);
-        $planta->update($request->all());
-        return response()->json([
-             "mensaje"=>"Actualizacion de registro correcto." 
-        ]);
+        $planta->update($request->validated());
+         return  back()->with('alert-type','success')->with('status','planta editada con exito');
     }
 
        public function modificar(StorePlantaRequest $request,  $id)
@@ -110,15 +105,13 @@ class PlantaController extends Controller
      * @param  \CorporacionPeru\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //falta Validar
+
     public function destroy( $id)
     {
 
-            //$id = $request->proveedor_id;
-           //  $jsonProv = $var[0] ;
           Planta::destroy($id); 
        
 
-     return  back()->with('alert-type','success')->with('status','Planta borrada con exito');
+     return  back()->with('alert-type','warning')->with('status','Planta borrada con exito');
     }
 }

@@ -284,7 +284,8 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('proveedores.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
+            <li><a href="{{route('proveedores.create')}}"><i class="fa fa-beer"></i> Gestion</a></li>
+            <li><a href="{{route('proveedores.index')}}"><i class="fa fa-list"></i>Ver Proveedores</a></li>
           </ul>
         </li>
 
@@ -456,10 +457,6 @@ desired effect
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 
 <!--  JS entidades -->
-
-<script src="{{ asset('js/proveedor.js') }}"></script>
-<!-- DATATABLES -->
-
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <script>

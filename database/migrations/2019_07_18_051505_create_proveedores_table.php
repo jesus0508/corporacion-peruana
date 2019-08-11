@@ -17,10 +17,11 @@ class CreateProveedoresTable extends Migration
             $table->bigIncrements('id');
             $table->string('razon_social');
             $table->string('ruc');
+            $table->string('email')->unique()->nullable();
             $table->string('representante')->nullable();
 
             $table->timestamps();
-        });
+        });     
     }
 
     /**
