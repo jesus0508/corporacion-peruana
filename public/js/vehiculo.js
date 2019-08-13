@@ -1,18 +1,28 @@
-$('#modal-edit-vehiculo').on('show.bs.modal',function(event){
-  var id = $(event.relatedTarget).data('id');
-  var placa = $(event.relatedTarget).data('placa');
-  var modelo = $(event.relatedTarget).data('modelo');
-  var marca = $(event.relatedTarget).data('marca');
-  var transportista_id = $(event.relatedTarget).data('transportista_id');
+function editarVehiculo(id){
 
-  $(event.currentTarget).find('#placa-edit').val(placa);
-  $(event.currentTarget).find('#modelo-edit').val(modelo);
-  $(event.currentTarget).find('#marca-edit').val(marca);
-  $(event.currentTarget).find('#id-edit').val(id);
-  $(event.currentTarget).find('#transportista_id-edit').val(transportista_id);
- 
+ $('#modal-edit-vehiculo').modal('show');
+  //var id = document.getElementById('id_proveedor').value;
+  console.log(id);
+  $.ajax({
+    type: 'GET',
+    url:`./${id}/edit`,
+    dataType : 'json',
+      
+    success: (data)=>{
+      console.log(data);
+      document.getElementById('placa-edit').value = data.placa;
+      document.getElementById('capacidad-edit').value = data.capacidad;
+      document.getElementById('detalle_compartimiento-edit').value = data.detalle_compartimiento;
+      document.getElementById('transportista_id-edit').value = data.transportista_id;      
+      document.getElementById('id-edit').value = data.id;
+    },
+    error: (error)=>{
+      toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+    }
+  }); 
+}
 
-});
+
 
 $(document).ready(function() {
  

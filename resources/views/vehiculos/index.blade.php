@@ -15,11 +15,17 @@
 
 @section('content')
 <section class="content-header">
-  <h1>GESTIÓN Vehículos transportistas</h1>
+
+	    <a href="{{route('transportista.index')}}">
+			<button class="btn bg-olive pull-right">
+			VOLVER TRANSPORTISTAS &nbsp; <span class="fa fa-reply"></span>
+			</button>
+    </a>   
+  <h3>Vehículos de <span class="label label-primary">{{$transportista->nombre_transportista}}</span>:</h3>
+
 </section>
 <section class="content">
-  
-  <h2>LISTA DE VEHICULOS DE <span style="color: blue; font-weight: 400;">{{$transportista->nombre_transportista}}</span></h2>
+
   @include('vehiculos.table')
   <!--modales-->
   @include('vehiculos.edit')

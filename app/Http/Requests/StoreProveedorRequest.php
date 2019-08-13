@@ -24,11 +24,9 @@ class StoreProveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            //'razon_social'=>'required|max: 255|unique:proveedores,razon_social,'.$this->id,
-            'razon_social'=>'required|max: 255|unique:proveedores,razon_social,'.$this->id,
-            'ruc' => 'required|min: 11|unique:proveedores,ruc,'.$this->id,
+            'razon_social'=>'required|max: 255',
+            'ruc' => 'required|digits: 11|unique:proveedores,ruc,'.$this->id,
             'email'=>'nullable|email|unique:proveedores,email,'.$this->id,        
-      
-        ];
+            ];
     }
 }

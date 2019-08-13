@@ -20,7 +20,7 @@
        }
 
 
-      $('#diferencia').val(diferencia);
+      $('#diferencia').val(-diferencia);
     
 
     }else{

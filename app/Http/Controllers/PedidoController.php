@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
+
+    public function confirmarPedido($id){
+        $pedido=Pedido::findOrFail($id);
+        /*Logica para actualizar pedido pendiente*/
+        $pedido->estado=2;
+        $pedido->save();
+        return  back()->with('alert-type','success')->with('status','Pedido confirmado con exito');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -89,8 +98,9 @@ class PedidoController extends Controller
         $pedidos_clientes_confirmados
             = PedidoCliente::where('estado','=',2)->with('cliente')->orderBy('id','desc')->get();
         $pedidos_cl = $pedidos_clientes_confirmados;
+        $vehiculos = Vehiculo::all();
         //return $pedidos_cl;
-        return view('distribucion.index',compact( 'pedido' , 'pedidos_cl' ));
+        return view('distribucion.index',compact( 'pedido' , 'pedidos_cl' , 'vehiculos'));
 
 
     }

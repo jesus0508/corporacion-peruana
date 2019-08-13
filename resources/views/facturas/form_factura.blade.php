@@ -1,5 +1,3 @@
-
-
         <div id="datos-pedido" class="box box-success">
           <div class="box-header with-border">
             <div class="row">

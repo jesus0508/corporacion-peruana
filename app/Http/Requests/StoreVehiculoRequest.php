@@ -13,7 +13,7 @@ class StoreVehiculoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreVehiculoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            
+            'placa' => 'required|min: 6|alpha-dash|unique:vehiculos,placa,'.$this->id,
+            'capacidad' => 'required',
+            'detalle_compartimiento'=>'',
+            'transportista_id'=>'required',
         ];
     }
 }

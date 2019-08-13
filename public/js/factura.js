@@ -18,7 +18,8 @@
           dif.style.color = "black";
 
        }
-
+       diferencia = -1 * diferencia;
+       
 
       $('#diferencia').val(diferencia);
     

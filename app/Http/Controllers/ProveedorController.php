@@ -6,6 +6,7 @@ use CorporacionPeru\Planta;
 use CorporacionPeru\Proveedor;
 use CorporacionPeru\Http\Requests;
 use CorporacionPeru\Http\Requests\StoreProveedorRequest;
+use CorporacionPeru\Http\Requests\UpdateProveedorRequest;
 
 class ProveedorController extends Controller
 {
@@ -62,9 +63,11 @@ class ProveedorController extends Controller
      */
     public function show($id)
     {
+        $planta = Planta::findOrFail($id);
+        $id = $planta->proveedor_id;
         $proveedor = Proveedor::findOrFail($id);
         return $proveedor;
-        //return response()->json(['proveedor'=>$proveedor]);
+
     }
 
     /**
@@ -73,9 +76,10 @@ class ProveedorController extends Controller
      * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedor $proveedor)
+    public function edit($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        return $proveedor;
     }
 
     /**
@@ -85,14 +89,12 @@ class ProveedorController extends Controller
      * @param  \CorporacionPeru\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProveedorRequest $request,$id)
+    public function update(UpdateProveedorRequest $request,$id)
     {
         $id=$request->id;
-        //$var = $proveedor->get('id');
-        //$jsonProv = $var[0] ; 
         $proveedor=Proveedor::findOrFail($id);
         $proveedor->update($request->validated());
-        return  back()->with('alert-type','success')->with('status','proveedor editado con exito');;
+        return  redirect()->action('ProveedorController@index')->with('alert-type','success')->with('status','Proveedor editado con exito');
     }
 
     /**

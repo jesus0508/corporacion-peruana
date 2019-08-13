@@ -1,8 +1,6 @@
 <div class="modal fade" id="modal-edit-proveedor" role="dialog">
   <div class="modal-dialog">
- 
-
-    <form action="{{route('proveedores.update',0)}}" method="post" class="modal-content">
+     <form action="{{route('proveedores.update',0)}}" method="post" class="modal-content">
       @csrf
       @method('PUT')
       <div class="modal-header">
@@ -22,15 +20,20 @@
               </div><!-- /.box-header -->
               <div class="box-body">
               
-                <div class="form-group">
+                <div class="form-group @error('razon_social') has-error @enderror">
                   <label for="razon_social-edit">Razon Social</label>
-                  <input id="razon_social-edit" type="text" class="form-control" value=""
-                          name="razon_social" placeholder="Ingrese la Razon Social" required>
+                  <input id="razon_social-edit" type="text" class="form-control" 
+                          name="razon_social" value="{{ old('razon_social') }}" placeholder="Ingrese la Razon Social" required>
+                  @error('razon_social')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
 
               <div class="form-group @error('ruc') has-error @enderror">
                 <label for="ruc">RUC*</label>
-                <input id="ruc-edit" type="text" class="form-control" name="ruc" placeholder="Ingrese su RUC" value="{{ old('ruc') }}">
+                <input id="ruc-edit" type="text" class="form-control" name="ruc" placeholder="Ingrese su RUC" value="{{ old('ruc') }}" pattern="[0-9]{11}" title="Formato: 11 dígitos" required>
                 @error('ruc')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -50,7 +53,7 @@
               <div class="box-body">
                 <div class="form-group @error('email') has-error @enderror">
                   <label for="email">Email</label>
-                  <input id="email-edit" type="text" class="form-control" name="email" placeholder="proveedor@ejemplo.com" value="{{ old('email') }}">
+                  <input id="email-edit" type="email" class="form-control" name="email" placeholder="proveedor@ejemplo.com" value="{{ old('email') }}">
                   @error('email')
                     <span class="help-block" role="alert">
                       <strong>{{ $message }}</strong>

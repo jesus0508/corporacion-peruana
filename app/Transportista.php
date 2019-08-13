@@ -8,7 +8,7 @@ class Transportista extends Model
 {
    	protected $table = 'transportistas';
     protected $primaryKey = 'id';
-    protected $fillable= ['id','brevete','nombre_transportista' ,'celular_transportista'];
+    protected $fillable= ['id','ruc','nombre_transportista' ,'celular_transportista'];
 
 
     public function vehiculos()

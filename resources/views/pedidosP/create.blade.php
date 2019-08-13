@@ -28,7 +28,7 @@
             <div class="form-group">
 
                  <label for="planta">Planta</label>
-                  <select class="form-control" id="planta" name="planta_id">
+                  <select class="form-control" id="planta" name="planta_id" required>
                     @foreach ( $plantas as $planta)
                       <option value="{{$planta->id}}">{{$planta->planta}}</option>
                     @endforeach
@@ -55,12 +55,12 @@
           <div class="box-body">
             <div class="form-group">
                 <label for="galones">Cantidad de galones del pedido</label>
-               <input id="galones" type="text" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones"pattern="[0-9]+">
+               <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" required>
            
             </div>
             <div class="form-group">
               <label for="costo_galon">Precio del galón</label>
-              <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon">
+              <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
             </div>
 
 

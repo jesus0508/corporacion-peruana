@@ -16,7 +16,7 @@
 @section('content')
 <section class="content-header">
 	    <a href="{{route('proveedores.index')}}">
-			<button class="btn btn-primary pull-right">
+			<button class="btn bg-olive pull-right">
 			VOLVER PROVEEDORES &nbsp; <span class="fa fa-reply"></span>
 			</button>
     </a> 

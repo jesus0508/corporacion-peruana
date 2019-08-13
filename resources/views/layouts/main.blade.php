@@ -32,7 +32,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
    <!-- DATATABLES -->
+  <link href="//cdn.datatables.net/responsive/2.1.1/css/dataTables.responsive.css"/>
+  <!-- Responsive tables-->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+  <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet"/>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
   @yield('styles')
 </head>
@@ -284,7 +287,7 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('proveedores.create')}}"><i class="fa fa-beer"></i> Gestion</a></li>
+            <li><a href="{{route('proveedores.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
             <li><a href="{{route('proveedores.index')}}"><i class="fa fa-list"></i>Ver Proveedores</a></li>
           </ul>
         </li>
@@ -311,7 +314,8 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('transportista.index')}}"><i class="fa fa-beer"></i> Gestion</a></li>
+            <li><a href="{{route('transportista.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
+            <li><a href="{{route('transportista.index')}}"><i class="fa fa-list"></i> Ver Transportistas</a></li>            
           </ul>
         </li>
 
@@ -457,8 +461,11 @@ desired effect
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 
 <!--  JS entidades -->
+
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
 <script>
  $.datepicker.regional['es'] = {
   closeText: 'Cerrar',

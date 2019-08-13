@@ -38,7 +38,7 @@
           <div class="col-md-6">
             <div class="form-group @error('celular_planta') has-error @enderror">
               <label for="celular_planta">Celular de la planta</label>
-              <input id="celular_planta" type="number" class="form-control" name="celular_planta" placeholder="Ingrese el celular de la planta" value="{{ old('celular_planta') }}" >
+              <input id="celular_planta" type="number" class="form-control" name="celular_planta" placeholder="Ingrese el celular de la planta" value="{{ old('celular_planta') }}" min="900000000" max="999999999" title="Formato: 9 dígitos">
               @error('celular_planta')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>

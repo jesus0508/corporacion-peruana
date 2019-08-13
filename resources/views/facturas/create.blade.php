@@ -47,7 +47,7 @@
         </div><!-- /.box datos pedido -->
         @include('facturas.form_factura')
       </form>
-      @include('facturas.form_transportista')
+
 
       </div><!--/.col (left) -->
 

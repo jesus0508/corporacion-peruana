@@ -8,11 +8,11 @@
           <table id="tabla-vehiculos" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Nro</th>
-                <th>Placa </th>
-                <th>Modelo</th>
-                <th>Marca</th>
-                <th>Acciones</th>
+                <th width="2%">#</th>
+                <th width="20%">Placa </th>
+                <th width="15%">Capacidad</th>
+                <th width="45%">Detalle Compartimiento</th>
+                <th width="15%">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -20,8 +20,13 @@
                 <tr>
                 	<td>{{$vehiculo->id}}</td>
                   <td>{{$vehiculo->placa}}</td>
-                  <td>{{$vehiculo->modelo}}</td>
-                  <td>{{$vehiculo->marca}}</td>
+                  <td>{{$vehiculo->capacidad}}&nbsp;galones</td>
+                  <td>
+                    <?php 
+                     $string = $vehiculo->detalle_compartimiento;
+                     echo nl2br($string);
+                    ?>                    
+                  </td>
 
                   @include('actions.vehiculo')
 

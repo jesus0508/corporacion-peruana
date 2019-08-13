@@ -37,10 +37,9 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('vehiculo', 'VehiculoController');
     Route::resource('/pago_proveedors', 'PagoProveedorController'); 
     Route::get('proveedores_data', 'ProveedorController@datatable');
-	Route::get('plantas_data/{id}', 'PlantaController@show');
-	Route::get('planta_delete/{id}', 'PlantaController@destroy');
     Route::get('distribuir/{id}', 'PedidoController@distribuir')->name('pedidos.distribuir');
 	Route::put('distribuir_pedido/{id}', 'PedidoController@distribuir_pedido')->name('pedidos.distribuir_pedido');
 	Route::get('ver_distribucion/{id}', 'PedidoController@ver_distribucion')->name('pedidos.ver_distribucion');
     Route::post('asignar_gls', 'PedidoController@asignar_individual')->name('asignar_gls');
+    Route::get('/procesar/{id}','PedidoController@confirmarPedido')->name('pedidos.confirmarPedido');
 });

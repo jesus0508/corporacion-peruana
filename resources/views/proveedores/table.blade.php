@@ -2,11 +2,11 @@
     <div class="col-xs-12">
       <div class="box box-success">
         <div class="box-header">
-          <h3 class="box-title">Lista de Proveedores - Table</h3>
+          <h3 class="box-title">LISTA DE <b>PROVEEDORES</b></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="tabla-proveedores" class="table table-bordered table-striped">
+          <table id="tabla-proveedores" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
                 <th width="5%">#</th>
@@ -24,26 +24,7 @@
                   <td>{{$proveedor->razon_social}}</td>
                   <td>{{$proveedor->ruc}}</td>
                   <td>{{$proveedor->email}}</td>
-                  <td>
-                    <input type="hidden" id="id_proveedor" value="{{$proveedor->id}}">
-                    <a class="btn btn-info" href="{{ route('planta.show',$proveedor->id) }}">
-                    Gestion planta
-                      <span class="fa fa-pencil"> </span>
-                    </a>
-                    
-                      <button class='btn btn-warning' 
-                              onclick="editarProveedor('<?php echo $proveedor->id; ?>')">
-                    <span class='glyphicon glyphicon-edit'> </span>
-                    </button>
-                 
-                    <form style="display:inline" method="POST" action="{{ route('proveedores.destroy', $proveedor->id) }}">
-                      @csrf
-                      @method('DELETE')
-                      <button class="btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span>
-                      </button>
-                    </form>        
-                  </td>
+                  @include('actions.proveedor')
                 </tr>
               @endforeach
             </tbody>

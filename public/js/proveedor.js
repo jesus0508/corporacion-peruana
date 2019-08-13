@@ -19,11 +19,9 @@ function editarProveedor(id){
   console.log(id);
   $.ajax({
     type: 'GET',
-    url:`./proveedores/${id}`,
+    url:`./proveedores/${id}/edit`,
     dataType : 'json',
-    data: {
-      id : id
-    },
+
     success: (data)=>{
       console.log(data);
       document.getElementById('razon_social-edit').value = data.razon_social;
@@ -42,7 +40,8 @@ function editarProveedor(id){
 $(document).ready(function() {
   
     $('#tabla-proveedores').DataTable({
-        "order": [[ 0, "desc" ]],                    
+        "order": [[ 0, "desc" ]],       
+          "responsive": true,             
         'language': {
         'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
       }, columnDefs: [ 
