@@ -60,7 +60,7 @@ class PagoClienteController extends Controller
 
     public function pagoBloque(StorePagoBloqueRequest $request, Cliente $cliente)
     {
-        LOG::info('Cliente '.$cliente);
+        LOG::info('Cliente ' . $cliente);
         try {
             DB::beginTransaction();
             $pago = PagoCliente::create($request->validated());
@@ -87,7 +87,7 @@ class PagoClienteController extends Controller
             }
             if ($monto_actual > 0) {
                 /** Guardar en alguna parte el excedente */
-                return response()->json(['status' => 'Hubo un excedente de: '.$monto_actual]);
+                return response()->json(['status' => 'Hubo un excedente de: ' . $monto_actual]);
             }
             DB::commit();
             return response()->json(['status' => 'Pagos registrados con exito']);
