@@ -115,13 +115,12 @@ class PedidoClienteController extends Controller
     public function destroy(PedidoCliente $pedidoCliente)
     {
         //
-        
         $pedidoCliente->delete();
         return response()->json(['status'=>'Pedido eliminado con exito']);
     }
 
-    public function getByRazonSocial($razon_social){
-        $cliente=Cliente::where('razon_social',$razon_social)->first();
+    public function getByRazonSocial($id){
+        $cliente=Cliente::where('id',$id)->first();
         $total_deuda=$cliente->pedidoClientes()->sum('saldo');
         return response()->json(['total_deuda'=>$total_deuda,'cliente_id'=>$cliente->id]);
     }

@@ -21,8 +21,9 @@ class PagoClienteController extends Controller
     public function index()
     {
         //
-        $pagos=PagoCliente::all();
-        return view('pago_clientes.index',compact('pagos'));
+        $pagos = PagoCliente::with('pedidoClientes')->get();
+        // dd($pagos);
+        return view('pago_clientes.index', compact('pagos'));
     }
 
     /**
@@ -44,22 +45,58 @@ class PagoClienteController extends Controller
     public function store(StorePagoRequest $request)
     {
         //
-        $pago=PagoCliente::create($request->validated());
-        $pedido_cliente=PedidoCliente::findOrFail($request->pedido_cliente_id);
-        $pedido_cliente->saldo-=$request->monto_operacion;
-        $pago->saldo=$pedido_cliente->saldo;
-        $pedido_cliente->estado=4;
-        if($pedido_cliente->saldo<=0){
-            $pedido_cliente->estado=5;
+        $pago = PagoCliente::create($request->validated());
+        $pedido_cliente = PedidoCliente::findOrFail($request->pedido_cliente_id);
+        $pedido_cliente->saldo -= $request->monto_operacion;
+        $pago->saldo = $pedido_cliente->saldo;
+        $pedido_cliente->estado = 4;
+        if ($pedido_cliente->saldo <= 0) {
+            $pedido_cliente->estado = 5;
         }
         $pago->save();
         $pedido_cliente->save();
-        return back()->with('alert-type','success')->with('status','Pago registrado con exito');
+        return back()->with('alert-type', 'success')->with('status', 'Pago registrado con exito');
     }
 
-    public function pagoBloque(StorePagoBloqueRequest $request,Cliente $cliente)
+    public function pagoBloque(StorePagoBloqueRequest $request, Cliente $cliente)
     {
+        LOG::info('Cliente '.$cliente);
+        try {
+            DB::beginTransaction();
+            $pago = PagoCliente::create($request->validated());
+            $pedidos_cliente = PedidoCliente::where('cliente_id', $cliente->id)
+                ->whereBetween('estado', [2, 4])
+                ->orderBy('created_at', 'asc')
+                ->get();
+            $monto_actual = $pago->monto_operacion;
+            foreach ($pedidos_cliente as $pedido_cliente) {
+                if ($monto_actual >= $pedido_cliente->saldo) {
+                    $monto_actual -= $pedido_cliente->saldo;
+                    $pedido_cliente->saldo = 0;
+                    $pedido_cliente->estado = 5;
+                    $pedido_cliente->pagoClientes()->sync($pago->id);
+                    $pedido_cliente->save();
+                } else {
+                    $pedido_cliente->saldo -= $monto_actual;
+                    $pedido_cliente->estado = 4;
+                    $pedido_cliente->pagoClientes()->sync($pago->id);
+                    $pedido_cliente->save();
+                    $monto_actual = 0;
+                    break;
+                }
+            }
+            if ($monto_actual > 0) {
+                /** Guardar en alguna parte el excedente */
+                return response()->json(['status' => 'Hubo un excedente de: '.$monto_actual]);
+            }
+            DB::commit();
+            return response()->json(['status' => 'Pagos registrados con exito']);
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json(['status' => 'Pagos registrados con exito']);
 
+            // return back()->with(['alert-type' => 'error', 'status' => 'Ocurrio un error en el servidor vuelve a intentarlo']);
+        }
     }
 
     /**

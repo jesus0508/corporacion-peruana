@@ -10,7 +10,7 @@ class PagoCliente extends Model
     protected $table = 'pago_clientes';
     protected $fillable= ['fecha_operacion','codigo_operacion','monto_operacion','banco'];
     
-    public function pedidoCliente(){
+    public function pedidoClientes(){
         return $this->belongsToMany(PedidoCliente::class);
     }
     

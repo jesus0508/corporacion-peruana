@@ -107,5 +107,9 @@ class ClienteController extends Controller
         return response()->json(['clientes'=>$clientes]);
     }
 
+    public function getAllClientes(){
+        $clientes=Cliente::all();
+        return response()->json(['clientes'=>$clientes]);
+    }
 
 }

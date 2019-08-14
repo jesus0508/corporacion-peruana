@@ -28,7 +28,6 @@ class StorePagoBloqueRequest extends FormRequest
             'codigo_operacion'=>'required',
             'monto_operacion'=>'required',
             'banco'=>'required|max: 255',
-            'cliente_id'=>'required'
         ];
     }
 }

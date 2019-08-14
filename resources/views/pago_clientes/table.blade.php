@@ -21,16 +21,18 @@
           </thead>
           <tbody>
             @foreach ($pagos as $pago)
+              @foreach ($pago->pedidoClientes as $pedidoCliente)
               <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
-                <td>{{$pago->pedidoCliente->nro_pedido}}</td>
-                <td>{{$pago->pedidoCliente->cliente->razon_social}}</td>
+                <td>{{$pedidoCliente->nro_pedido}}</td>
+                <td>{{$pedidoCliente->cliente->razon_social}}</td>
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                 <td>S/&nbsp;{{$pago->saldo}}</td>
                 <td>{{$pago->banco}}</td>
                 <td>Gaaaaaaaaaaa</td>
               </tr>
+              @endforeach
             @endforeach
           </tbody>
         </table>

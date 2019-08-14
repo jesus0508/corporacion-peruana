@@ -1,17 +1,20 @@
 <div class="row">
-  <div class="col-md-10">
-    <div class="form-inline">
-      <label for="fecha_inicio">Cliente: </label>
-      <input autocomplete="off" id="cliente-filter" type="text" class="form-control"
-        name="razon_social" placeholder="Ingrese la razon social">
-    </div>
-    <div class="col-md-3">
-      <button id="filtrar" class="btn btn-info">
-        <i class="fa fa-search"></i>
-        Filtrar
-      </button>
-    </div>
+  <div class="col-md-4">
+    <div class="input-group">
+      <span class="input-group-addon">Cliente</span>
+      <select class="form-control" id="cliente-pago_bloque" name="cliente_id">
+        @foreach ( $clientes as $cliente)
+          <option value="{{$cliente->id}}">{{$cliente->razon_social}}</option>
+        @endforeach
+      </select>
+    </div><!-- /input-group -->
   </div>
   <div class="col-md-2">
+    <div class="form-group">
+      <button id="btn-pagar" data-toggle="modal" data-target="#modal-create-pago_bloque" class="btn btn-success" >
+        <i class="fa fa-money"> </i>
+        Pagar en Bloque
+      </button>
+    </div>
   </div>
 </div>

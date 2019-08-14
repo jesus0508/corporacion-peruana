@@ -1,6 +1,7 @@
 <div class="modal fade" id="modal-create-pago_bloque" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('pago_clientes.pagoBloque',3)}}" method="post" class="modal-content pago">
+    {{-- <form action="{{route('pago_clientes.pagoBloque',2)}}" method="post" class="modal-content pago"> --}}
+    <div class="modal-content pago">
       @csrf
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -19,11 +20,10 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="input-group">
-                      <input id="razon_social-pago" type="text" class="form-control" placeholder="Ingrese la razon social" required>
-                      <div class="input-group-btn">
-                        <button type="button" id="btn-buscar" class="btn btn-default pull-right">Buscar</button>
-                      </div>
+                    <div class="form-group">
+                      <label for="seletc-clientes">Cliente</label>
+                      <select class="form-control" id="seletc-clientes" name="cliente_id" >
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -67,8 +67,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="banco">Banco</label>
-                  <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco">
+                  <label for="banco-pago_bloque">Banco</label>
+                  <select class="form-control" id="banco-pago_bloque" name="banco" placeholder="Seleccione el banco">
                     <option value="BCP">BCP</option>
                     <option value="BBVA">BBVA</option>
                     <option value="SCOTIBANK">SCOTIBANK</option>
@@ -84,7 +84,7 @@
         <button id="btn-pago-bloque" type="submit" class="btn btn-primary pull-left">Registrar Pago</button>
         <button type="" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
-    </form><!-- /.form-modal-content -->
+    </div><!-- /.form-modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
   

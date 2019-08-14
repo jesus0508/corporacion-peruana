@@ -7,6 +7,9 @@
     </button>
     <ul class="dropdown-menu">
       <li>
+        <a href="#modal-create-pago" data-toggle="modal" data-target="#modal-create-pago" data-id="{{$pedido_cliente->id}}"><span class="glyphicon glyphicon-check"></span>Amortizar</a>
+      </li>
+      <li>
         <a href="#modal-show-pedido_cliente" data-toggle="modal" data-target="#modal-show-pedido_cliente" data-id="{{$pedido_cliente->id}}"><span class="glyphicon glyphicon-eye-open"></span>Detalles Pedido</a>
       </li>
     </ul>
