@@ -6,6 +6,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
+
 @endsection
 
 @section('content')
@@ -63,9 +65,16 @@ $('#proveedores').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
+          "responsive": true,
+                  columnDefs: [
+            { responsivePriority: 2, targets: 0 },
+            { responsivePriority: 10001, targets: 2 },
+            { responsivePriority: 10002, targets: 5 },
+            { responsivePriority: 1, targets: -1 }
+        ],
 
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                    if ( aData[4] >= aData[5] )
+                    if ( aData[6] >= aData[7] )
 
                     {
 

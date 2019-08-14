@@ -16,7 +16,7 @@
       </div><!-- /.box-header -->
       <div class="box-body">
         @include('pedido_clientes.partials.opciones')
-        <table id="tabla-pedido_clientes" class="table table-bordered table-striped">
+        <table id="tabla-pedido_clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>Nro Pedido</th>

@@ -45,7 +45,7 @@
           <div class="col-md-6">
             <div class="form-group @error('celular_planta') has-error @enderror">
               <label for="celular_planta">Celular de la planta</label>
-              <input id="celular_planta" type="text" class="form-control" name="celular_planta" placeholder="Ingrese el celular de la planta" value="{{ old('celular_planta'.$planta->celular_planta, $planta->celular_planta) }}" >
+              <input id="celular_planta" type="number" class="form-control" name="celular_planta" placeholder="Ingrese el celular de la planta" value="{{ old('celular_planta'.$planta->celular_planta, $planta->celular_planta) }}" title="Formato: 11 dígitos" min="900000000" max="999999999">
               @error('celular_planta')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>

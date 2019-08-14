@@ -11,9 +11,6 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <!-- left column -->
-          
-		  <!-- mid column -->
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="box box-success">
@@ -21,21 +18,38 @@
                 <h3 class="box-title">Datos principales</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                <div class="form-group">
-
+                
+                <div class="form-group @error('nombre_transportista') has-error @enderror">
                   <label for="nombre_transportista-edit">Nombre transportista*</label>
                   <input id="nombre_transportista-edit" type="text" class="form-control"
-                          name="nombre_transportista" placeholder="Ingrese su nombre_transportista" required>
+                          name="nombre_transportista"
+                           value="{{old('nombre_transportista')}}" placeholder="Ingrese el nombre del transportista" required>
+                  @error('nombre_transportista')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
-                <div class="form-group">
-                  <label for="brevete-edit">Brevete*</label>
-                  <input id="brevete-edit" type="text" class="form-control"
-                          name="brevete" placeholder="Ingrese la Razon Social" required>
+
+                <div class="form-group @error('ruc') has-error @enderror">
+                  <label for="ruc-edit">RUC*</label>
+                  <input id="ruc-edit" type="text" class="form-control"
+                          name="ruc" value="{{old('ruc')}}" placeholder="Ingrese el RUC" required>
+                  @error('ruc')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
-                <div class="form-group">
+                <div class="form-group @error('celular_transportista') has-error @enderror">
                   <label for="celular_transportista-edit">Celular</label>
-                  <input id="celular_transportista-edit" type="tel" class="form-control"
-                          name="celular_transportista" placeholder="Ingrese el numero telefonico" required>
+                  <input id="celular_transportista-edit" type="text" class="form-control"
+                          name="celular_transportista" value="{{ old('celular_transportista') }}"  placeholder="Ingrese el numero telefónico" >
+                  @error('celular_transportista')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->

@@ -28,8 +28,9 @@ class TransportistaController extends Controller
      */
     public function create()
     {
-        //
-        return view('transportistas.create');
+      
+        $transportistas = Transportista::all();
+        return view('transportistas.index_create',compact('transportistas'));
     }
 
     /**
@@ -38,10 +39,12 @@ class TransportistaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTransportistaRequest $request)
     {
-        Transportista::create($request->all());
-        return back()->with('alert-type','success')->with('status','Transportista Registrado con exito');
+        Transportista::create($request->validated());
+        $transportistas_tbl = Transportista::all()->sortBy('id');
+
+        return redirect()->route('transportista.index')->with('alert-type','success')->with('status','Transportista Registrado con exito')->withInput();
     }
 
     /**
@@ -52,9 +55,11 @@ class TransportistaController extends Controller
      */
     public function show($id)
     {
-        $vehiculo = Vehiculo::with('transportista')->where('id','=',$id)->first();
+        //$vehiculo = Vehiculo::with('transportista')->where('id','=',$id)->first();
          
-        return $vehiculo;
+       // return $vehiculo;
+        $transportista = Transportista::findOrFail($id);
+        return $transportista;
     }
 
     /**
@@ -75,11 +80,12 @@ class TransportistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreTransportistaRequest $request, $id)
     {
         $id2=$request->id;
-        Transportista::findOrFail($id2)->update($request->all());
-        return  back()->with('alert-type','success')->with('status','Transportista editado con exito');
+        Transportista::findOrFail($id2)->update($request->validated());
+
+        return redirect()->action('TransportistaController@index')->with('alert-type','success')->with('status','Transportista editado con exito')->withInput($request->all);
     }
 
     /**

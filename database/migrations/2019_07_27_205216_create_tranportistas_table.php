@@ -16,7 +16,7 @@ class CreateTranportistasTable extends Migration
         Schema::create('transportistas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre_transportista');
-            $table->string('brevete');
+            $table->string('ruc');
             $table->string('celular_transportista')->nullable();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateTranportistasTable extends Migration
     public function down()
     {   
 
-        Schema::dropIfExists('tranportistas');
+        Schema::dropIfExists('transportistas');
     }
 }

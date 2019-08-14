@@ -7,7 +7,8 @@
           <h3 class="box-title">Lista de COMPRAS A PROVEEDORES &nbsp; &nbsp; &nbsp;</h3>
             @php    
               $pagar = false;
-            @endphp  
+            @endphp 
+
             @foreach($pedidos as $pedido)
               @if($pedido->estado == 2)
                 @php
@@ -28,21 +29,19 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="proveedores" class="table table-bordered table-striped">
+          <table id="proveedores" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
                 <th>Nro pedido</th>
                 <th>Planta</th>
                 <th>SCOP</th>
-           <!--     <th>Fecha pedido</th>-->
-                <th>Cantidad GLS</th>
-            <!--    <th>Precio galon/u</th> -->
+                <th>Fecha pedido</th>
+                <th>GLS</th>
+                <th>Precio galon/u</th> 
                 <th>Monto</th>
                 <th>Saldo</th>
                 <th>Estado</th>
-                 <th>Acciones</th>
-
-
+                <th>Acciones</th>
 
               </tr>
             </thead>
@@ -53,9 +52,9 @@
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->planta->planta}}</td>
                   <td>{{$pedido->scop}}</td>
-            <!--      <td>{{date('d/m/Y', strtotime($pedido->fecha_despacho))}}</td> -->
+                  <td>{{$pedido->created_at}}</td>
                   <td>{{$pedido->galones}}</td>
-             <!--     <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
+                  <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
                   <td>S/&nbsp;{{number_format((float)
                     $pedido->galones*$pedido->costo_galon, 2, '.', '') }}</td>
                     <td>

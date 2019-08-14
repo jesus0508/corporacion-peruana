@@ -10,7 +10,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="proveedores" class="table table-bordered table-striped">
+          <table id="proveedores" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
                 <th>Nro pedido</th>

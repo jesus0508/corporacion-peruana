@@ -5,6 +5,7 @@ namespace CorporacionPeru\Http\Controllers;
 use Illuminate\Http\Request;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\Vehiculo;
+use CorporacionPeru\Http\Requests\StoreVehiculoRequest;
 
 class VehiculoController extends Controller
 {
@@ -35,10 +36,16 @@ class VehiculoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreVehiculoRequest $request)
     {
          Vehiculo::create($request->all());
-        return back()->with('alert-type','success')->with('status','Vehiculo Asignado con exito');
+        $id = $request->transportista_id;
+
+        $vehiculos=Vehiculo::where('transportista_id',"=",$id)->get();
+        $transportista = Transportista::findOrFail($id);
+
+      //  return view('vehiculos.index',compact('vehiculos','transportista'));
+        return redirect()->route('vehiculo.show',compact('id'))->with('alert-type','success')->with('status','Vehiculo Asignado con exito');
     }
 
     /**
@@ -63,7 +70,8 @@ class VehiculoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehiculo = Vehiculo::findOrFail($id);
+        return $vehiculo;
     }
 
     /**

@@ -4,7 +4,7 @@
       @csrf
       @method('PUT')
       <input id="id-edit" type="hidden" name="id">
-      <input id="transportista-edit" type="hidden" name="transportista">
+      <input id="transportista_id-edit" type="hidden" name="transportista_id">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
@@ -19,25 +19,43 @@
             <!-- general form elements -->
             <div class="box box-success">
               <div class="box-header with-border">
-                <h3 class="box-title">Datos principales</h3>
+                <h3 class="box-title">Datos Cisterna:</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group @error('placa') has-error @enderror">
+                      <label for="placa">PLACA*</label>
+                      <input id="placa-edit" type="text" class="form-control" name="placa" placeholder="Ingrese la placa de la cisterna" value="{{ old('placa') }}" pattern="[A-Z]{3}[-]\d{3}" title="Formato: ABC-123" required>
+                      @error('placa')
+                        <span class="help-block" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
 
-                  <label for="placa-edit"> Placa*</label>
-                  <input id="placa-edit" type="text" class="form-control"
-                          name="placa" placeholder="Ingrese su placa" required>
+
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group @error('capacidad') has-error @enderror">
+                      <label for="capacidad">Capacidad - gls</label>
+                      <input id="capacidad-edit" type="number" class="form-control" name="capacidad" placeholder="Ingrese la capacidad en galones" value="{{ old('capacidad') }}" min="0" max="999999" required>
+                      @error('capacidad')
+                      <span class="help-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                    </div>              
+                  </div>
                 </div>
+
                 <div class="form-group">
-                  <label for="modelo-edit">Modelo</label>
-                  <input id="modelo-edit" type="text" class="form-control"
-                          name="modelo" placeholder="Ingrese el modelo" required>
+                  <label for="detalle_compartimiento">Detalle compartimiento</label>
+                  <textarea class="form-control" style="resize: none;" id="detalle_compartimiento-edit" name="detalle_compartimiento" placeholder="Detalle aquí las características del compartimiento ..." rows="3">                   
+                  </textarea>
                 </div>
-                <div class="form-group">
-                  <label for="marca-edit">Marca</label>
-                  <input id="marca-edit" type="tel" class="form-control"
-                          name="marca" placeholder="Ingrese la marca" required>
-                </div>
+
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->

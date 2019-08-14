@@ -27,7 +27,7 @@
             <div class="col-md-6">
               <div class="form-group @error('ruc') has-error @enderror">
                 <label for="ruc">RUC*</label>
-                <input id="ruc" type="text" class="form-control" name="ruc" placeholder="Ingrese su RUC" value="{{ old('ruc') }}">
+                <input id="ruc" type="text" class="form-control" name="ruc" placeholder="Ingrese su RUC" value="{{ old('ruc') }}" pattern="[0-9]{11}" title="Formato: 11 dígitos" required>
                 @error('ruc')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

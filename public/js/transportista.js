@@ -6,33 +6,31 @@ $('#treeview-transportistas').on('click',function(event){
   $('#treeview-transportistas').addClass("active");
 })
 
-  $('#modal-edit-transportista').on('show.bs.modal',function(event){
-  var id = $(event.relatedTarget).data('id');
-  var nombre_transportista = $(event.relatedTarget).data('nombre_transportista');
-  var brevete = $(event.relatedTarget).data('brevete');
-  var celular_transportista = $(event.relatedTarget).data('celular_transportista');
 
-  $(event.currentTarget).find('#nombre_transportista-edit').val(nombre_transportista);
-  $(event.currentTarget).find('#brevete-edit').val(brevete);
-  $(event.currentTarget).find('#celular_transportista-edit').val(celular_transportista);
-  $(event.currentTarget).find('#id-edit').val(id);
-});
+function editarTransportista(id){
 
-$('#modal-edit-vehiculo').on('show.bs.modal',function(event){
-  var id = $(event.relatedTarget).data('id');
-  var placa = $(event.relatedTarget).data('placa');
-  var modelo = $(event.relatedTarget).data('modelo');
-  var marca = $(event.relatedTarget).data('marca');
-  var marca = $(event.relatedTarget).data('proveedor_id');
+ $('#modal-edit-transportista').modal('show');
+  //var id = document.getElementById('id_proveedor').value;
+  console.log(id);
+  $.ajax({
+    type: 'GET',
+    url:`./transportista/${id}`,
+    dataType : 'json',
+      
+    success: (data)=>{
+      console.log(data.celular_transportista);
+      document.getElementById('nombre_transportista-edit').value = data.nombre_transportista;
+      document.getElementById('ruc-edit').value = data.ruc;
+      document.getElementById('celular_transportista-edit').value = data.celular_transportista;
+      document.getElementById('id-edit').value = data.id;
+    },
+    error: (error)=>{
+      toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+    }
+  }); 
+}
 
-  $(event.currentTarget).find('#placa-edit').val(placa);
-  $(event.currentTarget).find('#modelo-edit').val(modelo);
-  $(event.currentTarget).find('#marca-edit').val(marca);
-  $(event.currentTarget).find('#id-edit').val(id);
-  $(event.currentTarget).find('#proveedor_id-edit').val(proveedor_id);
- 
 
-});
 
 $(document).ready(function() {
   //$("#transportista").prop("selectedIndex", -1);
@@ -45,8 +43,18 @@ $(document).ready(function() {
 
   $('#tabla-transportistas').DataTable({
     'language': {
-             'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+    'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
         },
-              "order": [[ 0, "desc" ]]
+    "order": [[ 0, "desc" ]],
+    'columnDefs': [ 
+    { 
+      orderable: false, 
+      targets: [ -1 ] 
+    },
+    { 
+      searchable: false, 
+      targets: [-1] 
+    },
+    ]
   });
 } );

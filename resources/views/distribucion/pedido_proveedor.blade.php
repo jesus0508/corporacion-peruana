@@ -43,6 +43,58 @@
             </div>
           </div><!-- /.box-body -->
         </div><!-- /.box datos cliente -->
+        <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title">Datos Cisterna</h3>
+          </div>
+          <div class="box-body">
+            <div class="row">              
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label for="placa">Placa*</label>
+              <select class="form-control" id="placa" name="placa">
+              @foreach ( $vehiculos as $vehiculo)
+                <option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
+              @endforeach
+              </select>                  
+            </div>
+          </div>
+
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label for="nombre_transportista">Nombre Transportista</label>
+                <input id="nombre_transportista" type="text" class="form-control" readonly="">
+              </div>
+            </div>
+          </div>
+
+          <div id="" class="row">
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label for="modelo">Capacidad galones</label>
+                <input id="modelo" type="text" class="form-control" readonly="">
+                  
+              </div>
+            </div>
+            <div class="col-md-6">
+            <div class="form-group ">
+                  <label for="marca">Celular</label>
+                  <input id="marca" type="text" class="form-control" readonly="">
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group ">
+                  <label for="marca">Detalle Compartimiento</label>
+                  <textarea readonly="" class="form-control">
+                    
+                  </textarea>
+              </div>              
+            </div>            
+          </div>
+          </div> <!-- Box-body End -->
+        </div>
       </div>
 
       <div class="col-md-4">
@@ -96,7 +148,43 @@
                 @endif
               </div>
             </div>
+          </div><!-- end-box-body-->
+        </div> <!-- end-box-->
+        <div class="box box-success">
+          <div class="box-header with-border">
+            <h2 class="box-title">Detalles chofer</h2>            
           </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="saldo">Chofer:</label>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input name="galones_dist" id="galonesTOdistribuir" type="number" class="form-control" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="saldo">Brevete</label>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input name="galones_dist" id="galonesTOdistribuir" type="number" class="form-control">
+                </div>
+              </div>
+            </div>
+             <div class="row">
+              <div class="col-md-12 top-button">
+                <button type="submit" class="btn btn-lg btn-success" disabled>
+                  <i class="fa fa-pencil"> </i>
+                  ASIGNAR
+                </button>
+              </div>
+            </div>
+            
+          </div>          
         </div>
       </div> <!--/.col (right) -->
     </div> <!-- /.row-top -->

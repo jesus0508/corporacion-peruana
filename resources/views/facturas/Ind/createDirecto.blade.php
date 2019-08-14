@@ -48,7 +48,8 @@
       @includeWhen($pedido->hasntFactura(), 'facturas.Ind.form_factura')
 
       </form>
-      @includeWhen($pedido->hasntVehiculo(), 'facturas.Ind.form_transportista')
+    <!-- -->
+   
 
       </div><!--/.col (left) -->
 
