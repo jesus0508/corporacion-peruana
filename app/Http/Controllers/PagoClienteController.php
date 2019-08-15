@@ -47,12 +47,15 @@ class PagoClienteController extends Controller
         //
         $pago = PagoCliente::create($request->validated());
         $pedido_cliente = PedidoCliente::findOrFail($request->pedido_cliente_id);
+        $cliente = $pedido_cliente->cliente;
         $pedido_cliente->saldo -= $request->monto_operacion;
+        $cliente->linea_credito += $request->monto_operacion;
         $pago->saldo = $pedido_cliente->saldo;
         $pedido_cliente->estado = 4;
         if ($pedido_cliente->saldo <= 0) {
             $pedido_cliente->estado = 5;
         }
+        $cliente->save();
         $pago->save();
         $pedido_cliente->save();
         return back()->with('alert-type', 'success')->with('status', 'Pago registrado con exito');
@@ -74,12 +77,12 @@ class PagoClienteController extends Controller
                     $monto_actual -= $pedido_cliente->saldo;
                     $pedido_cliente->saldo = 0;
                     $pedido_cliente->estado = 5;
-                    $pedido_cliente->pagoClientes()->sync($pago->id);
+                    $pedido_cliente->pagoClientes()->attach($pago->id);
                     $pedido_cliente->save();
                 } else {
                     $pedido_cliente->saldo -= $monto_actual;
                     $pedido_cliente->estado = 4;
-                    $pedido_cliente->pagoClientes()->sync($pago->id);
+                    $pedido_cliente->pagoClientes()->attach($pago->id);
                     $pedido_cliente->save();
                     $monto_actual = 0;
                     break;
@@ -89,6 +92,8 @@ class PagoClienteController extends Controller
                 /** Guardar en alguna parte el excedente */
                 return response()->json(['status' => 'Hubo un excedente de: ' . $monto_actual]);
             }
+            $cliente->linea_credito += $pago->monto_operacion;
+            $cliente->save();
             DB::commit();
             return response()->json(['status' => 'Pagos registrados con exito']);
         } catch (Exception $e) {

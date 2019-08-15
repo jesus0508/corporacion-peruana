@@ -28,6 +28,6 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="{{ asset('js/pedido_cliente.js') }}"></script> 
+<script src="{{ asset('js/pedidoCliente.js') }}"></script> 
 <script src="{{ asset('js/pagos.js') }}"></script> 
 @endsection

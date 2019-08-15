@@ -16,8 +16,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes=Cliente::orderBy('id','DESC')->get();
-        return view('clientes.index',compact('clientes'));
+        $clientes = Cliente::orderBy('id', 'DESC')->get();
+        return view('clientes.index', compact('clientes'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ClienteController extends Controller
     {
         //
         Cliente::create($request->validated());
-        return back()->with('alert-type','success')->with('status','Cliente Registrado con exito');
+        return back()->with('alert-type', 'success')->with('status', 'Cliente Registrado con exito');
     }
 
     /**
@@ -52,7 +52,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        return response()->json(['cliente'=>$cliente]);
+        return response()->json(['cliente' => $cliente]);
     }
 
     /**
@@ -63,7 +63,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        return response()->json(['cliente'=>$cliente]);
+        return response()->json(['cliente' => $cliente]);
     }
 
     /**
@@ -76,9 +76,9 @@ class ClienteController extends Controller
     public function update(StoreClienteRequest $request, $id)
     {
         //
-        $id=$request->id;
+        $id = $request->id;
         Cliente::findOrFail($id)->update($request->validated());
-        return  back()->with('alert-type','success')->with('status','Cliente editado con exito');
+        return  back()->with('alert-type', 'success')->with('status', 'Cliente editado con exito');
     }
 
     /**
@@ -90,26 +90,27 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
-        $exists=PedidoCliente::where('cliente_id', $cliente->id)->exists();
-        if($exists){
-            return  back()->with('alert-type','warning')->with('status','Cliente tiene un saldo pendiente');
+        $exists = PedidoCliente::where('cliente_id', $cliente->id)->exists();
+        if ($exists) {
+            return  back()->with('alert-type', 'warning')->with('status', 'Cliente tiene un saldo pendiente');
         }
         $cliente->delete();
-        return  back()->with('alert-type','success')->with('status','Cliente eliminado con exito');
+        return  back()->with('alert-type', 'success')->with('status', 'Cliente eliminado con exito');
     }
 
-    public function getByTipo($tipo){
-        if($tipo==0){
-            $clientes=Cliente::select('id','razon_social as text')->get();
-        }else{
-            $clientes=Cliente::select('id','razon_social as text')->where('tipo',$tipo)->get();
+    public function getByTipo($tipo)
+    {
+        if ($tipo == 0) {
+            $clientes = Cliente::select('id', 'razon_social as text')->get();
+        } else {
+            $clientes = Cliente::select('id', 'razon_social as text')->where('tipo', $tipo)->get();
         }
-        return response()->json(['clientes'=>$clientes]);
+        return response()->json(['clientes' => $clientes]);
     }
 
-    public function getAllClientes(){
-        $clientes=Cliente::all();
-        return response()->json(['clientes'=>$clientes]);
+    public function getAllClientes()
+    {
+        $clientes = Cliente::all();
+        return response()->json(['clientes' => $clientes]);
     }
-
 }

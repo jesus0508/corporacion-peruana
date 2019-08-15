@@ -2,7 +2,7 @@
   <div class="col-md-4">
     <div class="input-group">
       <span class="input-group-addon">Cliente</span>
-      <select class="form-control" id="cliente-pago_bloque" name="cliente_id">
+      <select class="form-control" id="filter-cliente" name="cliente_id">
         @foreach ( $clientes as $cliente)
           <option value="{{$cliente->id}}">{{$cliente->razon_social}}</option>
         @endforeach

@@ -15,8 +15,8 @@ class TrabajadorController extends Controller
      */
     public function index()
     {
-        $trabajadores=Trabajador::all();
-        return view('trabajadores.index',compact('trabajadores'));
+        $trabajadores = Trabajador::all();
+        return view('trabajadores.index', compact('trabajadores'));
     }
 
     /**
@@ -39,7 +39,7 @@ class TrabajadorController extends Controller
     {
         //
         Trabajador::create($request->validated());
-        return back()->with(['alert-type'=>'success','status'=>'Trabajador creado con exito']);
+        return back()->with(['alert-type' => 'success', 'status' => 'Trabajador creado con exito']);
     }
 
     /**
@@ -48,7 +48,7 @@ class TrabajadorController extends Controller
      * @param  \CorporacionPeru\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function show(Trabajador $trabajador)
+    public function show(Trabajador $trabajadore)
     {
         //
     }
@@ -59,7 +59,7 @@ class TrabajadorController extends Controller
      * @param  \CorporacionPeru\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function edit(Trabajador $trabajador)
+    public function edit(Trabajador $trabajadore)
     {
         //
     }
@@ -71,12 +71,12 @@ class TrabajadorController extends Controller
      * @param  \CorporacionPeru\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTrabajadorRequest $request, Trabajador $trabajador)
+    public function update(StoreTrabajadorRequest $request, Trabajador $trabajadore)
     {
         //
-        $id=$request->id;
+        $id = $request->id;
         Trabajador::findOrFail($id)->update($request->validated());
-        return back()->with(['alert-type'=>'success','status'=>'Trabajador editado con exito']);
+        return back()->with(['alert-type' => 'success', 'status' => 'Trabajador editado con exito']);
     }
 
     /**
@@ -88,7 +88,7 @@ class TrabajadorController extends Controller
     public function destroy(Trabajador $trabajadore)
     {
         //
-        $trabajador->delete();
-        return back()->with(['alert-type'=>'warning','status'=>'Trabajador eliminado con exito']);
+        $trabajadore->delete();
+        return back()->with(['alert-type' => 'warning', 'status' => 'Trabajador eliminado con exito']);
     }
 }

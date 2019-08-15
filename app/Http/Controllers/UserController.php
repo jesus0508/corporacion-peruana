@@ -17,8 +17,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users=User::all();
-        return view('users.index',compact('users'));
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         //
         User::create($request->validated());
-        return back()->with(['alert-type'=>'success','status'=>'Usuario creado con exito']);
+        return back()->with(['alert-type' => 'success', 'status' => 'Usuario creado con exito']);
     }
 
     /**
@@ -76,9 +76,9 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         //
-        $id=$request->id;
+        $id = $request->id;
         User::findOrFail($id)->update($request->validated());
-        return back()->with(['alert-type'=>'success','status'=>'Usuario editado con exito']);
+        return back()->with(['alert-type' => 'success', 'status' => 'Usuario editado con exito']);
     }
 
     /**
@@ -90,6 +90,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return back()->with(['alert-type'=>'warning','status'=>'Usuario eliminado con exito']);
+        return back()->with(['alert-type' => 'warning', 'status' => 'Usuario eliminado con exito']);
     }
 }

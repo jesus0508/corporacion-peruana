@@ -6,7 +6,7 @@
       </div><!-- /.box-header -->
       <div class="box-body">
         @include('pago_clientes.opciones')
-        <table id="tabla-pedido_clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>#</th>
@@ -23,7 +23,7 @@
             @foreach ($pagos as $pago)
               @foreach ($pago->pedidoClientes as $pedidoCliente)
               <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$loop->parent->iteration}}</td>
                 <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
                 <td>{{$pedidoCliente->nro_pedido}}</td>
                 <td>{{$pedidoCliente->cliente->razon_social}}</td>

@@ -32,7 +32,6 @@
                 <div class="form-group">
                   <label for="tipo">Tipo</label>
                   <select class="form-control" id="tipo" name="tipo">
-                    <option value="0">Todos</option>
                     <option value="1">Normal</option>
                     <option value="2">Grifo</option>
                   </select>
@@ -199,5 +198,5 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="{{ asset('js/pedido_cliente.js') }}"></script> 
+<script src="{{ asset('js/crearPedido.js') }}"></script> 
 @endsection

@@ -19,9 +19,9 @@ class PedidoClienteController extends Controller
     public function index()
     {
         //
-        $pedido_clientes=PedidoCliente::with('cliente')->get();
-        $clientes=Cliente::all();
-        return view('pedido_clientes.index',compact('pedido_clientes','clientes'));
+        $pedido_clientes = PedidoCliente::with('cliente')->get();
+        $clientes = Cliente::all();
+        return view('pedido_clientes.index', compact('pedido_clientes', 'clientes'));
     }
 
     /**
@@ -32,8 +32,8 @@ class PedidoClienteController extends Controller
     public function create()
     {
         //
-        $clientes=Cliente::select('id','ruc','razon_social');
-        return view('pedido_clientes.create',compact('clientes'));
+        $clientes = Cliente::all('id', 'ruc', 'razon_social');
+        return view('pedido_clientes.create', compact('clientes'));
     }
 
     /**
@@ -45,8 +45,11 @@ class PedidoClienteController extends Controller
     public function store(StorePedidoClienteRequest $request)
     {
         //
-        PedidoCliente::create($request->validated());
-        return back()->with('alert-type','success')->with('status','Pedido Registrado con exito');
+        $pedido = PedidoCliente::create($request->validated());
+        $cliente = $pedido->cliente;
+        $cliente->linea_credito -= $pedido->getPrecioTotal();
+        $cliente->save();
+        return back()->with('alert-type', 'success')->with('status', 'Pedido Registrado con exito');
     }
 
     /**
@@ -59,16 +62,17 @@ class PedidoClienteController extends Controller
     {
         //
         $pedidoCliente->load('cliente');
-        return response()->json(['pedidoCliente'=>$pedidoCliente]);
+        return response()->json(['pedidoCliente' => $pedidoCliente]);
     }
 
-    public function getDetalles($id){
-        $pedidoCliente=PedidoCliente::with('cliente')->where('id',$id)->first();
-        if($pedidoCliente->estado>2){
+    public function getDetalles($id)
+    {
+        $pedidoCliente = PedidoCliente::with('cliente')->where('id', $id)->first();
+        if ($pedidoCliente->estado > 2) {
             $pedidoCliente->load('pedidos');
-            return view('pedido_clientes.detalles',compact('pedidoCliente'));
+            return view('pedido_clientes.detalles', compact('pedidoCliente'));
         }
-        return back()->with('alert-type','error')->with('status','Ocurrio un erro al ver detalles');
+        return back()->with('alert-type', 'error')->with('status', 'Ocurrio un erro al ver detalles');
     }
 
     /**
@@ -80,7 +84,7 @@ class PedidoClienteController extends Controller
     public function edit(PedidoCliente $pedidoCliente)
     {
         //
-        return response()->json(['pedidoCliente'=>$pedidoCliente]);
+        return response()->json(['pedidoCliente' => $pedidoCliente]);
     }
 
     /**
@@ -93,17 +97,18 @@ class PedidoClienteController extends Controller
     public function update(UpdatePedidoClienteRequest $request, $id)
     {
         //
-        $id=$request->id;
+        $id = $request->id;
         PedidoCliente::findOrFail($id)->update($request->validated());
-        return back()->with('alert-type','success')->with('status','Pedido editado con exito');
+        return back()->with('alert-type', 'success')->with('status', 'Pedido editado con exito');
     }
 
-    public function procesarPedido($id){
-        $pedido=PedidoCliente::findOrFail($id);
+    public function procesarPedido($id)
+    {
+        $pedido = PedidoCliente::findOrFail($id);
         /*Logica para actualizar pedido pendiente*/
-        $pedido->estado=2;
+        $pedido->estado = 2;
         $pedido->save();
-        return  back()->with('alert-type','success')->with('status','Pedido confirmado con exito con exito');
+        return  back()->with('alert-type', 'success')->with('status', 'Pedido confirmado con exito con exito');
     }
 
     /**
@@ -116,12 +121,13 @@ class PedidoClienteController extends Controller
     {
         //
         $pedidoCliente->delete();
-        return response()->json(['status'=>'Pedido eliminado con exito']);
+        return response()->json(['status' => 'Pedido eliminado con exito']);
     }
 
-    public function getByRazonSocial($id){
-        $cliente=Cliente::where('id',$id)->first();
-        $total_deuda=$cliente->pedidoClientes()->sum('saldo');
-        return response()->json(['total_deuda'=>$total_deuda,'cliente_id'=>$cliente->id]);
+    public function getByRazonSocial($id)
+    {
+        $cliente = Cliente::where('id', $id)->first();
+        $total_deuda = $cliente->pedidoClientes()->sum('saldo');
+        return response()->json(['total_deuda' => $total_deuda, 'cliente_id' => $cliente->id]);
     }
 }

@@ -2,12 +2,15 @@ $(document).ready(function () {
   let $modal_create_pago_bloque = $('#modal-create-pago_bloque');
   let $select_cliente = $('#seletc-clientes');
   let $datos_pago = $('#datos-pago :input').prop('disabled', true);
+  let $filter_cliente = $('#filter-cliente');
 
   $modal_create_pago_bloque.on('show.bs.modal', function (event) {
-    let razon_social = $('#cliente-pago_bloque').find(':selected').text(); //Obtengo la razon social del cliente
+    let id = $filter_cliente.val(); //Obtengo la razon social del cliente
+    let razon_social = $filter_cliente.find(':selected').text(); //Obtengo la razon social del cliente
     if (razon_social) {
-      $('#razon_social-pago').val(razon_social);
+      $select_cliente.html(`<option value="${id}">${razon_social}</option>`);
       $select_cliente.prop('disabled', true);
+      $select_cliente.trigger('change');
       $datos_pago.prop('disabled', false);
     } else {
       let lista_clientes = '';
@@ -16,11 +19,7 @@ $(document).ready(function () {
           lista_clientes += `<option value="${cliente.id}">${cliente.razon_social}</option>`;
         });
         $select_cliente.html(lista_clientes);
-        $select_cliente.prop('selectedIndex', -1);
-        $select_cliente.select2({
-          placeholder: 'Ingresa la razon social',
-          allowClear: true,
-        });
+        inicializarSelect2($select_cliente, 'Ingrese la razon social');
         $datos_pago.prop('disabled', false);
       }).fail((error) => {
         toastr.error('Ocurrior en el servidor', 'Error Alert', { timeOut: 2000 });
@@ -32,7 +31,6 @@ $(document).ready(function () {
     let idCliente = $select_cliente.val();
     if (idCliente) {
       getAllPedidosByCliente(idCliente).done((data) => {
-        
         if (data.total_deuda != null) {
           $datos_pago.prop('disabled', false);
           $('#saldo-pago_bloque').val((data.total_deuda).toFixed(2));
@@ -47,23 +45,17 @@ $(document).ready(function () {
     }
   });
 
-
   $('#btn-pago-bloque').on('click', function () {
-    let fecha_operacion = $('#fecha_operacion-pago_bloque').val();
-    let codigo_operacion = $('#codigo_operacion-pago_bloque').val();
-    let monto_operacion = $('#monto_operacion-pago_bloque').val();
-    let banco_operacion = $('#banco-pago_bloque').val();
-    let cliente_id = $select_cliente.val();
-    let datos = {
-      fecha: fecha_operacion,
-      codigo: codigo_operacion,
-      monto: monto_operacion,
-      banco: banco_operacion,
-      id: cliente_id,
+    let pagoData = {
+      fecha: $('#fecha_operacion-pago_bloque').val(),
+      codigo: $('#codigo_operacion-pago_bloque').val(),
+      monto: $('#monto_operacion-pago_bloque').val(),
+      banco: $('#banco-pago_bloque').val(),
+      id: $select_cliente.val(),
     }
-    pagarEnBloque(datos).done((data) => {
-      console.log(data);
+    pagarEnBloque(pagoData).done((data) => {
       limpiarInputs($datos_pago);
+      document.location.reload();
       toastr.success(data.status, 'Success Alert', { timeOut: 2000 });
     }).fail((jqXHR) => {
       toastr.error('Ocurrior en el servidor', 'Error Alert', { timeOut: 2000 });
@@ -88,7 +80,6 @@ function getAllClientes() {
 }
 
 function pagarEnBloque(datos) {
-  console.log(datos)
   return $.ajax({
     headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() },
     type: 'POST',
@@ -111,3 +102,10 @@ function limpiarInputs($container) {
     .prop('selected', false);
 }
 
+function inicializarSelect2($select, text) {
+  $select.prop('selectedIndex', -1);
+  $select.select2({
+    placeholder: text,
+    allowClear: true,
+  });
+}
