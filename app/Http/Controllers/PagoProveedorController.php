@@ -4,6 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\PagoProveedor;
 use CorporacionPeru\Pedido;
+use CorporacionPeru\Planta;
 use CorporacionPeru\Proveedor;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StorePagoProveedorRequest;
@@ -31,7 +32,17 @@ class PagoProveedorController extends Controller
     public function create()
     {
         $proveedores = Proveedor::all();
-
+       // $proveedores = Pedido::where('factura_id','!=',null)->with('planta')->with('proveedor')->get();
+        /*
+        foreach ( $pedidos as $pedido ) {
+            $id_planta = $pedido->planta_id;
+            $planta = Planta::find($id_planta);
+            $id_proveedor = $planta->proveedor_id;
+            $proveedores[] = Proveedor::find($id_proveedor);
+            $proveedores = collect($proveedores);
+        }
+            $proveedores = $proveedores->collapse();
+*/
         return $proveedores;
     }
 

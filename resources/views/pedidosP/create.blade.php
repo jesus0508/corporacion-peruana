@@ -10,19 +10,24 @@
         </div><!-- /.box-header -->
         {{-- <form role="form"> --}}
           <div class="box-body">
-            <div class="form-group @error('nro_pedido') has-error @enderror" >
+            <div class="form-group @error('nro_pedido') has-error @enderror">
               <label for="numero_pedido">Numero Pedido</label>
-              <input id="numero_pedido" type="text" class="form-control" name="nro_pedido" placeholder="Ingrese el número de pedido" pattern="[0-9]+" required>
+              <input id="numero_pedido" type="number" class="form-control" name="nro_pedido" placeholder="Ingrese el número de pedido" min="0" required>
               @error('nro_pedido')
-            <span class="help-block" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+              <span class="help-block" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
 
             </div>
-            <div class="form-group">
+            <div class="form-group @error('scop') has-error @enderror">
               <label for="scop_pedido">SCOP</label>
-              <input id="scop_pedido" type="text" class="form-control" name="scop" placeholder="Ingrese el SCOP" pattern="[0-9]+" required>
+              <input id="scop_pedido" type="number" class="form-control" name="scop" placeholder="Ingrese el SCOP" min="0" required>
+              @error('scop')
+              <span class="help-block" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
             </div>
 
             <div class="form-group">
@@ -53,16 +58,25 @@
         <!-- form start -->
         {{-- <form role="form"> --}}
           <div class="box-body">
-            <div class="form-group">
+            <div class="form-group @error('galones') has-error @enderror">
                 <label for="galones">Cantidad de galones del pedido</label>
-               <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" required>
+               <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" max="99999" required>
+              @error('galones')
+              <span class="help-block" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
            
             </div>
-            <div class="form-group">
+            <div class="form-group @error('costo_galon') has-error @enderror">
               <label for="costo_galon">Precio del galón</label>
               <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
+              @error('costo_galon')
+              <span class="help-block" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
             </div>
-
 
             <div class="form-group">
               <label for="proveedor">Proveedor</label>

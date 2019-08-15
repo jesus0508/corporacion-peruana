@@ -8,6 +8,7 @@ $(document).ready(function() {
   var galones= $(event.relatedTarget).data('galones');
   var planta= $(event.relatedTarget).data('planta');
   var costo_galon= $(event.relatedTarget).data('costo_galon');
+  var id= $(event.relatedTarget).data('id');
 
   $(event.currentTarget).find('#nro_pedido-edit').val(nro_pedido);
   $(event.currentTarget).find('#scop-edit').val(scop);
@@ -15,6 +16,7 @@ $(document).ready(function() {
   $(event.currentTarget).find('#planta-edit').val(planta).trigger('change.select2');
   $(event.currentTarget).find('#costo_galon-edit').val(costo_galon);
   $(event.currentTarget).find('#monto_total').val(costo_galon*galones);
+  $(event.currentTarget).find('#id_pedido').val(id);
   });
 });
 

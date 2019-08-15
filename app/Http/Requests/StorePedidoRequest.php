@@ -24,11 +24,11 @@ class StorePedidoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nro_pedido'=>'required',
-            'scop'=>'required',
-            'planta_id' => 'required',         
-            'galones'=>'required',
-            'costo_galon'=>'required',
+            'nro_pedido'=>'required|unique:pedidos,nro_pedido,'.$this->id,
+            'scop'=>'required|unique:pedidos,scop,'.$this->id,
+            'planta_id' => 'required|numeric',         
+            'galones'=>'required|numeric|gt:0',
+            'costo_galon'=>'required|numeric|gt:0',
         ];
     }
 }

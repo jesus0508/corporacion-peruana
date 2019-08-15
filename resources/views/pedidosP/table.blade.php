@@ -9,25 +9,24 @@
               $pagar = false;
             @endphp 
 
-            @foreach($pedidos as $pedido)
-              @if($pedido->estado == 2)
+            @foreach( $pedidos as $pedido )
+              @if( $pedido->estado == 2 )
                 @php
                 $pagar = true;
-                @endphp         
-               
+                @endphp
+             
               @endif
 
             @endforeach
 
-            @if($pagar)
+            @if( $pagar == true)
             <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#modal-pagar-proveedor">
-               PAGAR   &nbsp;&nbsp;  <span class="fa fa-money"></span>
+               PAGAR   &nbsp;&nbsp; <span class="fa fa-money"></span>
             </button>
-            @endif
-            
+            @endif           
 
         </div>
-        <!-- /.box-header -->
+        <!-- /.box-header -s-->
         <div class="box-body">
           <table id="proveedores" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
@@ -54,7 +53,7 @@
                   <td>{{$pedido->scop}}</td>
                   <td>{{$pedido->created_at}}</td>
                   <td>{{$pedido->galones}}</td>
-                  <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
+                  <td>S/&nbsp;{{$pedido->costo_galon}}</td>
                   <td>S/&nbsp;{{number_format((float)
                     $pedido->galones*$pedido->costo_galon, 2, '.', '') }}</td>
                     <td>
@@ -67,7 +66,8 @@
                     </td>
                  
                   @includeWhen($pedido->isConfirmed(), 'actions.pedido.acciones_confirmado')
-                  @includeWhen($pedido->isUnconfirmed(), 'actions.pedido.acciones_sin_confirmar')
+                  @includeWhen($pedido->isUnconfirmed(),'actions.pedido.acciones_sin_confirmar')
+                  @includeWhen($pedido->isDistributed(), 'actions.pedido.acciones_distrubuido') 
                   @includeWhen($pedido->isPaid(), 'actions.pedido.acciones_pagado')             
 
                 </tr>

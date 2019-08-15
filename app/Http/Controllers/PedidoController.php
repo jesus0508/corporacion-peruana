@@ -24,6 +24,16 @@ class PedidoController extends Controller
         return  back()->with('alert-type','success')->with('status','Pedido confirmado con exito');
     }
 
+    public function show2($id_proveedor)
+    {
+        $planta = Planta::findOrFail($id_prvoeedor);
+        $id = $planta->id;
+        $pedido=Pedido::where('planta_id',$id)->first();
+
+    
+     return response()->json(['pedido' => $pedido]);   
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -282,7 +292,8 @@ class PedidoController extends Controller
      */
    public function update(StorePedidoRequest $request, $id)
     {
-        
+        $id = $request->id;
+               // return $request;
         Pedido::findOrFail($id)->update($request->validated());
 
          return  back()->with('alert-type','success')->with('status','Pedido editado con exito');

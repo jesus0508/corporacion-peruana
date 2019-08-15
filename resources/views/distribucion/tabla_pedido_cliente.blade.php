@@ -13,7 +13,7 @@
               <th>TIPO</th>
               <th>Cantidad GLS</th>
               <th>Galones Asignados</th>
-              <th>cant/Acción</th>
+              <th>cant/Acción(pa grifos|quitar en cleintes)</th>
               <th>Estado</th>
 
             </tr>

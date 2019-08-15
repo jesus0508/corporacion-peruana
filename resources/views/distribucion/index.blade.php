@@ -15,6 +15,12 @@
 @section('content')
 <section class="content">
   @include('distribucion.pedido_proveedor')
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-lg btn-success"><i class="fa fa-plus"> </i> Distribuir Grifo(s)</button>      
+    </div>    
+  </div>
+  </br>
   @include('distribucion.tabla_pedido_cliente') 
 </section>
 @endsection

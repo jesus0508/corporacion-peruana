@@ -1,23 +1,39 @@
 <td> <span class="label label-danger">SIN CONFIRMAR</span> </td>
 <td>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="fa fa-wrench"></span> Acciones <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <button class="btn btn-xs btn-success btn-block" href="{{route('pedidos.confirmarPedido',$pedido->id)}}" ><span class="glyphicon glyphicon-check"> </span> CONFIRMAR</button>
+      </li>
+      <li>
+              <!-- Editar -->   
+        <btn class="btn btn-xs btn-warning btn-block" href="#modal-show-pedido_cliente" data-toggle="modal" data-target="#modal-edit-pedido-proveedor"
+          data-id="{{$pedido->id}}" data-nro_pedido="{{$pedido->nro_pedido}}" 
+          data-scop="{{$pedido->scop}}" data-galones="{{$pedido->galones}}"
+          data-costo_galon="{{$pedido->costo_galon}}" data-estado="{{$pedido->estado}}"
+          data-planta="{{$pedido->planta->id}}"> <span class="glyphicon glyphicon-edit"></span>
+        EDITAR</btn>
+        
+      </li>
+      <li>
+              <!-- Eliminar -->   
 
-     <!-- Confirmar -->             
-  <a href="{{route('pedidos.confirmarPedido',$pedido->id)}}" class="btn btn-sm btn-success"><i class="fa fa-check-square-o"> </i></a>
+        <form style="display:inline" method="POST" action="{{ route('pedidos.destroy', $pedido->id) }}">
+        @csrf
+        @method('DELETE')
+        <button class="btn btn-xs btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> ELIMINAR</button>
+        </form>
+      </li>
 
-      <!-- Editar -->   
-  <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit-pedido-proveedor"
-    data-id="{{$pedido->id}}" data-nro_pedido="{{$pedido->nro_pedido}}" 
-    data-scop="{{$pedido->scop}}" data-galones="{{$pedido->galones}}"
-    data-costo_galon="{{$pedido->costo_galon}}" data-estado="{{$pedido->estado}}"
-    data-planta="{{$pedido->planta->id}}"> <span class="glyphicon glyphicon-edit"></span>
-  </button>
+    </ul>
+  </div>
+
+
+
   
-      <!-- Eliminar -->   
 
-  <form style="display:inline" method="POST" action="{{ route('pedidos.destroy', $pedido->id) }}">
-  @csrf
-  @method('DELETE')
-  <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
-  </form>
 
 </td> 

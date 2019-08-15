@@ -49,7 +49,7 @@
           </div>
           <div class="box-body">
             <div class="row">              
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="form-group ">
               <label for="placa">Placa*</label>
               <select class="form-control" id="placa" name="placa">
@@ -59,6 +59,13 @@
               </select>                  
             </div>
           </div>
+          <div class="col-md-3">
+              <div class="form-group ">
+                <label for="modelo">Capacidad galones</label>
+                <input id="modelo" type="text" class="form-control" readonly="">
+                  
+              </div>
+            </div>
 
             <div class="col-md-6">
               <div class="form-group ">
@@ -68,25 +75,10 @@
             </div>
           </div>
 
-          <div id="" class="row">
-            <div class="col-md-6">
-              <div class="form-group ">
-                <label for="modelo">Capacidad galones</label>
-                <input id="modelo" type="text" class="form-control" readonly="">
-                  
-              </div>
-            </div>
-            <div class="col-md-6">
-            <div class="form-group ">
-                  <label for="marca">Celular</label>
-                  <input id="marca" type="text" class="form-control" readonly="">
-            </div>
-            </div>
-          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group ">
-                  <label for="marca">Detalle Compartimiento</label>
+                  <label for="marca">Detalle Compartimiento - hidden|vissible</label>
                   <textarea readonly="" class="form-control">
                     
                   </textarea>

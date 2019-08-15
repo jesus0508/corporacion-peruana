@@ -28,20 +28,34 @@
 <script src="{{ asset('js/pedidos.js') }}"></script> 
 <script>
 $(document).ready(function(){
+  function hasFactura(id){
+      console.log(id);
+  return 
+    $.ajax({
+      type: 'GET',
+      url:`./show_pedido_completo/${id}`,
+      dataType : 'json'      
+    }); 
+    }
 
   $("#modal-pagar-proveedor").on("show.bs.modal", function(event) {
       
     $.get('pago_proveedors/create', function( data ) {
         var html = "";
+        console.log(data);
         data.forEach(function(val) {
           var keys = Object.keys(val);
+          var prueba = 'futuro valor para saber si hay deuda con el proveedor';
           console.log(val);
+        //  console.log(band);
           if( val != null ){ 
             html +='<div class="row">';
             html +=  '<div class="col-md-2"></div>';
             html +=  '<div class="col-md-8">';
-            html +=    '<a href="pago_proveedors/'+val['id']+'" class="btn  btn-block btn-lg btn-success">'+val['razon_social'];
+            if ( prueba != null) {
+                          html +=    '<a href="pago_proveedors/'+val['id']+'" class="btn  btn-block btn-lg btn-success">'+val['razon_social'];
             html +=    '</a> ';
+            }
             html +=  '</div>';
             html +=  ' <div class="col-md-2"></div>';
             html +='</div>';
@@ -50,14 +64,13 @@ $(document).ready(function(){
             $(".show-proveedores").html(html);
           }
 
-        });
-
-      
-
+        });     
     });
 
    
   });
+
+
 });
 
 $(document).ready(function() {
