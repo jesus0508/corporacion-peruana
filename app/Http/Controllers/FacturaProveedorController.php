@@ -8,6 +8,8 @@ use CorporacionPeru\Planta;
 use CorporacionPeru\Vehiculo;
 use CorporacionPeru\FacturaProveedor;
 use CorporacionPeru\Http\Requests\StoreFacturaProveedorRequest;
+use CorporacionPeru\Http\Requests\StoreTransportistaPedidoRequest;
+
 class FacturaProveedorController extends Controller
 {
     /**
@@ -91,22 +93,20 @@ class FacturaProveedorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * ASIGNAR VEHICULO/TRANSPORTISTA A PEDIDO
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    
+    public function update(StoreTransportistaPedidoRequest $request, $id)
     {
-        $id_pedido = $request->id_pedido;
-        $pedido = Pedido::find($id_pedido);
-        if ($pedido == null) {
-
-           return back()->with('alert-type','error')->with('status','No seleccionaste el número de Proveedor');
-        }
-        $pedido->vehiculo_id = $request->placa;
-        $pedido->save();
+        //return $request;
+        $pedido = Pedido::findOrFail($id)->update($request->validated());
+       //Cliente::findOrFail($id)->update($request->validated());
+        //$pedido->vehiculo_id = $request->placa;
+       // $pedido->save();
 
       return  back()->with('alert-type','success')->with('status','Transportista asignado con exito');
 

@@ -22,6 +22,9 @@ class CreatePedidosTable extends Migration
             $table->decimal('costo_galon',9,5);
             $table->integer('estado')->default(1);
             $table->decimal('saldo',9,2)->nullable();
+            $table->decimal('costo_flete')->nullable()->default(0);
+            $table->string('chofer')->nullable();
+            $table->string('brevete_chofer')->nullable();
             $table->unsignedBigInteger('factura_proveedor_id')->nullable();
             $table->foreign('factura_proveedor_id')->references('id')->on('factura_proveedors');
             $table->unsignedBigInteger('vehiculo_id')->nullable();

@@ -9,7 +9,8 @@ class Pedido extends Model
 {
     protected $table = 'pedidos';
     protected $fillable= ['id','nro_pedido','scop', 
-    							'galones', 'costo_galon','estado' , 'saldo' , 
+    							'galones', 'costo_galon','estado' , 'saldo' ,
+                                'chofer', 'costo_flete', 'brevete_chofer', 
     							'factura_proveedor_id','vehiculo_id','planta_id'];
 
 

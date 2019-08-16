@@ -6,7 +6,7 @@
     </button>
     <ul class="dropdown-menu">
       <li>
-        <button class="btn btn-xs btn-success btn-block" href="{{route('pedidos.confirmarPedido',$pedido->id)}}" ><span class="glyphicon glyphicon-check"> </span> CONFIRMAR</button>
+        <a class="btn btn-xs bg-olive btn-block" href="{{route('pedidos.confirmarPedido',$pedido->id)}}" ><span class="glyphicon glyphicon-check"> </span> CONFIRMAR</a>
       </li>
       <li>
               <!-- Editar -->   

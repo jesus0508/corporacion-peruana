@@ -55,11 +55,11 @@ class TransportistaController extends Controller
      */
     public function show($id)
     {
-        //$vehiculo = Vehiculo::with('transportista')->where('id','=',$id)->first();
+        $vehiculo = Vehiculo::with('transportista')->where('id','=',$id)->first();
          
-       // return $vehiculo;
-        $transportista = Transportista::findOrFail($id);
-        return $transportista;
+        return $vehiculo;
+       // $transportista = Transportista::findOrFail($id)->with('vehiculos')->first();
+       // return $transportista;
     }
 
     /**
