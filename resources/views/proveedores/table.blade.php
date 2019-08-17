@@ -10,9 +10,10 @@
             <thead>
               <tr>
                 <th width="5%">#</th>
-                <th width="30%">Razon Social</th>
-                <th width="15%">Ruc</th>
+                <th width="20%">Razon Social</th>
+                <th width="10%">Ruc</th>
                 <th width="20%">Email</th>
+                <th width="15%">Deuda Total </th>
                 <th width="30%">Acciones</th>
                 
               </tr>
@@ -24,6 +25,7 @@
                   <td>{{$proveedor->razon_social}}</td>
                   <td>{{$proveedor->ruc}}</td>
                   <td>{{$proveedor->email}}</td>
+                  <td>{{$proveedor->deuda}}</td>
                   @include('actions.proveedor')
                 </tr>
               @endforeach

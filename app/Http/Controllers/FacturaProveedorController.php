@@ -56,7 +56,7 @@ class FacturaProveedorController extends Controller
         $facturaCreada = FacturaProveedor::where('nro_factura_proveedor','=',$request->nro_factura_proveedor)->first();
         $id_factura_proveedor = $facturaCreada->id;
         $pedido->factura_proveedor_id = $id_factura_proveedor;
-        $pedido->estado = 2;
+        //$pedido->estado = 2;
 
         $pedido->saldo = $request->monto_factura;
         

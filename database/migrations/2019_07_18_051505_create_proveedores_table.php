@@ -17,6 +17,7 @@ class CreateProveedoresTable extends Migration
             $table->bigIncrements('id');
             $table->string('razon_social');
             $table->string('ruc');
+            $table->string('deuda')->default(0);
             $table->string('email')->unique()->nullable();
             $table->string('representante')->nullable();
 

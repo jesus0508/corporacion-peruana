@@ -62,6 +62,21 @@
                 </div>
               </div>
             </div>
+
+            @php
+            $suma = 0;
+            @endphp
+
+            @foreach ($pedidos_cl as $pedido_cliente)
+              @php
+                $suma += $pedido_cliente->galones - $pedido_cliente->galones_asignados;
+              @endphp
+            @endforeach
+          @if( $suma == null or $suma == 0 or $pedido->getGalonesStock() == 0 )
+            @if( $pedido->getGalonesStock() == 0 )
+                 <a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-primary pull-right "><i class="fa fa-eye"> &nbsp; </i>Ver Distribución</a>
+            @endif
+          @else
             <div class="row">
               <div class="col-lg-6">
                 <label for="saldo">TOTAL a Distribuir</label>
@@ -72,31 +87,17 @@
                 </div>
               </div>
             </div>
-            @php
-            $suma = 0;
-            @endphp
-
-            @foreach ($pedidos_cl as $pedido_cliente)
-              @php
-                $suma += $pedido_cliente->galones - $pedido_cliente->galones_asignados;
-              @endphp
-            @endforeach
             <div class="row">
               <div class="col-md-12 top-button">
-                @if( $pedido->getGalonesStock() == 0 or $suma == 0 )
-                <button type="submit" class="btn btn-lg btn-success" disabled>
+                
+                <button type="submit" class="btn btn-lg btn-success"> 
                   <i class="fa fa-th"> </i>
-                  Distribuir
-                </button>
-                @else
-                <button type="submit" class="btn btn-lg btn-success">
-                  <i class="fa fa-th"> </i>
-                  Distribuir
+                  Distribuir en bloque
                 </button>
 
-                @endif
               </div>
             </div>
+          @endif  
           </div><!-- end-box-body-->
         </div> <!-- end-box-->
 

@@ -68,8 +68,8 @@
             </div>
             <div class="row">
               <div class="col-md-12 top-button">
-              
-                <a href="{{route('pedidos.show', $pedido->id)}}" class="btn btn-info" >
+          <!--    {{route('pedidos.show', $pedido->id)}} -->
+                <a href="#" class="btn btn-info">
                   <i class="fa fa-eye"> </i>
                   Ver Pedido Proveedor
                 </a>

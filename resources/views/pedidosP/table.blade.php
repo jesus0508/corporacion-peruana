@@ -67,7 +67,7 @@
                  
                   @includeWhen($pedido->isConfirmed(), 'actions.pedido.acciones_confirmado')
                   @includeWhen($pedido->isUnconfirmed(),'actions.pedido.acciones_sin_confirmar')
-                  @includeWhen($pedido->isDistributed(), 'actions.pedido.acciones_distrubuido') 
+                  @includeWhen($pedido->isDistributed(), 'actions.pedido.acciones_distribuido') 
                   @includeWhen($pedido->isPaid(), 'actions.pedido.acciones_pagado')             
 
                 </tr>

@@ -13,10 +13,13 @@
         <button class="btn btn-info">Ver Vehiculo asignado</button>
         @endif
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#" class="btn bg-purple">
-          <span class="fa fa-th"> </span>&nbsp;
-           Distribuir en grifo(s)
-        </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @if( $pedido->getGalonesStock() > 0)
+        <a class="btn bg-orange" href="{{route('pedidos.distribuir_grifo', $pedido->id)}}">
+          <i class="fa fa-th"> &nbsp; </i>DISTRIBUIR EN GRIFO(S)
+        </a> 
+        @endif 
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <p> <br></p>       
 
         <div class="box box-success collapse " id="collapseCisterna">
