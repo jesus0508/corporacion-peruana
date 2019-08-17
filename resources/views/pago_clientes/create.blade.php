@@ -18,7 +18,7 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="fecha_operacion">Fecha</label>
-                  <input id="fecha_operacion" type="text" class="form-control"
+                  <input id="fecha_operacion" type="text" class="form-control" autocomplete="off"
                           name="fecha_operacion" placeholder="Ingrese la fecha" required>
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@
                     <div class="form-group">
                       <label for="monto_operacion">Monto</label>
                       <input id="monto_operacion" type="number" step="any" class="form-control"
-                              name="monto_operacion" placeholder="Ingrese el monto de la operacion" required>
+                              name="monto_operacion" placeholder="Ingrese el monto de la operacion" required min="0">
                     </div>
                   </div>
                   <div class="col-md-6">

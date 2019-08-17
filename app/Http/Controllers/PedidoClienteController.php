@@ -47,9 +47,12 @@ class PedidoClienteController extends Controller
         //
         $pedido = PedidoCliente::create($request->validated());
         $cliente = $pedido->cliente;
-        $cliente->linea_credito -= $pedido->getPrecioTotal();
-        $cliente->save();
-        return back()->with('alert-type', 'success')->with('status', 'Pedido Registrado con exito');
+        $pedidos = $cliente->pedidoClientes->where('estado', '<=', 4);
+        $total_consumido = $pedidos->sum('saldo');
+        if ($total_consumido >= $cliente->linea_credito) {
+            return back()->with(['alert-type' => 'info', 'status' => 'Cliente excedio su limite de credito. Pedido Registrado']);
+        }
+        return back()->with(['alert-type' => 'info', 'status' => 'Pedido Registrado con exito']);
     }
 
     /**

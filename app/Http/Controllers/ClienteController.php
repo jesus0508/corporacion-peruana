@@ -52,7 +52,9 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        return response()->json(['cliente' => $cliente]);
+        $pedidos = $cliente->pedidoClientes->where('estado', '<=', 4);
+        $total_consumido = $pedidos->sum('saldo');
+        return response()->json(['cliente' => $cliente, 'total_consumido' => $total_consumido]);
     }
 
     /**

@@ -51,6 +51,7 @@ class TrabajadorController extends Controller
     public function show(Trabajador $trabajadore)
     {
         //
+        return response()->json(['trabajador' => $trabajadore]);
     }
 
     /**
@@ -62,16 +63,17 @@ class TrabajadorController extends Controller
     public function edit(Trabajador $trabajadore)
     {
         //
+        return response()->json(['trabajador' => $trabajadore]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \CorporacionPeru\Trabajador  $trabajador
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreTrabajadorRequest $request, Trabajador $trabajadore)
+    public function update(StoreTrabajadorRequest $request, $id)
     {
         //
         $id = $request->id;

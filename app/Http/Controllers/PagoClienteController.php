@@ -22,7 +22,7 @@ class PagoClienteController extends Controller
     {
         //
         $pagos = PagoCliente::with('pedidoClientes')->get();
-        // dd($pagos);
+        //dd($pagos);
         return view('pago_clientes.index', compact('pagos'));
     }
 
@@ -47,15 +47,14 @@ class PagoClienteController extends Controller
         //
         $pago = PagoCliente::create($request->validated());
         $pedido_cliente = PedidoCliente::findOrFail($request->pedido_cliente_id);
-        $cliente = $pedido_cliente->cliente;
         $pedido_cliente->saldo -= $request->monto_operacion;
-        $cliente->linea_credito += $request->monto_operacion;
         $pago->saldo = $pedido_cliente->saldo;
         $pedido_cliente->estado = 4;
         if ($pedido_cliente->saldo <= 0) {
+            $pago->saldo = 0;
             $pedido_cliente->estado = 5;
         }
-        $cliente->save();
+        $pedido_cliente->pagoClientes()->attach($pago->id);
         $pago->save();
         $pedido_cliente->save();
         return back()->with('alert-type', 'success')->with('status', 'Pago registrado con exito');
@@ -92,15 +91,11 @@ class PagoClienteController extends Controller
                 /** Guardar en alguna parte el excedente */
                 return response()->json(['status' => 'Hubo un excedente de: ' . $monto_actual]);
             }
-            $cliente->linea_credito += $pago->monto_operacion;
-            $cliente->save();
             DB::commit();
             return response()->json(['status' => 'Pagos registrados con exito']);
         } catch (Exception $e) {
             DB::rollback();
-            return response()->json(['status' => 'Pagos registrados con exito']);
-
-            // return back()->with(['alert-type' => 'error', 'status' => 'Ocurrio un error en el servidor vuelve a intentarlo']);
+            return response()->json(['status' => 'Ocurrio un error en el servidor vuelve a intentarlo']);
         }
     }
 

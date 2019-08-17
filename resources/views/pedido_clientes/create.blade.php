@@ -128,7 +128,7 @@
                 <div class="form-group @error('galones') has-error @enderror">
                   <label for="galones">Galones</label>
                   <input id="galones" type="number" class="form-control" 
-                          name="galones" placeholder="Ingrese el numero galones">
+                          name="galones" placeholder="Ingrese el numero galones" min="0">
                   @error('galones')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -140,7 +140,7 @@
                 <div class="form-group @error('precio_galon') has-error @enderror">
                   <label for="precio_galon">Precio x Galones</label>
                   <input id="precio_galon" type="number" step="any" class="form-control" 
-                          name="precio_galon" placeholder="Ingrese el precio por galon">
+                          name="precio_galon" placeholder="Ingrese el precio por galon" min="0">
                   @error('precio_galon')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -198,5 +198,5 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="{{ asset('js/crearPedido.js') }}"></script> 
+<script src="{{ asset('js/pedidoClientes/crearPedido.js') }}"></script> 
 @endsection

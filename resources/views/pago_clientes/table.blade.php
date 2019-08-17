@@ -6,7 +6,7 @@
       </div><!-- /.box-header -->
       <div class="box-body">
         @include('pago_clientes.opciones')
-        <table id="" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-pagos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>#</th>
@@ -30,7 +30,7 @@
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                 <td>S/&nbsp;{{$pago->saldo}}</td>
                 <td>{{$pago->banco}}</td>
-                <td>Gaaaaaaaaaaa</td>
+                <td>Editar</td>
               </tr>
               @endforeach
             @endforeach

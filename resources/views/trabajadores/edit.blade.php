@@ -20,7 +20,7 @@
                 <div class="form-group">
                   <label for="dni-edit">DNI</label>
                   <input id="dni-edit" type="text" class="form-control" 
-                          name="dni" placeholder="Ingrese el dni" required>
+                          name="dni" placeholder="Ingrese el dni" required required pattern="^[0-9]{8}">
                 </div>
                 <div class="form-group">
                   <label for="nombres-edit">Nombres</label>
@@ -55,7 +55,7 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="email-edit">Correo Electronico</label>
-                  <input id="email-edit" type="text" class="form-control" 
+                  <input id="email-edit" type="email" class="form-control" 
                           name="email" placeholder="Ingrese el email">
                 </div>
                 <div class="form-group">
@@ -68,13 +68,13 @@
                   <div class="form-inline">
                     <div class="radio">
                       <label>
-                        <input id="genero-edit-1" type="radio" name="genero-edit" value="1">
+                        <input id="genero-edit-1" type="radio" name="genero" value="1" required>
                         Masculino
                       </label>
                     </div>
                     <div class="radio">
                       <label>
-                        <input id="genero-edit-2" type="radio" name="genero-edit" value="2">
+                        <input id="genero-edit-2" type="radio" name="genero" value="2">
                         Femenino
                       </label>
                     </div>

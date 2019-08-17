@@ -10,7 +10,7 @@ $(document).ready(function () {
   inicializarSelect2($cliente, 'Ingrese la razon social', '');
   fechaActual();
   validateDates();
-  
+
   $tipo.on('change', function () {
     let $cliente = $('#cliente');
     let tipo = $(this).val();
@@ -29,8 +29,7 @@ $(document).ready(function () {
     if (id) {
       getClienteById(id).done((data) => {
         $('#ruc').val(data.cliente.ruc);
-        console.log(data.cliente.linea_credito);
-        if(data.cliente.linea_credito<=0){
+        if (data.total_consumido >= data.cliente.linea_credito) {
           toastr.info('El cliente ha excedido la linea de credito', 'Info Alert', { timeOut: 3000 });
         }
       }).fail((error) => {

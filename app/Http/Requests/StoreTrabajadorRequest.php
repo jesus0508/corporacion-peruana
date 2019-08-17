@@ -25,15 +25,15 @@ class StoreTrabajadorRequest extends FormRequest
     {
         return [
             //
-            'dni'=>'required|unique:trabajadores,dni',
-            'nombres'=>'required',
-            'apellido_paterno'=>'required',
-            'apellido_materno'=>'required',
-            'telefono'=>'',
+            'dni'=>'required|digits: 8|unique:trabajadores,dni,'.$this->id,
+            'nombres'=>'required|min: 2',
+            'apellido_paterno'=>'required|min: 2',
+            'apellido_materno'=>'required|min: 2',
+            'telefono'=>'nullable|regex:/^([9]{1})([0-9]{8})$/i',
             'genero'=>'required',
-            'email'=>'',
-            'direccion'=>'',
-            'fecha_nacimiento'=>'',
+            'email'=>'nullable|email|unique:trabajadores,email,'.$this->id,
+            'direccion'=>'max: 255',
+            'fecha_nacimiento'=>'nullable|date_format:"d/m/Y"',
         ];
     }
 }
