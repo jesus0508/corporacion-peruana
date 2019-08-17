@@ -17,6 +17,14 @@
   <h2>RESUMEN DISTRIBUCIÓN PEDIDOS PROVEEDORES <a class="pull-right" href="{{route('pedidos.index')}}" class="btn btn-lg btn-default"> <i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver Pedidos Proveedores</a></h2> 
 </br>
   @include('distribucion.resumen.pedido_proveedor')
+  <div class="row">
+    <div class="col-md-12">
+      <a class="btn btn-primary" href="{{route('pedidos.distribuir', $pedido->id)}}">
+      <i class="fa fa-th"> &nbsp; </i>Volver Distribución
+      </a>
+    </div>
+  </div>
+  <br>
   @include('distribucion.resumen.tabla_pedido_cliente') 
 </section>
 @endsection

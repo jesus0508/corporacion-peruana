@@ -31,12 +31,10 @@
                 <td>{{$pedido_cliente->galones_asignados}}</td>
 
                 <td> 
-                    <button class="btn btn-primary">
-                      Ver Pedido
-                    </button>
+                    <a class="btn btn-primary" href="{{route('pedido_clientes.detalles',$pedido_cliente->id)}}"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Detalles Pedido</a>
                   
    
-                  </td>
+                </td>
               </tr>
             @endforeach
           </tbody>

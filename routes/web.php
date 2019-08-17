@@ -48,4 +48,5 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('ver_distribucion/{id}', 'PedidoController@ver_distribucion')->name('pedidos.ver_distribucion');
 	Route::post('asignar_gls', 'PedidoController@asignar_individual')->name('asignar_gls');
 	Route::get('/procesar/{id}', 'PedidoController@confirmarPedido')->name('pedidos.confirmarPedido');
+	Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')->name('pedidos.distribuir_grifo');
 });
