@@ -37,18 +37,34 @@ Route::middleware(['auth'])->group(function () {
 	/* Grifo */
 	Route::resource('/grifos', 'GrifoController');
 
+	/* Proveedor & planta */	
 	Route::resource('/proveedores', 'ProveedorController');
-	Route::resource('/pedidos', 'PedidoController');
 	Route::resource('/planta', 'PlantaController');
-	Route::resource('factura_proveedor', 'FacturaProveedorController');
+
+	/* Transportista & vehiculo */
 	Route::resource('transportista', 'TransportistaController');
 	Route::resource('vehiculo', 'VehiculoController');
-	Route::resource('/pago_proveedors', 'PagoProveedorController');
-	Route::get('proveedores_data', 'ProveedorController@datatable');
-	Route::get('distribuir/{id}', 'PedidoController@distribuir')->name('pedidos.distribuir');
-	Route::put('distribuir_pedido/{id}', 'PedidoController@distribuir_pedido')->name('pedidos.distribuir_pedido');
-	Route::get('ver_distribucion/{id}', 'PedidoController@ver_distribucion')->name('pedidos.ver_distribucion');
-	Route::post('asignar_gls', 'PedidoController@asignar_individual')->name('asignar_gls');
+
+	/* Pedido Proveedor  */					
+	Route::resource('/pedidos', 'PedidoController');
+	Route::resource('factura_proveedor', 'FacturaProveedorController');
 	Route::get('/procesar/{id}', 'PedidoController@confirmarPedido')->name('pedidos.confirmarPedido');
-	Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')->name('pedidos.distribuir_grifo');
+
+	/* Pago Proveedor  */	
+	Route::resource('/pago_proveedors', 'PagoProveedorController');
+
+	/* Distribucion Pedido a clientess */	
+	Route::get('distribuir/{id}', 'PedidoController@distribuir')
+			->name('pedidos.distribuir');//mostrar interfaz distribución
+	Route::put('distribuir_pedido/{id}', 'PedidoController@distribuir_pedido')
+			->name('pedidos.distribuir_pedido');//algoritmo distribucion en bloque a pedido clientes
+	Route::get('ver_distribucion/{id}', 'PedidoController@ver_distribucion')
+			->name('pedidos.ver_distribucion');//ver resumen distribucion
+
+	/* Distribucion Pedido a clientess */
+	Route::post('asignar_gls', 'PedidoController@asignar_grifo')
+			->name('asignar_gls');//asignar gls de pedido a grifos(algoritmo)
+	Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')
+			->name('pedidos.distribuir_grifo');//mostrar interfaz distribucion a grifos
+
 });

@@ -16,11 +16,11 @@
 
 @section('content')
 <section class="content">
-  @include('distribucion.pedido_proveedor')
+  @include('distribucion.grifos.pedido_proveedor')
   <br>
   <div class="row">
     <div class="col-md-12">
-       <button class="btn btn-primary" onclick="goBack()"><span class="fa fa-arrow-left"></span> &nbsp; ATRÁS</button>  
+       <a class="btn btn-primary" href="{{route('pedidos.distribuir', $pedido->id)}}"><span class="fa fa-arrow-left">&nbsp;</span>Atrás</a>
     </div>   
   </div>
   <br>

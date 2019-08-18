@@ -26,20 +26,11 @@
   </div>
   <br>
   @include('distribucion.resumen.tabla_pedido_cliente') 
+  <br>
+  @include('distribucion.resumen.tabla_pedido_grifo')
 </section>
 @endsection
 @section('scripts')
-<script>
 
-$(document).ready(function() {
-  $('#tabla-pedido_clientes_resaeaada').DataTable({
-	
-    "ordering": false,
-    'language': {
-             'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-        }
-  });
-} );
-</script>
 @endsection
 
