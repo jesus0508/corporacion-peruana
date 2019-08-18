@@ -292,20 +292,6 @@ desired effect
           </ul>
         </li>
 
-        <li id="treeview-proveedores" class="treeview">
-          <a href="#">
-            <i class="fa fa-building-o"></i> <span>Compras</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedidos</a></li>
-            <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
-          </ul>
-        </li> 
-               
-
         <li id="treeview-transportistas" class="treeview">
           <a href="#">
             <i class="fa fa-truck"></i> <span>Transportistas</span>
@@ -318,7 +304,7 @@ desired effect
             <li><a href="{{route('transportista.index')}}"><i class="fa fa-list"></i> Ver Transportistas</a></li>            
           </ul>
         </li>
-
+        
         <li id="treeview-reportes" class="treeview">
           <a href="#">
             <i class="fa fa-book"></i> <span>Reportes</span>
@@ -330,6 +316,7 @@ desired effect
             <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li>
           </ul>
         </li>
+        
         <li id="treeview-usuarios" class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Trabajadores</span>
@@ -342,7 +329,17 @@ desired effect
           </ul>
         </li>
 
-
+        <li id="treeview-grifos" class="treeview">
+          <a href="#">
+            <i class="fa fa-building-o"></i> <span>Grifos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('grifos.index')}}"><i class="fa fa-industry"></i> Gestion</a></li>
+          </ul>
+        </li> 
       </ul>
       <!-- /.sidebar-menu -->
     </section>

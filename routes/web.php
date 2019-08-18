@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/pago_clientes/pedidos/{cliente}', 'PagoClienteController@pagoBloque')->name('pago_clientes.pagoBloque');
 	Route::resource('/pago_clientes', 'PagoClienteController');
 
+	/* Grifo */
+	Route::resource('/grifos', 'GrifoController');
 
 	Route::resource('/proveedores', 'ProveedorController');
 	Route::resource('/pedidos', 'PedidoController');
