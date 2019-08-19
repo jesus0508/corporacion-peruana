@@ -13,6 +13,7 @@
               <th>Nombre GRIFO</th>
               <th>Administrador</th>
               <th>STOCK</th>
+              <th>Gls asignados</th>
               <th>Acciones</th>
 
 
@@ -26,6 +27,7 @@
                 <td>{{$pedidos_grifo->razon_social}}</td>
                 <td>{{$pedidos_grifo->administrador}}</td>
                 <td>{{$pedidos_grifo->stock}}</td>
+                <td> {{$pedidos_grifo->asignacion}}</td>
                 <td> 
                     <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Detalles Grifo</a>
                   

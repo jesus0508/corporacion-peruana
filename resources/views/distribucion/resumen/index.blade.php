@@ -27,7 +27,7 @@
   <br>
   @include('distribucion.resumen.tabla_pedido_cliente') 
   <br>
-  @include('distribucion.resumen.tabla_pedido_grifo')
+  @includeWhen(isset($pedidos_grifos),'distribucion.resumen.tabla_pedido_grifo')
 </section>
 @endsection
 @section('scripts')

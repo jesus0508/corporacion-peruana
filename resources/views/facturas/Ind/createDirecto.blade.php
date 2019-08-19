@@ -10,7 +10,7 @@
 @section('content')
 <section class="content">
   {{-- <button class="btn btn-info pull-right">Limpiar</button> --}}
-  <h2>CONFIRMACION PEDIDOS PROVEEDORES</h2>
+  <h2>FACTURA PEDIDOS PROVEEDORES</h2>
 
     <div class="row">
       <!-- left column -->

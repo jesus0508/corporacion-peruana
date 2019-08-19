@@ -150,8 +150,11 @@ class PedidoController extends Controller
         $pedido = Pedido::findOrFail($id);
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id', $id)->get();
          $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
-            ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
-            ->where('pedido_id', $pedido->id)->get();
+           // ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
+            ->where('pedido_id', $pedido->id)
+            ->groupBy('grifos.id')
+            //->select('grifos.razon_social',grifos)
+            ->get();
 
         return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'));
     }
@@ -174,7 +177,7 @@ class PedidoController extends Controller
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
             $pedido->estado = 3;
-            $pedido->grifos()->attach($grifo->id);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
             $pedido->save();
             $grifo->save();
 
@@ -186,7 +189,9 @@ class PedidoController extends Controller
 
             $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
                 ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
-                ->where('pedido_id', $pedido->id)->get();
+                ->where('pedido_id', $pedido->id)
+                ->groupBy('grifos.id')
+                ->get();
 
         return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'))->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
            }   
@@ -196,7 +201,7 @@ class PedidoController extends Controller
 
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
-            $pedido->grifos()->attach($grifo->id);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
             $pedido->save();
             $grifo->save();
 

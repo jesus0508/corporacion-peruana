@@ -19,6 +19,7 @@ class CreatePivotGrifoPedidoTable extends Migration
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->unsignedBigInteger('grifo_id')->nullable();
             $table->foreign('grifo_id')->references('id')->on('grifos');
+            $table->integer('asignacion');
         });
     }
 
