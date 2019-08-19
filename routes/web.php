@@ -67,4 +67,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')
 			->name('pedidos.distribuir_grifo');//mostrar interfaz distribucion a grifos
 
+	/* Gastos */
+	Route::resource('gastos','GastosController');
+
 });
