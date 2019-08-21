@@ -9,6 +9,7 @@ use CorporacionPeru\Http\Requests\StorePedidoRequest;
 use Illuminate\Http\Request;
 use CorporacionPeru\Pedido;
 use CorporacionPeru\Cliente;
+use CorporacionPeru\Grifo;
 use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoCliente;
@@ -108,18 +109,19 @@ class PedidoController extends Controller
     public function distribuir_grifo($id){
         $pedido = Pedido::where('id','=',$id)->with('planta')->first();
 
-        $pedidos_cl = Cliente::where('tipo',1)->get();
+        //$pedidos_cl = Cliente::where('tipo',1)->get();
+        $grifos = Grifo::all();
 
        // return $pedidos_cl;
-        return view('distribucion.grifos.index',compact( 'pedido' , 'pedidos_cl'));
+        return view('distribucion.grifos.index',compact( 'pedido' , 'grifos'));
 
 
     }
 
     /**
-     * Display the specified resource.
+     * Muestra interfaz para  distribuir
      *
-     * @param  \CorporacionPeru\Pedido  $pedido
+     * @param  \CorporacionPeru\Pedido  $id
      * @return \Illuminate\Http\Response
      */
 
@@ -135,16 +137,80 @@ class PedidoController extends Controller
         return view('distribucion.index', compact('pedido', 'pedidos_cl', 'vehiculos'));
     }
 
+        /**
+     * Muestra resumen de la distribución
+     *
+     * @param  \CorporacionPeru\Pedido  $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function ver_distribucion($id)
     {
 
         $pedido = Pedido::findOrFail($id);
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id', $id)->get();
-        // $pedidos_cl =  $pedidos_cl->pedidos->wherePivot('pedido_id','=',$request->pedido_id)->get();
-        // $pedidos_cl->where('pivot.pedido_id','=',1);
-        // return $pedidos_cl;
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
+         $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
+           // ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
+            ->where('pedido_id', $pedido->id)
+            ->groupBy('grifos.id')
+            //->select('grifos.razon_social',grifos)
+            ->get();
+
+        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'));
     }
+
+    public function asignar_grifo(Request $request)
+    {
+
+        $grifo = Grifo::findOrFail($request->id_grifo);
+        $asignacion = $request->galones_x_asignar;
+        $pedido = Pedido::findOrFail($request->id_pedido_pr);
+        $galonaje_stock = $pedido->getGalonesStock();
+            // 200       <         300
+        if ( $galonaje_stock < $asignacion or $asignacion <= 0 ) {
+
+            return back()->with('alert-type', 'error')->with('status', 'Galonaje incorrecto!');
+        }
+         
+        if ( $galonaje_stock == $asignacion ) {
+
+            $grifo->stock += $asignacion;
+            $pedido->galones_distribuidos += $asignacion;
+            $pedido->estado = 3;
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
+            $pedido->save();
+            $grifo->save();
+
+            $pedidos_cl = 
+                PedidoCliente::join('pedido_proveedor_clientes', 
+                    'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
+                ->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')
+                ->where('pedido_id', $request->id_pedido_pr)->get();
+
+            $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
+                ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
+                ->where('pedido_id', $pedido->id)
+                ->groupBy('grifos.id')
+                ->get();
+
+        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'))->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
+           }   
+
+        else //( $galonaje_stock < $asignacion  )
+         { 
+
+            $grifo->stock += $asignacion;
+            $pedido->galones_distribuidos += $asignacion;
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
+            $pedido->save();
+            $grifo->save();
+
+            return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
+        }
+
+
+    }
+
 
     public function asignar_individual(Request $request)
     {

@@ -25,7 +25,7 @@
                   <td>{{$proveedor->razon_social}}</td>
                   <td>{{$proveedor->ruc}}</td>
                   <td>{{$proveedor->email}}</td>
-                  <td>{{$proveedor->deuda}}</td>
+                  <td><label class="label label-default" style="font-size:13px;">S/ &nbsp;{{$proveedor->deuda}} </label></td>
                   @include('actions.proveedor')
                 </tr>
               @endforeach

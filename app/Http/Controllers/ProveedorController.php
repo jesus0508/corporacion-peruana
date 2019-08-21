@@ -19,7 +19,16 @@ class ProveedorController extends Controller
     {
         //
         $proveedores = Proveedor::all();
-        return view('proveedores.index',compact('proveedores'));
+        /*$deudas = Proveedor::
+            join('plantas','plantas.proveedor_id','=','proveedores.id')
+          ->join('pedidos','pedidos.planta_id','=','plantas.id')
+          ->select('pedidos.galones','pedidos.costo_galon')
+          ->get() ;      
+          //return $deudas->where('id',3)->sum('galones');
+          //->sum('galones');*/
+         
+
+        return view('proveedores.index',compact('proveedores','deudas'));
     }
 
     /**

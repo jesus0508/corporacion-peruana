@@ -159,8 +159,13 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$pedido->scop}}</td>
                       <td>{{$pedido->planta->planta}}</td>
+                      @if($pedido->vehiculo_id == null )
+                      <td>FLETE PROPIO</td>
+                      <td>FLETE PROPIO</td>
+                      @else
                       <td>{{$pedido->vehiculo->transportista->nombre_transportista}}</td>
                       <td>{{$pedido->vehiculo->placa}}</td>
+                      @endif
                     </tr>
                   @endforeach
                 </tbody> 

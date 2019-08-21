@@ -30,6 +30,10 @@ class Pedido extends Model
         return $this->belongsToMany(PedidoCliente::class,'pedido_proveedor_clientes')->with('pedidos');
     }
 
+    public function grifos(){
+        return $this->belongsToMany(Grifo::class,'pedido_grifos');
+    }
+
     public function pagosProveedor(){
         return $this->belongsToMany(PagoProveedor::class,'pago_pedido_proveedors');
     }

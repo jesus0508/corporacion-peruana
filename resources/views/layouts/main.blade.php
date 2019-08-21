@@ -292,7 +292,7 @@ desired effect
           </ul>
         </li>
 
-        <li id="treeview-proveedores" class="treeview">
+        <li id="treeview-compras" class="treeview">
           <a href="#">
             <i class="fa fa-building-o"></i> <span>Compras</span>
             <span class="pull-right-container">
@@ -353,7 +353,26 @@ desired effect
             <li><a href="{{route('grifos.index')}}"><i class="fa fa-industry"></i> Gestion</a></li>
             <li><a href="{{route('ingreso_grifos.index')}}"><i class="fa fa-sort-asc"></i> Ingresos</a></li>
           </ul>
-        </li> 
+        </li>
+
+        <li id="treeview-gastos" class="treeview">
+          <a href="#">
+            <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('gastos.index')}}"><i class="fa fa-pencil"></i> 
+            Agregar gasto </a></li>
+            <li><a href="{{route('gastos.create')}}"><i class="fa fa-minus-square"></i> 
+            Registrar gasto</a>
+            </li>
+            <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
+            Salidas Cheque&Banco</a>
+            </li>
+          </ul>
+        </li>  
       </ul>
       <!-- /.sidebar-menu -->
     </section>

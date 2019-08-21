@@ -1,4 +1,4 @@
-
+  
     <form action="{{route('pedidos.distribuir_pedido',$pedido->id)}}" method="post">
       @csrf
       @method('PUT')
