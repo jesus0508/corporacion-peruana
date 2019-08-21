@@ -351,6 +351,7 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('grifos.index')}}"><i class="fa fa-industry"></i> Gestion</a></li>
+            <li><a href="{{route('ingreso_grifos.index')}}"><i class="fa fa-sort-asc"></i> Ingresos</a></li>
           </ul>
         </li> 
       </ul>

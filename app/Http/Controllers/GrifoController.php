@@ -5,6 +5,9 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\Grifo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreGrifoRequest;
+use CorporacionPeru\IngresoGrifo;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class GrifoController extends Controller
 {
@@ -93,6 +96,13 @@ class GrifoController extends Controller
         //
         $grifo->delete();
         return back()->with(['alert-type' => 'success', 'status' => 'Grifo eliminado con exito']);
+    }
 
+    public function getGrifosSinIngreso()
+    {
+        $grifos = Grifo::select('id','razon_social as text')->whereHas('latestIngresoGrifos', function (Builder $query) {
+            $query->whereDate('ingreso_grifos.created_at', '<', Carbon::today());
+        })->doesntHave('ingresoGrifos', 'or')->get();
+        return response()->json(['grifos' => $grifos]);
     }
 }
