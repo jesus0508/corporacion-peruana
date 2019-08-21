@@ -28,7 +28,7 @@ class ProveedorController extends Controller
           //->sum('galones');*/
          
 
-        return view('proveedores.index',compact('proveedores','deudas'));
+        return view('proveedores.index',compact('proveedores'));
     }
 
     /**
