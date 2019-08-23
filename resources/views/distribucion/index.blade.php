@@ -18,6 +18,7 @@
 <section class="content">
   @include('distribucion.pedido_proveedor')
   @include('distribucion.pedido_transportista')
+  @includeWhen( $pedido->vehiculo_id != null ,'distribucion.pedido_transportista_show')
   @include('distribucion.tabla_pedido_cliente') 
 </section>
 @endsection
@@ -64,7 +65,7 @@ $(document).ready(function() {
 function findByPlaca(id){
   $.ajax({
     type: 'GET',
-    url:`../transportista/${id}`,
+    url:`../showVehiTrans/${id}`,
     success: (data)=>{
       console.log(data);
       document.getElementById('nombre_transportista').innerHTML 

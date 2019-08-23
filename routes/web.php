@@ -65,10 +65,13 @@ Route::middleware(['auth'])->group(function () {
 			->name('pedidos.distribuir_pedido');//algoritmo distribucion en bloque a pedido clientes
 	Route::get('ver_distribucion/{id}', 'PedidoController@ver_distribucion')
 			->name('pedidos.ver_distribucion');//ver resumen distribucion
+	Route::get('showVehiTrans/{id}','TransportistaController@showVehiTrans');
 
 	/* Distribucion Pedido a clientess */
 	Route::post('asignar_gls', 'PedidoController@asignar_grifo')
 			->name('asignar_gls');//asignar gls de pedido a grifos(algoritmo)
+	Route::post('asignar_individual', 'PedidoController@asignar_individual')
+			->name('asignar_individual');//asignar gls de pedido a grifos(algoritmo)
 	Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')
 			->name('pedidos.distribuir_grifo');//mostrar interfaz distribucion a grifos
 

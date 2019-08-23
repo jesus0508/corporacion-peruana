@@ -47,6 +47,7 @@
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->
+          
           <div class="col-md-6">
             <!-- general form elements -->
             <div class="box box-primary">
@@ -83,6 +84,8 @@
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (right) -->
+
+          
         </div> 
       </div>
       <div class="modal-footer">

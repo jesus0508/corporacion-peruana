@@ -18,7 +18,7 @@
                   <label for="placa">Placa*</label>
                   <select class="form-control" id="placa" name="placa" disabled>
 
-                      <option selected="true">{{$transportista}}</option>
+                      <option selected="true">{{$pedido->vehiculo->placa}}</option>
 
                   </select>
                   
@@ -34,17 +34,19 @@
             @if( $pedido->vehiculo_id == null )
             @else
             <div id="" class="row">
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="form-group ">
                   <label for="modelo">Capacidad</label>
                   <input id="modelo"  value="{{$pedido->vehiculo->capacidad}}" type="text" class="form-control" disabled>
                   
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-9">
                 <div class="form-group ">
                   <label for="marca">Detalle compartimiento</label>
-                  <input id="marca" value="{{$pedido->vehiculo->detalle_compartimiento}}" type="text" class="form-control" disabled>
+                  <textarea name="" id="" class="form-control" cols="30" rows="3" disabled="">
+                    {{$pedido->vehiculo->detalle_compartimiento}}
+                  </textarea>
                 </div>
               </div>
             </div>

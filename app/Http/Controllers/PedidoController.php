@@ -133,8 +133,15 @@ class PedidoController extends Controller
             = PedidoCliente::where('estado', '=', 2)->with('cliente')->orderBy('id', 'desc')->get();
         $pedidos_cl = $pedidos_clientes_confirmados;
         $vehiculos = Vehiculo::all();
+        $vehiculo_asignado = null;
+        if ( $pedido->vehiculo_id != null) {
+            $id_vehiculo = $pedido->vehiculo_id;
+            $vehiculo_asignado = Vehiculo::findOrFail( $id_vehiculo )->with('transportista')->first();
+        }
         //return $pedidos_cl;
-        return view('distribucion.index', compact('pedido', 'pedidos_cl', 'vehiculos'));
+        //return $vehiculo_asignado;
+        return view('distribucion.index', compact('pedido', 'pedidos_cl', 
+                                                    'vehiculos','vehiculo_asignado'));
     }
 
         /**
@@ -148,7 +155,8 @@ class PedidoController extends Controller
     {
 
         $pedido = Pedido::findOrFail($id);
-        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id', $id)->get();
+        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $id)->get();
+        
          $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
            // ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
             ->where('pedido_id', $pedido->id)
@@ -216,18 +224,20 @@ class PedidoController extends Controller
     {
 
         $pedido_cl = PedidoCliente::findOrFail($request->id_pedido_cliente);
-        $cantDistribuir = $request->galonesXasignar;
+       // $cantDistribuir = $request->galonesXasignar;
         $pedido = Pedido::findOrFail($request->id_pedido_pr);
-        $galonaje_stock = $request->galones_stock;
+        $galonaje_stock = $pedido->getGalonesStock();
 
         if (
-            $pedido->getGalonesStock() < $request->galones_stock or
-            $cantDistribuir > $pedido_cl->galonesXasignar()
+            $pedido->getGalonesStock() <= 0 or
+            $pedido_cl->galonesXasignar() <= 0
         ) {
 
             return back()->with('alert-type', 'error')->with('status', 'Galonaje incorrecto!');
         }
-        $restanteXasignar = $request->galones_pedido_cl;
+
+        $restanteXasignar = $pedido_cl->galonesXasignar();
+        //$request->galones_pedido_cl;
 
         if ($restanteXasignar > $galonaje_stock) {
 
@@ -236,20 +246,36 @@ class PedidoController extends Controller
             $pedido->pedidosCliente()->attach($pedido_cl->id);
             $pedido->estado = 3;
             $pedido->save();
-            $pedido_cl->save();
-        } else { //si el stock es mayor a lo q se distribuira
+            $pedido_cl->save();   
+
+        } elseif( $restanteXasignar == $galonaje_stock ) { //si el stock es igual a lo q se distribuira
 
             $pedido_cl->galones_asignados += $restanteXasignar;
             $pedido->galones_distribuidos += $pedido_cl->galones;
             $pedido_cl->estado = 3;
+            $pedido->estado = 3;
             $pedido->pedidosCliente()->attach($pedido_cl->id);
             $pedido->save();
-            $pedido_cl->save();
+            $pedido_cl->save();      
+
+        } else{//si el stock es mayor a lo q se distribuira
+
+            $pedido_cl->galones_asignados += $restanteXasignar;
+            $pedido->galones_distribuidos += $restanteXasignar;
+            $pedido_cl->estado = 3;
+            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $pedido->save();
+            $pedido_cl->save();  
+
         }
+                   // return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Pedido');
+        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
 
-        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id', $request->id_pedido_pr)->get();
+            return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
+   
 
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
+
+        
     }
 
 
