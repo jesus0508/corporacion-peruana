@@ -261,7 +261,7 @@ class PedidoController extends Controller
         } else{//si el stock es mayor a lo q se distribuira
 
             $pedido_cl->galones_asignados += $restanteXasignar;
-            $pedido->galones_distribuidos += $pedido_cl->galones;
+            $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
             $pedido->pedidosCliente()->attach($pedido_cl->id);
             $pedido->save();
