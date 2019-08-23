@@ -105,12 +105,13 @@ class GrifoController extends Controller
         
         if($fecha){
             $fecha = Carbon::createFromFormat('d-m-Y', $fecha)->format('Y-m-d');
+            Log::info('Fecha de '.$fecha);
         }else{
             $fecha = Carbon::today();
         }
         $grifos = Grifo::select('id', 'razon_social as text')->whereHas('latestIngresoGrifos', function (Builder $query)  use ($fecha) {
             $query->whereDate('ingreso_grifos.fecha_ingreso', '<', $fecha);
-        })->doesntHave('ingresoGrifos', 'or')->get();
+        })->orWhereDoesntHave('ingresoGrifos')->get();
         return response()->json(['grifos' => $grifos]);
     }
 }

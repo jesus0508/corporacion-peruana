@@ -1,13 +1,13 @@
 <div class="content-header">
   <div class="row">
-    <div class="col-md-4">
+    {{-- <div class="col-md-4">
       <div class="input-group">
         <span class="input-group-addon">Grifo</span>
-        <select class="form-control" id="filter-cliente" name="cliente_id">
+        <select class="form-control" id="filter-grifo" name="grifo_id">
 
         </select>
       </div><!-- /input-group -->
-    </div>
+    </div> --}}
     <div class="col-md-6">
       <div class="row filtrado">
         <div class="col-md-5">

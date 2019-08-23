@@ -5,6 +5,7 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\IngresoGrifo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreIngresoGrifoRequest;
+use Log;
 
 class IngresoGrifoController extends Controller
 {
@@ -40,6 +41,7 @@ class IngresoGrifoController extends Controller
     {
         //
         $ingreso = IngresoGrifo::create($request->validated());
+        Log::info('Fecha'.$ingreso->fecha_ingreso);
         $grifo = $ingreso->grifo;
         $grifo->stock += $ingreso->calibracion;
         $grifo->save();

@@ -20,11 +20,11 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Fecha</th>
+              <th>Fecha Ingreso</th>
               <th>Lectura Inicial</th>
               <th>Lectura Final</th>
-              <th>Venta de Galones</th>
               <th>Calibracion</th>
+              <th>Precio x Galon</th>
               <th>Grifo</th>
             </tr>
           </thead>
@@ -32,7 +32,7 @@
             @foreach ($ingresoGrifos as $ingresoGrifo)
               <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$ingresoGrifo->created_at}}</td>
+                <td>{{$ingresoGrifo->fecha_ingreso}}</td>
                 <td>{{$ingresoGrifo->lectura_inicial}}</td>
                 <td>{{$ingresoGrifo->lectura_final}}</td>
                 <td>{{$ingresoGrifo->calibracion}}</td>

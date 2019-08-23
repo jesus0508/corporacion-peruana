@@ -19,4 +19,9 @@ class Grifo extends Model
     {
         return $this->hasOne(IngresoGrifo::class)->latest();
     }
+
+    public function latest($column = 'fecha_ingreso')
+    {
+        return $this->orderBy($column, 'desc');
+    }
 }

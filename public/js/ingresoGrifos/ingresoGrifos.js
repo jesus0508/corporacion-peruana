@@ -10,12 +10,20 @@ $(document).ready(function () {
   let $venta = $('#venta');
   let $calibracion = $('#calibracion');
   let $precio_galon = $('#precio_galon');
+  let $fecha_inicio = $('#fecha_inicio');
+  let $fecha_fin = $('#fecha_fin');
 
   inicializarDataTable($tabla_ingreso_grifos);
 
   $fecha_ingreso.datepicker({
-    dateFormat:'d-m-yy',
+    dateFormat: 'd-m-yy',
     maxDate: 0,
+  });
+
+  validateDates();
+
+  $('#filtrar-fecha').on('click', function () {
+    $tabla_ingreso_grifos.DataTable().draw();
   });
 
   $modal_create_ingreso.on('show.bs.modal', function (event) {
@@ -25,7 +33,6 @@ $(document).ready(function () {
 
   $fecha_ingreso.on('change', function (event) {
     fecha_ingreso = $fecha_ingreso.val();
-    console.log(fecha_ingreso);
     fillSelectGrifos(fecha_ingreso);
   })
 
@@ -66,12 +73,44 @@ $(document).ready(function () {
   function fillSelectGrifos(fecha = '') {
     getAllGrifos(fecha)
       .done((data) => {
+
+        $select_grifo.html('');
         inicializarSelect2($select_grifo, 'Seleccione el grifo', data.grifos);
       })
       .fail((error) => {
         toastr.error('Ocurrio un error en el servidor al guardar', 'Error Alert', { timeOut: 2000 });
       });
   }
+
+  function validateDates() {
+    $tabla_ingreso_grifos.DataTable().draw()
+    $fecha_inicio.datepicker({
+      numberOfMonths: 2,
+      onSelect: function (selected) {
+        $fecha_fin.datepicker('option', 'minDate', selected)
+      }
+    });
+    $fecha_fin.datepicker({
+      numberOfMonths: 2,
+      onSelect: function (selected) {
+        $fecha_inicio.datepicker('option', 'maxDate', selected)
+      }
+    });
+  }
+
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      var sInicio = $fecha_inicio.val();
+      var sFin = $fecha_fin.val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+      var fin = $.datepicker.parseDate('d/m/yy', sFin);
+      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      if (!inicio || !dia || fin >= dia && inicio <= dia) {
+        return true;
+      }
+      return false;
+    }
+  );
 
 });
 
@@ -117,4 +156,5 @@ function getIngresoByGrifo(idGrifo = '') {
     dataType: 'json',
   });
 }
+
 
