@@ -265,18 +265,15 @@ class PedidoController extends Controller
             $pedido_cl->estado = 3;
             $pedido->pedidosCliente()->attach($pedido_cl->id);
             $pedido->save();
-            $pedido_cl->save();
-            
-           // return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Pedido');
-           $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
+            $pedido_cl->save();  
+
+        }
+                   // return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Pedido');
+        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
 
             return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
    
-    
 
-
-
-        }
 
         
     }
