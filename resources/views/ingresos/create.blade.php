@@ -17,7 +17,14 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_ingreso">Fecha de Ingreso: </label>
+                      <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control"
+                        name="fecha_ingreso" placeholder="Fecha de Ingreso">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label for="seletc-grifos">Grifo</label>
                       <select class="form-control" id="seletc-grifos" name="grifo_id" required>

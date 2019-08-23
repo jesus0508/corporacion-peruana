@@ -30,7 +30,7 @@ class StoreClienteRequest extends FormRequest
             'direccion' => 'max: 255|min: 5',
             'tipo' => '',
             'linea_credito' => 'required|numeric|gt:0',
-            'periocidad' => 'required|numeric|gt:0',
+            //'periocidad' => 'required|numeric|gt:0',
         ];
     }
 }

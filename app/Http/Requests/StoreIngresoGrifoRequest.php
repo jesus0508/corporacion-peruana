@@ -28,6 +28,7 @@ class StoreIngresoGrifoRequest extends FormRequest
             'lectura_final'=>'required|numeric|gt: 0',
             'calibracion'=>'required|numeric|gt: 0',
             'precio_galon'=>'required|numeric|gt:0',
+            'fecha_ingreso'=>'required',
             'grifo_id'=>'required'
         ];
     }

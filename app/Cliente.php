@@ -19,10 +19,10 @@ class Cliente extends Model
     public function getTipo(){
         $result="";
         switch($this->tipo){
-            case 1: 
+            case 2: 
                 $result="Grifo";
                 break;
-            case 2:
+            case 1:
                 $result="Normal";
                 break;
         }

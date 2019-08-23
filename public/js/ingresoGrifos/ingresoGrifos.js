@@ -2,6 +2,7 @@ $(document).ready(function () {
   let $select_grifo = $('#seletc-grifos');
   let $tabla_ingreso_grifos = $('#tabla-ingreso_grifos');
   let $modal_create_ingreso = $('#modal-create-ingreso');
+  let $fecha_ingreso = $('#fecha_ingreso');
   let $lecturas = $('#lecturas');
   let $lectura_inicial = $('#lectura_inicial');
   let $lectura_final = $('#lectura_final');
@@ -12,14 +13,21 @@ $(document).ready(function () {
 
   inicializarDataTable($tabla_ingreso_grifos);
 
-  $modal_create_ingreso.on('show.bs.modal', function (event) {
-    getAllGrifos().done((data) => {
-      inicializarSelect2($select_grifo, 'Seleccione el grifo', data.grifos);
-    })
-      .fail((error) => {
-        toastr.error('Ocurrio un error en el servidor al guardar', 'Error Alert', { timeOut: 2000 });
-      });
+  $fecha_ingreso.datepicker({
+    dateFormat:'d-m-yy',
+    maxDate: 0,
   });
+
+  $modal_create_ingreso.on('show.bs.modal', function (event) {
+    hoy = $.datepicker.formatDate('d-m-yy', new Date());
+    fillSelectGrifos(hoy);
+  });
+
+  $fecha_ingreso.on('change', function (event) {
+    fecha_ingreso = $fecha_ingreso.val();
+    console.log(fecha_ingreso);
+    fillSelectGrifos(fecha_ingreso);
+  })
 
   $select_grifo.on('change', function (event) {
     let idGrifo = $select_grifo.val();
@@ -44,16 +52,27 @@ $(document).ready(function () {
     $precio_galon.trigger('keyup');
   });
 
-  $precio_galon.on('keyup',function(event){
+  $precio_galon.on('keyup', function (event) {
     let venta = parseFloat($venta.val());
     let calibracion = parseFloat($calibracion.val());
     let precio_galon = parseFloat($precio_galon.val());
-   
-    let totalGalones = venta + calibracion;
+
+    let totalGalones = venta - calibracion;
     let precioTotal = (totalGalones * precio_galon).toFixed(2);
 
     $('#total').val(precioTotal);
   })
+
+  function fillSelectGrifos(fecha = '') {
+    getAllGrifos(fecha)
+      .done((data) => {
+        inicializarSelect2($select_grifo, 'Seleccione el grifo', data.grifos);
+      })
+      .fail((error) => {
+        toastr.error('Ocurrio un error en el servidor al guardar', 'Error Alert', { timeOut: 2000 });
+      });
+  }
+
 });
 
 function inicializarSelect2($select, text, data) {
@@ -83,15 +102,15 @@ function inicializarDataTable($table) {
   });
 }
 
-function getAllGrifos() {
+function getAllGrifos(fecha) {
   return $.ajax({
     type: 'GET',
-    url: './grifos/all',
+    url: `./grifos/all/${fecha}`,
     dataType: 'json',
   });
 }
 
-function getIngresoByGrifo(idGrifo) {
+function getIngresoByGrifo(idGrifo = '') {
   return $.ajax({
     type: 'GET',
     url: `./ingreso_grifos/grifo/${idGrifo}`,

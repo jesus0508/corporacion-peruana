@@ -39,7 +39,10 @@ class IngresoGrifoController extends Controller
     public function store(StoreIngresoGrifoRequest $request)
     {
         //
-        IngresoGrifo::create($request->validated());
+        $ingreso = IngresoGrifo::create($request->validated());
+        $grifo = $ingreso->grifo;
+        $grifo->stock += $ingreso->calibracion;
+        $grifo->save();
         return back()->with(['alert-type' => 'success', 'status' => 'Ingreso registrado con exito']);
     }
 

@@ -14,7 +14,7 @@ $('#modal-edit-cliente').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#tipo-edit').val(data.cliente.tipo);
       $(event.currentTarget).find('#direccion-edit').val(data.cliente.direccion);
       $(event.currentTarget).find('#linea_credito-edit').val(data.cliente.linea_credito);
-      $(event.currentTarget).find('#periocidad-edit').val(data.cliente.periocidad);
+      //$(event.currentTarget).find('#periocidad-edit').val(data.cliente.periocidad);
       $(event.currentTarget).find('#id-edit').val(data.cliente.id);
     },
     error: (error)=>{
@@ -40,7 +40,7 @@ $('#modal-show-cliente').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#tipo-show').val(data.cliente.tipo);
       $(event.currentTarget).find('#direccion-show').val(data.cliente.direccion);
       $(event.currentTarget).find('#linea_credito-show').val(data.cliente.linea_credito);
-      $(event.currentTarget).find('#periocidad-show').val(data.cliente.periocidad);
+      //$(event.currentTarget).find('#periocidad-show').val(data.cliente.periocidad);
     },
     error: (error)=>{
       toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});

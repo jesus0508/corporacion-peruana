@@ -75,7 +75,7 @@
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="form-group @error('linea_credito') has-error @enderror">
                 <label for="linea_credito">Linea de credito</label>
                 <input id="linea_credito" type="number" step="any" class="form-control" value="{{old("linea_credito")}}"
@@ -87,7 +87,7 @@
                 @enderror
               </div>
             </div>
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <div class="form-group @error('periocidad') has-error @enderror">
                 <label for="tipo">Periocidad</label>
                 <input id="periocidad" type="number" class="form-control" value="{{old("periocidad")}}"
@@ -98,7 +98,7 @@
                 </span>
                 @enderror
               </div>
-            </div>
+            </div> --}}
           </div>
           <div class="row">
             <div class="col-md-12">

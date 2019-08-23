@@ -55,11 +55,11 @@
                   <input id="linea_credito-edit" type="number" step="any" class="form-control"
                         name="linea_credito" placeholder="Ingrese la linea de credito" required min="0">
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                   <label for="periocidad-edit">Periocidad</label>
                   <input id="periocidad-edit" type="number" step="any" class="form-control"
                         name="periocidad" placeholder="Ingrese la linea de credito" required min="0">
-                </div>
+                </div> --}}
                 <div class="form-group">
                   <label for="direccion-edit">Dirección</label>
                   <input id="direccion-edit" type="text" class="form-control" 
