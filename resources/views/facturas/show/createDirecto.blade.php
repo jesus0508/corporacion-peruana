@@ -10,7 +10,7 @@
 @section('content')
 <section class="content">
   {{-- <button class="btn btn-info pull-right">Limpiar</button> --}}
-  <h2>FACTURA PEDIDOS PROVEEDORES</h2>
+  <h2>RESUMEN PEDIDO PROVEEDORES</h2>
 
     <div class="row">
       <!-- left column -->
@@ -44,7 +44,8 @@
           </div><!-- /.box-body -->
         </div><!-- /.box datos pedido -->
 
-      @include('facturas.show.form_factura')
+      @includeWhen($pedido->factura_id != null ,'facturas.show.form_factura')
+
       @include('facturas.show.form_transportista')
 
       </div><!--/.col (left) -->

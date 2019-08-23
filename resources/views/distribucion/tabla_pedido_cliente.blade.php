@@ -12,8 +12,10 @@
               <th>Cliente</th>
               <th>TIPO</th>
               <th>Cantidad GLS</th>
-              <th>Galones Asignados</th>
+           <!--   <th>Galones </th> -->
+
               <th>Estado</th>
+              <th>Acción</th>
 
             </tr>
           </thead>
@@ -24,7 +26,7 @@
                 <td>{{$pedido_cliente->cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->cliente->getTipo()}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
-                <td>{{$pedido_cliente->galones_asignados}}</td>
+                <!-- <td>{{$pedido_cliente->galones_asignados}}</td> -->
                 <td>  
             
                        <?php 
@@ -35,7 +37,19 @@
                         }
                        ?>
    
-                  </td>
+                </td>
+                <td>
+                  <form method="POST" action="{{route('asignar_individual')}}">
+                    @csrf 
+                    <input type="hidden" name="id_pedido_cliente" value="{{$pedido_cliente->id}}">
+                    <input  type="hidden" name="id_pedido_pr" value="{{$pedido->id}}">
+                    @if( $pedido->getGalonesStock() <= 0 )
+                      <button class="btn btn-success" disabled="">Asignar gls</button>
+                    @else
+                      <button class="btn btn-success"><span class="fa fa-cart-arrow-down"></span>&nbsp;Asignar gls</button>
+                    @endif
+                  </form> 
+                </td>                
               </tr>
             @endforeach
           </tbody>

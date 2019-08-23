@@ -53,14 +53,22 @@ class TransportistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showVehiTrans($id)
     {
-       // $vehiculo = Vehiculo::with('transportista')->where('id','=',$id)->first();
+        $vehiculo = Vehiculo::with('transportista')->where('id','=',$id)->first();
          
-        //return $vehiculo;
-        $transportista = Transportista::findOrFail($id)->with('vehiculos')->first();
-        return $transportista;
+            return $vehiculo;
+
     }
+
+        public function show($id)
+    {
+
+            $transportista = Transportista::findOrFail($id)->with('vehiculos')->first();
+                return $transportista;
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

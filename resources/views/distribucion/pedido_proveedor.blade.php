@@ -54,7 +54,7 @@
           <div class="box-body">
             <div class="row">
               <div class="col-lg-6">
-                <label for="fecha_pedido">GALONES en Stock</label>
+                <label for="fecha_pedido">GALONES por distribuir</label>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
@@ -77,7 +77,7 @@
                  <a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-primary pull-right "><i class="fa fa-eye"> &nbsp; </i>Ver Distribución</a>
             @endif
           @else
-            <div class="row">
+            <div class="row" style="display: none;">
               <div class="col-lg-6">
                 <label for="saldo">TOTAL a Distribuir</label>
               </div>
@@ -87,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" style="display: none;">
               <div class="col-md-12 top-button">
                 
                 <button type="submit" class="btn btn-lg btn-success"> 

@@ -18,9 +18,8 @@
           dif.style.color = "black";
 
        }
-
-
-      $('#diferencia').val(-diferencia);
+      
+      $('#diferencia').val(diferencia);
     
 
     }else{
@@ -37,43 +36,3 @@
 
   });
 
-
-$(document).ready(function() { 
-
-  $("#placa").prop("selectedIndex", -1);
-
-  $("#placa").select2({
-    placeholder: "Seleccione la placa",
-    allowClear:true
-  });
-
-  $("#placa").on('change',function(){
-    var id=$("#placa").val();
-
-    if(id){//id del proveedor
-
-      findByPlaca(id);
-
-    }else{
-      $('#nombre_transportista').val('');
-      $('#modelo').val('');
-      $('#marca').val('');
-    }
-
-  });
-
-});
-
-function findByPlaca(id){
-  $.ajax({
-    type: 'GET',
-    url:`../../transportista/${id}`,
-    success: (data)=>{
-      console.log(data);
-      $('#nombre_transportista').val(data.transportista.nombre_transportista);
-      $('#modelo').val(data.modelo);
-      $('#marca').val(data.marca);
-
-    }
-  });
-}

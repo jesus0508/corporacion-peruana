@@ -2,7 +2,8 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-header with-border">
-        <h2 class="box-title">Lista de GRIFOS Asignados</h2>
+        <h2 class="box-title">Lista de GRIFOS distribuidos</h2>
+        
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="tabla-pedido_clientes_res" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
@@ -14,7 +15,7 @@
               <th>Administrador</th>
               <th>STOCK</th>
               <th>Gls asignados</th>
-              <th>Acciones</th>
+         <!--     <th>Acciones</th> -->
 
 
             </tr>
@@ -28,11 +29,11 @@
                 <td>{{$pedidos_grifo->administrador}}</td>
                 <td>{{$pedidos_grifo->stock}}</td>
                 <td> {{$pedidos_grifo->asignacion}}</td>
-                <td> 
+               <!-- <td> 
                     <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Detalles Grifo</a>
                   
    
-                </td>
+                </td> -->
               </tr>
             @endforeach
           </tbody>

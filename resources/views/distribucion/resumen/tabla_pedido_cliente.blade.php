@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-header with-border">
-        <h2 class="box-title">Lista de Pedidos de Clientes Asignados</h2>
+        <h2 class="box-title">Lista de Pedidos de Clientes Distribuidos</h2>
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="tabla-pedido_clientes_res" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
