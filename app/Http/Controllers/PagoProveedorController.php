@@ -29,20 +29,10 @@ class PagoProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
-        $proveedores = Proveedor::all();
-       // $proveedores = Pedido::where('factura_id','!=',null)->with('planta')->with('proveedor')->get();
-        /*
-        foreach ( $pedidos as $pedido ) {
-            $id_planta = $pedido->planta_id;
-            $planta = Planta::find($id_planta);
-            $id_proveedor = $planta->proveedor_id;
-            $proveedores[] = Proveedor::find($id_proveedor);
-            $proveedores = collect($proveedores);
-        }
-            $proveedores = $proveedores->collapse();
-*/
+        $proveedores = Proveedor::where('deuda','>',0)->get();
         return $proveedores;
     }
 

@@ -22,7 +22,7 @@
       NUEVO PROVEEDOR&nbsp;|&nbsp;PLANTA &nbsp; <span class="fa fa-plus"></span>
       </button>
     </a> 
-    <p>  </br></p>
+    <p><br></p>
 
 </section>
 <section class="content">

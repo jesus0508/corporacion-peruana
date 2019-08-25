@@ -300,7 +300,8 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-file-powerpoint-o"></i> Pedidos</a></li>
+            <li><a href="{{route('pedidos.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
+            <li><a href="{{route('pedidos.index')}}"><i class="fa fa-list"></i>Ver Pedidos</a></li>
             <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Factura</a></li>
           </ul>
         </li> 

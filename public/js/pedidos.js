@@ -1,4 +1,6 @@
 
+
+
 $(document).ready(function() {
 
     $('#modal-edit-pedido-proveedor').on('show.bs.modal',function(event){
@@ -19,10 +21,37 @@ $(document).ready(function() {
   $(event.currentTarget).find('#id_pedido').val(id);
   });
 });
-
  
 
-$(document).ready(function() { 
+function inicializarSelect2($select, text, data) {
+  $select.prop('selectedIndex', -1);
+  $select.select2({
+    placeholder: text,
+    allowClear: true,
+    data: data
+  });
+}
+
+$(document).ready(function() {
+
+  let $filter_planta = $('#filter-planta');
+  let $tabla_pedido_proveedores = $('#proveedores');
+  inicializarSelect2($filter_planta, 'Ingrese la planta', '');
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      let planta = $filter_planta.find('option:selected').text();
+      let cell = data[2];
+      if (planta) {
+        return planta === cell;
+      }
+      return true;
+    }
+  );
+
+  $filter_planta.on('change', function () {
+    $tabla_pedido_proveedores.DataTable().draw();
+  });
+
 
   $("#planta-edit").select2({
     placeholder: "Ingresa la planta",
@@ -54,13 +83,14 @@ $(document).ready(function() {
 function findByPlanta(id){
   $.ajax({
     type: 'GET',
-    url:`proveedores/${id}`,
+    url:`../proveedores/${id}`,
     success: (data)=>{
       console.log(data);
       $('#proveedor').val(data.razon_social);
     }
   });
 }
+
 
 
 $(document).ready(function() {

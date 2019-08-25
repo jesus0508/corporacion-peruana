@@ -45,7 +45,7 @@ class PedidoController extends Controller
     public function index()
     {
         //
-        $pedidos = Pedido::with('planta')->get();
+        $pedidos = Pedido::with('planta')->orderBy('id','ASC')->get();
         $plantas = Planta::all();
         return view('pedidosP.index', compact('pedidos', 'plantas'));
     }
@@ -61,7 +61,7 @@ class PedidoController extends Controller
         $plantas = Planta::all();
 
 
-        return view('pedidosP.create', compact('plantas'));
+        return view('pedidosP.create_pedido.index', compact('plantas'));
         //
     }
 
@@ -130,9 +130,9 @@ class PedidoController extends Controller
         $pedido = Pedido::where('id', '=', $id)->with('planta')->first();
 
         $pedidos_clientes_confirmados
-            = PedidoCliente::where('estado', '=', 2)->with('cliente')->orderBy('id', 'desc')->get();
+                    = PedidoCliente::where('estado', '=', 2)->with('cliente')->orderBy('id', 'desc')->get();
         $pedidos_cl = $pedidos_clientes_confirmados;
-        $vehiculos = Vehiculo::all();
+        $vehiculos  = Vehiculo::all();
         $vehiculo_asignado = null;
         if ( $pedido->vehiculo_id != null) {
             $id_vehiculo = $pedido->vehiculo_id;
