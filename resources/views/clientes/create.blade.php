@@ -23,20 +23,6 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="form-group @error('razon_social') has-error @enderror">
-                <label for="razon_social">Razón Social</label>
-                <input id="razon_social" type="text" class="form-control" value="{{old("razon_social")}}"
-                        name="razon_social" placeholder="Ingrese la Razon Social" required>
-                @error('razon_social')
-                <span class="help-block" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
               <div class="form-group @error('telefono') has-error @enderror">
                 <label for="telefono">Teléfono</label>
                 <input id="telefono" type="tel" class="form-control" value="{{old("telefono")}}" required
@@ -48,14 +34,14 @@
                 @enderror
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group @error('tipo') has-error @enderror">
-                <label for="tipo">Tipo</label>
-                <select id="tipo" class="form-control" name="tipo">
-                  <option value="1">Normal</option>
-                  <option value="2">Grifo</option>
-                </select>
-                @error('tipo')
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group @error('razon_social') has-error @enderror">
+                <label for="razon_social">Razón Social</label>
+                <input id="razon_social" type="text" class="form-control" value="{{old("razon_social")}}"
+                        name="razon_social" placeholder="Ingrese la Razon Social" required>
+                @error('razon_social')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>

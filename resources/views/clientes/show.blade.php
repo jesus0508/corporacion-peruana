@@ -28,13 +28,6 @@
                   <label for="telefono-show">Teléfono</label>
                   <input id="telefono-show" type="tel" class="form-control" readonly>
                 </div>
-                <div class="form-group">
-                  <label for="tipo-show">Tipo</label>
-                  <select id="tipo-show" class="form-control" disabled>
-                    <option value="1">Grifo</option>
-                    <option value="2">Normal</option>
-                  </select>
-                </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->
@@ -49,10 +42,6 @@
                   <label for="linea_credito-show">Linea de credito</label>
                   <input id="linea_credito-show" type="number" step="any" class="form-control" readonly>
                 </div>
-                {{-- <div class="form-group">
-                  <label for="periocidad-show">Periocidad</label>
-                  <input id="periocidad-show" type="number" step="any" class="form-control" readonly>
-                </div> --}}
                 <div class="form-group">
                   <label for="direccion-show">Dirección</label>
                   <input id="direccion-show" type="text" class="form-control" readonly>

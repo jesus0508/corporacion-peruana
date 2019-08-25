@@ -19,9 +19,7 @@ class CreateClientesTable extends Migration
             $table->string('razon_social');
             $table->string('telefono')->nullable();
             $table->string('direccion');
-            $table->unsignedInteger('tipo')->default('1');
             $table->bigInteger('linea_credito');
-            $table->integer('periocidad');
             $table->timestamps();
             $table->softDeletes();
         });

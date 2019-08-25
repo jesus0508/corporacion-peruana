@@ -10,7 +10,6 @@
             <tr>
               <th>RUC</th>
               <th>Razón Social</th>
-              {{-- <th>Tipo</th> --}}
               <th>Teléfono</th>
               <th>Dirección</th>
               <th>Acciones</th>
@@ -21,7 +20,6 @@
               <tr>
                 <td>{{$cliente->ruc}}</td>
                 <td>{{$cliente->razon_social}}</td>
-                {{-- <td>{{$cliente->getTipo()}}</td> --}}
                 <td>{{$cliente->telefono}}</td>
                 <td>{{$cliente->direccion}}</td>
                 <td>

@@ -28,16 +28,7 @@
           </div><!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="tipo">Tipo</label>
-                  <select class="form-control" id="tipo" name="tipo">
-                    <option value="1">Normal</option>
-                    <option value="2">Grifo</option>
-                  </select>
-                </div>
-              </div><!-- end tipo -->
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group @error('cliente_id') has-error @enderror">
                   <label for="cliente">Cliente</label>
                   <select class="form-control" id="cliente" name="cliente_id">
@@ -47,7 +38,7 @@
                   </select>
                 </div>
               </div><!-- end razon -->
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="ruc">RUC</label>
                   <input id="ruc" type="text" class="form-control" 

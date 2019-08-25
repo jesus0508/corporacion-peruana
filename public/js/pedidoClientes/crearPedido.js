@@ -2,7 +2,6 @@ $(document).ready(function () {
   let $datos_pedido = $('#datos-pedido :input');
   let $datos_producto = $('#datos-producto :input');
   let $cliente = $('#cliente');
-  let $tipo = $('#tipo');
   let $producto = $('#producto');
 
   $datos_pedido.prop('disabled', true);
@@ -10,18 +9,6 @@ $(document).ready(function () {
   inicializarSelect2($cliente, 'Ingrese la razon social', '');
   fechaActual();
   validateDates();
-
-  $tipo.on('change', function () {
-    let $cliente = $('#cliente');
-    let tipo = $(this).val();
-    getAllClientesByTipo(tipo).done((data) => {
-      $cliente.empty();
-      inicializarSelect2($cliente, 'Ingrese la razon social', data.clientes);
-      $cliente.trigger('change');
-    }).fail((error) => {
-      toastr.error('Ocurrio un Error!', 'Error Alert', { timeOut: 2000 });
-    });
-  });
 
   $cliente.on('change', function () {
     let id = $cliente.val();
