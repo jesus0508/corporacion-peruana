@@ -21,7 +21,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/clientes', 'ClienteController');
 
 	/* Pedidos Clientes*/
-	Route::get('/pedido_clientes/procesar/{id}', 'PedidoClienteController@procesarPedido')->name('pedido_clientes.procesarPedido');
+	Route::put('/pedido_clientes/{id}/confirmar', 'PedidoClienteController@confirmarPedido')->name('pedido_clientes.confirmarPedido');
 	Route::get('/pedido_clientes/cliente/{id}', 'PedidoClienteController@getByRazonSocial');
 	Route::get('/pedido_clientes/detalles/{id}', 'PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');
 	Route::resource('/pedido_clientes', 'PedidoClienteController');

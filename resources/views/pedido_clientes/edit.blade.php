@@ -19,9 +19,9 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
-                  <label for="nro_pedido-edit">Número de Pedido</label>
-                  <input id="nro_pedido-edit" type="text" class="form-control" 
-                          name="nro_pedido" placeholder="Ingrese el numero de pedido">
+                  <label for="nro_factura-edit">Número de Factura</label>
+                  <input id="nro_factura-edit" type="text" class="form-control" 
+                          name="nro_factura" placeholder="Ingrese el numero de pedido">
                 </div>
                 <div class="form-group">
                   <label for="fecha_descarga-edit">Fecha para descarga</label>

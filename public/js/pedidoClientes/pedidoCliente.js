@@ -28,7 +28,7 @@ $(document).ready(function () {
       url: `./pedido_clientes/${id}/edit`,
       dataType: 'json',
       success: (data) => {
-        $(event.currentTarget).find('#nro_pedido-edit').val(data.pedidoCliente.nro_pedido);
+        $(event.currentTarget).find('#nro_factura-edit').val(data.pedidoCliente.nro_factura);
         $(event.currentTarget).find('#galones-edit').val(data.pedidoCliente.galones);
         $(event.currentTarget).find('#precio_galon-edit').val(data.pedidoCliente.precio_galon);
         $(event.currentTarget).find('#fecha_descarga-edit').val(data.pedidoCliente.fecha_descarga);
@@ -55,7 +55,7 @@ $(document).ready(function () {
         $(event.currentTarget).find('#cliente-show').val(data.pedidoCliente.cliente.razon_social);
         $(event.currentTarget).find('#ruc-show').val(data.pedidoCliente.cliente.ruc);
         $(event.currentTarget).find('#numero-show').val(data.pedidoCliente.cliente.telefono);
-        $(event.currentTarget).find('#nro_pedido-show').val(data.pedidoCliente.nro_pedido);
+        $(event.currentTarget).find('#nro_factura-show').val(data.pedidoCliente.nro_factura);
         $(event.currentTarget).find('#galones-show').val(data.pedidoCliente.galones);
         $(event.currentTarget).find('#precio_galon-show').val(data.pedidoCliente.precio_galon);
         $(event.currentTarget).find('#fecha_descarga-show').val(data.pedidoCliente.fecha_descarga);
@@ -96,6 +96,15 @@ $(document).ready(function () {
       // minDate:fecha_pedido,
     });
   });
+
+  $('#fecha_confirmacion-confirmar').datepicker({
+  });
+
+  $('#modal-confirmar_pedido').on('show.bs.modal', function (event) {
+    let id = $(event.relatedTarget).data('id');
+    $('#id-confirmar').val(id);
+  });
+
 });
 
 function deletePedido(id) {

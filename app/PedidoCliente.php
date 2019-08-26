@@ -11,7 +11,7 @@ class PedidoCliente extends Model
     use SoftDeletes;
     protected $table = 'pedido_clientes';
     protected $fillable = [
-        'nro_pedido', 'galones', 'horario_descarga', 'estado', 'saldo',
+        'nro_factura', 'galones', 'horario_descarga', 'estado', 'saldo', 'fecha_confirmacion',
         'precio_galon', 'planta', 'observacion', 'fecha_descarga', 'cliente_id'
     ];
     protected $dates = ['deleted_at'];

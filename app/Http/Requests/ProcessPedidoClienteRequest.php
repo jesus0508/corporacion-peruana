@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePedidoClienteRequest extends FormRequest
+class ProcessPedidoClienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,9 @@ class StorePedidoClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'cliente_id'=>'required|numeric',
-            'galones'=>'required|numeric|gt:0',
-            'precio_galon'=>'required|numeric|gt:0',
-            'saldo'=>'required|numeric|gt:0',
-            'fecha_descarga'=>'date_format:"d/m/Y"',
-            'horario_descarga'=>'max: 255',
-            'observacion'=>'max: 255'
+            'nro_factura' => 'required',
+            'fecha_confirmacion' => 'required',
+            'id' => 'required'
         ];
     }
 }

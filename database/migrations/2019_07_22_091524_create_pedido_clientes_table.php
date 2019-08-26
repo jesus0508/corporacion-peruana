@@ -15,14 +15,15 @@ class CreatePedidoClientesTable extends Migration
     {
         Schema::create('pedido_clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nro_pedido')->unique();
+            $table->string('nro_factura')->nullable();
             $table->integer('galones');
             $table->integer('galones_asignados')->default(0);
             $table->integer('estado')->default(1);
-            $table->decimal('precio_galon',9,5);
+            $table->decimal('precio_galon', 9, 5);
             $table->float('saldo');
             $table->date('fecha_descarga')->nullable();
             $table->string('horario_descarga')->nullable();
+            $table->string('fecha_confirmacion')->nullable();
             $table->text('observacion')->nullable();
             $table->unsignedBigInteger('cliente_id');
             $table->timestamps();
@@ -42,6 +43,5 @@ class CreatePedidoClientesTable extends Migration
             $table->dropForeign(['cliente_id']);
         });
         Schema::dropIfExists('pedido_clientes');
-
     }
 }

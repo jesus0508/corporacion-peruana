@@ -1,6 +1,6 @@
-<div class="modal fade" id="modal-confirmar-pedido" style="display: none;">
+<div class="modal fade" id="modal-confirmar_pedido" style="display: none;">
   <div class="modal-dialog">
-    <form action="" method="post" class="modal-content">
+    <form action="{{route('pedido_clientes.confirmarPedido',0)}}" method="post" class="modal-content">
       @csrf
       @method('PUT')
       <div class="modal-header">
@@ -16,42 +16,18 @@
             <!-- general form elements -->
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title"> PROCESAR PEDIDO</h3>
+                <h3 class="box-title"> CONFIRMAR PEDIDO</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="form-group">
-                  <label for="horario_descarga-confirmar">Horario para descarga</label>
-                  <input id="horario_descarga-confirmar" type="text" class="form-control"
-                          name="horario_descarga" placeholder="Ingrese el horario para descarga">
+                  <label for="nro_factura-confirmar">Numero Factura</label>
+                  <input id="nro_factura-confirmar" type="text" class="form-control"
+                          name="nro_factura" placeholder="Ingrese el numero de factura" autocomplete="off">
                 </div>
                 <div class="form-group">
-                  <label for="chofer-confirmar">Nombre del chofer</label>
-                  <input id="chofer-confirmar" type="text" class="form-control" 
-                          name="chofer" placeholder="Ingrese el nombre del chofer">
-                </div>
-                <div class="form-group">
-                  <label for="codigo_chofer-confirmar">Codigo del chofer</label>
-                  <input id="codigo_chofer-confirmar" type="text" class="form-control" 
-                          name="codigo_chofer" placeholder="Ingrese el codigo del chofer">
-                </div>
-                <div class="form-group">
-                  <label for="planta">Placa Chofer</label>
-                  <select class="form-control" name="planta" id="planta">
-                    <option>Traer de la bd</option>
-                    <option>Traer de la bd</option>
-                    <option>Traer de la bd</option>
-                    <option>Traer de la bd</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="usuario_osinerming-confirmar">Usuario Osinerming</label>
-                  <input id="usuario_osinerming-confirmar" type="text" class="form-control"
-                            name="usuario_osinerming" placeholder="Ingrese el usuario Osinerming">
-                </div>
-                <div class="form-group">
-                  <label for="observacion-confirmar">Observacion</label>
-                  <textarea id="observacion-confirmar" type="text" class="form-control"
-                            name="observacion" placeholder="Ingrese alguna observacion imporante"></textarea>
+                  <label for="fecha_confirmacion-confirmar">Fecha</label>
+                  <input id="fecha_confirmacion-confirmar" type="text" class="form-control" 
+                          name="fecha_confirmacion" placeholder="Ingrese la fecha" autocomplete="off">
                 </div>
                 <input id="id-confirmar" type="hidden" name="id">
               </div><!-- /.box-body -->
@@ -60,7 +36,7 @@
         </div> 
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary pull-left">REALIZAR OPERACION</button>
+        <button type="submit" class="btn btn-primary pull-left">Confirmar</button>
         <button type="" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </form><!-- /.form-modal-content -->

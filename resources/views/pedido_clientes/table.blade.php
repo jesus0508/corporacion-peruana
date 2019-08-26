@@ -19,7 +19,6 @@
         <table id="tabla-pedido_clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Nro Pedido</th>
               <th>Fecha de Pedido</th>
               <th>Cliente</th>
               <th>Cantidad GLS</th>
@@ -31,7 +30,6 @@
            <tbody>
             @foreach ($pedido_clientes as $pedido_cliente)
               <tr>
-                <td>{{$pedido_cliente->nro_pedido}}</td>
                 <td>{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}</td>
                 <td>{{$pedido_cliente->cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->galones}}</td>

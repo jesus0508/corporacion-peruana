@@ -105,10 +105,14 @@ class PedidoClienteController extends Controller
         return back()->with('alert-type', 'success')->with('status', 'Pedido editado con exito');
     }
 
-    public function procesarPedido($id)
+    public function confirmarPedido(ProcessPedidoClienteRequest $request, $id)
     {
+        $validated = $request->validated();
+        //dd($validated);
+        $id = $validated['id'];
         $pedido = PedidoCliente::findOrFail($id);
-        /*Logica para actualizar pedido pendiente*/
+        $pedido->nro_factura = $validated['nro_factura'];
+        $pedido->fecha_confirmacion = $validated['fecha_confirmacion'];
         $pedido->estado = 2;
         $pedido->save();
         return  back()->with('alert-type', 'success')->with('status', 'Pedido confirmado con exito con exito');

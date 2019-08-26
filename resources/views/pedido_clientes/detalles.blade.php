@@ -100,8 +100,8 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label for="nro_pedido-detalles">Número de Pedido</label>
-                <input id="nro_pedido-detalles" type="text" class="form-control" value="{{$pedidoCliente->nro_pedido}}" readonly>
+                <label for="nro_factura-detalles">Número de Pedido</label>
+                <input id="nro_factura-detalles" type="text" class="form-control" value="{{$pedidoCliente->nro_factura}}" readonly>
               </div>
             </div>
             <div class="col-md-4">

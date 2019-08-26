@@ -49,8 +49,8 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="nro_pedido-show">Número de Pedido</label>
-                      <input id="nro_pedido-show" type="text" class="form-control" readonly>
+                      <label for="nro_factura-show">Número de Factura</label>
+                      <input id="nro_factura-show" type="text" class="form-control" readonly>
                     </div>
                   </div>
                   <div class="col-md-6">

@@ -6,7 +6,10 @@
     </button>
     <ul class="dropdown-menu">
       <li>
-        <a href="{{route('pedido_clientes.procesarPedido',$pedido_cliente->id)}}"><span class="glyphicon glyphicon-check"></span>Confirmar</a>
+        <a href="#modal-confirmar_pedido" data-toggle="modal" data-target="#modal-confirmar_pedido"  data-id="{{$pedido_cliente->id}}">
+          <span class="glyphicon glyphicon-check"></span>
+          Confirmar
+        </a>
       </li>
       <li>
         <a href="#modal-show-pedido_cliente" data-toggle="modal" data-target="#modal-show-pedido_cliente"  data-id="{{$pedido_cliente->id}}">

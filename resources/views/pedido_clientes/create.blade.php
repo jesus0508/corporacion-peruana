@@ -21,7 +21,7 @@
     @csrf
     <div class="row">
       <!-- left column -->
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Datos Cliente</h3>
@@ -55,19 +55,7 @@
           </div><!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-              <div class="col-md-4">
-                <div class="form-group @error('nro_pedido') has-error @enderror">
-                  <label for="nro_pedido">Número de Pedido</label>
-                  <input id="nro_pedido" type="text" class="form-control" 
-                          name="nro_pedido" placeholder="Ingrese el numero de pedido">
-                  @error('nro_pedido')
-                  <span class="help-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-                </div>
-              </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group @error('fecha_descarga') has-error @enderror">
                   <label for="fecha_descarga">Fecha para descarga</label>
                   <input autocomplete="off" id="fecha_descarga" type="text" class="tuiker form-control"
@@ -79,7 +67,7 @@
                   @enderror
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group @error('horario_descarga') has-error @enderror">
                   <label for="horario_descarga">Horario para descarga</label>
                   <input id="horario_descarga" type="text" class="form-control"
@@ -144,7 +132,7 @@
         </div><!-- /.box producto-->
       </div><!--/.col (left) -->
 
-      <div class="col-md-4">
+      <div class="col-md-5">
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">Detalles Pedido</h3>
