@@ -10,7 +10,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="fecha_pedido" value="{{$pedido->created_at}}" type="text" class="form-control" disabled>
+                  <input id="fecha_pedido" value="{{date('d/m/Y', strtotime($pedido->created_at))}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -20,7 +20,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="planta_AR" type="text" value="{{$pedido->planta->planta}}" class="form-control" disabled>
+                  <input id="planta_AR" type="text" value="{{$pedido->planta->planta}}" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="costo_galon" value="{{$pedido->costo_galon}}" type="text" class="form-control" disabled>
+                  <input id="costo_galon" value="{{$pedido->costo_galon}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="galones" value="{{$pedido->galones}}" type="text" class="form-control" disabled>
+                  <input id="galones" value="{{$pedido->galones}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <input id="total" value="{{number_format((float)
-                    $pedido->galones*$pedido->costo_galon, 2, '.', '') }}" type="text" class="form-control" disabled>
+                    $pedido->galones*$pedido->costo_galon, 2, '.', '') }}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="diferencia" type="text" class="form-control" disabled>
+                  <input id="diferencia" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>

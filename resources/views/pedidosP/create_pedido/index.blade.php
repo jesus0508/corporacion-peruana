@@ -11,8 +11,8 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Proveedores</a></li>
-  <li><a href="#">Gestion</a></li>
+  <li><a href="{{route('pedidos.index')}}">Pedidos</a></li>
+  <li><a href="{{route('pedidos.create')}}">Registro</a></li>
 </ol>
 @endsection
 

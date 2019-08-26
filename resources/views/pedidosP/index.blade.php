@@ -10,8 +10,8 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Proveedores</a></li>
-  <li><a href="#">Gestion</a></li>
+  <li><a href="{{route('pedidos.index')}}">Pedidos</a></li>
+  <li><a href="{{route('pedidos.create')}}">Registro</a></li>
 </ol>
 @endsection
 
@@ -84,7 +84,11 @@ $(document).ready(function() {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
       "responsive": true,
+      "ordering": false,
+
         columnDefs: [
+          { orderable: false, targets: -1},
+          { searchable: false, targets: [-1]},
           { responsivePriority: 2, targets: 0 },
           { responsivePriority: 10001, targets: 2 },
           { responsivePriority: 10002, targets: 5 },
@@ -92,9 +96,18 @@ $(document).ready(function() {
         ],
 
       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-        if ( aData[6] < aData[7] ){
-          $('td', nRow).css('background-color', '#ffcdd2');               
-        }                   
+        if ( aData[6] == aData[5] ){ //igual no pasa nada
+          //$('td', nRow).css('background-color', '#ffcdd2');               
+        }else if(aData[6] < aData[5] ){//si montoFactura < monto anterior
+          $('td', nRow).css('background-color', '#A9F5D0');//verde
+        if( aData[6] == 0.00 ){
+           $('td', nRow).css('background-color', '#D8D8D8');
+            }
+
+        }else{
+           $('td', nRow).css('background-color', '#ffcdd2');
+        }
+
       }
   });
 });

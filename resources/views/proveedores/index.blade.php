@@ -10,8 +10,8 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Proveedores</a></li>
-  <li><a href="#">Gestion</a></li>
+  <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
+  <li><a href="{{ route('proveedores.create') }}">Registro</a></li>
 </ol>
 @endsection
 
@@ -19,7 +19,7 @@
 <section class="content-header">
       <a href="{{ route('proveedores.create') }}">
       <button class="btn bg-olive pull-right">
-      NUEVO PROVEEDOR&nbsp;|&nbsp;PLANTA &nbsp; <span class="fa fa-plus"></span>
+      <span class="fa fa-plus"></span> &nbsp; NUEVO PROVEEDOR&nbsp;|&nbsp;PLANTA 
       </button>
     </a> 
     <p><br></p>

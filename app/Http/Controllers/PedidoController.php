@@ -45,7 +45,7 @@ class PedidoController extends Controller
     public function index()
     {
         //
-        $pedidos = Pedido::with('planta')->orderBy('id','ASC')->get();
+        $pedidos = Pedido::with('planta')->with('facturaProveedor')->orderBy('id','desc')->get();
         $plantas = Planta::all();
         return view('pedidosP.index', compact('pedidos', 'plantas'));
     }
@@ -75,7 +75,7 @@ class PedidoController extends Controller
     {
         //
         Pedido::create($request->validated());
-        return  back()->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
+        return  redirect()->action('PedidoController@index')->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
     }
 
     /**
@@ -88,14 +88,17 @@ class PedidoController extends Controller
     public function show($id)
     {
         $transportista = "FLETE PROPIO";
-        $pedido=Pedido::with('planta')->with('vehiculo')->with('facturaProveedor')->where('id','=',$id)->first();
+        $id_t          = 1; 
+        $pedido        = Pedido::with('planta')->with('vehiculo')->with('facturaProveedor')->where('id','=',$id)->first();
+        $proveedor     = Proveedor::findOrFail( $pedido->planta->id );
         if ( $pedido->vehiculo_id != null ) {
         $transportista_id = $pedido->vehiculo->transportista_id;
         $transportistaCol = Transportista::findOrFail($transportista_id);     
-        $transportista = $transportistaCol->nombre_transportista;
+        $transportista    = $transportistaCol->nombre_transportista;
+        $id_t             = $transportistaCol->id;
         }       
                 
-        return view( 'facturas.show.createDirecto',compact(  'pedido' , 'transportista' ) );
+        return view( 'facturas.show.index',compact(  'pedido' , 'transportista','id_t','proveedor' ) );
      
     }
 
@@ -383,7 +386,7 @@ class PedidoController extends Controller
         $pedido = Pedido::find($id);
         $vehiculos = Vehiculo::all();
 
-        return view('facturas.Ind.createDirecto', compact('pedido', 'vehiculos'));
+        return view('facturas.Ind.index', compact('pedido', 'vehiculos'));
     }
 
 

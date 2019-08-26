@@ -31,7 +31,7 @@ class FacturaProveedorController extends Controller
     {
         $pedidos = Pedido::where('estado','=',1)->get();
         $vehiculos = Vehiculo::all();
-        return view( 'facturas.create',compact(  'pedidos' , 'vehiculos' ) );
+        return view( 'facturas.index',compact(  'pedidos' , 'vehiculos' ) );
     }
 
     /**
@@ -43,7 +43,7 @@ class FacturaProveedorController extends Controller
     public function store(StoreFacturaProveedorRequest $request)
     {
         //verificamos q existe el pedido seleccionad
-        $id_pedido = $request->nro_pedido;
+        $id_pedido = $request->id_pedido;
         $pedido = Pedido::find($id_pedido);
         if ($pedido == null) {
 
@@ -57,13 +57,12 @@ class FacturaProveedorController extends Controller
         $id_factura_proveedor = $facturaCreada->id;
         $pedido->factura_proveedor_id = $id_factura_proveedor;
         //$pedido->estado = 2;
-
         $pedido->saldo = $request->monto_factura;
         
         $pedido->save();
 
-        return  back()->with('alert-type','success')->with('status','Factura asignada con exito');
-       
+        return  //redirect()->route('pedidos.show', [$pedido->id])->with('alert-type','success')->with('status','Factura asignada con exito');
+                redirect()->action('PedidoController@index')->with('alert-type','success')->with('status','Factura asignada con exito');
 
     }
 
