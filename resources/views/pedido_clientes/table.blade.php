@@ -5,7 +5,7 @@
         <h2 class="box-title">Lista de Pedidos</h2>
         <div class="pull-right">
           <a href="{{route('pedido_clientes.create')}}" class="btn btn-primary">
-            <i class="fa fa-plus-square-o"></i>
+            <i class="fa fa-plus"></i>
             Nuevo pedido
           </a>
           <a href="{{route('pedido_clientes.create')}}" class="btn btn-default">

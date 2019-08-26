@@ -3,6 +3,12 @@
     <div class="box box-success">
       <div class="box-header with-border">
         <h2 class="box-title">Lista de pagos de cliente</h2>
+        <div class="pull-right">
+          <a href="" class="btn btn-default">
+            <i class="fa  fa-file-excel-o"></i>
+            Exportar a Excel
+          </a>
+        </div>
       </div><!-- /.box-header -->
       <div class="box-body">
         @include('pago_clientes.opciones')
@@ -11,12 +17,11 @@
             <tr>
               <th>#</th>
               <th>Fecha Operacion</th>
-              <th>Nro Pedido</th>
+              <th>Nro Factura</th>
               <th>Cliente</th>
               <th>Abono</th>
               <th>Saldo</th>
               <th>Banco</th>
-              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -25,12 +30,11 @@
               <tr>
                 <td>{{$loop->parent->iteration}}</td>
                 <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
-                <td>{{$pedidoCliente->nro_pedido}}</td>
+                <td>{{$pedidoCliente->nro_factura}}</td>
                 <td>{{$pedidoCliente->cliente->razon_social}}</td>
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                 <td>S/&nbsp;{{$pago->saldo}}</td>
                 <td>{{$pago->banco}}</td>
-                <td>Editar</td>
               </tr>
               @endforeach
             @endforeach
@@ -38,10 +42,6 @@
         </table>
       </div>
       <div class="box-footer">
-        <a href="{{route('pedido_clientes.create')}}" class="btn btn-default">
-          <i class="fa  fa-file-excel-o"></i>
-          Exportar a Excel
-        </a>
       </div>
     </div> <!-- end box -->
   </div>

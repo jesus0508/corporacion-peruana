@@ -5,7 +5,7 @@
         <h2 class="box-title">Lista de ingresos de los Grifos</h2>
         <div class="pull-right">
             <a href="#modal-create-ingreso" data-toggle="modal" data-target="#modal-create-ingreso" class="btn btn-primary">
-              <i class="fa fa-plus-square-o"></i>
+              <i class="fa fa-plus"></i>
               Nuevo Ingreso
             </a>
             <a href="" class="btn btn-default">
@@ -44,10 +44,6 @@
         </table>
       </div>
       <div class="box-footer">
-        <a href="{{route('ingreso_grifos.create')}}" class="btn btn-default">
-          <i class="fa  fa-file-excel-o"></i>
-          Exportar a Excel
-        </a>
       </div>
     </div> <!-- end box -->
   </div>

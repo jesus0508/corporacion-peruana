@@ -1,11 +1,28 @@
 $(document).ready(function () {
   let $filter_cliente = $('#filter-cliente');
   let $tabla_pedido_clientes = $('#tabla-pedido_clientes');
+
+  $tabla_pedido_clientes.DataTable({
+    language: {
+       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+    }, 
+    columnDefs: [ 
+    { 
+      orderable: false, 
+      targets: [ -1 ] 
+    },
+    { 
+      searchable: false, 
+      targets: [-1] 
+    },
+    ] 
+  });
+
   inicializarSelect2($filter_cliente, 'Ingrese la razon social', '');
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let cliente = $filter_cliente.find('option:selected').text();
-      let cell = data[2];
+      let cell = data[1];
       if (cliente) {
         return cliente === cell;
       }
@@ -86,7 +103,7 @@ $(document).ready(function () {
         'id': $('#id').val(),
       },
       success: (data) => {
-        $(event.currentTarget).find('#nro_pedido-pago').val(data.pedidoCliente.nro_pedido);
+        $(event.currentTarget).find('#nro_factura-pago').val(data.pedidoCliente.nro_factura);
         $(event.currentTarget).find('#pedido_cliente_id-pago').val(data.pedidoCliente.id);
         $(event.currentTarget).find('#saldo-pago').val(data.pedidoCliente.saldo);
         // fecha_pedido=$.datepicker.parseDate('d/m/yy',data.pedidoCliente.created_at);

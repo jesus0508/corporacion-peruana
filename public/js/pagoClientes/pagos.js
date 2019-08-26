@@ -3,7 +3,14 @@ $(document).ready(function () {
   let $select_cliente = $('#seletc-clientes');
   let $datos_pago = $('#datos-pago :input').prop('disabled', true);
   let $filter_cliente = $('#filter-cliente');
+  let $tabla_pagos = $('#tabla-pagos');
   validateDates();
+
+  $tabla_pagos.DataTable({
+    language: {
+       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+    }, 
+  });
 
   $modal_create_pago_bloque.on('show.bs.modal', function (event) {
     let id = $filter_cliente.val(); //Obtengo la razon social del cliente
@@ -112,8 +119,8 @@ function inicializarSelect2($select, text) {
 }
 
 function validateDates() {
-  let $tabla_pagos=$('#tabla-pagos');
-  $tabla_pagos.DataTable().draw()
+  let $tabla_pagos = $('#tabla-pagos');
+ 
   $('#fecha_inicio').datepicker({
     numberOfMonths: 2,
     onSelect: function (selected) {
@@ -128,20 +135,20 @@ function validateDates() {
   });
 
   $.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-      var sInicio=$('#fecha_inicio').val();
-      var sFin=$('#fecha_fin').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio) ;
-      var fin = $.datepicker.parseDate('d/m/yy', sFin)  ;
-      var dia = $.datepicker.parseDate('d/m/yy',data[1]) ;
-      if (!inicio || !dia || fin>=dia && inicio<=dia ){
+    function (settings, data, dataIndex) {
+      var sInicio = $('#fecha_inicio').val();
+      var sFin = $('#fecha_fin').val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+      var fin = $.datepicker.parseDate('d/m/yy', sFin);
+      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
       return false;
     }
   );
 
-  $('#filtrar-fecha').on('click',function(){
+  $('#filtrar-fecha').on('click', function () {
     $tabla_pagos.DataTable().draw();
   });
 }
