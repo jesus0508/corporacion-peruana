@@ -1,3 +1,8 @@
+$('#fecha_factura').val($.datepicker.formatDate('d/m/yy', new Date()));
+$('#fecha_factura').datepicker({
+   // minDate: 0,
+  });
+
     $("#monto_factura").on('change',function(){
     var monto=$("#monto_factura").val();
     var total=$("#total").val();

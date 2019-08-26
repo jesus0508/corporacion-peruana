@@ -16,28 +16,45 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group ">
+                <div class="form-group @error('nro_factura') has-error @enderror">
                   <label for="nro_factura">Número de Factura</label>
                   <input id="nro_factura" type="text" class="form-control" 
                           name="nro_factura_proveedor" placeholder="Ingrese el numero de pedido" required>
+                  @error('nro_factura')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
            
               </div><!-- /.numero-pedido -->
               <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group @error('monto_factura') has-error @enderror">
                   <label for="monto_factura">Monto total - Factura</label>
                   <input id="monto_factura" type="text" class="form-control" 
                           name="monto_factura" placeholder="Ingrese el monto de la factura" required>
+                  @error('monto_factura')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
               </div><!-- /.grifo -->
             </div><!-- /.first-row -->
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group @error('fecha_factura_proveedor') has-error @enderror">
                   <label for="fecha_factura_proveedor">Fecha factura</label>
-                  <input autocomplete="off" id="fecha_factura" type="date" class="tuiker form-control"
-                  name="fecha_factura_proveedor" placeholder="Ingrese la fecha de la factura">
+                  <input autocomplete="off" id="fecha_factura" type="text" class="tuiker form-control"
+                  name="fecha_factura_proveedor" placeholder="Ingrese la fecha de la factura" required="" pattern="\d{1,2}/\d{1,2}/\d{4}" title="Formato: dd/mm/YYYY">
+                  @error('fecha_factura_proveedor')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
+<!--                 <input autocomplete="off" id="fecha_descarga" type="text" class="tuiker form-control"
+                  name="fecha_descarga" placeholder="Ingrese la fecha de descarga"> -->
               </div>
 
             </div><!-- /.second-row -->

@@ -2,7 +2,15 @@
           <div class="box-header with-border">
               <div class="row">
                 <div class="col-md-4">
-                   <h3 class="box-title"> Datos Transportista</h3>
+                  @if( $pedido->vehiculo_id == null ) 
+                    <h3 class="box-title"> Datos Transportista   </h3>
+                  @else
+                    <h3 class="box-title"> Datos Transportista |
+                      <a href="{{route('vehiculo.show',$id_t)}}">{{$transportista}}</a>
+                    </h3>
+
+                  @endif
+
                 </div>
                 <div class="col-md-4 pull-right">
                  
@@ -17,8 +25,11 @@
                 <div class="form-group ">
                   <label for="placa">Placa*</label>
                   <select class="form-control" id="placa" name="placa" disabled>
-
+                    @if( $pedido->vehiculo_id != null ) 
                       <option selected="true">{{$pedido->vehiculo->placa}}</option>
+                    @else
+                      <option selected="true">FLETE PROPIO</option>
+                    @endif
 
                   </select>
                   
@@ -27,7 +38,7 @@
               <div class="col-md-6">
                 <div class="form-group ">
                   <label for="nombre_transportista">Nombre Transportista</label>
-                  <input id="nombre_transportista" value="{{$transportista}}" type="text" class="form-control" disabled>
+                    <input id="nombre_transportista" value="{{$transportista}}" type="text" class="form-control" disabled>                 
                 </div>
               </div>
             </div>

@@ -33,9 +33,16 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="fecha_factura_proveedor">Fecha factura</label>
-                  <input autocomplete="off" id="fecha_factura" type="date" class="tuiker form-control"
-                  name="fecha_factura_proveedor" placeholder="Ingrese la fecha de la factura">
+                  <input autocomplete="off" id="fecha_factura" type="text" class="tuiker form-control"
+                  name="fecha_factura_proveedor" placeholder="Ingrese la fecha de la factura"
+                  required="" pattern="\d{1,2}/\d{1,2}/\d{4}" title="Formato: dd/mm/YYYY">
+                  @error('fecha_factura_proveedor')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
+
               </div>
 
             </div><!-- /.second-row -->
