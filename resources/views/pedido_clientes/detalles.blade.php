@@ -40,12 +40,6 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="tipo-detalles">Tipo</label>
-                <input id="tipo-detalles" type="text" class="form-control" value="{{$pedidoCliente->cliente->tipo}}" readonly>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
                 <label for="numero-detalles">Numero</label>
                 <input id="numero-detalles" type="text" class="form-control" value="{{$pedidoCliente->cliente->telefono}}" readonly>
               </div>
@@ -100,7 +94,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label for="nro_factura-detalles">Número de Pedido</label>
+                <label for="nro_factura-detalles">Número de Factura</label>
                 <input id="nro_factura-detalles" type="text" class="form-control" value="{{$pedidoCliente->nro_factura}}" readonly>
               </div>
             </div>
