@@ -3,6 +3,7 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class FacturaProveedor extends Model
 {
@@ -12,5 +13,14 @@ class FacturaProveedor extends Model
 
     public function pedidos(){
         return $this->belongsTo(Pedido::class);
+    }
+
+    public function setFechaFacturaAttribute($value){ 
+        $this->attributes['fecha_factura_proveedor']=Carbon::createFromFormat('d/m/Y',$value);
+    }
+
+    public function getFechaFacturaAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 }

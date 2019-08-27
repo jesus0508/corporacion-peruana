@@ -9,6 +9,7 @@ use CorporacionPeru\Vehiculo;
 use CorporacionPeru\FacturaProveedor;
 use CorporacionPeru\Http\Requests\StoreFacturaProveedorRequest;
 use CorporacionPeru\Http\Requests\StoreTransportistaPedidoRequest;
+use Carbon\Carbon;
 
 class FacturaProveedorController extends Controller
 {
@@ -29,9 +30,8 @@ class FacturaProveedorController extends Controller
      */
     public function create()
     {
-        $pedidos = Pedido::where('estado','=',1)->get();
-        $vehiculos = Vehiculo::all();
-        return view( 'facturas.index',compact(  'pedidos' , 'vehiculos' ) );
+        $pedidos = Pedido::where('estado','=',2)->whereNull('factura_proveedor_id')->orWhere('estado','=', 3)->whereNull('factura_proveedor_id')->get();
+        return view( 'facturas.index',compact(  'pedidos' ) );
     }
 
     /**
@@ -47,10 +47,16 @@ class FacturaProveedorController extends Controller
         $pedido = Pedido::find($id_pedido);
         if ($pedido == null) {
 
-           return back()->with('alert-type','error')->with('status','No seleccionaste el número de Proveedor');
-        }
+
+           back()->with('alert-type','error')->with('status','No seleccionaste el número de pedido');
+        }        
          //GUARDAMOS LA FACTURA
-        FacturaProveedor::create($request->validated());
+        $factura = new FacturaProveedor;
+        $factura->nro_factura_proveedor =$request->nro_factura_proveedor;
+        $factura->monto_factura=$request->monto_factura;
+        //$factura->fecha_factura_proveedor=$request->fecha_factura_proveedor;
+        $factura->setFechaFacturaAttribute($request->fecha_factura_proveedor);
+        $factura->save();     
        
         //LE ASIGNAMOS LA FACTURA AL PEDIDO
         $facturaCreada = FacturaProveedor::where('nro_factura_proveedor','=',$request->nro_factura_proveedor)->first();

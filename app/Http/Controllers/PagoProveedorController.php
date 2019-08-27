@@ -71,9 +71,10 @@ class PagoProveedorController extends Controller
            			if( $restanteXasignar >= $dinero_stock ){
 
            				$pedido->saldo -=  $dinero_stock;
+                        $pedido->estado = 4;
                     	$dinero_stock = 0;
                     		//se le asigna el pedido proveedor al pedido cliente
-                    	$pedido->pagosProveedor()->attach($pago_proveedor->id);
+                    	$pedido->pagosProveedor()->attach($pago_proveedor->id);//agregar asignaci?
                     	$pedido->save();
                     	break; 
 
@@ -81,7 +82,7 @@ class PagoProveedorController extends Controller
 
                      	$dinero_stock -= $pedido->saldo;
                     	$pedido->saldo = 0;
-                    	$pedido->estado = 3;
+                    	$pedido->estado = 5;//isPaid
                     // se le asigna el pedido proveedor al pedido cliente
                     	$pedido->pagosProveedor()->attach($pago_proveedor->id);
                     	$pedido->save();

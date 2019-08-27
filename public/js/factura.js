@@ -1,4 +1,4 @@
-$('#fecha_factura').val($.datepicker.formatDate('d/m/yy', new Date()));
+//$('#fecha_factura').val($.datepicker.formatDate('d/m/yy', new Date()));
 $('#fecha_factura').datepicker({
    // minDate: 0,
   });
@@ -17,11 +17,15 @@ $('#fecha_factura').datepicker({
         var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#e53935";
           dif.style.color = "black";
-       }else{
+       }else if( diferencia == 0 ) {
           var dif = document.getElementById('diferencia');
+          dif.style.backgroundColor = "#eee";
+          dif.style.color = "#555";
+
+       } else{
+           var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#4caf50";
           dif.style.color = "black";
-
        }
        diferencia = -1 * diferencia;
        
@@ -33,12 +37,7 @@ $('#fecha_factura').datepicker({
       var dif = document.getElementById('diferencia');
       dif.style.backgroundColor = "#eee";
       dif.style.color = "#555";
-      $('#diferencia').val(''); 
-      
-
-
-
-
+      $('#diferencia').val('');       
     }
 
   });
@@ -69,8 +68,6 @@ $(document).ready(function() {
       $('#pedido_asignar_transportista').val('');
       var  div1 = document.getElementById('datos-pedido');
        div1.style.display = 'block';
-      var  div2 = document.getElementById('datos-vehiculo');
-       div2.style.display = 'block';
     }
 
   });
@@ -98,11 +95,6 @@ function findByNroPedido(id){
        div1.style.display = 'none';
        
       }
-      if( data.vehiculo_id != null ){
-        var  div2 = document.getElementById('datos-vehiculo');
-       div2.style.display = 'none';
-      }
-
      //console.log( getFormattedDate( data.created_at ) );
       $('#fecha_pedido').val( getFormattedDate( data.created_at ) );
     }

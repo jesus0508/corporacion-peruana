@@ -10,7 +10,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="fecha_pedido" type="text" class="form-control" disabled>
+                  <input id="fecha_pedido" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -20,7 +20,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="planta_AR" type="text" class="form-control" disabled>
+                  <input id="planta_AR" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="costo_galon" type="text" class="form-control" disabled>
+                  <input id="costo_galon" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="galones" type="text" class="form-control" disabled>
+                  <input id="galones" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="total" type="text" class="form-control" disabled>
+                  <input id="total" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="diferencia" type="text" class="form-control" disabled>
+                  <input id="diferencia" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>

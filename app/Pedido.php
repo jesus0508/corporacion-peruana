@@ -46,9 +46,6 @@ class Pedido extends Model
         return $this->costo_galon*$this->galones;
     }
 
-    public function setFechaDescargaAttribute($value){ 
-        $this->attributes['fecha_descarga']=Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
-    }
 
     public function hasntFactura(){
         return $this->factura_proveedor_id==null;

@@ -26,7 +26,7 @@ class StoreFacturaProveedorRequest extends FormRequest
         return [
             'nro_factura_proveedor'=>'required|unique:factura_proveedors,nro_factura_proveedor,'.$this->id,
             'monto_factura'=>'required',
-            'fecha_factura_proveedor'=>'',
+            'fecha_factura_proveedor'=>'date_format:"d/m/Y"'
         ];
     }
 }

@@ -10,12 +10,14 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Ventas</a></li>
-  <li><a href="#">Pedidos Distribucion</a></li>
+  <li><a href="#">Pedido Distribucion</a></li>
+  <li><a href="#"> Distribucion A PEDIDOS Clientes</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
+  @include('distribucion.buttons_top')
   @include('distribucion.pedido_proveedor')
   @include('distribucion.pedido_transportista')
   @includeWhen( $pedido->vehiculo_id != null ,'distribucion.pedido_transportista_show')

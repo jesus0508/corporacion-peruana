@@ -10,20 +10,15 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Ventas</a></li>
-  <li><a href="#">Pedidos Distribucion</a></li>
+  <li><a href="#">Pedido Distribucion</a></li>
+  <li><a href="#">Distribucion a GRIFOS</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
+  @include('distribucion.grifos.buttons_top')
   @include('distribucion.grifos.pedido_proveedor')
-  <br>
-  <div class="row">
-    <div class="col-md-12">
-       <a class="btn btn-primary" href="{{route('pedidos.distribuir', $pedido->id)}}"><span class="fa fa-arrow-left">&nbsp;</span>Atrás</a>
-    </div>   
-  </div>
-  <br>
   @include('distribucion.grifos.tabla_grifos') 
 </section>
 @endsection
@@ -39,9 +34,7 @@ $(document).ready(function() {
         }
   });
 } );
-function goBack() {
-  window.history.back();
-}
+
 </script>
 @endsection
 

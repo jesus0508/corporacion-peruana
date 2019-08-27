@@ -163,13 +163,18 @@ class PedidoController extends Controller
          $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
            // ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
             ->where('pedido_id', $pedido->id)
-            ->groupBy('grifos.id')
+            //->groupBy('grifos.id')
             //->select('grifos.razon_social',grifos)
             ->get();
 
         return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'));
     }
-
+    /**
+     * Se agrega una cantidad de galones de un pedido
+     * al stock de un grifo.
+     * @param  Request $request [id_grifo, id_pedido_pr, galones_X_asignar]
+     * @return [view]           [back|resumen distribucion]
+     */
     public function asignar_grifo(Request $request)
     {
 
@@ -201,7 +206,7 @@ class PedidoController extends Controller
             $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
                 ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
                 ->where('pedido_id', $pedido->id)
-                ->groupBy('grifos.id')
+                //->groupBy('grifos.id')
                 ->get();
 
         return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'))->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
@@ -254,7 +259,7 @@ class PedidoController extends Controller
         } elseif( $restanteXasignar == $galonaje_stock ) { //si el stock es igual a lo q se distribuira
 
             $pedido_cl->galones_asignados += $restanteXasignar;
-            $pedido->galones_distribuidos += $pedido_cl->galones;
+            $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
             $pedido->estado = 3;
             $pedido->pedidosCliente()->attach($pedido_cl->id);

@@ -13,8 +13,10 @@
               <th>RUC</th>
               <th>Nombre GRIFO</th>
               <th>Administrador</th>
-              <th>STOCK</th>
+              <th>STOCK anterior</th>
+              <th>STOCK actualizado</th>
               <th>Gls asignados</th>
+            <!--   <th>Hora</th> -->
          <!--     <th>Acciones</th> -->
 
 
@@ -27,8 +29,10 @@
                 <td> {{$pedidos_grifo->ruc}}</td>
                 <td>{{$pedidos_grifo->razon_social}}</td>
                 <td>{{$pedidos_grifo->administrador}}</td>
-                <td>{{$pedidos_grifo->stock}}</td>
-                <td> {{$pedidos_grifo->asignacion}}</td>
+                <td>{{$pedidos_grifo->stock-$pedidos_grifo->asignacion}}&nbsp;galones</td>
+                <td><b>{{$pedidos_grifo->stock}}</b> &nbsp;galones</td>
+                <td> {{$pedidos_grifo->asignacion}}&nbsp;galones</td>
+          <!--       <td>{{$pedidos_grifo}}</td> -->
                <!-- <td> 
                     <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Detalles Grifo</a>
                   

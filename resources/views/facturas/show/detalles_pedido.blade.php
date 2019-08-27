@@ -10,7 +10,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="fecha_pedido" value="{{$pedido->created_at}}" type="text" class="form-control" readonly>
+                  <input id="fecha_pedido" value="{{date('d/m/Y', strtotime($pedido->created_at))}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>

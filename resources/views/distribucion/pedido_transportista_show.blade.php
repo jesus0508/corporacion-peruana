@@ -41,8 +41,8 @@
                   <div class="col-md-12">
                     <div class="form-group ">
                       <label for="detalle_compartimiento">Detalle Compartimiento</label>
-                      <textarea id="detalle_compartimiento" name="detalle_compartimiento" disabled="" rows="3" class="form-control">  
-                      {{$vehiculo_asignado->detalle_compartimiento}}                 
+                      <textarea id="detalle_compartimiento" name="detalle_compartimiento" disabled="" rows= "3" class="form-control">  
+                                {{$vehiculo_asignado->detalle_compartimiento}}
                       </textarea>
                     </div>
                   </div>
@@ -54,13 +54,13 @@
                   <div class="col-md-12">
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="chofer">Nombre Chofer *</label>
+                        <label for="chofer">Nombre Chofer</label>
                         <input id="chofer" name="chofer" type="text" class="form-control" placeholder="Ingrese chofer asignado" disabled="" value="{{$pedido->chofer}}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="brevete_chofer">Brevete Chofer *</label>
+                        <label for="brevete_chofer">Brevete Chofer</label>
                         <input id="brevete_chofer" name="brevete_chofer" type="text" class="form-control" placeholder="Ingrese el brevete de chofer" value="{{$pedido->brevete_chofer}}"	disabled="">
                       </div>
                     </div>                    

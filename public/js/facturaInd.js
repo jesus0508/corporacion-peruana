@@ -1,6 +1,6 @@
- $('#fecha_factura').val($.datepicker.formatDate('d/m/yy', new Date()));
+ //$('#fecha_factura').val($.datepicker.formatDate('d/m/yy', new Date()));
  $('#fecha_factura').datepicker({
-   // minDate: 0,
+   //minDate: 0,
   });
  $("#monto_factura").on('change',function(){
     var monto=$("#monto_factura").val();
@@ -16,7 +16,12 @@
         var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#e53935";
           dif.style.color = "black";
-       }else{
+       }else if( diferencia == 0 ) {
+          var dif = document.getElementById('diferencia');
+          dif.style.backgroundColor = "#eee";
+          dif.style.color = "#555";
+          }
+        else{
           var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#4caf50";
           dif.style.color = "black";

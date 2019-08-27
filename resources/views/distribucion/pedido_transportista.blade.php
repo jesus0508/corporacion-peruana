@@ -4,27 +4,6 @@
   <input type="hidden" id="pedido_asignar_transportista" name="id_pedido">
   <div class="row">
       <div class="col-md-12">
-        @if( $pedido->vehiculo_id == null )
-         <a href="#collapseCisterna" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseCisterna">
-          <span class="fa fa-plus"> </span>&nbsp;
-          Agregar Transportista
-        </a>
-        @else 
-         <a href="#collapseCisternaShow" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseCisternaShow">
-          <span class="fa fa-eye"> </span>&nbsp;
-          Ver Transportista
-        </a>
-        @endif
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        @if( $pedido->getGalonesStock() > 0)
-        <a class="btn bg-orange" href="{{route('pedidos.distribuir_grifo', $pedido->id)}}">
-          <i class="fa fa-th"> &nbsp; </i>DISTRIBUIR EN GRIFO(S)
-        </a> 
-        @endif 
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p> <br></p>       
-
         <div class="box box-success collapse " id="collapseCisterna">
           <div class="box-header with-border">
             <div class="row">
@@ -80,14 +59,14 @@
                   <div class="col-md-12">
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="chofer">Nombre Chofer *</label>
-                        <input id="chofer" name="chofer" type="text" class="form-control" placeholder="Ingrese chofer asignado" required="">
+                        <label for="chofer">Nombre Chofer </label>
+                        <input id="chofer" name="chofer" type="text" class="form-control" placeholder="Ingrese chofer asignado">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group ">
-                        <label for="brevete_chofer">Brevete Chofer *</label>
-                        <input id="brevete_chofer" name="brevete_chofer" type="text" class="form-control" placeholder="Ingrese el brevete de chofer" required="">
+                        <label for="brevete_chofer">Brevete Chofer </label>
+                        <input id="brevete_chofer" name="brevete_chofer" type="text" class="form-control" placeholder="Ingrese el brevete de chofer">
                       </div>
                     </div>                    
                   </div>                

@@ -1,17 +1,19 @@
 @extends('layouts.main')
 
 @section('title','Clientes')
-@section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
+
+@section('breadcrumb')
+<ol class="breadcrumb">
+  <li><a href="#">Facturas</a></li>
+  <li><a href="#">Pedidos</a></li>
+  <li><a href="#">Resumen</a></li>
+ 
+</ol>
 @endsection
 
 @section('content')
 <section class="content">
-  {{-- <button class="btn btn-info pull-right">Limpiar</button> --}}
-  <h2>RESUMEN PEDIDO PROVEEDORES</h2>
-
+    @include( 'facturas.actions.buttons_top')
     <div class="row">
       <!-- left column -->
       
@@ -48,7 +50,12 @@ $(document).ready(function() {
         var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#e53935";
           dif.style.color = "black";
-       }else{
+       }else if( diferencia == 0 ) {
+          var dif = document.getElementById('diferencia');
+          dif.style.backgroundColor = "#eee";
+          dif.style.color = "#555";
+          }
+       else{
           var dif = document.getElementById('diferencia');
           dif.style.backgroundColor = "#4caf50";
           dif.style.color = "black";

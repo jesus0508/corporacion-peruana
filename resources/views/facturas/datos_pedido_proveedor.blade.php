@@ -7,8 +7,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="nro_pedido">Pedido</label>
-                  <select class="form-control" id="nro_pedido" name="nro_pedido" required>
-                    @foreach ( $pedidos as $pedido)
+                  <select class="form-control" id="nro_pedido" name="id_pedido" required>
+                    @foreach ( $pedidos as $pedido )
                       <option value="{{$pedido->id}}">{{$pedido->nro_pedido}}</option>
                     @endforeach
                   </select>
