@@ -23,18 +23,11 @@
                 <th>Monto Factura</th>
                 <th>Saldo</th>
                 <th>Estado</th>
-
-
-
-
-
               </tr>
             </thead>
             <tbody>
               @foreach ($pedidos as $pedido)
                 @if( $pedido != null )
-
-
                 <tr>
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->planta->planta}}</td>
@@ -60,9 +53,7 @@
                     echo '<label class="label label-default">'.($pedido->facturaProveedor->monto_factura-$pedido->saldo).'/'.$pedido->facturaProveedor->monto_factura.' SOLES </label>';
                    }
                    ?>
-                  </td>
-      
-
+                  </td>    
                 </tr>
                @endif
               @endforeach

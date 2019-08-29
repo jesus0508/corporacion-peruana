@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
 
 	/* Pago Proveedor  */	
 	Route::resource('/pago_proveedors', 'PagoProveedorController');
+	Route::get('resumen_pago/{id}','PagoProveedorController@resumen_pago')
+			->name('pago_proveedors.resumen_pago');
 
 	/* Distribucion Pedido a clientess */	
 	Route::get('distribuir/{id}', 'PedidoController@distribuir')

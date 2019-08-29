@@ -8,7 +8,6 @@
         <div class="box-header with-border">
           <h3 class="box-title">Datos principales*</h3>
         </div><!-- /.box-header -->
-        {{-- <form role="form"> --}}
           <div class="box-body">
             <div class="form-group @error('nro_pedido') has-error @enderror">
               <label for="numero_pedido">Numero Pedido</label>

@@ -12,6 +12,19 @@ use Illuminate\Support\Facades\DB;
 
 class PagoProveedorController extends Controller
 {
+    public function resumen_pago($idPago){
+
+        $pedidos = Pedido::join('pago_pedido_proveedors', 'pedidos.id', '=', 'pago_pedido_proveedors.pedido_id')->join('pago_proveedors', 'pago_proveedors.id', '=', 'pago_pedido_proveedors.pago_proveedor_id')->where('pago_proveedor_id',$idPago)->get();
+        //return 
+        $pedido1 = $pedidos->first();
+        $planta = Planta::findOrFail($pedido1->planta_id);
+
+        $pago_proveedor = PagoProveedor::findOrFail($idPago);
+        $proveedor = Proveedor::findOrFail($planta->proveedor_id);
+
+        return view('pago_proveedores.resumen.index',compact('pago_proveedor','proveedor','pedidos'));
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +33,12 @@ class PagoProveedorController extends Controller
     public function index()
     {
         //
-        $pagos=PagoProveedor::all();
-        return view('pago_clientes.index',compact('pagos'));
+        //$pagos=PagoProveedor::all();
+        //return view('pago_clientes.index',compact('pagos'));
+       $pagos=PagoProveedor::all();
+      // return $pagos;   
+       return view('pago_proveedores.pagos_lista.index',compact('pagos'));
+
     }
 
     /**
@@ -51,9 +68,9 @@ class PagoProveedorController extends Controller
         	$proveedor = Proveedor::with('plantas')->where('id', '=' , $request->proveedor_id)->first();
         	$pedidos = array();
         	foreach ($proveedor->plantas as $planta) {//para obtener tods los pedidos del proveedor X
-        		$planta_id = $planta->id;
-        		$pedidos[] = Pedido::where('planta_id','=',$planta_id)->where('estado','=',2)->with('planta')->with('facturaProveedor')->get();
-        		$pedidos = collect($pedidos);
+                $planta_id = $planta->id;
+                $pedidos[] = Pedido::where('planta_id','=',$planta_id)->whereNotNull('factura_proveedor_id')->where('estado','!=',1)->where('estado','!=',4)->where('estado','!=',5)->with('planta')->with('facturaProveedor')->get();
+                $pedidos = collect($pedidos);//volver coleccion
         	}
         	$pedidos = $pedidos->collapse();
         	$pago_proveedor = PagoProveedor::where('codigo_operacion','=',$request->codigo_operacion)->first();
@@ -120,10 +137,11 @@ class PagoProveedorController extends Controller
         $pedidos = array();
         foreach ($proveedor->plantas as $planta) {
         	$planta_id = $planta->id;
-        	$pedidos[] = Pedido::where('planta_id','=',$planta_id)->where('estado','=',2)->with('planta')->with('facturaProveedor')->get();
+        	$pedidos[] = Pedido::where('planta_id','=',$planta_id)->whereNotNull('factura_proveedor_id')->where('estado','!=',4)->where('estado','!=',5)->with('planta')->with('facturaProveedor')->get();
         	$pedidos = collect($pedidos);//volver coleccion
 
         }
+
         //en pedidos se almacenara los pedidos de  todas las plantas del proveedor selected
         $pedidos = $pedidos->collapse();
         //$pedidos = $pedidos->sortBy('id');
@@ -139,9 +157,17 @@ class PagoProveedorController extends Controller
      * @param  \CorporacionPeru\PagoProveedor  $pagoProveedor
      * @return \Illuminate\Http\Response
      */
-    public function edit(PagoProveedor $pagoProveedor)
+    public function edit($idPedido)
     {
-        //
+        $pedido = Pedido::where('id',$idPedido)->with('facturaProveedor')->with('planta')->with('pagosProveedor')->first();
+       // ->with('facturaProveedor')->with('pagosProveedor');
+        $id_proveedor = $pedido->planta->proveedor_id;
+        $proveedor = Proveedor::findOrFail($id_proveedor);
+        // foreach ($pedido->pagosProveedor as $pago ) {
+        //     $pagoX = $pago;
+        // }
+        //return $proveedor;
+        return view('pedidosP.show_pagos.index',compact('pedido','proveedor'));
     }
 
     /**

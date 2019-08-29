@@ -215,6 +215,8 @@ desired effect
             <li><a href="{{route('pedidos.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
             <li><a href="{{route('pedidos.index')}}"><i class="fa fa-list"></i>Ver Pedidos</a></li>
             <li><a href="{{route('factura_proveedor.create')}}"><i class="fa fa-share-square-o"></i> Registrar Factura</a></li>
+            <li><a href="{{route('pago_proveedors.index')}}"><i class="fa fa-money"></i> Pagos</a></li>
+
           </ul>
         </li> 
 

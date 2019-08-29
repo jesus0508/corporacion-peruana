@@ -1,12 +1,10 @@
 <section class="content">
-  <h2>LISTA DE PEDIDOS CONFIRMADOS SIN PAGAR O PAGO PARCIAL</h2>
+  <h3>LISTA DE PEDIDOS PAGADOS </h3>
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-success">
         <div class="box-header">
-          <h3 class="box-title">Lista de COMPRAS A PROVEEDORES &nbsp; &nbsp; &nbsp;<span class="label label-primary">{{$proveedor->razon_social}}</span></h3>
-
-            
+          <h3 class="box-title">Lista de COMPRAS a &nbsp; &nbsp; &nbsp;<span class="label label-primary">{{$proveedor->razon_social}}</span></h3>           
         </div>
         <!-- /.box-header -->
         <div class="box-body">
