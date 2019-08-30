@@ -17,9 +17,10 @@
            <!--     <th>Fecha pedido</th>-->
                 <th>Cantidad GLS</th>
             <!--    <th>Precio galon/u</th> -->
-                <th>Monto</th>
+
                 <th>Monto Factura</th>
-                <th>Saldo</th>
+                <th>M. Asignado</th>
+                <th>Saldo Actual</th>
                 <th>Estado</th>
 
 
@@ -40,11 +41,10 @@
             <!--      <td>{{date('d/m/Y', strtotime($pedido->fecha_despacho))}}</td> -->
                   <td>{{$pedido->galones}}</td>
              <!--     <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
-                  <td>S/&nbsp;{{number_format((float)
-                    $pedido->galones*$pedido->costo_galon, 2, '.', '') }}</td>
                   <td>
                     S/&nbsp;{{$pedido->facturaProveedor->monto_factura}}                  
                   </td>
+                   <td>S/&nbsp;{{$pedido->asignacion }}</td>
                   <td>
                     S/&nbsp;{{$pedido->saldo  }}
                   

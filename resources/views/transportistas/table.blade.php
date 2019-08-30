@@ -9,10 +9,11 @@
             <thead>
               <tr>
                 <th width="5%">#</th>
-                <th width="25%">Transportista </th>
+                <th width="20%">Transportista </th>
                 <th width="20%">RUC</th>
-                <th width="25%">Celular</th>
-                <th width="25%">Acciones</th>
+                <th width="20%">Celular</th>
+                <th width="15%">Saldo</th>
+                <th width="20%">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                   <td>{{$transportista->nombre_transportista}}</td>
                   <td>{{$transportista->ruc}}</td>
                   <td>{{$transportista->celular_transportista}}</td>
+                  <td><label class="label label-default" style="font-size:13px;">S/ &nbsp;0.00</label></td>
                   @include('actions.transportista')
                 </tr>
               @endforeach

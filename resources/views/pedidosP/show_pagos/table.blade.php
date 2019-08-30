@@ -19,13 +19,13 @@
                 <th>Número de Operacion</th>
                 <th>Monto de Operacion</th>
                 <th>Banco</th> 
-                <th>Fecha registro al sistema</th>
+                <th>Monto Asignado </th>
                 <th>Acciones</th>
 
               </tr>
             </thead>
             <tbody>
-              @foreach ($pedido->pagosProveedor as $pago)
+              @foreach ($pagos as $pago)
 
                 <tr>
                   <td>{{$pago->id}}</td>
@@ -33,7 +33,7 @@
                   <td>{{$pago->codigo_operacion}}</td>
                   <td>{{$pago->monto_operacion}}</td>
                   <td>{{$pago->banco}}</td>
-                  <td>{{$pago->created_at}}</td> 
+                  <td>{{$pago->asignacion}}</td> 
                   <td><a href="{{ route('pago_proveedors.resumen_pago', $pago->id)}}" class="btn btn-info"><i class="fa fa-eye"></i>&nbsp;&nbsp;Ver Operación</a></td>      
                 </tr>
               @endforeach

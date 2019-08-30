@@ -21,6 +21,7 @@ class CreatePedidosTable extends Migration
             $table->integer('galones_distribuidos')->default(0);
             $table->decimal('costo_galon',9,5);
             $table->integer('estado')->default(1);
+            $table->integer('estado_flete')->default(1);            
             $table->decimal('saldo',9,2)->nullable();
             $table->decimal('costo_flete')->nullable()->default(0);
             $table->string('chofer')->nullable();

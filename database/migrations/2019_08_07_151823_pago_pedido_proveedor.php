@@ -18,7 +18,7 @@ class PagoPedidoProveedor extends Migration
             $table->unsignedBigInteger('pago_proveedor_id')->nullable();
             $table->foreign('pago_proveedor_id')->references('id')->on('pago_proveedors');
             $table->unsignedBigInteger('pedido_id')->nullable();
-            $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->decimal('asignacion',9,2)->nullable();
             $table->timestamps();
         });
     }

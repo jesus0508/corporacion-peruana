@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
 	/* Transportista & vehiculo */
 	Route::resource('transportista', 'TransportistaController');
 	Route::resource('vehiculo', 'VehiculoController');
+	Route::resource('flete','FleteController');
 
 	/* Pedido Proveedor  */					
 	Route::resource('/pedidos', 'PedidoController');

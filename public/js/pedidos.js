@@ -1,6 +1,4 @@
 
-
-
 $(document).ready(function() {
 
     $('#modal-edit-pedido-proveedor').on('show.bs.modal',function(event){

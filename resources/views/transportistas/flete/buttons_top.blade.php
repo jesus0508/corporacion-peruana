@@ -1,28 +1,29 @@
 <div class="content-header">
   <div class="row">
   	<div class="col-md-5">
-  	  <label for="">Seleccione el Proveedor que desee:</label>
+  	  <label for="">Seleccione el Transportista que desea:</label>
       <div class="input-group">
-      	<span class="input-group-addon">Proveedor</span>
+      	<span class="input-group-addon">Transportista</span>
       	<select class="form-control" id="filter-proveedor" name="proveedor_id">
-          @foreach( $proveedores as $proveedor )
-            <option value="{{$proveedor->id}}">{{$proveedor->razon_social}}</option>
+          @foreach( $transportistas as $transportista )
+            <option value="{{$transportista->id}}">{{$transportista->nombre_transportista}}</option>
           @endforeach
         </select>
 	  </div>  		
   	</div>
     <div class="col-md-6">
+    	<label for=""> Seleccione por fecha de descarga:</label>
       <div class="row filtrado">
         <div class="col-md-5">
           <div class="form-inline">
-            <label for="fecha_inicio">Desde: </label>
+            <!-- <label for="fecha_inicio">Desde: </label> -->
             <input autocomplete="off" id="fecha_inicio" type="text" class="tuiker form-control"
               name="fecha_inicio" placeholder="Desde">
           </div>
         </div>
         <div class="col-md-5">
           <div class="form-inline">
-            <label for="fecha_fin">Hasta: </label>
+        <!--     <label for="fecha_fin">Hasta: </label> -->
             <input autocomplete="off" id="fecha_fin" type="text" class="tuiker form-control"
               name="fecha_fin" placeholder="Final">
           </div>

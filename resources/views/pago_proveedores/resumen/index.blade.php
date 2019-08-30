@@ -13,8 +13,7 @@
 
 @section('content')
 <section class="content">
-<h2>RESUMEN PAGO PEDIDOS PROVEEDORES <a class="pull-right" href="{{route('pedidos.index')}}" class="btn btn-lg btn-default"> <i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver Pedidos Proveedores</a></h2> 
-</br>
+  @include('pago_proveedores.resumen.buttons_top')
   @include('pago_proveedores.resumen.create')
   @include('pago_proveedores.resumen.table')
 </section>
