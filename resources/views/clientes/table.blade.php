@@ -5,7 +5,7 @@
         <h3 class="box-title">Lista de clientes</h3>
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-clientes" class="table table-bordered table-striped">
+        <table id="tabla-clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>RUC</th>

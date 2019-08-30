@@ -188,6 +188,7 @@ desired effect
             <li><a href="{{route('pedido_clientes.create')}}"><i class="fa fa-pencil"></i>Registrar Pedido</a></li>
             <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-list"></i>Ver Pedidos</a></li>
             <li><a href="{{route('pago_clientes.index')}}"><i class="fa fa-money"></i> Ver Pagos</a></li>
+            <li><a href="{{route('movimientos.index')}}"><i class="fa fa-money"></i> Mis Movimientos</a></li>
           </ul>
         </li>
 

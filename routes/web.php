@@ -26,6 +26,10 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/pedido_clientes/detalles/{id}', 'PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');
 	Route::resource('/pedido_clientes', 'PedidoClienteController');
 
+	/*Movimientos */
+	Route::get('/movimientos/validar', 'MovimientoController@validarSinRegistrar')->name('movimientos.validar');
+	Route::resource('/movimientos', 'MovimientoController');
+
 	/* Trabajadores*/
 	Route::resource('/trabajadores', 'TrabajadorController');
 	Route::resource('/users', 'UserController');
