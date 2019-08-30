@@ -41,7 +41,7 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="fecha_operacion-pago_bloque">Fecha</label>
-                  <input id="fecha_operacion-pago_bloque" type="text" class="form-control"
+                  <input autocomplete="off" id="fecha_operacion-pago_bloque" type="text" class="form-control"
                           name="fecha_operacion" placeholder="Ingrese la fecha" required>
                 </div>
                 <div class="form-group">

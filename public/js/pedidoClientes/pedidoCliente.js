@@ -4,18 +4,18 @@ $(document).ready(function () {
 
   $tabla_pedido_clientes.DataTable({
     language: {
-       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-    }, 
-    columnDefs: [ 
-    { 
-      orderable: false, 
-      targets: [ -1 ] 
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
     },
-    { 
-      searchable: false, 
-      targets: [-1] 
-    },
-    ] 
+    columnDefs: [
+      {
+        orderable: false,
+        targets: [-1]
+      },
+      {
+        searchable: false,
+        targets: [-1]
+      },
+    ]
   });
 
   inicializarSelect2($filter_cliente, 'Ingrese la razon social', '');
@@ -36,7 +36,11 @@ $(document).ready(function () {
 
   $('form button[type=submit]').on('click', procesarPago);
 
-  $('.btn-eliminar').on('click', eliminarPedido.bind(event));
+  $('.btn-eliminar').on('click', function (event) {
+    event.preventDefault();
+    var id = $(this).data('id');
+    deletePedido(id);
+  });
 
   $('#modal-edit-pedido_cliente').on('show.bs.modal', function (event) {
     let id = $(event.relatedTarget).data('id');
@@ -133,6 +137,7 @@ function deletePedido(id) {
       '_token': $('input[name="_token"]').val(),
     },
     success: (data) => {
+      console.log(data);
       document.location.reload();
       toastr.success(data.status, 'Success Alert', { timeOut: 2000 });
     },
@@ -161,10 +166,4 @@ const procesarPago = function () {
     $saldo.val(newSaldo);
   }
   $('.pago').submit();
-}
-
-const eliminarPedido = function (event) {
-  event.preventDefault();
-  var id = $(this).data('id');
-  deletePedido(id);
 }

@@ -69,6 +69,8 @@ $(document).ready(function () {
       toastr.error('Ocurrior en el servidor', 'Error Alert', { timeOut: 2000 });
     })
   });
+
+  $('#fecha_operacion-pago_bloque').datepicker();
 });
 
 function getAllPedidosByCliente(id) {
@@ -134,19 +136,6 @@ function validateDates() {
     }
   });
 
-  $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      var sInicio = $('#fecha_inicio').val();
-      var sFin = $('#fecha_fin').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
-      }
-      return false;
-    }
-  );
 
   $('#filtrar-fecha').on('click', function () {
     $tabla_pagos.DataTable().draw();

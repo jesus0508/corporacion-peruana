@@ -20,4 +20,5 @@
 @section('scripts')
 
 <script src="{{ asset('js/pagoClientes/pagos.js') }}"></script>
+<script src="{{ asset('js/pagoClientes/filtradoFecha.js') }}"></script>
 @endsection
