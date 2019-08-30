@@ -21,7 +21,7 @@
               <th>Planta</th>
             <!--   <th>Importante</th>
  -->              <th>Estado</th>
-              <th>Accion</th>
+             <!--  <th>Accion</th> -->
             </tr>
           </thead>
           <tbody>
@@ -31,13 +31,15 @@
                 <td>{{$pedido_cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
                 <td>{{$pedido_cliente->horario_descarga}}</td>
-                <td>{{$pedido_cliente->scop}}</td>
+                <td>        
+                  <a href="{{route('pedidos.ver_distribucion', $pedido_cliente->id)}}"> {{$pedido_cliente->scop}}
+                  </a>                  
+                </td>
                 <td>{{$pedido_cliente->nombre_transportista}}</td>
                 <td>{{$pedido_cliente->planta}}</td>
                <!--  <td>{{$pedido_cliente->observacion}}</td> -->
                   @includeWhen($pedido_cliente->estado_flete == 1, 'actions.flete.acciones_confirmado') 
-                  @includeWhen($pedido_cliente->estado_flete == 2, 'actions.flete.acciones_completado')
-                  @includeWhen($pedido_cliente->estado_flete == 3, 'actions.flete.acciones_pagado') 
+                  @includeWhen($pedido_cliente->estado_flete == 2, 'actions.flete.acciones_pagado') 
               </tr>
             @endforeach
           </tbody> 

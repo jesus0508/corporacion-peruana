@@ -89,15 +89,17 @@ class PedidoController extends Controller
     {
         $transportista = "FLETE PROPIO";
         $id_t          = 1; 
-        $pedido        = Pedido::with('planta')->with('vehiculo')->with('facturaProveedor')->where('id','=',$id)->first();
-        $proveedor     = Proveedor::findOrFail( $pedido->planta->id );
+        $pedido        = Pedido::where('id','=',$id)->with('planta')->with('vehiculo')->with('facturaProveedor')->first();
+        $planta = Planta::findOrFail( $pedido->planta->id );
+        $id_proveedor = $planta->proveedor_id;
+        $proveedor     = Proveedor::findOrFail( $id_proveedor );
         if ( $pedido->vehiculo_id != null ) {
         $transportista_id = $pedido->vehiculo->transportista_id;
         $transportistaCol = Transportista::findOrFail($transportista_id);     
         $transportista    = $transportistaCol->nombre_transportista;
         $id_t             = $transportistaCol->id;
         }       
-                
+        //return$pedido;
         return view( 'facturas.show.index',compact(  'pedido' , 'transportista','id_t','proveedor' ) );
      
     }

@@ -24,7 +24,7 @@ class FleteController extends Controller
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
                             'pedido_clientes.galones','pedido_clientes.horario_descarga',
-                            'pedidos.scop','pedidos.nro_pedido',
+                            'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista','pedido_clientes.observacion')
                     ->get();
