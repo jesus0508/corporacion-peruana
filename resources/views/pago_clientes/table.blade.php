@@ -4,7 +4,7 @@
       <div class="box-header with-border">
         <h2 class="box-title">Lista de pagos de cliente</h2>
         <div class="pull-right">
-          <a href="" class="btn btn-default">
+          <a href="{{route('pago_clientes.exportToExcel')}}" class="btn btn-default">
             <i class="fa  fa-file-excel-o"></i>
             Exportar a Excel
           </a>

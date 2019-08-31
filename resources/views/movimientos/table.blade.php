@@ -12,7 +12,7 @@
             <i class="fa fa-check"> </i>
             Verificar movimientos
           </a>
-          <a href="" class="btn btn-default">
+          <a href="{{route('movimientos.exportToExcel')}}" class="btn btn-default">
             <i class="fa  fa-file-excel-o"></i>
             Exportar a Excel
           </a>

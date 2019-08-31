@@ -24,10 +24,12 @@ Route::middleware(['auth'])->group(function () {
 	Route::put('/pedido_clientes/{id}/confirmar', 'PedidoClienteController@confirmarPedido')->name('pedido_clientes.confirmarPedido');
 	Route::get('/pedido_clientes/cliente/{id}', 'PedidoClienteController@getByRazonSocial');
 	Route::get('/pedido_clientes/detalles/{id}', 'PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');
+	Route::get('/pedido_clientes/excel', 'PedidoClienteController@exportToExcel')->name('pedido_clientes.exportToExcel');
 	Route::resource('/pedido_clientes', 'PedidoClienteController');
 
 	/*Movimientos */
 	Route::get('/movimientos/validar', 'MovimientoController@validarSinRegistrar')->name('movimientos.validar');
+	Route::get('/movimientos/excel', 'MovimientoController@exportToExcel')->name('movimientos.exportToExcel');
 	Route::resource('/movimientos', 'MovimientoController');
 
 	/* Trabajadores*/
@@ -36,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
 	/* Pago Clientes*/
 	Route::post('/pago_clientes/pedidos/{cliente}', 'PagoClienteController@pagoBloque')->name('pago_clientes.pagoBloque');
+	Route::get('/pago_clientes/excel', 'PagoClienteController@exportToExcel')->name('pago_clientes.exportToExcel');
 	Route::resource('/pago_clientes', 'PagoClienteController');
 
 	/* Grifo */

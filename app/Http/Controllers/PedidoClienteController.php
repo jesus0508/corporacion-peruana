@@ -7,6 +7,7 @@ use CorporacionPeru\Http\Requests\StorePedidoClienteRequest;
 use CorporacionPeru\Http\Requests\UpdatePedidoClienteRequest;
 use CorporacionPeru\Http\Requests\ProcessPedidoClienteRequest;
 use CorporacionPeru\Cliente;
+use CorporacionPeru\Exports\PedidoClienteExport;
 use Illuminate\Http\Request;
 
 class PedidoClienteController extends Controller
@@ -108,7 +109,6 @@ class PedidoClienteController extends Controller
     public function confirmarPedido(ProcessPedidoClienteRequest $request, $id)
     {
         $validated = $request->validated();
-        //dd($validated);
         $id = $validated['id'];
         $pedido = PedidoCliente::findOrFail($id);
         $pedido->nro_factura = $validated['nro_factura'];
@@ -136,5 +136,11 @@ class PedidoClienteController extends Controller
         $cliente = Cliente::where('id', $id)->first();
         $total_deuda = $cliente->pedidoClientes()->sum('saldo');
         return response()->json(['total_deuda' => $total_deuda, 'cliente_id' => $cliente->id]);
+    }
+
+    public function exportToExcel()
+    {
+        $pedido_clientes_export = new PedidoClienteExport;
+        return $pedido_clientes_export->download('pedidos_clientes.xlsx');
     }
 }

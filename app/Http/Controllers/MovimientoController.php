@@ -2,6 +2,7 @@
 
 namespace CorporacionPeru\Http\Controllers;
 
+use CorporacionPeru\Exports\MovimientoExport;
 use CorporacionPeru\Movimiento;
 use CorporacionPeru\PagoCliente;
 use Illuminate\Http\Request;
@@ -136,5 +137,11 @@ class MovimientoController extends Controller
         $movimiento->estado = 2;
         $movimiento->save();
         return $mensaje;
+    }
+
+    public function exportToExcel()
+    {
+        $movimiento_export = new MovimientoExport;
+        return $movimiento_export->download('movimientos.xlsx');
     }
 }

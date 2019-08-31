@@ -8,7 +8,7 @@
             <i class="fa fa-plus"></i>
             Nuevo pedido
           </a>
-          <a href="{{route('pedido_clientes.create')}}" class="btn btn-default">
+          <a href="{{route('pedido_clientes.exportToExcel')}}" class="btn btn-default">
             <i class="fa  fa-file-excel-o"></i>
             Exportar a Excel
           </a>
@@ -23,6 +23,7 @@
               <th>Cliente</th>
               <th>Cantidad GLS</th>
               <th>Monto Total</th>
+              <th>Saldo</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
@@ -34,6 +35,7 @@
                 <td>{{$pedido_cliente->cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
                 <td>S/&nbsp;{{$pedido_cliente->getPrecioTotal()}}</td>
+                <td>S/&nbsp;{{$pedido_cliente->saldo}}</td>
                 @includeWhen($pedido_cliente->isUnconfirmed(), 'pedido_clientes.partials.acciones_sin_confirmar')
                 @includeWhen($pedido_cliente->isConfirmed(), 'pedido_clientes.partials.acciones_confirmado')
                 @includeWhen($pedido_cliente->isDistributed(), 'pedido_clientes.partials.acciones_distribuido')

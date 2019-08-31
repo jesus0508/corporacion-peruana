@@ -3,6 +3,7 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Cliente;
+use CorporacionPeru\Exports\PagoClienteExport;
 use CorporacionPeru\PagoCliente;
 use CorporacionPeru\PedidoCliente;
 use Illuminate\Http\Request;
@@ -142,5 +143,11 @@ class PagoClienteController extends Controller
     public function destroy(PagoCliente $pagoCliente)
     {
         //
+    }
+
+    public function exportToExcel()
+    {
+        $pago_cliente_export = new PagoClienteExport;
+        return $pago_cliente_export->download('pagos_clientes.xlsx');
     }
 }
