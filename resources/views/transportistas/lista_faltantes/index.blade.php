@@ -11,14 +11,15 @@
 <ol class="breadcrumb">
   <li><a href="#">Transportistas</a></li>
   <li><a href="#">Flete Pedidos</a></li>
+  <li><a href="#"> Faltante Lista</a></li>
 </ol>
 @endsection
 
 @section('content')
 
 <section class="content">
-	@include('transportistas.flete.buttons_top')
-    @include('transportistas.flete.table_fletes')
+	@include('transportistas.lista_faltantes.opciones')
+    @include('transportistas.lista_faltantes.table')
 </section>
 
 @endsection
@@ -28,7 +29,7 @@
 <script>
 $(document).ready(function() {
   
-    $('#tabla-flete-pedidos').DataTable({  
+    $('#tabla-flete-faltantes').DataTable({  
           "ordering": false,    
         "responsive": true,             
         'language': {

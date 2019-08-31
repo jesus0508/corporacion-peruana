@@ -3,31 +3,26 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-header with-border">
-            <h2 class="box-title">Lista de Pedidos - Flete</h2>
-            @include('transportistas.flete.opciones')
-      
+            <h2 class="box-title">Lista de Pedidos - Flete</h2>     
       </div><!-- /.box-header -->
 
       <div class="box-body">
-        <table id="tabla-flete-pedidos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-flete-pedidos-sin-pagar" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>Fecha Descarga</th>
               <th>GRIFO</th>
               <th>Gls</th>
-              <th>Horario desc</th>
               <th>SCOP</th>
               <th>Transportista</th>
               <th>Planta</th>
-            <!--   <th>Importante</th>
- -->              <th>Estado</th>
-             <!--  <th>Accion</th> -->
+              <th>Accion</th> 
             </tr>
           </thead>
           <tbody>
             @foreach ($pedidos as $pedido_cliente)
               <tr>
-                <td>
+                <td>  
                   @if( $pedido_cliente->fecha_descarga )
                   {{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}
                   @else
@@ -36,22 +31,17 @@
                 </td>
                 <td>{{$pedido_cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
-                <td>
-                  @if($pedido_cliente->horario_descarga)  
-                    {{$pedido_cliente->horario_descarga}}
-                  @else
-                    No acordado
-                  @endif
-                </td>
                 <td>        
                   <a href="{{route('pedidos.ver_distribucion', $pedido_cliente->id)}}"> {{$pedido_cliente->scop}}
                   </a>                  
                 </td>
                 <td>{{$pedido_cliente->nombre_transportista}}</td>
                 <td>{{$pedido_cliente->planta}}</td>
-               <!--  <td>{{$pedido_cliente->observacion}}</td> -->
-                  @includeWhen($pedido_cliente->estado_flete == 1, 'actions.flete.acciones_confirmado') 
-                  @includeWhen($pedido_cliente->estado_flete == 2, 'actions.flete.acciones_pagado') 
+                <td><a href="#modal-registrar-faltante" data-toggle="modal" data-target="#modal-registrar-faltante" class="btn btn-success" data-pivote="{{$pedido_cliente->id_pivote}}"  
+                  data-pedido_cliente_id="{{ $pedido_cliente->pedido_cliente_id }}"
+                 data-id_pedido="{{ $pedido_cliente->id }}"><span class="fa fa-battery-3"></span> &nbsp;Registrar Faltante</a>
+                </td>
+
               </tr>
             @endforeach
           </tbody> 

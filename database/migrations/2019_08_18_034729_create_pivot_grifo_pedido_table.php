@@ -15,11 +15,14 @@ class CreatePivotGrifoPedidoTable extends Migration
     {
         Schema::create('pedido_grifos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('pedido_id')->nullable();
+            $table->unsignedBigInteger('pedido_id');
             $table->foreign('pedido_id')->references('id')->on('pedidos');
-            $table->unsignedBigInteger('grifo_id')->nullable();
+            $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')->references('id')->on('grifos');
             $table->integer('asignacion');
+            $table->integer('faltante')->nullable();
+            $table->string('grifero')->nullable();
+            $table->string('descripcion')->default('Faltante en grifo');
         });
     }
 

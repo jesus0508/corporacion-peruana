@@ -16,10 +16,14 @@ class CreatePedidoProveedorClientesTable extends Migration
         Schema::create('pedido_proveedor_clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('pedido_cliente_id')->nullable();
-            $table->foreign('pedido_cliente_id')->references('id')->on('pedido_clientes');
+            $table->foreign('pedido_cliente_id')
+                ->references('id')->on('pedido_clientes');
             $table->unsignedBigInteger('pedido_id')->nullable();
             $table->foreign('pedido_id')->references('id')->on('pedidos');
-            $table->timestamps();
+            $table->integer('asignacion');
+            $table->integer('faltante')->nullable();
+            $table->string('grifero')->nullable();
+            $table->string('descripcion')->default('Faltante en grifo');
         });
     }
 

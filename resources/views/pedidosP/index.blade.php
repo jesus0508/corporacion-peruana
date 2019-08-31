@@ -84,7 +84,7 @@ $(document).ready(function() {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
       "responsive": true,
-      "ordering": false,
+      //"ordering": false,
 
         columnDefs: [
           { orderable: false, targets: -1},
