@@ -18,6 +18,7 @@ class CreateTranportistasTable extends Migration
             $table->string('nombre_transportista');
             $table->string('ruc');
             $table->string('celular_transportista')->nullable();
+            $table->decimal('descuento_pendiente')->default(0);
             $table->timestamps();
         });
     }
