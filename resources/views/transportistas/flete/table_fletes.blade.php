@@ -20,13 +20,14 @@
               <th>Transportista</th>
               <th>Planta</th>
             <!--   <th>Importante</th>
- -->              <th>Estado</th>
+ -->          <th>Estado</th>
              <!--  <th>Accion</th> -->
             </tr>
           </thead>
           <tbody>
             @foreach ($pedidos as $pedido_cliente)
-              <tr>
+              <input type="hidden" id="valor-faltante" value="{{$pedido_cliente->faltante}}">
+              <tr id="flete_fila">
                 <td>
                   @if( $pedido_cliente->fecha_descarga )
                   {{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}

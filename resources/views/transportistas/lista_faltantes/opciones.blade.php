@@ -1,11 +1,8 @@
 <div class="form-group pull-right">
 
-  <button class="btn btn-success" data-toggle="modal" data-target=" #modal-pagar-proveedor">
-    PAGAR Transportista   &nbsp;&nbsp; <span class="fa fa-money"></span>
-  </button>
-   <a href="{{ route( 'faltante.index' ) }}">
-    <button class="btn btn-danger">
-    Faltantes &nbsp; <span class="fa fa-list"></span>
+  <a href="{{ route( 'flete.index' ) }}">
+    <button class="btn btn-primary">
+    Ver Fletes   &nbsp;&nbsp; <span class="fa fa-bus"></span>
     </button>
   </a>
   <a href="{{ route( 'flete.create' ) }}">

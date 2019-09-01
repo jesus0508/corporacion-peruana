@@ -1,6 +1,6 @@
 <div class="form-group pull-right">
 
-  <button class="btn btn-success" data-toggle="modal" data-target=" #modal-pagar-proveedor">
+  <button class="btn btn-success" data-toggle="modal" data-target="#modal-pagar-transportista">
     PAGAR Transportista   &nbsp;&nbsp; <span class="fa fa-money"></span>
   </button>
    <a href="{{ route( 'faltante.index' ) }}">

@@ -33,6 +33,7 @@ class FleteController extends Controller
                             'pedido_clientes.galones','pedido_clientes.horario_descarga',
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
+                            'pedido_proveedor_clientes.faltante',
                             'transportistas.nombre_transportista','pedido_clientes.observacion')
                     ->get();
 
@@ -46,7 +47,8 @@ class FleteController extends Controller
                             'pedido_grifos.asignacion as galones',                            
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
-                            'transportistas.nombre_transportista')
+                            'transportistas.nombre_transportista',
+                            'pedido_grifos.faltante')
                     ->get();
         $transportistas = Transportista::all(); 
         $merged = $pedidos_cliente->merge($pedidos_grifo);

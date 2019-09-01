@@ -43,8 +43,7 @@ $(document).ready(function(){
     }); 
     }
 
-  $("#modal-pagar-proveedor").on("show.bs.modal", function(event) {
-      
+  $("#modal-pagar-proveedor").on("show.bs.modal", function(event) {      
     $.get('pago_proveedors/create', function( data ) {
         var html = "";
         console.log(data);
@@ -64,15 +63,11 @@ $(document).ready(function(){
             html +=  '</div>';
             html +=  ' <div class="col-md-2"></div>';
             html +='</div>';
-            html +='</br>';            
-
+            html +='</br>';         
             $(".show-proveedores").html(html);
           }
-
         });     
-    });
-
-   
+    });   
   });
 
 
