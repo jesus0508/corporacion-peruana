@@ -9,6 +9,7 @@ use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoProveedorGrifo;
 use CorporacionPeru\PedidoProveedorCliente;
+use CorporacionPeru\PagoTransportista;
 use Carbon\Carbon;
 class FaltanteController extends Controller
 {
@@ -151,8 +152,7 @@ class FaltanteController extends Controller
         //$pedidos = $merged->all(); 
 
 
-        $transportista = Transportista::findOrFail($id);
-        $nombre_transportista = $transportista->nombre_transportista;
+        $transportista = Transportista::findOrFail($id);        
 
         $date = Carbon::now()->format('d/m/Y');
         $subtotal = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
@@ -202,16 +202,29 @@ class FaltanteController extends Controller
                             'pedido_grifos.grifero',
                             'pedido_grifos.descripcion')
                     ->get();
-        $merged = $lista_descuento1->merge($lista_descuento2);
-        $lista_descuento = $merged->all(); 
 
-       //$collection = collect([$lista_descuento1, $lista_descuento2]);
-       // $collapsed = $collection->collapse();
-       // $pedidos =$collapsed->all();
-     //   return $pedidos;
-      //  return $lista_descuento;
+        $merged          = $lista_descuento1->merge($lista_descuento2);
+        $lista_descuento = $merged->all();
+
+        $cod_left        ="PAT-";
+        $pago_transportistas = PagoTransportista::all();
+        $last_pago = $pago_transportistas->last();
+       // 
+        if($last_pago){//si ya ha habido 1 pago
+            $id_last_pago = $last_pago->id+1;//codigo_anterior+1=actual.
+            $cod_right    = str_pad( $id_last_pago, 6,'0',STR_PAD_LEFT);
+            $codigo_pago  = $cod_left.$cod_right; 
+        }else{//0 pagos registrados
+            $codigo_pago ='PAT-000001';
+        }     
+
+    //$collection = collect([$lista_descuento1, $lista_descuento2]);
+    // $collapsed = $collection->collapse();
+    // $pedidos =$collapsed->all();
+    //   return $pedidos;
+    //  return $lista_descuento;
         return view('pago_transportistas.index',
-            compact('pedidos','date','nombre_transportista','subtotal','lista_descuento'));
+            compact('pedidos','date','transportista','subtotal','lista_descuento','codigo_pago'));
     }
 
     /**

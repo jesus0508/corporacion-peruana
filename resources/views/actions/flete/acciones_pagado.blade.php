@@ -1,5 +1,5 @@
 <td> 
-  <span class="label label-default">PAGADO</span> 
+  <span class="label label-success">PAGADO</span> 
 </td>
 <!-- <td>
 

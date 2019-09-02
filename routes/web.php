@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('vehiculo', 'VehiculoController');
 	Route::resource('flete','FleteController');
 	Route::resource('faltante','FaltanteController');
+	Route::resource('pago_transportistas','PagoTransportistaController');
 
 	/* Pedido Proveedor  */					
 	Route::resource('/pedidos', 'PedidoController');

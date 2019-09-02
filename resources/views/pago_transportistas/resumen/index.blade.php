@@ -25,9 +25,9 @@
                         $pedido_cliente->faltante * $pedido_cliente->costo_galon, 2, '.', '');
     @endphp
   @endforeach
-  @include('pago_transportistas.create')
-  @include('pago_transportistas.table_fletes')
-  @include('pago_transportistas.table_descuento')
+  @include('pago_transportistas.resumen.create')
+  @include('pago_transportistas.resumen.table_fletes')
+  @include('pago_transportistas.resumen.table_descuento')
 </section>
 @endsection
 
@@ -53,25 +53,6 @@ $(document).ready(function(){
     $('#monto_pendiente').val('');
     $('#total_pago').val('');
 	}
-console.log(monto_pendiente);
-  //Onchange en monto Descuento rellenar datos(total,pendiente)
-  $("#monto_descuento").on('change',function(){
- 	  let monto_descuento =$('#monto_descuento').val();
-    let total_faltante =$('#total_faltante').val();
-    let monto_pendiente = total_faltante - monto_descuento;
-    let total_pago = $('#subtotal').val() - monto_descuento;
-    total_pago = parseFloat(total_pago).toFixed(2);
-    if( monto_descuento >= 0 && monto_descuento<=total_faltante){
-      $('#monto_pendiente').val(monto_pendiente);
-      $('#descuento_calculo').val('S/. '+monto_descuento);
-      $('#total_pago').val(total_pago);
-	} else{
-   	  $('#descuento_calculo').val('valor incorrecto');
-      $('#monto_pendiente').val('');
-      $('#total_pago').val('');
-	}
- });
-   
 
 	  $('#tabla-pago-transportista').DataTable({
 	   "columnDefs": [

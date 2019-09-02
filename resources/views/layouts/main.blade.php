@@ -232,7 +232,7 @@ desired effect
             <li><a href="{{route('transportista.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
             <li><a href="{{route('transportista.index')}}"><i class="fa fa-list"></i> Ver Transportistas</a></li>
             <li><a href="{{route('flete.index')}}"><i class="fa fa-bus"></i> Flete Pedidos</a></li>
-            <li><a href="{{route('transportista.index')}}"><i class="fa fa-money"></i>  Pago Transportistas</a></li>                         
+            <li><a href="{{route('pago_transportistas.index')}}"><i class="fa fa-money"></i>  Pago Transportistas</a></li>                         
           </ul>
         </li>
         

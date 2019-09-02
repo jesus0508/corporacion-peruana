@@ -19,6 +19,9 @@ class CreatePivotGrifoPedidoTable extends Migration
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')->references('id')->on('grifos');
+            $table->unsignedBigInteger('pago_transportista_id')->nullable();
+            $table->foreign('pago_transportista_id')
+                    ->references('id')->on('pago_transportistas');
             $table->integer('asignacion');
             $table->integer('faltante')->nullable();
             $table->string('grifero')->nullable();
@@ -41,6 +44,10 @@ class CreatePivotGrifoPedidoTable extends Migration
             $table->dropForeign(['grifo_id']);
         });
 
+        Schema::table('pedido_grifos', function (Blueprint $table) {
+            $table->dropForeign(['pago_transportista_id']);
+        });
+        
         Schema::dropIfExists('pedido_grifos');
     }
 }

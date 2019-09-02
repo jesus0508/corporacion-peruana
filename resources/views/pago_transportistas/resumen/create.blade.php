@@ -1,7 +1,4 @@
 <div class="row">
-  <form class="" action="{{route('pago_transportistas.store')}}" method="post">
-    @csrf
-    <input type="hidden" name="transportista_id" value="{{$transportista->id}}">
     <div class="col-md-8">
       <div class="box box-success">
         <div class="box-header with-border">
@@ -41,7 +38,7 @@
                 <div class="form-group @error('fecha_pago') has-error @enderror">
                   <label for="fecha_pago"> Fecha*</label>
                   <input id="fecha_pago" type="date" class="form-control" 
-                          name="fecha_pago" required>
+                          name="fecha_pago" value="{{$pago_transportista->fecha_pago}}" readonly="">
                   @error('fecha_pago')
                     <span class="help-block" role="alert">
                       <strong>{{ $message }}</strong>
@@ -52,10 +49,9 @@
               </div><!-- /.numero-pedido -->
               <div class="col-md-4">
                 <div class="form-group @error('monto_descuento') has-error @enderror">
-                  <label for="monto_descuento">Monto a Descontar*</label>
+                  <label for="monto_descuento">Monto a Descontado</label>
                   <input id="monto_descuento" type="number" class="form-control" 
-                          name="monto_descuento" value="{{number_format((float)
-                        $desc, 2, '.', '')}}" placeholder="Ingrese monto a descontar" required>
+                          name="monto_descuento" value="{{$desc - $pago_transportista->pendiente_dejado}}" placeholder="Ingrese monto a descontar" readonly="">
                   @error('monto_descuento')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -82,7 +78,7 @@
               <div class="col-md-8">
                 <div class="form-group @error('observacion') has-error @enderror">
                   <label for="observacion"> Observacion</label>
-                  <textarea class="form-control" name="observacion" cols="30" rows="2" placeholder="Ingrese alguna observación.."></textarea>
+                  <textarea class="form-control" name="observacion" cols="30" rows="2" placeholder="Ingrese alguna observación.." value="{{$pago_transportista->observacion}}" readonly=""></textarea>
                   @error('observacion')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -94,7 +90,7 @@
                 <div class="form-group @error('pendiente_dejado') has-error @enderror">
                   <label for="pendiente_dejado">Monto dejado como pendiente</label>
                   <input id="monto_pendiente" type="text" class="form-control" 
-                          name="pendiente_dejado"  readonly="">
+                          name="pendiente_dejado" value="{{$pago_transportista->pendiente_dejado}}" readonly="">
                   @error('pendiente_dejado')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -116,7 +112,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="" type="text" value="{{$codigo_pago}}" name="codigo_pago" class="form-control" readonly>
+                  <input id="" type="text" value="{{$pago_transportista->codigo_pago}}" name="codigo_pago" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -170,13 +166,6 @@
                   <input style="color:red; font-weight: bold; font-size: 15px;" id="total_pago" name="monto_total_pago"  type="text" class="form-control" readonly>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-              <button class="btn btn-success btn-lg pull-right">
-               <i class="fa fa-money"></i> &nbsp;PAGAR 
-              </button>                 
-              </div>             
             </div>
           </div>
         </div>

@@ -102,8 +102,11 @@ class FleteController extends Controller
                             'pedido_proveedor_clientes.id as id_pivote',
                             'pedido_proveedor_clientes.descripcion')
                     ->get();
-        $merged = $pedidos_cliente->merge($pedidos_grifo);
-        $pedidos = $merged->all();  
+      //  $merged = $pedidos_cliente->merge($pedidos_grifo);
+     //   $pedidos = $merged->all(); 
+        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+        $collapsed = $collection->collapse();
+        $pedidos =$collapsed->all(); 
      //  return $pedidos;
        return view('transportistas.registrar_faltante.index',compact('pedidos'));      
     }
