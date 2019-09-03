@@ -28,8 +28,6 @@
                 <td>GASTOS GRIFO</td>
                 <td>PAGO SEMANAL</td>
                 <td>
-                  <button class='btn btn-warning'> </span>
-                  Editar</button>
                   <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                 </td>
   

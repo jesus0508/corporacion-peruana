@@ -13,25 +13,14 @@
 <section class="content">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="pull-left">
-         		<a href="#collapseCategoria" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseCategoria">
-          			<span class="fa fa-plus"> </span>&nbsp;
-         		 Agregar Categoria
-        		</a>
-         		<a href="#collapseSubCategoria" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseSubCategoria">
-          			<span class="fa fa-plus"> </span>&nbsp;
-         		 Agregar SubCategoria
-        		</a>
-         		<a href="#collapseGasto" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseGasto">
-          			<span class="fa fa-plus"> </span>&nbsp;
-         		 Agregar Gasto
-        		</a>
-			</div>		
+
 		</div>
 		
 	</div>
 	<br>
-  @include('gastos.create')
+  @include('gastos.create_categoria')
+  @include('gastos.create_subcategoria')
+  @include('gastos.create_gasto')
   @include('gastos.table')
   <!--modales-->
   @include('gastos.edit')
