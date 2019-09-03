@@ -1,7 +1,5 @@
 <div class="row">
     <div class="col-md-8">
-    <form action="{{route('proveedores.store')}}" method="post">
-    @csrf
       <!-- general form elements -->
       <div class="box box-success " id="">
         <div class="box-header with-border">
@@ -10,23 +8,34 @@
         <div class="box-body">
 
           <div class="row">
-            <div class="col-md-8">
-              <div class="form-group @error('categoria') has-error @enderror">
+            <div class="col-md-7">
+              <div class="form-group">
                 <label for="categoria">Categoría Gasto</label>
                   <select name="categoria" id="categoria" class="form-control">
-                    <option value="">grifos</option>
-                    <option value="">cisternas</option>
-                    <option value="">otros</option>
+                    @foreach( $categorias as $categoria )
+                      <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
+                    @endforeach
                   </select>
               </div>
             </div>
 
-            <div class="col-md-4"> 
+            <div class="col-md-5"> 
               <div class="form-group"> 
                 <label for="" > ACCIONES</label>
                 <div class="control">
-                  <button class="btn btn-primary"><span class="fa fa-plus"> </span> &nbsp;Agregar</button>
-                  <button class="btn btn-danger"><span class="fa fa-trash"> </span> &nbsp;Eliminar</button> 
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add-categoria" data-cod="{{$new_codigo_categoria}}"><span class="fa fa-plus"> </span> &nbsp;Agregar</button>
+                    <!-- edit -->
+                  <button id="btn_categoria_edit"  class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-categoria"
+                          > <input type="hidden" id="cod_categoria_edit">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <!-- edit end -->
+                  <form style="display:inline" method="POST" action="{{ route('categoria_gastos.destroy',0) }}">
+                    @csrf
+                    @method('DELETE')
+                      <input type="hidden" id="id_delete" name="id">
+                      <button id="btn_categoria_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;<small>Eliminar todo</small></button>
+                  </form>
                 </div>                  
               </div>
             </div>
@@ -45,9 +54,9 @@
           <h3 class="box-title">Código &nbsp;|&nbsp; <b>CATEGORÍA</b></h3>
         </div><!-- /.box-header -->
         <div class="box-body">
-          <div class="form-group @error('categoria') has-error @enderror">
-            <label for="categoria">Código </label>
-            <input type="text" class="form-control" value="100" readonly="">              
+          <div class="form-group">
+            <label for="cod_right">Código </label>
+            <input type="text" id="cod_right" class="form-control" readonly="">              
           </div>        
         </div><!-- /.box-body -->
       </div><!-- /.box -->

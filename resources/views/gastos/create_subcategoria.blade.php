@@ -1,22 +1,19 @@
 <div class="row">
     <div class="col-md-8">
-    <form action="{{route('proveedores.store')}}" method="post">
-    @csrf
       <!-- general form elements -->
       <div class="box box-success " id="">
         <div class="box-header with-border">
           <h3 class="box-title">Sub-Categoría     &nbsp;|  &nbsp;<b>  REGISTRAR & ELIMINAR</b></h3>
-      </div><!-- /.box-header -->
+        </div><!-- /.box-header -->
         <div class="box-body">
-
           <div class="row">
             <div class="col-md-8">
-              <div class="form-group @error('categoria') has-error @enderror">
-                <label for="categoria">Sub-Categoría Gasto</label>
-                  <select name="categoria" id="categoria" class="form-control">
-                    <option value="">grifos</option>
-                    <option value="">cisternas</option>
-                    <option value="">otros</option>
+              <div class="form-group @error('subcategoria') has-error @enderror">
+                <label for="subcategoria">Sub-Categoría Gasto</label>
+                  <select name="subcategoria" id="subcategoria" class="form-control">
+                    @foreach( $subcategorias as $categoria )
+                      <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
+                    @endforeach   
                   </select>
               </div>
             </div>
@@ -25,8 +22,18 @@
               <div class="form-group"> 
                 <label for="" > ACCIONES</label>
                 <div class="control">
-                  <button class="btn btn-primary"><span class="fa fa-plus"> </span> &nbsp;Agregar</button>
-                  <button class="btn btn-danger"><span class="fa fa-trash"> </span> &nbsp;Eliminar</button> 
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add-subcategoria" data-cod="{{$new_codigo_subcategoria}}"><span class="fa fa-plus"> </span> &nbsp;Agregar</button>
+                    <!-- edit -->
+                  <button id="btn_subcategoria_edit"  class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-subcategoria"
+                          disabled=""> <input type="hidden" id="cod_subcategoria_edit">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <!-- edit end -->
+                  <form style="display:inline" method="POST" action="{{ route('sub_categoria_gastos.destroy',0) }}">
+                    @csrf
+                    @method('DELETE')
+                      <button disabled id="btn_subcategoria_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;</button>
+                  </form>
                 </div>                  
               </div>
             </div>
@@ -36,7 +43,6 @@
           </div>    
           </div><!-- /.box-body -->
       </div><!-- /.box -->
-    </form>
   </div>   <!-- left column -->
   <div class="col-md-4">
       <!-- general form elements -->

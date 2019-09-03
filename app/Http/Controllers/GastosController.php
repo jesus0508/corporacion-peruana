@@ -3,7 +3,8 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use CorporacionPeru\CategoriaGasto;
+use CorporacionPeru\SubCategoriaGasto;
 class GastosController extends Controller
 {
     
@@ -14,10 +15,28 @@ class GastosController extends Controller
      */
     public function index()
     {
-        //
-       // $pedidos = Pedido::with('planta')->get();
-        //$plantas = Planta::all();
-        return view('gastos.index');
+        
+        $categorias = CategoriaGasto::orderBy('id','desc')->get();
+        $categorias_asc = CategoriaGasto::all();
+        $last_cat   = $categorias_asc->last();
+        if( $last_cat ){
+            $last_id = $last_cat->id+1;
+            $new_codigo_categoria = str_pad($last_id,3,'0');
+        }else{
+            $new_codigo_categoria = '100';
+        }
+        $subcategorias = SubCategoriaGasto::orderBy('id','desc')->get();
+        $subcategorias_asc = SubCategoriaGasto::all();
+        $last_cat   = $subcategorias_asc->last();
+        if( $last_cat ){
+            $last_id = $last_cat->id+1;
+            $new_codigo_subcategoria = str_pad($last_id,3,'0');
+        }else{
+            $new_codigo_subcategoria = '100';
+        }    
+     // return $categorias_asc;
+        return view('gastos.index',compact('categorias','new_codigo_categoria',
+                                            'subcategorias','new_codigo_subcategoria'));
     }
 
     /**
