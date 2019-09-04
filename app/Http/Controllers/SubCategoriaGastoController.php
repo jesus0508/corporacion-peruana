@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class SubCategoriaGastoController extends Controller
 {
+
+
+    public function getSubCategorias(Request $request){
+
+        if( $request->ajax() ){
+            $subcategorias = SubCategoriaGasto::where('categoria_gasto_id',$request->categoria_gasto_id)->get();
+            foreach ($subcategorias as $subcategoria) {
+                $subcategoriasArray[ $subcategoria->id ] = $subcategoria->subcategoria;
+            }
+            return response()->json($subcategoriasArray);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,7 @@ class SubCategoriaGastoController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +47,9 @@ class SubCategoriaGastoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        SubCategoriaGasto::create($request->all());
+
+        return back()->with('alert-type', 'success')->with('status', 'Sub-Categoría Registrada con exito');
     }
 
     /**

@@ -33,7 +33,7 @@
                   <form style="display:inline" method="POST" action="{{ route('categoria_gastos.destroy',0) }}">
                     @csrf
                     @method('DELETE')
-                      <input type="hidden" id="id_delete" name="id">
+                      <input type="hidden" id="id_cat_delete" name="id">
                       <button id="btn_categoria_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;<small>Eliminar todo</small></button>
                   </form>
                 </div>                  
@@ -56,7 +56,7 @@
         <div class="box-body">
           <div class="form-group">
             <label for="cod_right">Código </label>
-            <input type="text" id="cod_right" class="form-control" readonly="">              
+            <input type="text" id="cod_cat_right" class="form-control" readonly="">              
           </div>        
         </div><!-- /.box-body -->
       </div><!-- /.box -->

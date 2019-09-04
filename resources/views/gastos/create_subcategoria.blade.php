@@ -11,9 +11,7 @@
               <div class="form-group @error('subcategoria') has-error @enderror">
                 <label for="subcategoria">Sub-Categoría Gasto</label>
                   <select name="subcategoria" id="subcategoria" class="form-control">
-                    @foreach( $subcategorias as $categoria )
-                      <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
-                    @endforeach   
+  
                   </select>
               </div>
             </div>
@@ -53,7 +51,7 @@
         <div class="box-body">
           <div class="form-group @error('categoria') has-error @enderror">
             <label for="categoria">Código </label>
-            <input type="text" class="form-control" value="101" readonly="">              
+            <input type="text" class="form-control" id="cod_subcat_right" readonly="">              
           </div>        
         </div><!-- /.box-body -->
       </div><!-- /.box -->

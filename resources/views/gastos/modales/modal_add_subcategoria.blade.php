@@ -1,11 +1,12 @@
 <div class="modal fade" id="modal-add-subcategoria" style="display: none;">
   <div class="modal-dialog">
-    <form class="modal-content" action="{{route('categoria_gastos.store')}}" method="post">
+    <form class="modal-content" action="{{route('sub_categoria_gastos.store')}}" method="post">
     @csrf
+    <input type="hidden" id="id_cat-add" name="categoria_gasto_id">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Agregar nueva Categoría </h4>
+        <h4 class="modal-title">Agregar nueva Sub-Categoría </h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -16,11 +17,11 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-8">
-                    <div class="form-group @error('categoria') has-error @enderror">
-                      <label for="categoria-add">SUBCATEGORÍA</label>
+                    <div class="form-group @error('subcategoria') has-error @enderror">
+                      <label for="subcategoria-add">SUBCATEGORÍA</label>
                       <input  type="text" class="form-control"
-                          name="categoria" placeholder="Ingrese la nueva SUBCATEGORÍA" required>
-                        @error('categoria')
+                          name="subcategoria" placeholder="Ingrese la nueva SUBCATEGORÍA" required>
+                        @error('subcategoria')
                           <span class="help-block" role="alert">
                             <strong>{{ $message }}</strong>
                           </span>
@@ -37,7 +38,7 @@
                 </div>
               </div><!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" disabled="" class="btn btn-lg btn-success pull-left"><span class="fa fa-plus"></span>&nbsp; Añadir</button>
+                <button type="submit" class="btn btn-lg btn-success pull-left"><span class="fa fa-plus"></span>&nbsp; Añadir</button>
 
                 <button type="" class="btn btn-lg btn-default pull-right" data-dismiss="modal">Cancelar</button>
                 

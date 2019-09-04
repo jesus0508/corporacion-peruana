@@ -34,7 +34,7 @@ class GastosController extends Controller
         }else{
             $new_codigo_subcategoria = '100';
         }    
-     // return $categorias_asc;
+
         return view('gastos.index',compact('categorias','new_codigo_categoria',
                                             'subcategorias','new_codigo_subcategoria'));
     }

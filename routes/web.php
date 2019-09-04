@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/sub_categoria_gastos', 'SubCategoriaGastoController');
 	Route::resource('/concepto_gastos', 'ConceptoGastoController');
 	Route::resource('/egresos', 'EgresoController');
+	Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
 
 	/* Proveedor & planta */	
 	Route::resource('/proveedores', 'ProveedorController');
