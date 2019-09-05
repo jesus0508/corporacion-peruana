@@ -1,14 +1,13 @@
-<div class="modal fade" id="modal-add-subcategoria" style="display: none;">
+a<div class="modal fade" id="modal-edit-concepto" style="display: none;">
   <div class="modal-dialog">
-    <form class="modal-content" action="{{route('sub_categoria_gastos.store')}}" method="post">
-    @csrf
-    <input type="hidden" id="id_cat-add" name="categoria_gasto_id">
+    <form class="modal-content" action="{{route('concepto_gastos.update',0)}}" method="post">
+      @csrf
+      @method('PUT')
+      <input type="hidden" name="id" id="id-edit">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Agregar nueva Sub-Categoría  | CATEGORÍA: 
-         <label for="label" id="categoria_val"></label> </h4>
-
+        <h4 class="modal-title">Editar  GASTO </h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -19,11 +18,11 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-8">
-                    <div class="form-group @error('subcategoria') has-error @enderror">
-                      <label for="subcategoria-add">SUBCATEGORÍA</label>
+                    <div class="form-group @error('concepto') has-error @enderror">
+                      <label for="concepto-edit">GASTO</label>
                       <input  type="text" class="form-control"
-                          name="subcategoria" placeholder="Ingrese la nueva SUBCATEGORÍA" required>
-                        @error('subcategoria')
+                          name="concepto" id="concepto-edit" placeholder="Ingrese el nuevo GASTO" required>
+                        @error('concepto')
                           <span class="help-block" role="alert">
                             <strong>{{ $message }}</strong>
                           </span>
@@ -32,17 +31,17 @@
                   </div>   
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="codigo-add">Código</label>
-                      <input id="codigo_new_subcat" type="text" class="form-control"
+                      <label for="codigo-edit">Código</label>
+                      <input id="codigo-edit" type="text" class="form-control"
                           name="codigo"  readonly="">
                     </div>
                   </div>               
                 </div>
               </div><!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-lg btn-success pull-left"><span class="fa fa-plus"></span>&nbsp; Añadir</button>
+                <button type="submit" class="btn btn-success pull-left"><span class="fa fa-save"></span>&nbsp; Guardar</button>
 
-                <button type="" class="btn btn-lg btn-default pull-right" data-dismiss="modal">Cancelar</button>
+                <button type="" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
                 
               </div>
             </div><!-- /.box -->

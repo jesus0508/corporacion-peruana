@@ -49,7 +49,8 @@ class CategoriaGastoController extends Controller
      */
     public function show($cod)
     {
-       $categoria = CategoriaGasto::where('codigo',$cod)->first();
+       $categoria = CategoriaGasto::where('codigo',$cod)->with('subCategoriaGastos')->first();
+
        return $categoria;
     }
 

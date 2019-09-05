@@ -9,18 +9,15 @@
           <div class="row">
             <div class="col-md-8">
               <div class="form-group @error('subcategoria') has-error @enderror">
-                <label for="subcategoria">Sub-Categoría Gasto</label>
-                  <select name="subcategoria" id="subcategoria" class="form-control">
-  
-                  </select>
+                  <label for="subcategoria">Sub-Categoría Gasto</label>
+                  <select id="subcategoria" class="form-control"></select>
               </div>
-            </div>
-
+            </div>   
             <div class="col-md-4"> 
               <div class="form-group"> 
                 <label for="" > ACCIONES</label>
                 <div class="control">
-                  <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add-subcategoria" data-cod="{{$new_codigo_subcategoria}}"><span class="fa fa-plus"> </span> &nbsp;Agregar</button>
+                  <button id="btn_subcategoria_add" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-subcategoria" data-cod="{{$new_codigo_subcategoria}}"><span class="fa fa-plus"> </span> &nbsp;Agregar</button>
                     <!-- edit -->
                   <button id="btn_subcategoria_edit"  class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-subcategoria"
                           disabled=""> <input type="hidden" id="cod_subcategoria_edit">
@@ -30,6 +27,7 @@
                   <form style="display:inline" method="POST" action="{{ route('sub_categoria_gastos.destroy',0) }}">
                     @csrf
                     @method('DELETE')
+                    <input type="hidden" id="id_subcategoria_delete" name="id">
                       <button disabled id="btn_subcategoria_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;</button>
                   </form>
                 </div>                  

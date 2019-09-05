@@ -30,12 +30,14 @@
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
                   <!-- edit end -->
+                  @if( count($subcategorias) == 0 )   
                   <form style="display:inline" method="POST" action="{{ route('categoria_gastos.destroy',0) }}">
                     @csrf
                     @method('DELETE')
                       <input type="hidden" id="id_cat_delete" name="id">
                       <button id="btn_categoria_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;<small>Eliminar todo</small></button>
                   </form>
+                  @endif
                 </div>                  
               </div>
             </div>

@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class ConceptoGastoController extends Controller
 {
+
+     public function getConceptos(Request $request){
+        if( $request->ajax() ){
+            $gastos = ConceptoGasto::where('sub_categoria_gasto_id',$request->subcategoria_gasto_id)->get();
+            foreach ($gastos as $gasto) {
+                $gastosArray[ $gasto->id ] = $gasto->concepto;
+            }
+            return response()->json($gastosArray);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +46,9 @@ class ConceptoGastoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ConceptoGasto::create($request->all());
+
+        return back()->with('alert-type', 'success')->with('status', 'Gasto registrado con exito');
     }
 
     /**
@@ -44,9 +57,11 @@ class ConceptoGastoController extends Controller
      * @param  \CorporacionPeru\ConceptoGasto  $conceptoGasto
      * @return \Illuminate\Http\Response
      */
-    public function show(ConceptoGasto $conceptoGasto)
+    public function show( $cod )
     {
-        //
+       $concepto = ConceptoGasto::where('id',$cod)->first();
+
+       return $concepto;
     }
 
     /**
@@ -67,9 +82,11 @@ class ConceptoGastoController extends Controller
      * @param  \CorporacionPeru\ConceptoGasto  $conceptoGasto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ConceptoGasto $conceptoGasto)
+    public function update( Request $request )
     {
-        //
+            $id = $request->id;
+        ConceptoGasto::findOrFail( $id )->update( $request->all() );
+        return  back()->with('alert-type', 'success')->with('status', 'GASTO editado con exito');
     }
 
     /**
@@ -78,8 +95,9 @@ class ConceptoGastoController extends Controller
      * @param  \CorporacionPeru\ConceptoGasto  $conceptoGasto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ConceptoGasto $conceptoGasto)
+    public function destroy(Request $request)
     {
-        //
+        ConceptoGasto::findOrFail($request->id)->delete();  
+        return  back()->with('alert-type','warning')->with('status','Gasto borrado con exito');
     }
 }

@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/concepto_gastos', 'ConceptoGastoController');
 	Route::resource('/egresos', 'EgresoController');
 	Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
-
+	Route::get('/conceptos','ConceptoGastoController@getConceptos');
 	/* Proveedor & planta */	
 	Route::resource('/proveedores', 'ProveedorController');
 	Route::resource('/planta', 'PlantaController');

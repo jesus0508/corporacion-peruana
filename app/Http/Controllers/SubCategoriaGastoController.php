@@ -16,6 +16,7 @@ class SubCategoriaGastoController extends Controller
             foreach ($subcategorias as $subcategoria) {
                 $subcategoriasArray[ $subcategoria->id ] = $subcategoria->subcategoria;
             }
+           // uksort($subcategoriasArray);
             return response()->json($subcategoriasArray);
         }
     }
@@ -58,9 +59,11 @@ class SubCategoriaGastoController extends Controller
      * @param  \CorporacionPeru\SubCategoriaGasto  $subCategoriaGasto
      * @return \Illuminate\Http\Response
      */
-    public function show(SubCategoriaGasto $subCategoriaGasto)
+    public function show($cod)
     {
-        //
+        $subcategoria = SubCategoriaGasto::where('id',$cod)->with('conceptoGastos')->first();
+
+       return $subcategoria;
     }
 
     /**
@@ -71,7 +74,7 @@ class SubCategoriaGastoController extends Controller
      */
     public function edit(SubCategoriaGasto $subCategoriaGasto)
     {
-        //
+
     }
 
     /**
@@ -81,9 +84,11 @@ class SubCategoriaGastoController extends Controller
      * @param  \CorporacionPeru\SubCategoriaGasto  $subCategoriaGasto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategoriaGasto $subCategoriaGasto)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id;
+        SubCategoriaGasto::findOrFail($id)->update($request->all());
+        return  back()->with('alert-type', 'success')->with('status', 'Categoria editada con exito');
     }
 
     /**
@@ -92,8 +97,12 @@ class SubCategoriaGastoController extends Controller
      * @param  \CorporacionPeru\SubCategoriaGasto  $subCategoriaGasto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategoriaGasto $subCategoriaGasto)
+    public function destroy(Request $request)
     {
-        //
+       
+        SubCategoriaGasto::findOrFail($request->id)->delete();     
+      
+
+       return  back()->with('alert-type','warning')->with('status','SubCategoría borrada con exito');
     }
 }

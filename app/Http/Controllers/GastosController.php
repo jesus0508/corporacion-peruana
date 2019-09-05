@@ -27,12 +27,11 @@ class GastosController extends Controller
         }
         $subcategorias = SubCategoriaGasto::orderBy('id','desc')->get();
         $subcategorias_asc = SubCategoriaGasto::all();
-        $last_cat   = $subcategorias_asc->last();
-        if( $last_cat ){
-            $last_id = $last_cat->id+1;
-            $new_codigo_subcategoria = str_pad($last_id,3,'0');
-        }else{
+        $last_subcat   = $subcategorias_asc->last();
+        if(! $last_subcat ){
             $new_codigo_subcategoria = '100';
+        }else{
+            $new_codigo_subcategoria = null;
         }    
 
         return view('gastos.index',compact('categorias','new_codigo_categoria',

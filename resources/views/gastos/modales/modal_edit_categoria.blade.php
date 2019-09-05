@@ -7,7 +7,7 @@ a<div class="modal fade" id="modal-edit-categoria" style="display: none;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Agregar nueva Categoría </h4>
+        <h4 class="modal-title">Editar  Categoría </h4>
       </div>
       <div class="modal-body">
         <div class="row">
