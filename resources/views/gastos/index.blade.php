@@ -28,7 +28,7 @@
   @include('gastos.create_categoria')  
   @include('gastos.create_subcategoria')
   @include('gastos.create_gasto')
-  @include('gastos.table')
+
 
 <!--  modales -->
   @include('gastos.modales.modal_add_categoria')
@@ -44,7 +44,23 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
+  
 	$(document).ready(function() {
+        //inicializar SELECT
+    $("#categoria").select2({
+     placeholder: "Elija una categoría",
+     allowClear:true
+    });
+
+    $("#subcategoria").select2({
+      placeholder: "Elija un unasubcateogria",
+      allowClear:true
+    });
+
+    $("#concepto").select2({
+      placeholder: "Elija un gasto  ",
+      allowClear:true
+    });
     categoria_rellenado();     
     subcategoria_rellenado();  
     concepto_rellenado();
@@ -152,21 +168,7 @@
       });
     });
 
-    //inicializar SELECT
-    $("#categoria").select2({
-      placeholder: "Elija una categoría",
-      allowClear:true
-    });
 
-    $("#subcategoria").select2({
-      placeholder: "Elija una subcategoría",
-      allowClear:true
-    });
-
-    $("#concepto").select2({
-      placeholder: "Elija un gasto  ",
-      allowClear:true
-    });
 
 
 function categoria_rellenado(){
@@ -212,6 +214,7 @@ function subcategoria_rellenado(){
   let cod_cat = $('#categoria').val();
   let id_cat =cod_cat;
   let cod = $('#subcategoria').val(); 
+  //$('#subcategoria').val(cod).trigger('change'); 
   let subcategoria_gasto_id = cod;
   //console.log(id_cat);
       if( cod == null){
@@ -288,7 +291,7 @@ function subcategoria_rellenado(){
 
 
   $('#subcategoria').on('change', function (event) {    
-      subcategoria_rellenado();       
+      subcategoria_rellenado();            
   });
 
    // categoria_rellenado();     

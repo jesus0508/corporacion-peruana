@@ -8,31 +8,32 @@
         <table id="tabla-gastos-registro" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Codigo</th>
+              <th>#</th>
               <th>Categoria</th>
               <th>Subcategoria</th>
               <th>Gasto Descripcion</th>
               <th>Fecha</th>
               <th>Monto</th>
+              <th>Grifo</th>
               <th>Estado</th>
-
             </tr>
           </thead>
           <tbody>
-          
+            @foreach( $egresos as $egreso )
               <tr>
-                <td>3011001</td>
-                <td>GASTOS OPERATIVOS</td>
-                <td>GASTOS GRIFO</td>
-                <td>PAGO SEMANAL</td>
-                <td>20/08/2019</td>
-                <td> 122.00</td>                
-                <td>
-                	estado?
+                <td>{{$loop->iteration}}</td>
+                <td>{{$egreso->categoria}}</td>
+                <td>{{$egreso->subcategoria}}</td>
+                <td>{{$egreso->concepto}}</td>
+                <td>{{$egreso->fecha_egreso}}</td>
+                <td>{{$egreso->monto_egreso}}</td>
+                <td>{{$egreso->grifo}}</td>               
+                <td> <label for="" class="label">estado</label>
+                </td>  
+              </tr>            
+            @endforeach
+          
 
-                </td>
-  
-              </tr>
           </tbody>
         </table>
       </div>

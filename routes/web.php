@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/egresos', 'EgresoController');
 	Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
 	Route::get('/conceptos','ConceptoGastoController@getConceptos');
+	Route::resource('gastos','GastosController');
+
 	/* Proveedor & planta */	
 	Route::resource('/proveedores', 'ProveedorController');
 	Route::resource('/planta', 'PlantaController');
@@ -94,7 +96,5 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')
 			->name('pedidos.distribuir_grifo');//mostrar interfaz distribucion a grifos
 
-	/* Gastos */
-	Route::resource('gastos','GastosController');
 
 });

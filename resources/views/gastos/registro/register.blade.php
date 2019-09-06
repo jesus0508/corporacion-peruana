@@ -1,4 +1,6 @@
 <div class="row">
+  <form class="modal-content" action="{{route('gastos.store')}}" method="post">
+    @csrf
   <div class="col-md-12">
   <div class="box box-success" id="">
     <div class="box-header with-border">
@@ -10,39 +12,33 @@
           <div class="form-group @error('categoria') has-error @enderror">
             <label for="categoria">Categoría Gasto</label>
             <select name="categoria" id="categoria" class="form-control">
-              <option value="">gastos operativos</option>
-              <option value="">gastos administrativos</option>
-              <option value="">otros</option>
+              @foreach( $categorias as $categoria )
+                <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
+              @endforeach
             </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group @error('subcategoria') has-error @enderror">
-            <label for="subcategoria">Categoría Gasto</label>
+            <label for="subcategoria">SubCategoría Gasto</label>
             <select name="subcategoria" id="subcategoria" class="form-control">
-              <option value="">grifos</option>
-              <option value="">cisternas</option>
-              <option value="">otros</option>
+
             </select>
           </div>
         </div>          
         </div>        
       <div class="row">
         <div class="col-md-8">
-          <div class="form-group @error('subcategoria') has-error @enderror">
-            <label for="subcategoria">Concepto gasto*</label>
-            <input id="subcategoria" type="text" class="form-control" name="subcategoria" placeholder="Ejemplo : Pago semanal" value="{{ old('subcategoria') }}"  required>
-            @error('subcategoria')
-              <span class="help-block" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-            @enderror
+          <div class="form-group @error('concepto') has-error @enderror">
+            <label for="concepto">Concepto gasto*</label>
+            <select name="concepto_gasto_id" id="concepto" class="form-control">
+            </select>
           </div>  
         </div>          
         <div class="col-md-4">
           <div class="form-group @error('codigo_gasto') has-error @enderror">
             <label for="codigo_gasto">Codigo gasto* autogenerado</label>
-            <input id="codigo_gasto" type="text" class="form-control" name="codigo_gasto" placeholder="Codigo autogenerado" value="3011001"  required>
+            <input id="codigo_gasto" type="text" class="form-control"  readonly="">
             @error('codigo_gasto')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -52,32 +48,42 @@
         </div>        
       </div> <!-- end- row-->
       <div class="row">
-      	<div class="col-md-6">
-          <div class="form-group @error('monto') has-error @enderror">
-            <label for="monto">Monto gasto*</label>
-            <input id="monto" type="text" class="form-control" name="monto" placeholder=" Ingrese monto"  required>
-            @error('monto')
+      	<div class="col-md-4">
+          <div class="form-group @error('monto_egreso') has-error @enderror">
+            <label for="monto_egreso">Monto gasto*</label>
+            <input id="monto_egreso" type="text" class="form-control" name="monto_egreso" placeholder=" Ingrese el monto"  required>
+            @error('monto_egreso')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
             @enderror
           </div>
          </div>
-         <div class="col-md-6">
-          <div class="form-group @error('fecha_gasto') has-error @enderror">
-            <label for="fecha_gasto">Fecha Gasto</label>
-            <input id="fecha_gasto" type="date" class="form-control" name="fecha_gasto" placeholder="Ingrese fecha monto "  required>
+         <div class="col-md-4">
+          <div class="form-group @error('fecha_egreso') has-error @enderror">
+            <label for="fecha_egreso">Fecha egreso</label>
+            <input id="fecha_egreso" type="date" class="form-control" name="fecha_egreso" placeholder="Ingrese fecha monto "  required>
             @error('fecha_gasto')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
             @enderror
           </div>
-      	</div>      	
+      	</div> 
+         <div class="col-md-4">
+          <div class="form-group @error('grifo_id') has-error @enderror">
+            <label for="grifo_id">Grifo</label>
+            <select name="grifo_id" id="grifo_id" class="form-control">
+              @foreach( $grifos as $grifo )
+                <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>      	
       </div> <!-- end-row -->
     </div><!-- end-bx-body-->
     <div class="box-footer">
-      <button type="submit" class="btn pull-right btn-success disabled">
+      <button id="btn_register" type="submit" class="btn pull-right btn-success">
             <i class="fa fa-chain"> </i>
               Registrar nuevo gasto
       </button>
@@ -85,5 +91,6 @@
     </div><!-- /.box-footer -->
     
   </div> <!-- end- box-->
-  </div>  
+  </div>
+  </form>   <!-- end- form-->
 </div>
