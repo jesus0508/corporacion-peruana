@@ -48,9 +48,15 @@ class SubCategoriaGastoController extends Controller
      */
     public function store(Request $request)
     {
-        SubCategoriaGasto::create($request->all());
+        if( $request->ajax() ){
 
-        return back()->with('alert-type', 'success')->with('status', 'Sub-Categoría Registrada con exito');
+            SubCategoriaGasto::create($request->all());
+                return response()->json([
+                'mensaje' => $request->all()
+            ]);
+        }
+       
+      
     }
 
     /**

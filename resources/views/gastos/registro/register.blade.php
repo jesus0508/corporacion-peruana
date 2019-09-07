@@ -1,6 +1,6 @@
 <div class="row">
-  <form class="modal-content" action="{{route('gastos.store')}}" method="post">
-    @csrf
+<!--   <form class="modal-content" action="{{route('gastos.store')}}" method="post">
+    @csrf -->
   <div class="col-md-12">
   <div class="box box-success" id="">
     <div class="box-header with-border">
@@ -82,6 +82,7 @@
         </div>      	
       </div> <!-- end-row -->
     </div><!-- end-bx-body-->
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
     <div class="box-footer">
       <button id="btn_register" type="submit" class="btn pull-right btn-success">
             <i class="fa fa-chain"> </i>
@@ -92,5 +93,5 @@
     
   </div> <!-- end- box-->
   </div>
-  </form>   <!-- end- form-->
+ <!--  </form>  -->  <!-- end- form-->
 </div>

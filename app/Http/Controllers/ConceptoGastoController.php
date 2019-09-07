@@ -46,9 +46,14 @@ class ConceptoGastoController extends Controller
      */
     public function store(Request $request)
     {
-        ConceptoGasto::create($request->all());
+        if( $request->ajax() ){
 
-        return back()->with('alert-type', 'success')->with('status', 'Gasto registrado con exito');
+            ConceptoGasto::create($request->all());
+                return response()->json([
+                'mensaje' => $request->all()
+            ]);
+        }
+
     }
 
     /**

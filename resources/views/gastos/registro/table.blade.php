@@ -3,6 +3,9 @@
     <div class="box box-success">
       <div class="box-header with-border">
         <h2 class="box-title">Gastos Registrados</h2>
+
+        <input type="button"  class="btn btn-primary pull-right" value="Actualizar Registros" 
+        onclick = "location.reload()">
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="tabla-gastos-registro" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">

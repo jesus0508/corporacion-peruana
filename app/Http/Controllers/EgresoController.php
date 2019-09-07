@@ -35,7 +35,14 @@ class EgresoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if( $request->ajax() ){
+
+            Egreso::create($request->all());
+
+            return response()->json([
+                'mensaje' => 'creado'
+            ]);
+        }
     }
 
     /**

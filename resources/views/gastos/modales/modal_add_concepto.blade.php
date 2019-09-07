@@ -1,14 +1,15 @@
 <div class="modal fade" id="modal-add-concepto" style="display: none;">
   <div class="modal-dialog">
-    <form class="modal-content" action="{{route('concepto_gastos.store')}}" method="post">
+    <form class="modal-content">
     @csrf
     <input type="hidden" id="id_subcat-add" name="sub_categoria_gasto_id">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}"
+              id="token_add_concepto"> 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Agregar Nuevo GASTO  | Sub CATEGORÍA: 
          <label for="label" id="subcategoria_val"></label> </h4>
-
       </div>
       <div class="modal-body">
         <div class="row">
@@ -22,7 +23,7 @@
                     <div class="form-group @error('concepto_gasto') has-error @enderror">
                       <label for="concepto_gasto-add">Gasto</label>
                       <input  type="text" class="form-control"
-                          name="concepto" placeholder="Ingrese el nuevo gasto" required>
+                          name="concepto" id="concepto_aea" placeholder="Ingrese el nuevo gasto" required>
                         @error('concepto_gasto')
                           <span class="help-block" role="alert">
                             <strong>{{ $message }}</strong>
@@ -40,7 +41,7 @@
                 </div>
               </div><!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-lg btn-success pull-left"><span class="fa fa-plus"></span>&nbsp; Añadir</button>
+                <button type="submit" id="btn_add_concepto" class="btn btn-lg btn-success pull-left"><span class="fa fa-plus"></span>&nbsp; Añadir</button>
                 <button type="" class="btn btn-lg btn-default pull-right" data-dismiss="modal">Cancelar</button>
                 
               </div>

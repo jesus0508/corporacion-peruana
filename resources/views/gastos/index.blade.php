@@ -45,8 +45,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
   
-	$(document).ready(function() {
-        //inicializar SELECT
+$(document).ready(function() {
+        //btn_add_subcat
+  $('#btn_add_subcat').on('click', function(e){//store subcat
+    let categoria_gasto_id = $('#id_cat-add').val();
+    let subcategoria = $('#subcategoria_aea').val();
+    let codigo = $('#codigo_new_subcat').val();       
+    let token =$('#token_add').val();
+    e.preventDefault(e);
+        //console.log('aea qui toy');
+    $.ajax({
+        url: `sub_categoria_gastos`,
+        headers: {'X-CSRF-TOKEN': token},
+        type: 'POST',
+        dataType: 'json',
+        data:{
+          categoria_gasto_id: categoria_gasto_id,
+          subcategoria: subcategoria,
+          codigo: codigo
+        }
+
+    }).done(function (data){     
+      $('#modal-add-subcategoria').modal('hide'); 
+       categoria_rellenado();   
+       toastr.success(data.status, 'Subcategoria registrado con éxito', { timeOut: 2000 });
+    });    
+  });
+
+  $('#btn_add_concepto').on('click', function(e){//store concepto
+    let sub_categoria_gasto_id = $('#id_subcat-add').val();
+    let concepto = $('#concepto_aea').val();
+    let codigo = $('#codigo_new_concepto').val();       
+    let token =$('#token_add_concepto').val(); 
+    e.preventDefault(e); 
+   // console.log(token);      
+    $.ajax({
+        url: `concepto_gastos`,
+        headers: {'X-CSRF-TOKEN': token},
+        type: 'POST',
+        dataType: 'json',
+        data:{
+          sub_categoria_gasto_id: sub_categoria_gasto_id,
+          concepto: concepto,
+          codigo: codigo
+        }
+
+    }).done(function (data){     
+      $('#modal-add-concepto').modal('hide'); 
+       subcategoria_rellenado();   
+       toastr.success(data.status, 'Subcategoria registrado con éxito', { timeOut: 2000 });
+    });    
+  });
+
     $("#categoria").select2({
      placeholder: "Elija una categoría",
      allowClear:true
@@ -217,7 +267,7 @@ function subcategoria_rellenado(){
   //$('#subcategoria').val(cod).trigger('change'); 
   let subcategoria_gasto_id = cod;
   //console.log(id_cat);
-      if( cod == null){
+      if( !cod || cod == null){
         $('#cod_subcat_right').val('');
         $('#btn_subcategoria_delete').attr("disabled", true); 
         $('#btn_subcategoria_edit').attr("disabled", true);   
@@ -263,7 +313,7 @@ function subcategoria_rellenado(){
 }
    function concepto_rellenado(){
     let cod = $('#concepto').val();
-      if( cod == null){
+      if( !cod || cod == null){
         $('#btn_concepto_delete').attr("disabled", true); 
         $('#btn_concepto_edit').attr("disabled", true); 
         $('#concepto').empty();

@@ -32,12 +32,52 @@
 <script>
   $(document).ready(function() {
 
- $("#categoria").select2({
+  $('#btn_register').click(function(){//store GASTO
+    let concepto_gasto_id = $('#concepto').val();   
+    let monto_egreso =$('#monto_egreso').val();
+    let fecha_egreso =$('#fecha_egreso').val();
+    let grifo_id =$('#grifo_id').val();
+    let token =$('#token').val();
+    $.ajax({
+        url: `../egresos`,
+        headers: {'X-CSRF-TOKEN': token},
+        type: 'POST',
+        dataType: 'json',
+        data:{
+          monto_egreso: monto_egreso,
+          fecha_egreso: fecha_egreso,
+          concepto_gasto_id: concepto_gasto_id,
+          grifo_id: grifo_id
+        }
+
+    }).done(function (data){
+        $('#monto_egreso').val('');
+        $('#concepto').prop('selectedIndex', -1); 
+        $("#concepto").select2({    
+            placeholder: "Elija un grifo",
+            allowClear:true});
+        $("#grifo_id").prop('selectedIndex', -1);
+        $("#grifo_id").select2({    
+            placeholder: "Elija un grifo",
+            allowClear:true});
+
+       toastr.success(data.status, 'Gasto registrado con éxito', { timeOut: 2000 });
+
+    });    
+  });
+
+
+
+  $("#grifo_id").select2({
+     placeholder: "Elija un grifo",
+     allowClear:true
+    });
+  $("#categoria").select2({
      placeholder: "Elija una categoría",
      allowClear:true
     });
 
-    $("#subcategoria").select2({
+  $("#subcategoria").select2({
       placeholder: "Elija un unasubcateogria",
       allowClear:true
     });
