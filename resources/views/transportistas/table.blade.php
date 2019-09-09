@@ -23,7 +23,7 @@
                   <td>{{$transportista->nombre_transportista}}</td>
                   <td>{{$transportista->ruc}}</td>
                   <td>{{$transportista->celular_transportista}}</td>
-                  <td><label class="label label-default" style="font-size:13px;">S/ &nbsp;0.00</label></td>
+                  <td><label class="label label-default" style="font-size:13px;">S/ &nbsp;{{$transportista->saldo-$transportista->descuento_pendiente}}</label></td>
                   @include('actions.transportista')
                 </tr>
               @endforeach

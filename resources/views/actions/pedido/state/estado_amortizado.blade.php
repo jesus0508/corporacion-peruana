@@ -1,0 +1,1 @@
+<span class="bg-green label">AMORTIZADO</span>

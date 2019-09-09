@@ -20,7 +20,5 @@
   @includeWhen(isset($pedidos_grifos),'distribucion.resumen.tabla_pedido_grifo')
 </section>
 @endsection
-@section('scripts')
 
-@endsection
 

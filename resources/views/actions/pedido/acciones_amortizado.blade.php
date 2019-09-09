@@ -1,6 +1,3 @@
-<td> <span class="bg-green label">AMORTIZADO</span>
-</td>
-<td>  
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="fa fa-wrench"></span> Acciones <span class="caret"></span>
@@ -20,5 +17,4 @@
        	  <a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-sm bg-aqua"><i class="fa fa-th"> &nbsp; </i>Ver Distribución</a> 
     	</li>
     </ul>
-  </div>                
-</td> 
+  </div>               

@@ -7,10 +7,11 @@
           IR PEDIDOS &nbsp; <span class="fa fa-list"></span>
           </button>
         </a>
+        @if( $pedido->getGalonesStock() > 0 )
         <a class="btn btn-primary" href="{{route('pedidos.distribuir', $pedido->id)}}">
           <i class="fa fa-th"> &nbsp; </i>Volver Distribución
         </a>
-
+        @endif
       </div>
     </div>    
   </div>

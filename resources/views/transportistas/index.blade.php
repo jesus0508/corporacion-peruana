@@ -37,7 +37,6 @@
 @if( count($errors) > 0 )
   <script type="text/javascript">
       $('#modal-edit-transportista').modal('show');
-
   </script>
 @endif  
 @endsection

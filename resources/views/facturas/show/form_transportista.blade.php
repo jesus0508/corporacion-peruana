@@ -1,23 +1,16 @@
         <div id="datos-vehiculo" class="box box-success">
           <div class="box-header with-border">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-8">
                   @if( $pedido->vehiculo_id == null ) 
                     <h3 class="box-title"> Datos Transportista   </h3>
                   @else
                     <h3 class="box-title"> Datos Transportista |
                       <a href="{{route('vehiculo.show',$id_t)}}">{{$transportista}}</a>
-                    </h3>
-
                   @endif
-
-                </div>
-                <div class="col-md-4 pull-right">
-                 
-                </div>
+                </div> 
               </div>
            <input type="hidden" id="pedido_asignar_transportista" name="id_pedido">
-
           </div><!-- /.box-header -->
           <div class="box-body">
             <div id="" class="row">
@@ -30,9 +23,7 @@
                     @else
                       <option selected="true">FLETE PROPIO</option>
                     @endif
-
-                  </select>
-                  
+                  </select>                  
                 </div>
               </div>
               <div class="col-md-6">

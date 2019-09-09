@@ -16,9 +16,19 @@ class TransportistaController extends Controller
      */
     public function index()
     {
-        $transportistas_tbl = Transportista::all()->sortBy('id');
-        $transportistas = Transportista::all();
-        return view('transportistas.index',compact('transportistas_tbl','transportistas'));
+       // $transportistas_tbl = Transportista::all()->sortBy('id');
+       // $transportistas = Transportista::all();
+        $transportistas_tbl = Transportista::join('vehiculos','vehiculos.transportista_id'
+        ,'=','transportistas.id')
+        ->join('pedidos','pedidos.vehiculo_id','=','vehiculos.id')
+        ->where('pedidos.estado_flete',1)
+        ->whereNotNull('pedidos.vehiculo_id')
+        ->groupBy('transportistas.id')//->get()
+        ->selectRaw('transportistas.*, sum(pedidos.costo_flete) as saldo')
+        ->get();
+
+       // return $transportistas_tbl;
+        return view('transportistas.index',compact('transportistas_tbl'));
     }
 
     /**

@@ -9,6 +9,7 @@ use CorporacionPeru\Proveedor;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StorePagoProveedorRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PagoProveedorController extends Controller
 {
@@ -125,6 +126,8 @@ class PagoProveedorController extends Controller
         		}
         	}
         	DB::commit();
+            Session::flash('alert-type', 'info');
+            Session::flash('status', 'Pago realizado con exito');
         	 $pedidos = Pedido::join('pago_pedido_proveedors', 'pedidos.id', '=', 'pago_pedido_proveedors.pedido_id')->join('pago_proveedors', 'pago_proveedors.id', '=', 'pago_pedido_proveedors.pago_proveedor_id')->where('pago_proveedor_id',$pago_proveedor->id)->get();
         //return	$pago_proveedor;
 

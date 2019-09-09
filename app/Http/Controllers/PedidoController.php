@@ -14,9 +14,30 @@ use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoCliente;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PedidoController extends Controller
 {
+
+
+    public function datatables_pedidos()
+    {       
+        return  datatables()
+        ->eloquent(
+            Pedido::leftJoin('factura_proveedors','factura_proveedors.id','=','pedidos.factura_proveedor_id')
+            ->join('plantas','pedidos.planta_id','=','plantas.id')
+            ->select(
+                'pedidos.*','plantas.planta as planta','factura_proveedors.monto_factura',
+                    DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc')
+            )
+            ->orderBy('id','DESC')
+        )
+        ->addColumn('state','actions.pedido.estado_dirigir')
+        ->addColumn('actions','actions.pedido.acciones_dirigir')
+        ->rawColumns(['state','actions'])
+        ->toJson();
+    }
+
 
     public function confirmarPedido($id)
     {
@@ -44,10 +65,17 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
-        $pedidos = Pedido::with('planta')->with('facturaProveedor')->orderBy('id','desc')->get();
+        //$pedido=Pedido::all();
         $plantas = Planta::all();
-        return view('pedidosP.index', compact('pedidos', 'plantas'));
+        $pedidos = Pedido::leftJoin('factura_proveedors','factura_proveedors.id','=','pedidos.factura_proveedor_id')
+            ->join('plantas','pedidos.planta_id','=','plantas.id')
+            ->select(
+                'pedidos.*','plantas.planta as planta','factura_proveedors.monto_factura as monto_factura',
+                    DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc')
+            )
+            ->orderBy('id','DESC')
+            ->get();
+        return view('pedidosP.index',compact('pedidos','plantas'));
     }
 
     /**
@@ -167,9 +195,8 @@ class PedidoController extends Controller
             ->where('pedido_id', $pedido->id)
             //->groupBy('grifos.id')
             //->select('grifos.razon_social',grifos)
-            ->get();
-
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'));
+            ->get();        
+        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
     }
     /**
      * Se agrega una cantidad de galones de un pedido
@@ -210,10 +237,10 @@ class PedidoController extends Controller
                 ->where('pedido_id', $pedido->id)
                 //->groupBy('grifos.id')
                 ->get();
-
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'))->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
-           }   
-
+            Session::flash('alert-type', 'info');
+            Session::flash('status', 'Galones asignados a Grifo');
+        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
+        }
         else //( $galonaje_stock < $asignacion  )
          { 
 
