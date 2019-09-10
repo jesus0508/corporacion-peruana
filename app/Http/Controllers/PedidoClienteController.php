@@ -73,7 +73,11 @@ class PedidoClienteController extends Controller
     {
         $pedidoCliente = PedidoCliente::with('cliente')->where('id', $id)->first();
         if ($pedidoCliente->estado > 2) {
-            $pedidoCliente->load('pedidos');
+            
+            $pedidoCliente->load(['pedidos' => function($query){
+                 $query->select('pedido_proveedor_clientes.*','pedidos.*');
+             }]);
+            
             return view('pedido_clientes.detalles', compact('pedidoCliente'));
         }
         return back()->with('alert-type', 'error')->with('status', 'Ocurrio un erro al ver detalles');
