@@ -77,7 +77,7 @@ class PedidoClienteController extends Controller
             $pedidoCliente->load(['pedidos' => function($query){
                  $query->select('pedido_proveedor_clientes.*','pedidos.*');
              }]);
-            
+            //return  $pedidoCliente;
             return view('pedido_clientes.detalles', compact('pedidoCliente'));
         }
         return back()->with('alert-type', 'error')->with('status', 'Ocurrio un erro al ver detalles');

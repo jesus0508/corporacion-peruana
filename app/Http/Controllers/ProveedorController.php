@@ -21,17 +21,15 @@ class ProveedorController extends Controller
         //
         $proveedores = Proveedor::all();
         $proveedores = Proveedor::
-            join('plantas','plantas.proveedor_id','=','proveedores.id')
-            ->rightJoin('pedidos','pedidos.planta_id','=','plantas.id')         
-           // ->where('pedidos.estado',2)
-          //  ->orWhere('pedidos.estado',3)
+            leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
+            ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id')         
             ->groupBy('proveedores.id')
             ->select(
-                'proveedores.*',
-                    DB::raw('sum(pedidos.saldo) as calc')
+                'proveedores.*'
+                ,DB::raw('sum(pedidos.saldo) as calc')
+                 
             )          ->get() ;      
-          //return $deudas->where('id',3)->sum('galones');
-          //->sum('galones');*/
+
          
 
         return view('proveedores.index',compact('proveedores'));
