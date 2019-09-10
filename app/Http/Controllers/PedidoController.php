@@ -15,6 +15,7 @@ use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoCliente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class PedidoController extends Controller
 {
@@ -207,6 +208,7 @@ class PedidoController extends Controller
     public function asignar_grifo(Request $request)
     {
 
+        $fecha_descarga = Carbon::now()->toDateString();      
         $grifo = Grifo::findOrFail($request->id_grifo);
         $asignacion = $request->galones_x_asignar;
         $pedido = Pedido::findOrFail($request->id_pedido_pr);
@@ -222,7 +224,7 @@ class PedidoController extends Controller
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
             $pedido->estado = 3;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga ]);
             $pedido->save();
             $grifo->save();
 
@@ -246,7 +248,7 @@ class PedidoController extends Controller
 
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga ]);
             $pedido->save();
             $grifo->save();
 
@@ -280,7 +282,8 @@ class PedidoController extends Controller
 
             $pedido_cl->galones_asignados += $galonaje_stock;
             $pedido->galones_distribuidos += $galonaje_stock;
-            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $asignacion = $galonaje_stock;
+            $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
             $pedido->estado = 3;
             $pedido->save();
             $pedido_cl->save();   
@@ -291,7 +294,8 @@ class PedidoController extends Controller
             $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
             $pedido->estado = 3;
-            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $asignacion = $restanteXasignar;
+            $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
             $pedido->save();
             $pedido_cl->save();      
 
@@ -300,13 +304,16 @@ class PedidoController extends Controller
             $pedido_cl->galones_asignados += $restanteXasignar;
             $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
-            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $asignacion = $restanteXasignar;
+            $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
             $pedido->save();
             $pedido_cl->save();  
 
         }
-                   // return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Pedido');
+ 
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
+        Session::flash('alert-type', 'info');
+        Session::flash('status', 'Galones asignados a Pedido de Cliente');
 
             return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
    

@@ -9,7 +9,7 @@
       </div><!-- /.box-header -->
 
       <div class="box-body">
-        <table id="tabla-flete-pedidos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-flete-pedidos" class="table table-bordered  responsive" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>Fecha Descarga</th>
@@ -21,6 +21,8 @@
               <th>Planta</th>
             <!--   <th>Importante</th>
  -->          <th>Estado</th>
+              <th>Faltante</th>
+
              <!--  <th>Accion</th> -->
             </tr>
           </thead>
@@ -32,11 +34,11 @@
                   @if( $pedido_cliente->fecha_descarga )
                   {{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}
                   @else
-                  No acordado
+                  19/12/2019
                   @endif
                 </td>
                 <td>{{$pedido_cliente->razon_social}}</td>
-                <td>{{$pedido_cliente->galones}}</td>
+                <td>{{$pedido_cliente->galones}}&nbsp;gls</td>
                 <td>
                   @if($pedido_cliente->horario_descarga)  
                     {{$pedido_cliente->horario_descarga}}
@@ -53,6 +55,7 @@
                <!--  <td>{{$pedido_cliente->observacion}}</td> -->
                   @includeWhen($pedido_cliente->estado_flete == 1, 'actions.flete.acciones_confirmado') 
                   @includeWhen($pedido_cliente->estado_flete == 2, 'actions.flete.acciones_pagado') 
+                  <td>{{$pedido_cliente->faltante}}</td>
               </tr>
             @endforeach
           </tbody> 

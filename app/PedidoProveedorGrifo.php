@@ -8,6 +8,6 @@ class PedidoProveedorGrifo extends Model
 {
     protected $table = 'pedido_grifos';
     protected $primaryKey = 'id';
-    protected $fillable= ['faltante','grifero','descripcion' ];
+    protected $fillable= ['faltante','grifero','descripcion','fecha_descarga' ];
 
 }

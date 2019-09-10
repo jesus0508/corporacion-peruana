@@ -52,7 +52,6 @@
                   <td>
                    <?php 
                    if( $pedido->saldo != $pedido->facturaProveedor->monto_factura ){
-                       
                        echo '<div class = "progress-bar progress-bar-success progress-bar-stripped active" role = "progressbar" aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:' .($pedido->facturaProveedor->monto_factura-$pedido->saldo)*100/$pedido->facturaProveedor->monto_factura . '%;">'.'<label style="font-size: 11px!important; color:black!important" class = "" >'.number_format((float)($pedido->facturaProveedor->monto_factura-$pedido->saldo)*100/$pedido->facturaProveedor->monto_factura,0,'.', '').' % </label>';
                    } else{
                     echo '<label class="label label-default">'.($pedido->facturaProveedor->monto_factura-$pedido->saldo).'/'.$pedido->facturaProveedor->monto_factura.' SOLES </label>';

@@ -75,10 +75,19 @@ class PagoProveedorController extends Controller
      */
     public function store(StorePagoProveedorRequest $request)
     {
-    	try {
+
+     	try {
 
        		DB::beginTransaction();
-        	PagoProveedor::create($request->validated());
+
+            $pagoProveedor = new PagoProveedor;
+            $request->validated();
+            $pagoProveedor->codigo_operacion =$request->codigo_operacion;
+            $pagoProveedor->monto_operacion=$request->monto_operacion;
+            $pagoProveedor->banco=$request->banco;
+            $pagoProveedor->setFechaFacturaAttribute($request->fecha_operacion);
+            $pagoProveedor->save();
+
         	$proveedor = Proveedor::with('plantas')->where('id', '=' , $request->proveedor_id)->first();
         	$pedidos = array();
         	foreach ($proveedor->plantas as $planta) {//para obtener tods los pedidos del proveedor X

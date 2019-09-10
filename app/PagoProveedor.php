@@ -3,6 +3,7 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class PagoProveedor extends Model
 {
@@ -13,5 +14,9 @@ class PagoProveedor extends Model
     public function pedidos(){
         return $this->belongsToMany(Pedido::class,'pago_pedido_proveedors');        
     }
-    
+
+    public function setFechaFacturaAttribute($value){ 
+        $this->attributes['fecha_operacion']=Carbon::createFromFormat('d/m/Y',$value);
+    }
+
    }
