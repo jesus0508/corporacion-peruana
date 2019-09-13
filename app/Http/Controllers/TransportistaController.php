@@ -26,7 +26,6 @@ class TransportistaController extends Controller
         ->selectRaw('transportistas.*, sum(pedidos.costo_flete) as saldo')
         ->get();
 
-       // return $transportistas_tbl;
         return view('transportistas.index',compact('transportistas_tbl'));
     }
 

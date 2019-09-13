@@ -18,6 +18,37 @@
 
 @section('content')
 
+<section class="content-header row">
+<!--   <div class="col-md-3">
+    <a href="#collapseStock" class="btn btn-info" data-toggle="collapse" aria-expanded="false" aria-controls="collapseStock"> 
+          <span class="fa fa-eye"> </span>&nbsp;
+          Ver STOCK
+    </a>
+
+       
+  </div> -->
+  <div>
+    
+  </div>
+  <div class="col-md-5" id="collapseStock">
+<!--     <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="ion ion-android-funnel"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text"> STOCK GENERAL</span>
+        <span class="info-box-number">760</span>
+      </div>
+   -->
+   <h4 class=" ">&nbsp;&nbsp;&nbsp;&nbsp;<b>STOCK GENERAL: </b>
+    <span class="label label-default">
+      @if( $stock!=null ) 
+        {{$stock->stock_general}}
+      @else 
+      0
+      @endif
+    </span> &nbsp;galones</h4>
+    </div> 
+</section>
+
 <section class="content">
     @include('pedidosP.table')
     <!-- mODAL-->

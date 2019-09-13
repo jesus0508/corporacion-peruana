@@ -16,6 +16,7 @@ use CorporacionPeru\PedidoCliente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use CorporacionPeru\Stock;
 
 class PedidoController extends Controller
 {
@@ -76,7 +77,8 @@ class PedidoController extends Controller
             )
             ->orderBy('id','DESC')
             ->get();
-        return view('pedidosP.index',compact('pedidos','plantas'));
+        $stock = Stock::first();
+        return view('pedidosP.index',compact('pedidos','plantas','stock'));
     }
 
     /**
@@ -100,10 +102,15 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(StorePedidoRequest $request)
     {
-        //
-        Pedido::create($request->validated());
+
+        $pedido=Pedido::create( $request->validated() );
+        $stock = Stock::first();
+        $stock->stock_general += $pedido->galones;
+        $stock->save();
+        
         return  redirect()->action('PedidoController@index')->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
     }
 
@@ -285,6 +292,9 @@ class PedidoController extends Controller
             $asignacion = $galonaje_stock;
             $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
             $pedido->estado = 3;
+            $stock = Stock::first();
+            $stock->stock_general -= $asignacion;
+            $stock->save();  
             $pedido->save();
             $pedido_cl->save();   
 
@@ -296,6 +306,9 @@ class PedidoController extends Controller
             $pedido->estado = 3;
             $asignacion = $restanteXasignar;
             $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
+            $stock = Stock::first();
+            $stock->stock_general -= $asignacion;
+            $stock->save();
             $pedido->save();
             $pedido_cl->save();      
 
@@ -306,6 +319,9 @@ class PedidoController extends Controller
             $pedido_cl->estado = 3;
             $asignacion = $restanteXasignar;
             $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
+            $stock = Stock::first();
+            $stock->stock_general -= $asignacion;
+            $stock->save();
             $pedido->save();
             $pedido_cl->save();  
 
@@ -442,8 +458,16 @@ class PedidoController extends Controller
     public function update(StorePedidoRequest $request, $id)
     {
         $id = $request->id;
-        // return $request;
+        $pedido_anterior=Pedido::findOrFail($id);
+        $gls_anterior = $pedido_anterior->galones;
+        $pedido=Pedido::findOrFail($id);
         Pedido::findOrFail($id)->update($request->validated());
+        $gls_nuevo = $pedido->galones; 
+
+        $stock = Stock::first();       
+        $stock->stock_general -= $gls_anterior;
+        $stock->stock_general += $gls_nuevo;
+        $stock->save();        
 
         return  back()->with('alert-type', 'success')->with('status', 'Pedido editado con exito');
     }
@@ -461,9 +485,12 @@ class PedidoController extends Controller
     public function destroy($id)
     {
 
+        $pedido = Pedido::findOrFail($id);
         Pedido::destroy($id);
-
-
+        $stock = Stock::first();
+        $stock->stock_general -= $pedido->galones;
+        $stock->save();
+        
         return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');
     }
 }

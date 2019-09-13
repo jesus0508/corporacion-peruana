@@ -49,7 +49,7 @@ $(document).ready(function() {
         //btn_add_subcat
   $('#btn_add_subcat').on('click', function(e){//store subcat
     let categoria_gasto_id = $('#id_cat-add').val();
-    let subcategoria = $('#subcategoria_aea').val();
+   // let subcategoria = $('#subcategoria_aea').val();
     let codigo = $('#codigo_new_subcat').val();       
     let token =$('#token_add').val();
     e.preventDefault(e);
@@ -93,7 +93,7 @@ $(document).ready(function() {
     }).done(function (data){     
       $('#modal-add-concepto').modal('hide'); 
        subcategoria_rellenado();   
-       toastr.success(data.status, 'Subcategoria registrado con éxito', { timeOut: 2000 });
+       toastr.success(data.status, 'Gasto registrado con éxito', { timeOut: 2000 });
     });    
   });
 

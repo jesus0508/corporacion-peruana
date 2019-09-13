@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         	PlantasTableSeeder::class,
             TransportistasTableSeeder::class,
             VehiculosTableSeeder::class, 
+            StockTableSeeder::class, 
         ]);
     }
 }
