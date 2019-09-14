@@ -16,12 +16,12 @@
             <div id="" class="row">
               <div class="col-md-6">
                 <div class="form-group ">
-                  <label for="placa">Placa*</label>
-                  <select class="form-control" id="placa" name="placa" disabled>
+                  <label for="placa">Placa</label>
+                  
                     @if( $pedido->vehiculo_id != null ) 
-                      <option selected="true">{{$pedido->vehiculo->placa}}</option>
+                      <input id="placa" value="{{$pedido->vehiculo->placa}}" type="text" class="form-control" readonly>                  
                     @else
-                      <option selected="true">FLETE PROPIO</option>
+                      <input id="placa" value="FLETE PROPIO" type="text" class="form-control" readonly>
                     @endif
                   </select>                  
                 </div>
@@ -29,7 +29,7 @@
               <div class="col-md-6">
                 <div class="form-group ">
                   <label for="nombre_transportista">Nombre Transportista</label>
-                    <input id="nombre_transportista" value="{{$transportista}}" type="text" class="form-control" disabled>                 
+                    <input id="nombre_transportista" value="{{$transportista}}" type="text" class="form-control" readonly>                 
                 </div>
               </div>
             </div>
@@ -39,14 +39,14 @@
               <div class="col-md-3">
                 <div class="form-group ">
                   <label for="modelo">Capacidad</label>
-                  <input id="modelo"  value="{{$pedido->vehiculo->capacidad}}" type="text" class="form-control" disabled>
+                  <input id="modelo"  value="{{$pedido->vehiculo->capacidad}}" type="text" class="form-control" readonly>
                   
                 </div>
               </div>
               <div class="col-md-9">
                 <div class="form-group ">
                   <label for="marca">Detalle compartimiento</label>
-                  <textarea name="" id="" class="form-control" cols="30" rows="3" disabled="">
+                  <textarea name="" id="" class="form-control" cols="30" rows="3" readonly="">
                     {{$pedido->vehiculo->detalle_compartimiento}}
                   </textarea>
                 </div>

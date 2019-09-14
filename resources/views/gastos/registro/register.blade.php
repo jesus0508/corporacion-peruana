@@ -37,7 +37,7 @@
         </div>          
         <div class="col-md-4">
           <div class="form-group @error('codigo_gasto') has-error @enderror">
-            <label for="codigo_gasto">Codigo gasto* autogenerado</label>
+            <label for="codigo_gasto">Código gasto</label>
             <input id="codigo_gasto" type="text" class="form-control"  readonly="">
             @error('codigo_gasto')
               <span class="help-block" role="alert">

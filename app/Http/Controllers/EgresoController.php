@@ -4,6 +4,8 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Egreso;
 use Illuminate\Http\Request;
+use CorporacionPeru\Grifo;
+
 
 class EgresoController extends Controller
 {
@@ -13,8 +15,22 @@ class EgresoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {      
+     $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
+                    ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
+                    ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
+                    ->join('grifos','grifos.id','=','egresos.grifo_id')
+                    ->select('egresos.monto_egreso','egresos.fecha_egreso',
+                                'grifos.razon_social as grifo',
+                                'categoria_gastos.categoria',
+                                'sub_categoria_gastos.subcategoria',
+                                'concepto_gastos.concepto'
+                            )
+                    ->get();
+        $grifos = Grifo::all();
+       // $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+        //$countYesterday = Timer::whereDate('created_at', $yesterday )->get();
+        return view('reportes.diario.diario_gastos',compact('egresos','grifos'));
     }
 
     /**
@@ -24,7 +40,7 @@ class EgresoController extends Controller
      */
     public function create()
     {
-        //
+        return 'reportes Mensuales';
     }
 
     /**
