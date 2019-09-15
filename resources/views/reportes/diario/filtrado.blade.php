@@ -9,19 +9,23 @@
       </select>
     </div><!-- /input-group -->
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="form-group">
       <button class="btn btn-primary" id="yesterday-fecha">
-      GASTOS AYER 
+      <span class="fa fa-list-alt"></span> &nbsp;{{$yesterday}}
       </button>
       <button class="btn btn-success" id="today-fecha">
-      GASTOS HOY 
+      <span class="fa fa-list-alt"></span> &nbsp;{{$today}}
+      </button>
+      <button id="clear-fecha" class="btn btn-danger">
+            <i class="fa fa-remove "></i>
+            Limpiar
       </button>
 
     </div>
   </div>
 
-      <div class="col-md-6">
+      <div class="col-md-5">
       <div class="row filtrado">
         <div class="col-md-6">
           <div class="form-inline">
@@ -35,10 +39,8 @@
             <i class="fa fa-search"></i>
             Filtrar
           </button>
-          <button id="clear-fecha" class="btn btn-danger">
-            <i class="fa fa-remove "></i>
-            Limpiar
-          </button>
+
+
         </div>
       </div>
     </div>

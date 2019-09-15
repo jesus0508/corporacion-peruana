@@ -5,6 +5,8 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\Egreso;
 use Illuminate\Http\Request;
 use CorporacionPeru\Grifo;
+use DB;
+use Carbon\Carbon;
 
 
 class EgresoController extends Controller
@@ -27,10 +29,22 @@ class EgresoController extends Controller
                                 'concepto_gastos.concepto'
                             )
                     ->get();
-        $grifos = Grifo::all();
-       // $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
-        //$countYesterday = Timer::whereDate('created_at', $yesterday )->get();
-        return view('reportes.diario.diario_gastos',compact('egresos','grifos'));
+        $grifos         = Grifo::all();
+        $date           = Carbon::now();
+        $date_yesterday = Carbon::yesterday();
+        $semana = array(  //quitar luego
+                  "Domingo",
+                  "Lunes",
+                  "Martes",
+                  "Miercoles",
+                  "Jueves",
+                  "Viernes",
+                  "Sábado"
+            );
+        $today = $semana[strftime( '%w',strtotime($date) )];
+        $yesterday = $semana[strftime( '%w',strtotime($date_yesterday) )];
+
+        return view('reportes.diario.diario_gastos',compact('egresos','grifos','today','yesterday'));
     }
 
     /**
@@ -40,8 +54,55 @@ class EgresoController extends Controller
      */
     public function create()
     {
-        return 'reportes Mensuales';
+
+        $egresos = Egreso::select( 
+                DB::raw('DATE(fecha_egreso) as day') ,DB::raw('MONTH(fecha_egreso) as month'),DB::raw('YEAR(fecha_egreso) as year'),DB::raw('sum(monto_egreso) as subtotal')
+                )
+                ->groupBy('day')
+                //->orderBy('id','DESC')
+                ->get();
+        $semana       = array("Domingo","Lunes", "Martes","Miércoles",
+                         "Jueves","Viernes","Sábado");                    
+        $meses        = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $date         = Carbon::now();
+        $month_actual = $meses[($date->format('n')) - 1];
+        $last_month   = $date->subMonth();
+        $last_month   = $meses[($last_month->format('n')) - 1];
+
+        return view('reportes.mensual.index',compact('egresos','month_actual','last_month','semana'));
     }
+    /**
+     * [reporte_gastos_anual description]
+     * @return [type] [description]
+     */
+    public function reporte_gastos_anual(){
+        $anios=array(
+        //'2009','2010','2011','2012','2013','2014',
+        '2015','2016','2017','2018',
+                        '2019','2020','2021','2022','2023','2024','2025','2026');
+        $egresos = Egreso::select( 
+                DB::raw('DATE(fecha_egreso) as day') ,DB::raw('MONTH(fecha_egreso) as month'),DB::raw('YEAR(fecha_egreso) as year'),DB::raw('sum(monto_egreso) as subtotal')
+                )
+                ->groupBy('month')
+                //->orderBy('id','DESC')
+                ->get();
+        $date         = Carbon::now();
+        $year = $date->format('Y');
+        $last_year   = $date->subYear();
+        $last_year   = $last_year->format('Y');
+
+        return view('reportes.anual.index',compact('egresos','anios','year','last_year') );
+    }
+
+    /**
+     * [reporte_gastos_general description]
+     * @return [type] [description]
+     */
+    public function reporte_gastos_general(){
+        return "reporte gastos general";
+    }
+
+
 
     /**
      * Store a newly created resource in storage.

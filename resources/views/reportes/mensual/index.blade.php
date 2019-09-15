@@ -6,19 +6,24 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+    </style>
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Gastos</a></li>
-  <li><a href="#">Reportes Diario</a></li>
+  <li><a href="#">Reporte Mensual</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('reportes.diario.filtrado')
-  @include('reportes.diario.table')
+  @include('reportes.mensual.filtrado')
+  @include('reportes.mensual.table')
 
   <!--/.end-modales-->
 </section>
@@ -29,7 +34,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-  $('#tabla-gastos-diarios').DataTable({
+  $('#tabla-gastos-mensual').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -40,7 +45,7 @@ $(document).ready(function() {
  
             // Total over all pages
             total = api
-                .column( 6 )
+                .column( 4 )
                 .data()
                 .reduce( function (a, b) {
                     return Number(a) + Number(b);
@@ -48,14 +53,14 @@ $(document).ready(function() {
  
             // Total over this page
             pageTotal = api
-                .column( 6, { page: 'current'} )
+                .column( 4, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
  
             // Update footer
-            $( api.column( 6 ).footer() ).html(
+            $( api.column( 4 ).footer() ).html(
                 'S/. '+pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -63,52 +68,30 @@ $(document).ready(function() {
   });
 });
 
-	function inicializarSelect2($select, text, data) {
-  $select.prop('selectedIndex', -1);
-  $select.select2({
-    placeholder: text,
-    allowClear: true,
-    data: data
-    });
-  }
+var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
 function ayerFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-        dd -= 1;
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
+ 	let f=new Date();
+	f.setMonth(f.getMonth() - 1); 
+	
+    return meses[f.getMonth()] +" " + f.getFullYear();
 }
-
 function hoyFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-function addZero(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
+	let f=new Date();
+    return meses[f.getMonth()] +" " + f.getFullYear();
 }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-gastos-diarios');
+  let $tabla_pagos_lista = $('#tabla-gastos-mensual');
  
   $('#fecha_inicio').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_fin').datepicker('option', 'minDate', selected)
-    }
+        changeMonth: true,
+      	changeYear: true,
+      	showButtonPanel: true,
+       	dateFormat: 'MM yy',
+      	onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
   });
   $('#fecha_fin').datepicker({
     numberOfMonths: 1,
@@ -116,18 +99,15 @@ function validateDates() {
       $('#fecha_inicio').datepicker('option', 'maxDate', selected)
     }
   });
-
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
       var sFin = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[5]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
+      let cell = data[2];
+      if (sInicio) {
+        return sInicio === cell;
       }
-      return false;
+      return true;
     }
   );
 
@@ -140,7 +120,6 @@ function validateDates() {
     $('#fecha_fin').val("");
     $tabla_pagos_lista.DataTable().draw();
   });
-
   $('#today-fecha').on('click', function () {
     let hoy = hoyFecha();
     console.log(hoy);
@@ -155,33 +134,16 @@ function validateDates() {
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
   });
-
-
 }
 
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
     let $tabla_pedido_proveedores = $('#tabla-gastos-diarios');
-    inicializarSelect2($filter_proveedor, 'Ingrese el grifo', '');
-      $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[1];
-      if (grifo) {
-        return grifo === cell;
-      }
-      return true;
-    }
-
-  );
-
-  $filter_proveedor.on('change', function () {
+  	$filter_proveedor.on('change', function () {
     $tabla_pedido_proveedores.DataTable().draw();
   });
 } );
-
 </script>
-
  
 @endsection

@@ -290,11 +290,17 @@ desired effect
 <!--             <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
             Salidas Cheque&Banco</a>
             </li> -->
-            <li><a href="{{route('egresos.index')}}"><i class="fa fa-list-alt"></i> 
-            Reporte Salidas Diario</a>
+            <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
+            Reporte Gastos Diario</a>
             </li>
-            <li><a href="{{route('egresos.create')}}"><i class="fa fa-table"></i> 
-            Reporte Salidas Mensual</a>
+            <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+            Reporte Gastos Mensual</a>
+            </li>
+            <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+            Reporte Gastos Anual</a>
+            </li>
+            <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+            Reporte Gastos General</a>
             </li>
           </ul>
         </li>  
