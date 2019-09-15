@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Grifo;
 use DB;
 use Carbon\Carbon;
-
+use CorporacionPeru\Charts\PruebaChart;
+use CorporacionPeru\Charts\GastoAnualChart;
 
 class EgresoController extends Controller
 {
@@ -86,12 +87,37 @@ class EgresoController extends Controller
                 ->groupBy('month')
                 //->orderBy('id','DESC')
                 ->get();
+        $meses        = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
         $date         = Carbon::now();
         $year = $date->format('Y');
         $last_year   = $date->subYear();
         $last_year   = $last_year->format('Y');
+        
+        $p1 =   Egreso::select( 
+                DB::raw('sum(monto_egreso) as subtotal'),DB::raw('MONTH(fecha_egreso) as mes'),
+                )
+                ->groupBy('mes')
+                //->orderBy('id','DESC')
+                ->get();
+        $p=collect([]);
+        foreach ($p1 as $ps) {
+           $p->push($ps->subtotal);       
+           
+        }
+        $g = collect([]);
+        foreach ($p1 as $gs) {
+         $g->push($meses[$gs->mes-1]); 
+        }
+        $g = $g->sort();
+        $chart = new PruebaChart();
 
-        return view('reportes.anual.index',compact('egresos','anios','year','last_year') );
+        $chart->dataset('GASTOS 2019', 'bar', $p)->color('#74D46D');
+        $chart->labels($g->values()->all());
+            // ['Enero', 'Febrero', 'Marzo','Abril','Mayo','Junio','Julio',
+            //             'Agosto','Septiembre','Octubre','Noviembre','Diciembre']);
+
+        return view('reportes.anual.index',compact('egresos','anios','year','last_year','chart') );
     }
 
     /**
