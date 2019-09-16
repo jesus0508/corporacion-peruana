@@ -95,10 +95,11 @@ class EgresoController extends Controller
         $last_year   = $last_year->format('Y');
         
         $p1 =   Egreso::select( 
-                DB::raw('sum(monto_egreso) as subtotal'),DB::raw('MONTH(fecha_egreso) as mes'),
+                DB::raw('sum(monto_egreso) as subtotal','MONTH(fecha_egreso) as mes'),DB::raw('MONTH(fecha_egreso) as mes'),'fecha_egreso'
                 )
+                ->whereYear('fecha_egreso','=','2019')
                 ->groupBy('mes')
-                //->orderBy('id','DESC')
+                ->orderBy('mes')
                 ->get();
         $p=collect([]);
         foreach ($p1 as $ps) {
@@ -109,13 +110,15 @@ class EgresoController extends Controller
         foreach ($p1 as $gs) {
          $g->push($meses[$gs->mes-1]); 
         }
-        $g = $g->sort();
+        //$g = $g->sort();
+        //return $g;
         $chart = new PruebaChart();
-
         $chart->dataset('GASTOS 2019', 'bar', $p)->color('#74D46D');
-        $chart->labels($g->values()->all());
-            // ['Enero', 'Febrero', 'Marzo','Abril','Mayo','Junio','Julio',
-            //             'Agosto','Septiembre','Octubre','Noviembre','Diciembre']);
+        $chart->labels($g);
+       // $chart->labels($g->values()->all());
+        //$chart->displayAxes(false);
+        //$chart->labelsRotation(45.5);
+        //$chart->displayLegend(true);
 
         return view('reportes.anual.index',compact('egresos','anios','year','last_year','chart') );
     }
@@ -125,7 +128,31 @@ class EgresoController extends Controller
      * @return [type] [description]
      */
     public function reporte_gastos_general(){
-        return "reporte gastos general";
+        $egresos = Egreso::select( 
+                DB::raw('YEAR(fecha_egreso) as year'),DB::raw('sum(monto_egreso) as subtotal')
+                )
+                ->groupBy('year')
+                ->orderBy('year')
+                ->get();
+
+
+        $values = collect([]);
+        $labels = collect([]);
+        foreach ($egresos as $ps) {
+            $values->push($ps->subtotal);
+            $labels->push($ps->year);            
+        }
+        $chart = new GastoAnualChart();
+        $chart->labels($labels);
+        $chart->dataset('GASTOS TOTALES - GRIFOS', 'bar',$values);
+        $chart->theme('light');
+        $chart->export(true,'Gastos Generales');
+
+
+
+        //return $g;
+
+        return view('reportes.general.index',compact('egresos','chart') );
     }
 
 

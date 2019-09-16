@@ -2,7 +2,7 @@
 
 namespace CorporacionPeru\Charts;
 
-use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+use ConsoleTVs\Charts\Classes\Echarts\Chart;
 
 class GastoAnualChart extends Chart
 {

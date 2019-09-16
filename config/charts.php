@@ -11,7 +11,7 @@ return [
     | while creating the chart to ignore this value.
     |
     */
-    'default_library' =>'Frappe',
+    'default_library' =>'Highcharts',
 
 
 
