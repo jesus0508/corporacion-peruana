@@ -1,0 +1,5 @@
+@includeWhen($pedido->estado == 1 , 'actions.pedido.state.estado_sin_confirmar')
+@includeWhen($pedido->estado == 2 ,'actions.pedido.state.estado_confirmado')
+@includeWhen($pedido->estado == 3 , 'actions.pedido.state.estado_distribuido') 
+@includeWhen($pedido->estado == 4 , 'actions.pedido.state.estado_amortizado')
+@includeWhen($pedido->estado == 5 , 'actions.pedido.state.estado_pagado')   

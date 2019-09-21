@@ -48,11 +48,14 @@ class FleteController extends Controller
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista',
-                            'pedido_grifos.faltante')
+                            'pedido_grifos.faltante','pedido_grifos.fecha_descarga' )
                     ->get();
         $transportistas = Transportista::all(); 
-        $merged = $pedidos_cliente->merge($pedidos_grifo);
-        $pedidos = $merged->all();   
+        // $merged = $pedidos_cliente->merge($pedidos_grifo);
+        // $pedidos = $merged->all();   
+        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+        $collapsed = $collection->collapse();
+        $pedidos =$collapsed->all(); 
 
         //return $pedidos;
         return view('transportistas.flete.index',compact('pedidos','transportistas'));
@@ -80,7 +83,7 @@ class FleteController extends Controller
                             'pedido_grifos.faltante',
                             'pedido_grifos.grifero',
                             'pedido_grifos.id as id_pivote',
-                            'pedido_grifos.descripcion')
+                            'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
                     ->get();
         $pedidos_cliente = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                     ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')

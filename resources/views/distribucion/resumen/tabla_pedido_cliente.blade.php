@@ -23,10 +23,9 @@
                 <td>{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}</td>
                 <td>{{$pedido_cliente->cliente->razon_social}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
-                <td>{{$pedido_cliente->galones_asignados}}</td>
-
+                <td>{{$pedido_cliente->asignacion}}</td>
                 <td> 
-                    <a class="btn btn-primary" href="{{route('pedido_clientes.detalles',$pedido_cliente->id)}}"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Detalles Pedido</a>
+                    <a class="btn btn-primary" href="{{route('pedido_clientes.detalles',$pedido_cliente->pedido_cliente_id)}}"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Detalles Pedido</a>
                   
    
                 </td>

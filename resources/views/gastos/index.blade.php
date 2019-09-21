@@ -67,8 +67,10 @@ $(document).ready(function() {
 
     }).done(function (data){     
       $('#modal-add-subcategoria').modal('hide'); 
-       categoria_rellenado();   
-       toastr.success(data.status, 'Subcategoria registrado con éxito', { timeOut: 2000 });
+        categoria_rellenado();   
+        toastr.success(data.status, 'Subcategoria registrado con éxito', { timeOut: 2000 });
+    }).fail(function() {
+        toastr.error(data.status, 'Subcategoria no registrado con éxito', { timeOut: 2000 });
     });    
   });
 
@@ -93,7 +95,7 @@ $(document).ready(function() {
     }).done(function (data){     
       $('#modal-add-concepto').modal('hide'); 
        subcategoria_rellenado();   
-       toastr.success(data.status, 'Subcategoria registrado con éxito', { timeOut: 2000 });
+       toastr.success(data.status, 'Gasto registrado con éxito', { timeOut: 2000 });
     });    
   });
 
@@ -122,10 +124,10 @@ $(document).ready(function() {
      //modal ADD SUBCATEGORIA   
     $('#modal-add-subcategoria').on('show.bs.modal', function (event) {
       let cod = $('#categoria').val();
-      let codigo= $('#cod_categoria_edit').val();
+      let codigo = $('#cod_categoria_edit').val();
       let codigo_new    = $(event.relatedTarget).data('cod'); 
-     // $(event.currentTarget).find('#codigo-add').val(codigo_new);
-
+      // $(event.currentTarget).find('#codigo-add').val(codigo_new);
+      //console.log('holi');
        $.ajax({
           type: 'GET',
           url:`./categoria_gastos/${codigo}`,

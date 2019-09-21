@@ -9,6 +9,7 @@ use CorporacionPeru\IngresoGrifo;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Log;
+use CorporacionPeru\Stock;
 
 class GrifoController extends Controller
 {
@@ -43,7 +44,10 @@ class GrifoController extends Controller
     public function store(StoreGrifoRequest $request)
     {
         //
-        Grifo::create($request->validated());
+        $grifo = Grifo::create($request->validated());
+        $stock = Stock::first();
+        $stock->stock_general += $grifo->stock;
+        $stock->save();
         return back()->with(['alert-type' => 'success', 'status' => 'Grifo registrado con exito']);
     }
 
@@ -82,7 +86,18 @@ class GrifoController extends Controller
     {
         //
         $id = $request->id;
+        $grifo_anterior = Grifo::findOrFail($id);                
+        $gls_anterior = $grifo_anterior->stock;
+        $grifo = Grifo::findOrFail($id);
         Grifo::findOrFail($id)->update($request->validated());
+        $gls_nuevo = $grifo->stock; 
+
+        $stock = Stock::first();       
+        $stock->stock_general -= $gls_anterior;
+        $stock->stock_general += $gls_nuevo;
+        $stock->save();   
+
+
         return back()->with(['alert-type' => 'success', 'status' => 'Grifo editado con exito']);
     }
 
@@ -94,8 +109,11 @@ class GrifoController extends Controller
      */
     public function destroy(Grifo $grifo)
     {
-        //
+        //falta delete sotck general
         $grifo->delete();
+        $stock = Stock::first();
+        $stock->stock_general -= $grifo->stock;
+        $stock->save();        
         return back()->with(['alert-type' => 'success', 'status' => 'Grifo eliminado con exito']);
     }
 

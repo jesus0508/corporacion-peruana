@@ -4,6 +4,8 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\SubCategoriaGasto;
 use Illuminate\Http\Request;
+use CorporacionPeru\ConceptoGasto;
+use Illuminate\Support\Facades\Session;
 
 class SubCategoriaGastoController extends Controller
 {
@@ -104,11 +106,16 @@ class SubCategoriaGastoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
-    {
-       
-        SubCategoriaGasto::findOrFail($request->id)->delete();     
-      
+    {   
 
-       return  back()->with('alert-type','warning')->with('status','SubCategoría borrada con exito');
+        $conceptosGasto = ConceptoGasto::where('sub_categoria_gasto_id',$request->id)->get();
+        if( $conceptosGasto->count() == 0 ){
+
+                SubCategoriaGasto::findOrFail( $request->id )->delete();  
+
+                return  back()->with('alert-type','warning')->with('status','SubCategoría borrada con exito'); 
+        } else{
+                return  back()->with('alert-type','error')->with('status','Elimine primero los Conceptos de la subcategoria..!'); 
+        }    
     }
 }

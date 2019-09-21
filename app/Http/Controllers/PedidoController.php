@@ -14,9 +14,32 @@ use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoCliente;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
+use CorporacionPeru\Stock;
 
 class PedidoController extends Controller
 {
+
+
+    public function datatables_pedidos()
+    {       
+        return  datatables()
+        ->eloquent(
+            Pedido::leftJoin('factura_proveedors','factura_proveedors.id','=','pedidos.factura_proveedor_id')
+            ->join('plantas','pedidos.planta_id','=','plantas.id')
+            ->select(
+                'pedidos.*','plantas.planta as planta','factura_proveedors.monto_factura',
+                    DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc')
+            )
+            ->orderBy('id','DESC')
+        )
+        ->addColumn('state','actions.pedido.estado_dirigir')
+        ->addColumn('actions','actions.pedido.acciones_dirigir')
+        ->rawColumns(['state','actions'])
+        ->toJson();
+    }
+
 
     public function confirmarPedido($id)
     {
@@ -44,10 +67,18 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
-        $pedidos = Pedido::with('planta')->with('facturaProveedor')->orderBy('id','desc')->get();
+        //$pedido=Pedido::all();
         $plantas = Planta::all();
-        return view('pedidosP.index', compact('pedidos', 'plantas'));
+        $pedidos = Pedido::leftJoin('factura_proveedors','factura_proveedors.id','=','pedidos.factura_proveedor_id')
+            ->join('plantas','pedidos.planta_id','=','plantas.id')
+            ->select(
+                'pedidos.*','plantas.planta as planta','factura_proveedors.monto_factura as monto_factura',
+                    DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc')
+            )
+            ->orderBy('id','DESC')
+            ->get();
+        $stock = Stock::first();
+        return view('pedidosP.index',compact('pedidos','plantas','stock'));
     }
 
     /**
@@ -71,10 +102,15 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(StorePedidoRequest $request)
     {
-        //
-        Pedido::create($request->validated());
+
+        $pedido=Pedido::create( $request->validated() );
+        $stock = Stock::first();
+        $stock->stock_general += $pedido->galones;
+        $stock->save();
+        
         return  redirect()->action('PedidoController@index')->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
     }
 
@@ -167,9 +203,8 @@ class PedidoController extends Controller
             ->where('pedido_id', $pedido->id)
             //->groupBy('grifos.id')
             //->select('grifos.razon_social',grifos)
-            ->get();
-
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'));
+            ->get();        
+        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
     }
     /**
      * Se agrega una cantidad de galones de un pedido
@@ -180,6 +215,7 @@ class PedidoController extends Controller
     public function asignar_grifo(Request $request)
     {
 
+        $fecha_descarga = Carbon::now()->toDateString();      
         $grifo = Grifo::findOrFail($request->id_grifo);
         $asignacion = $request->galones_x_asignar;
         $pedido = Pedido::findOrFail($request->id_pedido_pr);
@@ -195,7 +231,7 @@ class PedidoController extends Controller
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
             $pedido->estado = 3;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga ]);
             $pedido->save();
             $grifo->save();
 
@@ -210,16 +246,16 @@ class PedidoController extends Controller
                 ->where('pedido_id', $pedido->id)
                 //->groupBy('grifos.id')
                 ->get();
-
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl','pedidos_grifos'))->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
-           }   
-
+            Session::flash('alert-type', 'info');
+            Session::flash('status', 'Galones asignados a Grifo');
+        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
+        }
         else //( $galonaje_stock < $asignacion  )
          { 
 
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion]);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga ]);
             $pedido->save();
             $grifo->save();
 
@@ -253,8 +289,12 @@ class PedidoController extends Controller
 
             $pedido_cl->galones_asignados += $galonaje_stock;
             $pedido->galones_distribuidos += $galonaje_stock;
-            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $asignacion = $galonaje_stock;
+            $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
             $pedido->estado = 3;
+            $stock = Stock::first();
+            $stock->stock_general -= $asignacion;
+            $stock->save();  
             $pedido->save();
             $pedido_cl->save();   
 
@@ -264,7 +304,11 @@ class PedidoController extends Controller
             $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
             $pedido->estado = 3;
-            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $asignacion = $restanteXasignar;
+            $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
+            $stock = Stock::first();
+            $stock->stock_general -= $asignacion;
+            $stock->save();
             $pedido->save();
             $pedido_cl->save();      
 
@@ -273,13 +317,19 @@ class PedidoController extends Controller
             $pedido_cl->galones_asignados += $restanteXasignar;
             $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
-            $pedido->pedidosCliente()->attach($pedido_cl->id);
+            $asignacion = $restanteXasignar;
+            $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
+            $stock = Stock::first();
+            $stock->stock_general -= $asignacion;
+            $stock->save();
             $pedido->save();
             $pedido_cl->save();  
 
         }
-                   // return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Pedido');
+ 
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
+        Session::flash('alert-type', 'info');
+        Session::flash('status', 'Galones asignados a Pedido de Cliente');
 
             return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
    
@@ -408,8 +458,16 @@ class PedidoController extends Controller
     public function update(StorePedidoRequest $request, $id)
     {
         $id = $request->id;
-        // return $request;
+        $pedido_anterior=Pedido::findOrFail($id);
+        $gls_anterior = $pedido_anterior->galones;
+        $pedido=Pedido::findOrFail($id);
         Pedido::findOrFail($id)->update($request->validated());
+        $gls_nuevo = $pedido->galones; 
+
+        $stock = Stock::first();       
+        $stock->stock_general -= $gls_anterior;
+        $stock->stock_general += $gls_nuevo;
+        $stock->save();        
 
         return  back()->with('alert-type', 'success')->with('status', 'Pedido editado con exito');
     }
@@ -427,9 +485,12 @@ class PedidoController extends Controller
     public function destroy($id)
     {
 
+        $pedido = Pedido::findOrFail($id);
         Pedido::destroy($id);
-
-
+        $stock = Stock::first();
+        $stock->stock_general -= $pedido->galones;
+        $stock->save();
+        
         return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');
     }
 }

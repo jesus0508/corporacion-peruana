@@ -1,6 +1,3 @@
-<td> <span class="label label-success">PAGADO</span>
-</td>
-<td>  
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="fa fa-wrench"></span> Acciones <span class="caret"></span>
@@ -21,4 +18,3 @@
     	</li>
     </ul>
   </div>                
-</td> 

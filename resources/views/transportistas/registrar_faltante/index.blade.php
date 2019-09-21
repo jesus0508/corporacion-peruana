@@ -18,6 +18,7 @@
 @section('content')
 
 <section class="content">
+  @include('transportistas.registrar_faltante.opciones_top')
   <!--modal -->
 	@include('transportistas.registrar_faltante.create') 
     <!--modal end -->

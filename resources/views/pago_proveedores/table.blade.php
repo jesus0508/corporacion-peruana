@@ -1,16 +1,12 @@
 <section class="content">
-  <h2>LISTA DE PEDIDOS CONFIRMADOS SIN PAGAR O PAGO PARCIAL</h2>
+  <!-- <h2>LISTA DE PEDIDOS CONFIRMADOS SIN PAGAR O PAGO PARCIAL</h2> -->
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-success">
-        <div class="box-header">
-          <h3 class="box-title">Lista de COMPRAS A PROVEEDORES &nbsp; &nbsp; &nbsp;<span class="label label-primary">{{$proveedor->razon_social}}</span></h3>
-
-            
-        </div>
+        @include( 'pago_proveedores.opciones' )
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="proveedores" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+          <table id="pago_proveedores_lista" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
                 <th>Nro pedido</th>

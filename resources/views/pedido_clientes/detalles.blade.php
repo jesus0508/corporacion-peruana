@@ -145,6 +145,8 @@
                     <th>Planta</th>
                     <th>Transportista</th>
                     <th>Placa</th>
+                    <th>Total GLS</th>
+                    <th>Galones Asignados</th>
                   </tr>
                 </thead>
                   <tbody>
@@ -160,6 +162,8 @@
                       <td>{{$pedido->vehiculo->transportista->nombre_transportista}}</td>
                       <td>{{$pedido->vehiculo->placa}}</td>
                       @endif
+                      <td>{{$pedido->galones}}&nbsp;</td>
+                      <td>{{$pedido->asignacion}}&nbsp;</td>
                     </tr>
                   @endforeach
                 </tbody> 

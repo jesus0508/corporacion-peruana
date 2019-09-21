@@ -24,8 +24,8 @@
                   <div class="col-md-6">
                     <div class="form-group @error('faltante') has-error @enderror">
                       <label for="faltante"> Faltante*</label>
-                      <input id="faltante" type="text" class="form-control"
-                          name="faltante" placeholder="Ingrese el numero de factura" autocomplete="off">
+                      <input id="faltante" type="number" class="form-control"
+                          name="faltante" min="1" max="9999" placeholder="Ingrese los galones faltantes.." autocomplete="off">
                       @error('faltante')
                         <span class="help-block" role="alert">
                           <strong>{{ $message }}</strong>
@@ -37,7 +37,7 @@
                     <div class="form-group">
                       <label for="grifero">Grifero</label>
                       <input id="grifero" type="text" class="form-control" 
-                          name="grifero" placeholder="Ingrese la fecha" autocomplete="off">
+                          name="grifero" placeholder="Ingrese el grifero" autocomplete="off">
                     </div>             
                   </div> 
                 </div>

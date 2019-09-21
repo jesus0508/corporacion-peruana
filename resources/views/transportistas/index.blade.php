@@ -15,13 +15,7 @@
 
 @section('content')
 <section class="content-header">
-      <a href="{{ route('transportista.create') }}">
-      <button class="btn bg-olive pull-right">
-      NUEVO TRANSPORTISTA&nbsp;|&nbsp;VEHÍCULO &nbsp; <span class="fa fa-plus"></span>
-      </button>
-    </a> 
-    <p>  </br></p>
-
+  @include('transportistas.opciones')
 </section>
 <section class="content">
   @include('transportistas.table')
@@ -37,7 +31,6 @@
 @if( count($errors) > 0 )
   <script type="text/javascript">
       $('#modal-edit-transportista').modal('show');
-
   </script>
 @endif  
 @endsection

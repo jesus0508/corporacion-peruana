@@ -236,7 +236,8 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('transportista.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
             <li><a href="{{route('transportista.index')}}"><i class="fa fa-list"></i> Ver Transportistas</a></li>
-            <li><a href="{{route('flete.index')}}"><i class="fa fa-bus"></i> Flete Pedidos</a></li>
+            <li><a href="{{route('flete.index')}}"><i class="fa fa-bus"></i> Flete Pedidos</a></li>          
+            <li><a href="{{ route( 'flete.create' ) }}"><i class="fa fa-minus-square"></i> Descuento Flete</a></li>           
             <li><a href="{{route('pago_transportistas.index')}}"><i class="fa fa-money"></i>  Pago Transportistas</a></li>                         
           </ul>
         </li>
@@ -294,8 +295,20 @@ desired effect
             <li><a href="{{route('gastos.create')}}"><i class="fa fa-minus-square"></i> 
             Registrar gasto</a>
             </li>
-            <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
+<!--             <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
             Salidas Cheque&Banco</a>
+            </li> -->
+            <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
+            Reporte Gastos Diario</a>
+            </li>
+            <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+            Reporte Gastos Mensual</a>
+            </li>
+            <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+            Reporte Gastos Anual</a>
+            </li>
+            <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+            Reporte Gastos General</a>
             </li>
           </ul>
         </li>  

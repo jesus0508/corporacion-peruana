@@ -29,6 +29,7 @@ class FaltanteController extends Controller
                     ->join('plantas','plantas.id','=','pedidos.planta_id')
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->whereNotNull('pedido_proveedor_clientes.faltante')
+                    //->where('pedidos.estado_flete',2)
                     ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
                             'pedido_clientes.galones','pedido_clientes.horario_descarga',
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
@@ -46,6 +47,7 @@ class FaltanteController extends Controller
                     ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                    
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->whereNotNull('pedido_grifos.faltante')
+                    //->where('pedidos.estado_flete',2)
                     ->select('grifos.razon_social',
                             'pedido_grifos.asignacion as galones','pedidos.costo_galon',                            
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
@@ -53,7 +55,7 @@ class FaltanteController extends Controller
                             'transportistas.nombre_transportista',
                             'pedido_grifos.faltante',
                             'pedido_grifos.grifero',
-                            'pedido_grifos.descripcion')
+                            'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
                     ->get();
         $merged = $pedidos_cliente->merge($pedidos_grifo);
         $pedidos = $merged->all();  
@@ -140,7 +142,8 @@ class FaltanteController extends Controller
                             'pedido_grifos.asignacion as galones',                            
                             'pedidos.scop','pedidos.nro_pedido',
                             'plantas.planta','pedidos.id',
-                            'transportistas.nombre_transportista')
+                            'transportistas.nombre_transportista'
+                            ,'pedido_grifos.fecha_descarga')
                     ->get();
         $transportistas = Transportista::all();
 
@@ -200,7 +203,7 @@ class FaltanteController extends Controller
                             'transportistas.nombre_transportista',
                             'pedido_grifos.faltante',
                             'pedido_grifos.grifero',
-                            'pedido_grifos.descripcion')
+                            'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
                     ->get();
 
         $merged          = $lista_descuento1->merge($lista_descuento2);

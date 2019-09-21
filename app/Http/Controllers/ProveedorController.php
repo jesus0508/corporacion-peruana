@@ -7,6 +7,7 @@ use CorporacionPeru\Proveedor;
 use CorporacionPeru\Http\Requests;
 use CorporacionPeru\Http\Requests\StoreProveedorRequest;
 use CorporacionPeru\Http\Requests\UpdateProveedorRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProveedorController extends Controller
 {
@@ -19,13 +20,16 @@ class ProveedorController extends Controller
     {
         //
         $proveedores = Proveedor::all();
-        /*$deudas = Proveedor::
-            join('plantas','plantas.proveedor_id','=','proveedores.id')
-          ->join('pedidos','pedidos.planta_id','=','plantas.id')
-          ->select('pedidos.galones','pedidos.costo_galon')
-          ->get() ;      
-          //return $deudas->where('id',3)->sum('galones');
-          //->sum('galones');*/
+        $proveedores = Proveedor::
+            leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
+            ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id')         
+            ->groupBy('proveedores.id')
+            ->select(
+                'proveedores.*'
+                ,DB::raw('sum(pedidos.saldo) as calc')
+                 
+            )          ->get() ;      
+
          
 
         return view('proveedores.index',compact('proveedores'));

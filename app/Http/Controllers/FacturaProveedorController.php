@@ -52,9 +52,9 @@ class FacturaProveedorController extends Controller
         }        
          //GUARDAMOS LA FACTURA
         $factura = new FacturaProveedor;
+        $request->validated();
         $factura->nro_factura_proveedor =$request->nro_factura_proveedor;
         $factura->monto_factura=$request->monto_factura;
-        //$factura->fecha_factura_proveedor=$request->fecha_factura_proveedor;
         $factura->setFechaFacturaAttribute($request->fecha_factura_proveedor);
         $factura->save();     
        

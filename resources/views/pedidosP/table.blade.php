@@ -42,7 +42,6 @@
                 <th>Saldo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
-
               </tr>
             </thead>
             <tbody>
@@ -51,34 +50,28 @@
                 <tr>
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->scop}}</td>                  
-                  <td>{{$pedido->planta->planta}}</td>
+                  <td>{{$pedido->planta}}</td>
                   <!-- <td>{{$pedido->created_at}}</td> -->
                   <td>{{$pedido->galones}}</td>
                   <td>{{$pedido->costo_galon}}</td>
-
-                  <td>{{number_format((float)
-                    $pedido->getPrecioTotal(), 2, '.', '') }}
-                  </td>
+                  <td>{{ $pedido->calc }} </td>
                   <td>
-                    @if( $pedido->factura_proveedor_id != null ) 
-                      {{number_format((float)
-                        $pedido->facturaProveedor->monto_factura, 2, '.', '') }}
+                    @if( $pedido->factura_proveedor_id != null )                      
+                     {{$pedido->monto_factura}} 
                     @else
                       0.00
                     @endif
                   </td>
-                  <td> S/&nbsp; 
-                    @if($pedido->saldo == null)
-                    0.00
-                    @else
-                    {{$pedido->saldo}}
-                    @endif                      
-                  </td>                 
-                  @includeWhen($pedido->isConfirmed(), 'actions.pedido.acciones_confirmado')
-                  @includeWhen($pedido->isUnconfirmed(),'actions.pedido.acciones_sin_confirmar')
-                  @includeWhen($pedido->isDistributed(), 'actions.pedido.acciones_distribuido') 
-                  @includeWhen($pedido->isAmortized(), 'actions.pedido.acciones_amortizado')
-                  @includeWhen($pedido->isPaid(), 'actions.pedido.acciones_pagado')           
+                  <td>
+                    {{$pedido->saldo}}                     
+                  </td>  
+                  <td>
+                    @include( 'actions.pedido.estado_dirigir' )
+                  </td>  
+                  <td>
+                    @include( 'actions.pedido.acciones_dirigir' )
+                  </td>             
+                         
                 </tr>
               @endforeach
             </tbody>
