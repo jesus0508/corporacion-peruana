@@ -40,7 +40,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         //
-        User::create($request->validated());
+        $user = User::create($request->validated());
+        $user->roles()->attach($request->role_id);
         return back()->with(['alert-type' => 'success', 'status' => 'Usuario creado con exito']);
     }
 

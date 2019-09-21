@@ -161,10 +161,12 @@ desired effect
         </div>
       </div>
 
+      
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENU</li>
         <!-- Optionally, you can add icons to the links -->
+        @if( Auth::user()->hasRole('Ventas'))
         <li id="treeview-clientes" class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Clientes</span>
@@ -191,7 +193,9 @@ desired effect
             <li><a href="{{route('movimientos.index')}}"><i class="fa fa-money"></i> Mis Movimientos</a></li>
           </ul>
         </li>
-
+        @endif
+        
+        @if( Auth::user()->hasRole('Proveedores'))
         <li id="treeview-proveedores" class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Proveedores</span>
@@ -220,6 +224,7 @@ desired effect
 
           </ul>
         </li> 
+        @endif
 
         <li id="treeview-transportistas" class="treeview">
           <a href="#">
@@ -248,6 +253,7 @@ desired effect
           </ul>
         </li>
         
+        @if( Auth::user()->hasRole('Administrador'))
         <li id="treeview-usuarios" class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Trabajadores</span>
@@ -259,7 +265,9 @@ desired effect
             <li><a href="{{route('trabajadores.index')}}"><i class="fa fa fa-user"></i>Gestion</a></li>
           </ul>
         </li>
+        @endif
 
+        @if( Auth::user()->hasRole('Grifos'))
         <li id="treeview-grifos" class="treeview">
           <a href="#">
             <i class="fa fa-building-o"></i> <span>Grifos</span>
@@ -272,7 +280,7 @@ desired effect
             <li><a href="{{route('ingreso_grifos.index')}}"><i class="fa fa-sort-asc"></i> Ingresos</a></li>
           </ul>
         </li>
-
+        @endif
         <li id="treeview-gastos" class="treeview">
           <a href="#">
             <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>

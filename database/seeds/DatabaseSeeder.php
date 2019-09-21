@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     	DB::table('plantas')->truncate();
     	DB::table('proveedores')->truncate();
     	DB::table('users')->truncate();
+    	DB::table('roles')->truncate();
         DB::table('trabajadores')->truncate();
         DB::table('transportistas')->truncate();
         DB::table('vehiculos')->truncate();
@@ -23,7 +24,10 @@ class DatabaseSeeder extends Seeder
     	DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $this->call([
+            RolesTableSeeder::class,
+        	TrabajadoresTableSeeder::class,
         	UsersTableSeeder::class,
+        	RolesUsersTableSeeder::class,
         	ProveedoresTableSeeder::class,
         	PlantasTableSeeder::class,
             TransportistasTableSeeder::class,

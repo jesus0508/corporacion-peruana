@@ -143,4 +143,11 @@ class PedidoClienteController extends Controller
         $pedido_clientes_export = new PedidoClienteExport;
         return $pedido_clientes_export->download('pedidos_clientes.xlsx');
     }
+
+    public function pagosToExcel($id)
+    {
+        $pagos = PedidoCliente::findOrFail($id)->pagoClientes;
+        $pagos_export = new PagoClienteExport($pagos);
+        return $pagos_export->download('pagos_cliente.xlsx');
+    }
 }

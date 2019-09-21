@@ -12,13 +12,21 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class PagoClienteExport implements FromQuery, WithMapping, WithHeadings, WithTitle
 {
     use Exportable;
+
+    protected $pagos;
+ 
+    public function __construct($pagos = null)
+    {
+        $this->pagos = $pagos;
+    }
+
     /**
      * @return \Illuminate\Database\Query\Builder
      */
     public function query()
     {
         //
-        return PagoCliente::query();
+        return $this->products ?:PagoCliente::query();
     }
 
     public function title(): string
@@ -45,8 +53,6 @@ class PagoClienteExport implements FromQuery, WithMapping, WithHeadings, WithTit
         return [
             'Fecha de operacion',
             'Codigo de operacion',
-            'Numero de factura',
-            'Cliente',
             'Monto de operacion',
             'Saldo',
             'Banco',

@@ -17,9 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password','trabajador_id','role_id'
+        'email', 'password', 'trabajador_id'
     ];
-    
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -40,10 +40,43 @@ class User extends Authenticatable
 
     public function trabajador()
     {
-    	return $this->belongsTo(Trabajador::class,'trabajador_id');
+        return $this->belongsTo(Trabajador::class, 'trabajador_id');
     }
 
-    public function setPasswordAttribute($value){ 
-        $this->attributes['password']=bcrypt($value);
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function authorizeRoles($roles){
+        abort_unless($this->hasAnyRole($roles), 401);
+        return true;
+    }
+
+    public function hasAnyRole($roles)
+    {
+        if (is_array($roles)) {
+            foreach($roles as $role){
+                if($this->hasRole($roles)){
+                    return true;
+                }
+            }
+        } else {
+            return $this->hasRole($roles);
+        }
+        return false;
+    }
+
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('nombre', $role)->first()) {
+            return true;
+        }
+        return false;
     }
 }
