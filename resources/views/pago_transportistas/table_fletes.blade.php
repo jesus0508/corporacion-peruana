@@ -10,50 +10,82 @@
           </div>          
         </div>    
       </div><!-- /.box-header -->
-      <div class="box-body">
-        <table id="tabla-pago-transportista" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th>FLETERO</th>
-              <th>GRIFO</th>
-              <th>F PEDIDO</th>
-              <th>SCOP</th>
-              <th>N de PEDIDO</th>
-              <th>PLANTA</th>
-              <th>GLS</th>
-              <th>PRECIO</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($pedidos as $pedido_cliente)
-              <tr>
-                <td>{{$pedido_cliente->nombre_transportista}}</td>
-                <td>{{$pedido_cliente->razon_social}}</td>
-                <td>
-                  @if( $pedido_cliente->fecha_descarga )
-                  {{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}
-                  @else
-                  No acordado
-                  @endif
-                </td>
-                <td>              
-                  <a href="{{route('pedidos.ver_distribucion', $pedido_cliente->id)}}"> {{$pedido_cliente->scop}}
-                  </a>                   
-                </td>
-                <td>{{$pedido_cliente->nro_pedido}}</td>
-                <td>{{$pedido_cliente->planta}}</td>
-                <td>{{$pedido_cliente->galones}}</td>      
-                <td><b> S/. &nbsp;{{$pedido_cliente->costo_flete}}</b></td>
-              </tr>
-            @endforeach
-          </tbody> 
-          <tfoot>
-            <tr>                
-                <th colspan="7">SUBTOTAL</th>
-                <th>S/. &nbsp; {{$subtotal}}</th>
-            </tr>
-          </tfoot>
-        </table>
+      <div class="box-body">        
+        <form id="frm-example" method="post" >
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <p> <b>Selected ROWS DATA </b> </p>
+                <input type="text" id="example-console">
+              </div>
+              <div class="col-md-6">
+                <p> <b>Form data submited</b> </p>  
+                 <input type="text" id="example-console" >
+              </div>
+             
+            </div> 
+            <br>
+            <div class="row">
+               <p> <button class="btn btn-primary pull-left">View Selected</button> <br> </p>
+            </div>         
+            
+            
+          </div>
+            <table id="tabla-pago-transportista" class="table table-bordered select table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+                  <th>FLETERO</th>
+                  <th>GRIFO</th>
+                  <th>F PEDIDO</th>
+                  <th>SCOP</th>
+                  <th>N de PEDIDO</th>
+                  <th>PLANTA</th>
+                  <th>GLS</th>
+                  <th>PRECIO</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($pedidos as $pedido_cliente)
+                  <tr>
+                    <td></td>
+                    <td>{{$pedido_cliente->nombre_transportista}}</td>
+                    <td>{{$pedido_cliente->razon_social}}</td>
+                    <td>
+                      @if( $pedido_cliente->fecha_descarga )
+                      {{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}
+                      @else
+                      No acordado
+                      @endif
+                    </td>
+                    <td>              
+                      <a href="{{route('pedidos.ver_distribucion', $pedido_cliente->id)}}"> {{$pedido_cliente->scop}}
+                      </a>                   
+                    </td>
+                    <td>{{$pedido_cliente->nro_pedido}}</td>
+                    <td>{{$pedido_cliente->planta}}</td>
+                    <td>{{$pedido_cliente->galones}}</td>      
+                    <td><b> S/. &nbsp;{{$pedido_cliente->costo_flete}}</b></td>
+                  </tr>
+                @endforeach
+              </tbody> 
+              <tfoot>
+                <tr>                
+                  <th colspan="8">SUBTOTAL</th>
+                  <th>S/. &nbsp; {{$subtotal}}</th>
+                </tr>
+              </tfoot>
+            </table>
+            <hr>
+
+            <p>Press <b>Submit</b> and check console for URL-encoded form data that would be submitted.</p>
+
+            <p><button>Submit</button></p>
+
+            <b>Data submitted to the server:</b><br>
+
+
+        </form>
       </div>
       <div class="box-footer">
 

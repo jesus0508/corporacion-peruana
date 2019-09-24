@@ -113,7 +113,16 @@ class FaltanteController extends Controller
      */
     public function show($id)
     {
-         $pedidos_cliente
+        $pedidosToSelect = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                    ->where('transportistas.id',$id)
+                    ->select('transportistas.nombre_transportista','pedidos.*')
+                    ->get();
+        //return $pedidosToSelect;
+        return view( 'pago_transportistas.pago_fletes_selected.index', compact('pedidosToSelect') );
+    
+
+        $pedidos_cliente
                      = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                     ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
                     ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
