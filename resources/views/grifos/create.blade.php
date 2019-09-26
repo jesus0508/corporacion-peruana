@@ -13,7 +13,7 @@
             <div class="col-md-6">
               <div class="form-group @error('ruc') has-error @enderror">
                 <label for="ruc">RUC</label>
-                <input id="ruc" type="text" class="form-control" value="{{old("ruc")}}"
+                <input id="ruc" type="text" class="form-control" value="{{old('ruc')}}"
                         name="ruc" placeholder="Ingrese su RUC" required>
                 @error('ruc')
                 <span class="help-block" role="alert">
@@ -25,7 +25,7 @@
             <div class="col-md-6">
               <div class="form-group @error('razon_social') has-error @enderror">
                 <label for="razon_social">Razón Social</label>
-                <input id="razon_social" type="text" class="form-control" value="{{old("razon_social")}}"
+                <input id="razon_social" type="text" class="form-control" value="{{old('razon_social')}}"
                         name="razon_social" placeholder="Ingrese la Razon Social" required>
                 @error('razon_social')
                 <span class="help-block" role="alert">
@@ -39,7 +39,7 @@
             <div class="col-md-6">
               <div class="form-group @error('telefono') has-error @enderror">
                 <label for="telefono">Teléfono</label>
-                <input id="telefono" type="tel" class="form-control" value="{{old("telefono")}}" required
+                <input id="telefono" type="tel" class="form-control" value="{{old('telefono')}}" required
                         name="telefono" placeholder="Ingrese el numero de telefono" pattern="^[0-9]{9}">
                 @error('telefono')
                 <span class="help-block" role="alert">
@@ -51,7 +51,7 @@
             <div class="col-md-6">
               <div class="form-group @error('administrador') has-error @enderror">
                 <label for="administrador">Administrador</label>
-                <input id="administrador" type="text" class="form-control" value="{{old("administrador")}}"
+                <input id="administrador" type="text" class="form-control" value="{{old('administrador')}}"
                       name="administrador" placeholder="Ingrese el nombre del administrador" required >
                 @error('administrador')
                 <span class="help-block" role="alert">
@@ -99,7 +99,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
               <div class="form-group @error('direccion') has-error @enderror">
                 <label for="direccion">Dirección</label>
                 <input id="direccion" type="text" class="form-control"
@@ -110,6 +110,16 @@
                 </span>
                 @enderror
               </div>
+            </div>
+            <div class="col-md-4"> 
+              <div class="form-group">
+                <label for="zona">Zona</label>
+                <select class="form-control" id="zona" name="zona" placeholder="Seleccione la zona" required>
+                    <option value="NORTE">NORTE</option>
+                    <option value="SUR">SUR</option>
+                    <option value="ESTE">ESTE</option>
+                </select>
+              </div>            
             </div>
           </div>
         </div><!-- /.box-body -->

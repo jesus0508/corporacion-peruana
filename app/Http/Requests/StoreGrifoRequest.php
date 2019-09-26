@@ -31,6 +31,7 @@ class StoreGrifoRequest extends FormRequest
             'direccion' => 'required|max: 255|min: 5',
             'distrito' => 'required|max: 255|min: 5',
             'stock' => 'numeric',
+            'zona' => 'required',
         ];
     }
 }
