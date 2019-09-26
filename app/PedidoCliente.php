@@ -21,6 +21,10 @@ class PedidoCliente extends Model
         return $this->belongsTo(Cliente::class);
     }
 
+    public function categoriaIngreso(){
+        return $this->belongsTo(CategoriaIngreso::class);
+    }
+
     public function pagoClientes()
     {
         return $this->belongsToMany(PagoCliente::class);

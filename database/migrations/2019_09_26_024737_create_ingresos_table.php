@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagoClientesTable extends Migration
+class CreateIngresosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreatePagoClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pago_clientes', function (Blueprint $table) {
+        Schema::create('ingresos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('fecha_operacion');
+            $table->float('monto_ingreso');
+            $table->string('detalle')->nullable();
             $table->string('codigo_operacion')->nullable();
-            $table->float('monto_operacion');
-            $table->float('saldo')->default(0);
-            $table->string('banco');
-            $table->unsignedBigInteger('categoria_ingreso_id')->nullable();
+            $table->date('fecha_ingreso');
+            $table->string('banco')->nullable();           
+            $table->unsignedBigInteger('categoria_ingreso_id');
             $table->foreign('categoria_ingreso_id')
             ->references('id')->on('categoria_ingresos');
-
             $table->timestamps();
         });
     }
@@ -35,10 +34,9 @@ class CreatePagoClientesTable extends Migration
      */
     public function down()
     {
-        Schema::table('pago_clientes', function (Blueprint $table) {
-            $table->dropForeign(['pedido_cliente_id']);
-            $table->dropForeign(['categoria_ingreso_id']);           
+        Schema::dropIfExists('ingresos');
+        Schema::table('ingresos', function (Blueprint $table) {
+            $table->dropForeign(['categoria_ingreso_id']);                     
         });
-        Schema::dropIfExists('pago_clientes');
     }
 }

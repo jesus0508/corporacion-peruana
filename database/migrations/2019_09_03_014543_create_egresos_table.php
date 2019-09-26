@@ -17,6 +17,7 @@ class CreateEgresosTable extends Migration
             $table->bigIncrements('id');
             $table->float('monto_egreso');
             $table->date('fecha_egreso');
+            $table->string('codigo_operacion')->nullable();
             $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')->references('id')->on('grifos');
             $table->unsignedBigInteger('concepto_gasto_id');

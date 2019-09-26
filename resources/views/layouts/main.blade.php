@@ -282,6 +282,18 @@ desired effect
           </ul>
         </li>
         @endif
+        <li id="treeview-ingresos" class="treeview">
+          <a href="#">
+            <i class="fa fa-arrow-up"></i> <span>INGRESOS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
+            <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li>
+          </ul>
+        </li>
         <li id="treeview-gastos" class="treeview">
           <a href="#">
             <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>

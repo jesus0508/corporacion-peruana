@@ -53,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
 		/* Ingreso */
 		Route::get('/ingreso_grifos/grifo/{id}', 'IngresoGrifoController@getLastIngreso')->name('pago_clientes.lastIngreso');
 		Route::resource('/ingreso_grifos', 'IngresoGrifoController');
+		Route::resource('/ingresos_otros', 'IngresoController');
+		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
+		
 	});
 
 	/* EGRESOSS -  GASTOS */

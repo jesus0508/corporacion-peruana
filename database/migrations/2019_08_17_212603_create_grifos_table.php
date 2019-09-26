@@ -21,6 +21,7 @@ class CreateGrifosTable extends Migration
             $table->string('administrador');
             $table->integer('stock');
             $table->string('direccion');
+            $table->string('zona')->nullable();
             $table->string('distrito')->nullable();
             $table->timestamps();
         });

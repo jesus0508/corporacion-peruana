@@ -22,6 +22,10 @@ class CreateIngresoGrifosTable extends Migration
             $table->date('fecha_ingreso');
             $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')->references('id')->on('grifos');
+            $table->unsignedBigInteger('categoria_ingreso_id')->nullable();
+            $table->foreign('categoria_ingreso_id')
+            ->references('id')->on('categoria_ingresos');
+
             $table->timestamps();
         });
     }
@@ -35,6 +39,7 @@ class CreateIngresoGrifosTable extends Migration
     {
         Schema::table('pago_cliente_pedido_cliente', function (Blueprint $table) {
             $table->dropForeign(['grifo_id']);
+            $table->dropForeign(['categoria_ingreso_id']);
         });
         Schema::dropIfExists('ingreso_grifos');
     }
