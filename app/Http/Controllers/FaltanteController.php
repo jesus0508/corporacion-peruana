@@ -102,26 +102,8 @@ class FaltanteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\Faltante  $faltante
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $pedidosToSelect = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
-                    ->where('transportistas.id',$id)
-                    ->select('transportistas.nombre_transportista','pedidos.*')
-                    ->get();
-        //return $pedidosToSelect;
-        return view( 'pago_transportistas.pago_fletes_selected.index', compact('pedidosToSelect') );
-    
-
+        $id = $request->id_transportista;
+        $array_selected = $request->id;
         $pedidos_cliente
                      = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                     ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
@@ -131,7 +113,8 @@ class FaltanteController extends Controller
                     ->join('plantas','plantas.id','=','pedidos.planta_id')
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->where('pedidos.estado_flete','=',1)
-                    ->where('transportistas.id','=',$id)                    
+                    ->where('transportistas.id','=',$id) 
+                    ->whereIn('pedidos.id',$array_selected)                   
                     ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
                             'pedido_clientes.galones','pedidos.costo_flete',
                             'pedidos.scop','pedidos.nro_pedido',
@@ -146,7 +129,8 @@ class FaltanteController extends Controller
                     ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                    
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->where('pedidos.estado_flete','=',1)
-                    ->where('transportistas.id','=',$id)                      
+                    ->where('transportistas.id','=',$id)   
+                    ->whereIn('pedidos.id',$array_selected)                       
                     ->select('grifos.razon_social','pedidos.costo_flete',
                             'pedido_grifos.asignacion as galones',                            
                             'pedidos.scop','pedidos.nro_pedido',
@@ -237,6 +221,25 @@ class FaltanteController extends Controller
     //  return $lista_descuento;
         return view('pago_transportistas.index',
             compact('pedidos','date','transportista','subtotal','lista_descuento','codigo_pago'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \CorporacionPeru\Faltante  $faltante
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $pedidosToSelect = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                    ->where('transportistas.id',$id)
+                    ->select('transportistas.nombre_transportista','pedidos.*')
+                    ->get();
+        $id_transportista = $id;
+        //return $pedidosToSelect;
+        return view( 'pago_transportistas.pago_fletes_selected.index', compact('pedidosToSelect','id_transportista') );
+    
     }
 
     /**

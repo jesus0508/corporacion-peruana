@@ -22,7 +22,7 @@ class CreateIngresoGrifosTable extends Migration
             $table->date('fecha_ingreso');
             $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')->references('id')->on('grifos');
-            $table->unsignedBigInteger('categoria_ingreso_id')->nullable();
+            $table->unsignedBigInteger('categoria_ingreso_id')->default(2);
             $table->foreign('categoria_ingreso_id')
             ->references('id')->on('categoria_ingresos');
 

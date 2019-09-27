@@ -16,7 +16,9 @@
 @section('content')
 
 <section class="content">
-	<form id="frm-example" method="post" >
+	<form id="frm-example" action="{{route('faltante.store')}}" method="post" >
+    @csrf
+   
   	@include('pago_transportistas.pago_fletes_selected.header')
   	@include('pago_transportistas.pago_fletes_selected.table')
 	</form>
@@ -70,7 +72,7 @@ $(document).ready(function(){
       });
     // console.log("Form submission", $(form).serialize()); 
       // Prevent actual form submission
-      e.preventDefault();
+     // e.preventDefault();
    });
 });	  
 </script>

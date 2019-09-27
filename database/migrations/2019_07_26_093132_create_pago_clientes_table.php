@@ -20,7 +20,7 @@ class CreatePagoClientesTable extends Migration
             $table->float('monto_operacion');
             $table->float('saldo')->default(0);
             $table->string('banco');
-            $table->unsignedBigInteger('categoria_ingreso_id')->nullable();
+            $table->unsignedBigInteger('categoria_ingreso_id')->default(1);
             $table->foreign('categoria_ingreso_id')
             ->references('id')->on('categoria_ingresos');
 
