@@ -17,7 +17,7 @@ class CategoriaIngresosTableSeeder extends Seeder
         ]);
 
         DB::table('categoria_ingresos')->insert([
-            'categoria' => 'Ingresos, Reporte Grifos',
+            'categoria' => 'Ingresos por Grifos',
         ]);
 
                        

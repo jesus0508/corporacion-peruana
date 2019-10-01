@@ -24,12 +24,14 @@ class IngresoController extends Controller
         $ingresos2 = CategoriaIngreso::join('pago_clientes','categoria_ingresos.id','=','pago_clientes.categoria_ingreso_id')
             ->select('pago_clientes.codigo_operacion','pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
             ->get();
-        $collection = collect([$ingresos1, $ingresos2]);
+
+        $ingresos3 = CategoriaIngreso::join('ingreso_grifos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
+            ->select('ingreso_grifos.precio_galon','ingreso_grifos.lectura_inicial','ingreso_grifos.lectura_final','ingreso_grifos.fecha_ingreso','categoria_ingresos.categoria')
+            ->get();            
+        $collection = collect([$ingresos1, $ingresos2 , $ingresos3]);
         $collapsed = $collection->collapse();
         $ingresos =$collapsed->all(); 
 
-        //return $ingresos;
-            
         return view('ingresos_otros.diario.index', compact('ingresos'));
     }
 
@@ -43,9 +45,17 @@ class IngresoController extends Controller
         $categorias = CategoriaIngreso::all();
         return view('ingresos_otros.index', compact('categorias'));
     }
+    /**
+     * Ingresos reporte por día.(grifos, venta cliente directo, otros)
+     * @return [type] [description]
+     */
+    public function ingresosReporte(){
+
+    }
 
     /**
-     * [ingresosDT description]
+     * [reporte de ingresos de un día,
+     * al momento de registrar otros ingresos del mismo día]
      * @return [type] [description]
      */
     public function ingresosDT( $date = null ){

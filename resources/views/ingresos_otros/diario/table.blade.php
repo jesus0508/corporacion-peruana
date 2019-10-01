@@ -8,10 +8,10 @@
         <table id="tabla-reporte-ingresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>FECHA REPORTE</th>
+              <th>FECHA ingreso</th>
               <th>CATEGORIA</th>              
               <th>Detalles</th>
-              <th>FECHA Ingreso</th>
+              <th>FECHA reporte</th>
               <th>Extra Info</th>
               <th>Banco</th>
               <th>Monto</th>
@@ -28,17 +28,17 @@
                   @else
                   {{$ingreso->categoria}}
                   @endif                
-                  </td>
-                  <td>
+                </td>
+                <td>
                     @if($ingreso->fecha_reporte)
-                      {{$ingreso->fecha_reporte}}
+                    {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}}                     
                     @else
-                      {{$ingreso->fecha_ingreso}}
+                    {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}
                     @endif
-                  </td>
-                  <td>{{$ingreso->codigo_operacion}}</td>
-                  <td>{{$ingreso->banco}}</td>
-                  <td>{{$ingreso->monto_ingreso}}</td>
+                </td>
+                <td>{{$ingreso->codigo_operacion}}</td>
+                <td>{{$ingreso->banco}}</td>
+                <td>{{$ingreso->monto_ingreso}}</td>
               </tr>
             @endforeach
           </tbody>

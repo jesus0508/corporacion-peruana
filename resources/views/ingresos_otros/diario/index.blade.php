@@ -38,8 +38,8 @@ $(document).ready(function() {
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-    "ordering": false,
-    "searching": false,
+    //"ordering": ,
+    //"searching": true,
 		"drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();
@@ -56,26 +56,51 @@ $(document).ready(function() {
     }
   });     
 
-	function RefreshTable(tableId, urlData){
-  	$.getJSON(urlData, null, function( json ){
-    	table = $(tableId).dataTable();
-   		oSettings = table.fnSettings();
-    	table.fnClearTable(this);    
-    	//console.log(json.data);
-    	for (var i=0; i<json.data.length; i++) {
-      	table.oApi._fnAddData(oSettings, json.data[i]);      	
-     	} 
-    	oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();    	
-    	table.fnDraw();
-   
-  	});
-	}
+});
 
-	$('#btn_filter').click(function() {
-		let fecha_reporte =$('#fecha_reporte').val();		
-		RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
+function validateDates() {
+	//console.log('entro a validate');
+  let $tabla_pagos_lista = $('#tabla-reporte-ingresos');
+ 
+  $('#fecha_inicio').datepicker({
+    numberOfMonths: 1,
+    onSelect: function (selected) {
+      $('#fecha_fin').datepicker('option', 'minDate', selected)
+    }
+  });
+  $('#fecha_fin').datepicker({
+    numberOfMonths: 1,
+    onSelect: function (selected) {
+      $('#fecha_inicio').datepicker('option', 'maxDate', selected)
+    }
+  });
 
-	});
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      var sInicio = $('#fecha_inicio').val();
+      var sFin = $('#fecha_inicio').val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+      var fin = $.datepicker.parseDate('d/m/yy', sFin);
+      var dia = $.datepicker.parseDate('d/m/yy', data[3]);
+      if (!inicio || !dia || fin >= dia && inicio <= dia) {
+        return true;
+      }
+      return false;
+    }
+  );
+
+  $('#filtrar-fecha').on('click', function () {
+    $tabla_pagos_lista.DataTable().draw();
+  });
+
+  $('#clear-fecha').on('click', function () {
+    $('#fecha_inicio').val("");
+    $('#fecha_fin').val("");
+    $tabla_pagos_lista.DataTable().draw();
+  });
+}
+$(document).ready(function() {
+  validateDates();
 });
 </script>
 @endsection
