@@ -13,4 +13,11 @@ class CategoriaIngreso extends Model
         return $this->hasMany(Ingreso::class);
     }
 
+    public function pagoClientes(){
+    	return $this->hasMany(PagoCLiente::class);
+    }
+
+    public function ingresoGrifos(){
+    	return $this->hasMany(IngresoGrifo::class);
+    }
 }

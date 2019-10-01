@@ -14,7 +14,9 @@ class CategoriaIngresoController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = CategoriaIngreso::with('ingresos')->with('pagoClientes')->with('ingresoGrifos')->get();
+        return  view('ingresos_otros.categorias.index', compact('categorias'));
+
     }
 
     /**
@@ -35,7 +37,11 @@ class CategoriaIngresoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        CategoriaIngreso::create( $request->validate([
+            'categoria' => 'required|max:255',
+        ]) );
+
+        return back()->with('alert-type', 'success')->with('status', 'Categoria registrada con exito');
     }
 
     /**
@@ -78,8 +84,17 @@ class CategoriaIngresoController extends Controller
      * @param  \CorporacionPeru\CategoriaIngreso  $categoriaIngreso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoriaIngreso $categoriaIngreso)
+    public function destroy($id)
     {
-        //
+        $c = CategoriaIngreso::where('id',$id)->with('ingresos')->first();
+        if( count( $categoria->ingresos )      == 0 
+        &&  count( $categoria->ingresoGrifos ) == 0
+        &&  count( $categoria->pagoClientes)   == 0 ){
+            CategoriaIngreso::destroy($id);
+            return back()->with(['alert-type' => 'warning', 'status' => 'Categoria eliminada con exito']);
+        }else{
+            return back()->with(['alert-type' => 'warning', 'status' => 'No se puede eliminar, ya tiene ingresos']);
+        }        
     }
+    
 }

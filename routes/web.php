@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/ingreso_grifos', 'IngresoGrifoController');
 		Route::resource('/ingresos_otros', 'IngresoController');
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
-		
+		Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
 	});
 
 	/* EGRESOSS -  GASTOS */

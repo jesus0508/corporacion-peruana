@@ -19,6 +19,7 @@ class CreateIngresosTable extends Migration
             $table->string('detalle')->nullable();
             $table->string('codigo_operacion')->nullable();
             $table->date('fecha_ingreso');
+            $table->date('fecha_reporte');            
             $table->string('banco')->nullable();           
             $table->unsignedBigInteger('categoria_ingreso_id');
             $table->foreign('categoria_ingreso_id')

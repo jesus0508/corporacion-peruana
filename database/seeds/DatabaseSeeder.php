@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             TransportistasTableSeeder::class,
             VehiculosTableSeeder::class, 
             StockTableSeeder::class, 
+            CategoriaIngresosTableSeeder::class,
         ]);
     }
 }
