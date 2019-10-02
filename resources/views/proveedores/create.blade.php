@@ -37,18 +37,30 @@
               
             </div>
           </div>
-
-          <div class="form-group @error('email') has-error @enderror">
-            <label for="email">Correo Electrónico</label>
-            <input id="email" type="email" class="form-control" name="email" placeholder="proveedor@ejemplo.com" value="{{ old('email') }}">
-            @error('email')
-              <span class="help-block" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-            @enderror
-          </div>          
-    
-
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group @error('email') has-error @enderror">
+                <label for="email">Correo Electrónico</label>
+                <input id="email" type="email" class="form-control" name="email" placeholder="proveedor@ejemplo.com" value="{{ old('email') }}">
+                @error('email')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>   
+            </div>
+            <div class="col-md-6">
+              <div class="form-group @error('linea_credito') has-error @enderror">
+                <label for="linea_credito">Línea de Crédito</label>
+                <input id="linea_credito" type="text" class="form-control" name="linea_credito" placeholder="Ingrese linea de crédito" value="{{ old('linea_credito') }}">
+                @error('linea_credito')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>               
+            </div>            
+          </div>                   
           </div><!-- /.box-body -->
 
         <div class="box-footer">

@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::group(['middleware' => ['role:Proveedores']], function () {
 		/* Proveedor & planta */	
 		Route::resource('/proveedores', 'ProveedorController');
+		Route::get('/proveedores_reporte','ProveedorController@reporte')->name('proveedores.reporte');
 		Route::resource('/planta', 'PlantaController');
 	
 		/* Transportista & vehiculo */

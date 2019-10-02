@@ -206,6 +206,7 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('proveedores.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
             <li><a href="{{route('proveedores.index')}}"><i class="fa fa-list"></i>Ver Proveedores</a></li>
+            <li><a href="{{route('proveedores.reporte')}}"><i class="fa fa-file-text-o"></i>Reporte Deuda</a></li>
           </ul>
         </li>
 
@@ -279,6 +280,36 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('grifos.index')}}"><i class="fa fa-industry"></i> Gestion</a></li>
             <li><a href="{{route('ingreso_grifos.index')}}"><i class="fa fa-sort-asc"></i> Ingresos</a></li>
+            <li id="treeview-gastos-grifo" class="treeview">
+              <a href="#">
+                <i class="fa  fa-sort-down"></i> <span>Egresos</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{route('gastos.index')}}"><i class="fa fa-pencil"></i> 
+                Agregar gasto </a></li>
+                <li><a href="{{route('gastos.create')}}"><i class="fa fa-minus-square"></i> 
+                Registrar gasto</a>
+                </li>
+    <!--             <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
+                Salidas Cheque&Banco</a>
+                </li> -->
+                <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
+                Reporte Gastos Diario</a>
+                </li>
+                <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+                Reporte Gastos Mensual</a>
+                </li>
+                <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                Reporte Gastos Anual</a>
+                </li>
+                <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+                Reporte Gastos General</a>
+                </li>
+              </ul>
+            </li> 
           </ul>
         </li>
         @endif
@@ -293,37 +324,37 @@ desired effect
             <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
             <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li>
           </ul>
-        </li>
+        </li> 
         <li id="treeview-gastos" class="treeview">
-          <a href="#">
-            <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('gastos.index')}}"><i class="fa fa-pencil"></i> 
-            Agregar gasto </a></li>
-            <li><a href="{{route('gastos.create')}}"><i class="fa fa-minus-square"></i> 
-            Registrar gasto</a>
-            </li>
-<!--             <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
-            Salidas Cheque&Banco</a>
-            </li> -->
-            <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
-            Reporte Gastos Diario</a>
-            </li>
-            <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
-            Reporte Gastos Mensual</a>
-            </li>
-            <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-            Reporte Gastos Anual</a>
-            </li>
-            <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
-            Reporte Gastos General</a>
-            </li>
-          </ul>
-        </li>  
+              <a href="#">
+                <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{route('gastos.index')}}"><i class="fa fa-pencil"></i> 
+                Agregar gasto </a></li>
+                <li><a href="{{route('gastos.create')}}"><i class="fa fa-minus-square"></i> 
+                Registrar gasto</a>
+                </li>
+    <!--             <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
+                Salidas Cheque&Banco</a>
+                </li> -->
+                <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
+                Reporte Gastos Diario</a>
+                </li>
+                <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+                Reporte Gastos Mensual</a>
+                </li>
+                <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                Reporte Gastos Anual</a>
+                </li>
+                <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+                Reporte Gastos General</a>
+                </li>
+              </ul>
+        </li> 
       </ul>
       <!-- /.sidebar-menu -->
     </section>

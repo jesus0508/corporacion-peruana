@@ -12,14 +12,35 @@ use Illuminate\Support\Facades\DB;
 class ProveedorController extends Controller
 {
     /**
+     * Reporte deuda de proveedores acumulados actuales.
+     * @return [type] [description]
+     */
+    public function reporte(){
+        //$proveedores = Proveedor::all();
+        $proveedores = Proveedor::
+            leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
+            ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id')         
+            ->groupBy('proveedores.id')
+            ->select(
+                'proveedores.*'
+                ,DB::raw('sum(pedidos.saldo) as calc')
+                 
+            )          ->get() ;      
+
+         
+
+        return view('proveedores.reporte.index',compact('proveedores'));
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        $proveedores = Proveedor::all();
+        
+        //$proveedores = Proveedor::all();
         $proveedores = Proveedor::
             leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
             ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id')         
@@ -59,14 +80,9 @@ class ProveedorController extends Controller
     {
    
         Proveedor::create($request->validated());
+    return  back()->with('alert-type','success')->with('status','Proveedor creado con exito');    
 
-
-    return  redirect()->action('ProveedorController@index')->with('alert-type','success')->with('status','Proveedor creado con exito');
-     
-
-    }
-
-  
+    }  
 
     /**
      * Display the specified resource.
@@ -146,10 +162,5 @@ class ProveedorController extends Controller
                 ->rawColumns(['btn'])
                 ->toJson();
     }
-
-
-
-
-
 
 }

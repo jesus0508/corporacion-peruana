@@ -17,7 +17,7 @@ class CreatePagoProveedorsTable extends Migration
             $table->bigIncrements('id');
             $table->date('fecha_operacion');
             $table->string('codigo_operacion');
-            $table->float('monto_operacion');
+            $table->float('monto_operacion',9, 2);
             $table->string('banco');
             $table->timestamps();
         });
