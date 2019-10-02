@@ -252,6 +252,7 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li>
+            <li><a href="{{route('pedidos.programacion')}}"><i class="fa fa-calendar-minus-o"></i> Reporte Programación</a></li>
           </ul>
         </li>
         
@@ -333,25 +334,10 @@ desired effect
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                <li><a href="{{route('gastos.index')}}"><i class="fa fa-pencil"></i> 
-                Agregar gasto </a></li>
-                <li><a href="{{route('gastos.create')}}"><i class="fa fa-minus-square"></i> 
-                Registrar gasto</a>
-                </li>
-    <!--             <li><a href="{{route('gastos.create')}}"><i class="fa fa-credit-card"></i> 
-                Salidas Cheque&Banco</a>
-                </li> -->
-                <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
-                Reporte Gastos Diario</a>
-                </li>
-                <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
-                Reporte Gastos Mensual</a>
-                </li>
-                <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                Reporte Gastos Anual</a>
-                </li>
-                <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
-                Reporte Gastos General</a>
+                <li><a href="#"><i class="fa fa-pencil"></i> 
+                Registro </a></li>
+                <li><a href="#"><i class="fa fa-th-list"></i> 
+                Reporte Diario</a>
                 </li>
               </ul>
         </li> 

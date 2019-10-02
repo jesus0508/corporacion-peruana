@@ -44,6 +44,41 @@ class PedidoController extends Controller
         ->toJson();
     }
 
+    /**
+     * Reporte Programacion diario.
+     * @return [type] [description]
+     */
+    public function programacion(){
+        $pedidos_cliente
+                     = Pedido::leftJoin('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                    ->leftJoin('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                    ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
+                    ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
+                    ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
+                    ->join('plantas','plantas.id','=','pedidos.planta_id')
+                    ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
+                            'pedido_clientes.galones','pedido_clientes.horario_descarga',
+                            'pedidos.scop','pedidos.nro_pedido','pedidos.id',
+                            'plantas.planta',                             
+                            'transportistas.nombre_transportista')
+                    ->get();
+
+        $pedidos_grifo = Pedido::leftJoin('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                    ->leftJoin('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                    ->join('plantas','plantas.id','=','pedidos.planta_id')
+                    ->join('pedido_grifos','pedido_grifos.pedido_id','=','pedidos.id')
+                    ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')
+                    ->select('grifos.razon_social','pedido_grifos.fecha_descarga', 
+                            'pedido_grifos.asignacion as galones',                           
+                            'pedidos.scop','pedidos.nro_pedido','pedidos.id',
+                            'plantas.planta',  'transportistas.nombre_transportista')
+                    ->get();  
+        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+        $collapsed = $collection->collapse();
+        $pedidos =$collapsed->all();
+       
+        return view('programacion.index',compact('pedidos'));
+    }
 
     public function confirmarPedido($id)
     {

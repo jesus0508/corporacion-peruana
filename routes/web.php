@@ -88,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/pedidos', 'PedidoController');
 		Route::resource('factura_proveedor', 'FacturaProveedorController');
 		Route::get('/procesar/{id}', 'PedidoController@confirmarPedido')->name('pedidos.confirmarPedido');
+		Route::get('/pedidos_programacion', 'PedidoController@programacion')->name('pedidos.programacion');
 	
 		/* Pago Proveedor  */	
 		Route::resource('/pago_proveedors', 'PagoProveedorController');
