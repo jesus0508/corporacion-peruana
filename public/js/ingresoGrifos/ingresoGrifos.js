@@ -7,7 +7,7 @@ $(document).ready(function () {
   let $lectura_inicial = $('#lectura_inicial');
   let $lectura_final = $('#lectura_final');
   let $total_galones = $('#total-galones');
-  let $venta = $('#venta');
+  let $venta = $('#galones');
   let $calibracion = $('#calibracion');
   let $precio_galon = $('#precio_galon');
   let $fecha_inicio = $('#fecha_inicio');
@@ -67,7 +67,7 @@ $(document).ready(function () {
     let totalGalones = venta - calibracion;
     let precioTotal = (totalGalones * precio_galon).toFixed(2);
 
-    $('#total').val(precioTotal);
+    $('#monto_ingreso').val(precioTotal);
   })
 
   function fillSelectGrifos(fecha = '') {

@@ -14,6 +14,7 @@
               <th>Administrador</th>
               <th>Stock</th>
               <th>Distrito</th>
+              <th>Zona</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -26,6 +27,7 @@
                 <td>{{$grifo->administrador}}</td>
                 <td>{{$grifo->stock}}</td>
                 <td>{{$grifo->distrito}}</td>
+                <td>{{$grifo->zona}}</td>
                 <td>
                   <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-grifo"
                             data-id="{{$grifo->id}}">

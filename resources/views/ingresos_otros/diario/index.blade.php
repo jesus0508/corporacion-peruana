@@ -46,13 +46,68 @@ $(document).ready(function() {
             var last=null;
  
             api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+              if( i == 0 ) {
+              	//console.log("una vez");
+              	$(rows).eq( i ).before(
+                    	$("<tr style='background-color: #5F9EA0 !important;'></tr>", { 
+
+                    "data-id": group
+                }).append($("<td></td>", {
+                    "colspan": 5, 
+                    "style": "font-weight:bold;"  ,                
+                    "text": "TOTAL: " 
+                })).append($("<td></td>", {
+                    "id": "A",
+                    "style": "font-weight:bold;"  ,                     
+                    "text":"00.0"
+                })).prop('outerHTML'));
+              }
+                
                 if ( last !== group ) {
+                	//	console.log(group);
                     $(rows).eq( i ).before(
-                        '<tr class="group" style="background-color: #ddd !important;"><td colspan="6"><b>'+group+'</b></td></tr>'
-                    ); 
+                    	$("<tr style='background-color: #ddd !important;'></tr>", { 
+
+                    "id": ""+group+"",              		
+                    "class": "group",
+                    "data-id": group
+                }).append($("<td></td>", {
+                    "colspan": 5, 
+                    "style": "font-weight:bold;"  ,                
+                    "text": "CATEGORÍA: " + group
+                })).append($("<td></td>", {
+                    "id": "e" + group,
+                    "style": "font-weight:bold;"  ,                     
+                    "value": "0.00",
+                    "data-id": 0,
+                    "text":"00.0"
+
+                })).prop('outerHTML'));
                     last = group;
-                }
-            });
+                }							
+                let val  = api.row(api.row($(rows).eq(i)).index()).data();
+                //Obtener subtotales +TOTAL
+                let elemento            = document.getElementById("e"+val[1]);
+                let elementoTOTAL       = document.getElementById("A");
+                let total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[6]);
+                elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
+                let subtotal            = parseFloat(elemento.innerHTML) + parseFloat( val[6]);                  
+                elemento.innerHTML      = parseFloat(subtotal).toFixed(2);  
+                      
+        });
+    },
+    "footerCallback": function (row, data, start, end, display) {
+        var api = this.api();
+        $(api.column(6).footer()).html(
+            api.column(6).data().reduce(function (a, b) {
+                return parseFloat(a) + parseFloat(b);
+            })
+        );
+        $(api.column(5).footer()).html(
+            api.column(5).data().reduce(function (a, b) {
+                return parseFloat(a) + parseFloat(b);
+            })
+        );
     }
   });     
 

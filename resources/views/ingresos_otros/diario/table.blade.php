@@ -36,7 +36,13 @@
                     {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}
                     @endif
                 </td>
-                <td>{{$ingreso->codigo_operacion}}</td>
+                <td>
+                  @if($ingreso->codigo_operacion)
+                  {{$ingreso->codigo_operacion}}
+                  @else
+                  {{$ingreso->zona}}
+                  @endif                  
+                </td>
                 <td>{{$ingreso->banco}}</td>
                 <td>{{$ingreso->monto_ingreso}}</td>
               </tr>

@@ -21,7 +21,11 @@ use CorporacionPeru\Stock;
 class PedidoController extends Controller
 {
 
-
+    /**
+     * Temporal| Pedidos con plantas, ver lista de pedidos
+     * datatables servr side
+     * @return [type] [description]
+     */
     public function datatables_pedidos()
     {       
         return  datatables()
@@ -67,7 +71,6 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //$pedido=Pedido::all();
         $plantas = Planta::all();
         $pedidos = Pedido::leftJoin('factura_proveedors','factura_proveedors.id','=','pedidos.factura_proveedor_id')
             ->join('plantas','pedidos.planta_id','=','plantas.id')
@@ -88,12 +91,8 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        //$pedido=Pedido::all();
         $plantas = Planta::all();
-
-
         return view('pedidosP.create_pedido.index', compact('plantas'));
-        //
     }
 
     /**
@@ -135,32 +134,24 @@ class PedidoController extends Controller
         $transportista    = $transportistaCol->nombre_transportista;
         $id_t             = $transportistaCol->id;
         }       
-        //return$pedido;
         return view( 'facturas.show.index',compact(  'pedido' , 'transportista','id_t','proveedor' ) );
      
     }
 
-        /**
-     * Display the specified resource.
-     *
+    /**
+     * Muestra interfaz para la distribución a  grifos.   
      * @param  \CorporacionPeru\Pedido  $pedido
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response pedido and grifos
      */
 
     public function distribuir_grifo($id){
         $pedido = Pedido::where('id','=',$id)->with('planta')->first();
-
-        //$pedidos_cl = Cliente::where('tipo',1)->get();
         $grifos = Grifo::all();
-
-       // return $pedidos_cl;
         return view('distribucion.grifos.index',compact( 'pedido' , 'grifos'));
-
-
     }
 
     /**
-     * Muestra interfaz para  distribuir
+     * Muestra interfaz para  distribuir a pedido cliente.
      *
      * @param  \CorporacionPeru\Pedido  $id
      * @return \Illuminate\Http\Response
@@ -169,7 +160,6 @@ class PedidoController extends Controller
     public function distribuir($id)
     {
         $pedido = Pedido::where('id', '=', $id)->with('planta')->first();
-
         $pedidos_clientes_confirmados
                     = PedidoCliente::where('estado', '=', 2)->with('cliente')->orderBy('id', 'desc')->get();
         $pedidos_cl = $pedidos_clientes_confirmados;
@@ -179,8 +169,6 @@ class PedidoController extends Controller
             $id_vehiculo = $pedido->vehiculo_id;
             $vehiculo_asignado = Vehiculo::findOrFail( $id_vehiculo )->with('transportista')->first();
         }
-        //return $pedidos_cl;
-        //return $vehiculo_asignado;
         return view('distribucion.index', compact('pedido', 'pedidos_cl', 
                                                     'vehiculos','vehiculo_asignado'));
     }
@@ -198,11 +186,8 @@ class PedidoController extends Controller
         $pedido = Pedido::findOrFail($id);
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $id)->get();
         
-         $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
-           // ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
+         $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')          
             ->where('pedido_id', $pedido->id)
-            //->groupBy('grifos.id')
-            //->select('grifos.razon_social',grifos)
             ->get();        
         return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
     }
@@ -215,7 +200,7 @@ class PedidoController extends Controller
     public function asignar_grifo(Request $request)
     {
 
-        $fecha_descarga = Carbon::now()->toDateString();      
+        $fecha_descarga = $request->fecha_descarga;      
         $grifo = Grifo::findOrFail($request->id_grifo);
         $asignacion = $request->galones_x_asignar;
         $pedido = Pedido::findOrFail($request->id_pedido_pr);
@@ -244,7 +229,6 @@ class PedidoController extends Controller
             $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
                 ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
                 ->where('pedido_id', $pedido->id)
-                //->groupBy('grifos.id')
                 ->get();
             Session::flash('alert-type', 'info');
             Session::flash('status', 'Galones asignados a Grifo');
@@ -331,106 +315,8 @@ class PedidoController extends Controller
         Session::flash('alert-type', 'info');
         Session::flash('status', 'Galones asignados a Pedido de Cliente');
 
-            return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));
-   
-
-
-        
+            return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));        
     }
-
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-
-    public function distribuir_pedido(Request $request){
-
-    try {
-
-        DB::beginTransaction();
-
-        $cantDistribuir = $request->galones_dist;
-        $pedido = Pedido::findOrFail($request->pedido_id);
-       //    $contador = 1;
-
-        $pedidos_cl = PedidoCliente::where('estado','=',2)->with('cliente')->orderBy('galones_asignados','asc')->get();
-        $galonaje_stock = $cantDistribuir;
-       // return $pedidos_cl;
-        foreach ($pedidos_cl as $pedido_cl) {
-                            // 1500 - 1500
-            $restanteXasignar = $pedido_cl->galones - $pedido_cl->galones_asignados;
-            if(  $pedido->getGalonesStock() <= 0 or 
-                  $galonaje_stock == 0){
-
-                break; //sale del foreach
-
-            }
-            //galonaje en stock <= galonaje x asignar
-            //  1500                     1500
-           if( $restanteXasignar > $galonaje_stock ){
-
-                $cantAsignada = $pedido_cl->galones_asignados + $galonaje_stock;
-                if ( $cantAsignada <= $pedido_cl->galones ) {
-
-                    $pedido_cl->galones_asignados = $cantAsignada;
-                    $pedido->galones_distribuidos += $galonaje_stock; 
-                    $galonaje_stock = 0;
-                    $pedido->estado = 3; 
-                    //se le asigna el pedido proveedor al pedido cliente
-                    $pedido->pedidosCliente()->attach($pedido_cl->id);
-                    // $pedido_cl->pedidos()->attach($pedido_cl->id);
-                    $pedido->save();                    
-                    $pedido_cl->save();
-                    break;                
-                }             
-                
-           } else{//si el stock es mayor a lo q se distribuira
-                //  1500 = 1500 
-                $cantAsignada = $pedido_cl->galones - $pedido_cl->galones_asignados ;
-
-                if( $cantAsignada <= $pedido_cl->galones ){
-
-                    $pedido_cl->galones_asignados += $cantAsignada;
-                    $galonaje_stock -= $cantAsignada;
-                    $pedido->galones_distribuidos += $cantAsignada;
-                    $pedido_cl->estado = 3;
-                    $pedido->estado = 3;
-                    // se le asigna el pedido proveedor al pedido cliente
-                    // $pedido_cl->pedidos()->attach($pedido_cl->id);
-                    $pedido->pedidosCliente()->attach($pedido_cl->id);
-                    $pedido->save();
-                    $pedido_cl->save();
-                }
-           }          
-
-        }//FIN FOREACH
-         DB::commit();
-
-        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')->where('pedido_id',$request->pedido_id)->get();
-       // $pedidos_cl =  $pedidos_cl->pedidos->wherePivot('pedido_id','=',$request->pedido_id)->get();
-       // $pedidos_cl->where('pivot.pedido_id','=',1);
-       //return $pedidos_cl;
-        return view('distribucion.resumen.index',compact( 'pedido' , 'pedidos_cl' ));
-    } //fin try
-        catch (Exception $e) {
-
-            $pedido = Pedido::where('id', '=', $id)->with('planta')->first();
-
-            $pedidos_clientes_confirmados
-                = PedidoCliente::where('estado', '=', 2)->with('cliente')->orderBy('galones_asignados', 'asc')->get();
-            $pedidos_cl = $pedidos_clientes_confirmados;
-
-            DB::rollback();
-
-            return view('distribucion.index', compact('pedido', 'pedidos_cl'))->with('alert-type', 'error')->with('status', 'Ocurrio un error inesperado!');
-        }
-    }
-
 
     /**
      * Show the form for editing the specified resource.

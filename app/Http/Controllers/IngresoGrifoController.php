@@ -39,7 +39,6 @@ class IngresoGrifoController extends Controller
      */
     public function store(StoreIngresoGrifoRequest $request)
     {
-        //
         $ingreso = IngresoGrifo::create($request->validated());
         Log::info('Fecha'.$ingreso->fecha_ingreso);
         $grifo = $ingreso->grifo;

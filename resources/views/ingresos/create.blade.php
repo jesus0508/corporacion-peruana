@@ -63,9 +63,9 @@
                 <div id="total-galones" class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="venta">Venta de Galones</label>
-                      <input id="venta" type="number" step="any" class="form-control"
-                              name="venta" readonly>
+                      <label for="galones">Venta de Galones</label>
+                      <input id="galones" type="text" step="any" class="form-control"
+                              name="galones" readonly>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -89,9 +89,9 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="total">Total</label>
-                      <input id="total" type="number" step="any" class="form-control" 
-                              name="total" readonly>
+                      <label for="monto_ingreso">Total</label>
+                      <input id="monto_ingreso" class="form-control" 
+                              name="monto_ingreso" readonly>
                     </div>
                   </div>
                 </div>

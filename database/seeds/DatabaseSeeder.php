@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         DB::table('trabajadores')->truncate();
         DB::table('transportistas')->truncate();
         DB::table('vehiculos')->truncate();
+        DB::table('ingreso_grifos')->truncate();        
                	
     	DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 

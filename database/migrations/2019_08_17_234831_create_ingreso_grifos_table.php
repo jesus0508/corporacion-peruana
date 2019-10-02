@@ -18,6 +18,7 @@ class CreateIngresoGrifosTable extends Migration
             $table->float('lectura_inicial');
             $table->float('lectura_final');
             $table->integer('calibracion');
+            $table->float('monto_ingreso');
             $table->decimal('precio_galon', 9, 5);
             $table->date('fecha_ingreso');
             $table->unsignedBigInteger('grifo_id');

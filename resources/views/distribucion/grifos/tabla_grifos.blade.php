@@ -13,6 +13,7 @@
               <th>Nombre GRIFO</th>
               <th>Administrador</th>
               <th>STOCK</th>
+              <th>Fecha Descarga</th>
               <th>Cant x asig</th> 
               <th>Acción  </th>
 
@@ -26,9 +27,13 @@
                 <td>{{$grifo->razon_social}}</td>
                 <td>{{$grifo->administrador}}</td>
                 <td>{{$grifo->stock}}</td>
-              <form method="POST" action="{{route('asignar_gls')}}">
+                <form method="POST" action="{{route('asignar_gls')}}">
+                @csrf 
+                <td>
+                   <input placeholder="fecha" type="date" style="width: 150px;" name="fecha_descarga" required="">
+                </td>              
                 <td>               
-                    @csrf 
+                    
                     <input type="hidden" name="id_grifo" value="{{$grifo->id}}">
                     <input  type="hidden" name="id_pedido_pr" value="{{$pedido->id}}">
                     <input placeholder="gls" type="number" style="width: 70px;" name="galones_x_asignar" required="" >
