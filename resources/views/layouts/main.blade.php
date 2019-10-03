@@ -314,33 +314,62 @@ desired effect
           </ul>
         </li>
         @endif
-        <li id="treeview-ingresos" class="treeview">
-          <a href="#">
-            <i class="fa fa-arrow-up"></i> <span>INGRESOS</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
-            <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li>
-          </ul>
-        </li> 
-        <li id="treeview-gastos" class="treeview">
+        <li id="treeview-ingresos-gastos" class="treeview">
               <a href="#">
-                <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>
+                <i class="glyphicon glyphicon-sort"></i> <span>Ingresos & Egresos</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                <li><a href="#"><i class="fa fa-pencil"></i> 
-                Registro </a></li>
-                <li><a href="#"><i class="fa fa-th-list"></i> 
-                Reporte Diario</a>
+                <li id="treeview-ingresos" class="treeview">
+                  <a href="#">
+                    <i class="fa fa-arrow-up"></i> <span>INGRESOS</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
+                    <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li>
+                  </ul>
+                </li> 
+                <li id="treeview-gastos" class="treeview">
+                  <a href="#">
+                    <i class="fa  fa-arrow-down"></i> <span>EGRESOS</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-pencil"></i> 
+                    Registro </a></li>
+                    <li><a href="#"><i class="fa fa-th-list"></i> 
+                    Reporte Diario</a>
+                    </li>
+                  </ul>
+                </li> 
+                <li><a href="{{route('depositos.create')}}"><i class="glyphicon glyphicon-list-alt"></i> 
+                Registro Depósitos</a>
+                </li>
+              </ul>
+        </li>
+        <li id="treeview-empresa" class="treeview">
+              <a href="#">
+                <i class="glyphicon glyphicon-home"></i> <span>Empresa</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{ route('empresa.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
+                Empresa Información</a></li>
+                <li><a href="#"><i class="fa fa-bank "></i> 
+                Bancos</a>
                 </li>
               </ul>
         </li> 
+
       </ul>
       <!-- /.sidebar-menu -->
     </section>

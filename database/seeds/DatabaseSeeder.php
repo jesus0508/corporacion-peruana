@@ -35,6 +35,10 @@ class DatabaseSeeder extends Seeder
             VehiculosTableSeeder::class, 
             StockTableSeeder::class, 
             CategoriaIngresosTableSeeder::class,
+            EmpresaTableSeeder::class,
+            BancosTableSeeder::class,
+            CuentasTableSeeder::class,         
+
         ]);
     }
 }

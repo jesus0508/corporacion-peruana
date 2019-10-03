@@ -58,7 +58,18 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
 	});
 
-	/* EGRESOSS -  GASTOS */
+	/* EMPRESA */
+	Route::resource('/empresa','EmpresaController');
+	Route::resource('/bancos','BancoController');
+	Route::resource('/cuentas','CuentaController');
+	Route::resource('/depositos','DepositoController');
+
+
+	/*  EGRESOS OTROS... */
+	Route::resource('/salidas','SalidaController');
+
+
+	/* EGRESOSS -  GASTOS (GRIFOS)*/
 	Route::resource('/categoria_gastos', 'CategoriaGastoController');
 	Route::resource('/sub_categoria_gastos', 'SubCategoriaGastoController');
 	Route::resource('/concepto_gastos', 'ConceptoGastoController');
