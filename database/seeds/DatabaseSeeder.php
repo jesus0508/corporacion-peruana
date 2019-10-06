@@ -37,7 +37,8 @@ class DatabaseSeeder extends Seeder
             CategoriaIngresosTableSeeder::class,
             EmpresaTableSeeder::class,
             BancosTableSeeder::class,
-            CuentasTableSeeder::class,         
+            CuentasTableSeeder::class,
+            CategoriaEgresosTableSeeder::class,        
 
         ]);
     }

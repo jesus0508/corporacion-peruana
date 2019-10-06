@@ -3,7 +3,11 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Salida;
+use CorporacionPeru\Cuenta;
 use Illuminate\Http\Request;
+use CorporacionPeru\CategoriaEgreso;
+use Carbon\Carbon;
+use DB;
 
 class SalidaController extends Controller
 {
@@ -14,7 +18,36 @@ class SalidaController extends Controller
      */
     public function index()
     {
-        //
+        $egresos1 = Salida::join('categoria_egresos','categoria_egresos.id','=','salidas.categoria_egreso_id')
+            ->select('salidas.*','categoria_egresos.categoria')
+            ->get();
+
+        $egresos2 = CategoriaEgreso::join('pago_proveedors','categoria_egresos.id','=','pago_proveedors.categoria_egreso_id')
+            ->select('pago_proveedors.codigo_operacion','pago_proveedors.monto_operacion as monto_egreso','pago_proveedors.banco','pago_proveedors.fecha_operacion as fecha_egreso','categoria_egresos.categoria')
+            ->get(); 
+        $collection = collect([$egresos1, $egresos2]);
+        $collapsed = $collection->collapse();
+        $egresos =$collapsed->all(); 
+
+        return view('salidas.diario.index', compact('egresos'));
+    }
+
+    /**
+     * [reporte de ingresos de un día,
+     * al momento de registrar otros ingresos del mismo día]
+     * @return [type] [description]
+     */
+    public function egresosDT( $date = null ){
+        if ( $date == null ) {
+          $date = Carbon::now()->format('Y-m-d');
+        }             
+        return datatables()
+            ->eloquent( Salida::query()
+                        ->join('categoria_egresos','categoria_egresos.id','=','salidas.categoria_egreso_id')
+                        ->select('salidas.*','categoria_egresos.categoria')
+                        ->where('fecha_reporte',$date)
+                         ) 
+                        ->toJson();
     }
 
     /**
@@ -24,7 +57,9 @@ class SalidaController extends Controller
      */
     public function create()
     {
-        //
+        $cuentas = Cuenta::all();
+        $categorias = CategoriaEgreso::all();
+        return view('salidas.index', compact('categorias','cuentas'));
     }
 
     /**
@@ -34,8 +69,13 @@ class SalidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {      
+        if( $request->ajax() ){
+            Salida::create($request->all());
+            return response()->json([
+                'mensaje' => 'creado'
+            ]);
+        }
     }
 
     /**

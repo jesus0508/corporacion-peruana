@@ -8,20 +8,15 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Ingresos</a></li>
+  <li><a href="#">Depósitos</a></li>
   <li><a href="#">Reporte</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-
-  	@include('ingresos_otros.diario.buttons_top')
-  	@include('ingresos_otros.diario.table')
-
-	<!-- modales -->
-   @include('ingresos_otros.modal_categoria')
-   <!-- fin modales -->
+  	@include('depositos.diario.buttons_top')
+  	@include('depositos.diario.table')
 </section>
 @endsection
 
@@ -30,7 +25,7 @@
 <script>
 $(document).ready(function() {
 	var groupColumn = 1;
-  $('#tabla-reporte-ingresos').DataTable({
+  $('#tabla-reporte-depositos').DataTable({
   	"columnDefs": [
             { "visible": false, "targets": groupColumn }
         ],
@@ -38,8 +33,6 @@ $(document).ready(function() {
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-    //"ordering": ,
-    //"searching": true,
 		"drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();
@@ -47,9 +40,8 @@ $(document).ready(function() {
  
             api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
               if( i == 0 ) {
-              	//console.log("una vez");
               	$(rows).eq( i ).before(
-                    	$("<tr style='background-color: #5F9EA0 !important;'></tr>", { 
+                    	$("<tr style='background-color: #6F9EA0 !important;'></tr>", { 
 
                     "data-id": group
                 }).append($("<td></td>", {
@@ -61,10 +53,8 @@ $(document).ready(function() {
                     "style": "font-weight:bold;"  ,                     
                     "text":"00.0"
                 })).prop('outerHTML'));
-              }
-                
+              }                
                 if ( last !== group ) {
-                	//	console.log(group);
                     $(rows).eq( i ).before(
                     	$("<tr style='background-color: #ddd !important;'></tr>", { 
 
@@ -87,6 +77,7 @@ $(document).ready(function() {
                 }							
                 let val  = api.row(api.row($(rows).eq(i)).index()).data();
                 //Obtener subtotales +TOTAL
+                console.log(val);
                 let elemento            = document.getElementById("e"+val[1]);
                 let elementoTOTAL       = document.getElementById("A");
                 let total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[6]);
@@ -95,19 +86,6 @@ $(document).ready(function() {
                 elemento.innerHTML      = parseFloat(subtotal).toFixed(2);  
                       
         });
-    },
-    "footerCallback": function (row, data, start, end, display) {
-        var api = this.api();
-        $(api.column(6).footer()).html(
-            api.column(6).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            })
-        );
-        $(api.column(5).footer()).html(
-            api.column(5).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            })
-        );
     }
   });     
 
@@ -115,7 +93,7 @@ $(document).ready(function() {
 
 function validateDates() {
 	//console.log('entro a validate');
-  let $tabla_pagos_lista = $('#tabla-reporte-ingresos');
+  let $tabla_pagos_lista = $('#tabla-reporte-depositos');
  
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
@@ -136,7 +114,7 @@ function validateDates() {
       var sFin = $('#fecha_inicio').val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[3]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }

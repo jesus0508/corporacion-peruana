@@ -13,11 +13,11 @@ class CategoriaIngresosTableSeeder extends Seeder
     {
 
         DB::table('categoria_ingresos')->insert([
-            'categoria' => 'Ingresos Venta Cliente Directo',
+            'categoria' => 'INGRESOS POR VENTA DIRECTA A CLIENTES',
         ]);
 
         DB::table('categoria_ingresos')->insert([
-            'categoria' => 'Ingresos por Grifos',
+            'categoria' => 'INGRESOS POR GRIFOS',
         ]);
 
                        

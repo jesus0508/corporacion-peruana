@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Ingresos')
+@section('title','Egresos')
 @section('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
@@ -8,24 +8,22 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Ingresos</a></li>
+  <li><a href="#">Egresos</a></li>
   <li><a href="#">Registro</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-   @include('ingresos_otros.top_button')
+   @include('salidas.top_button')
   <form action="">
-    @include('ingresos_otros.header')
-    @include('ingresos_otros.create')
-  </form>
-  	
-  	@include('ingresos_otros.table')
-
+    @include('salidas.header')
+    @include('salidas.create')
+  </form>  	
+  @include('salidas.table')
 	<!-- modales -->
-   @include('ingresos_otros.modal_categoria')
-   <!-- fin modales -->
+  @include('salidas.modal_categoria')
+  <!-- fin modales -->
 </section>
 @endsection
 
@@ -34,20 +32,18 @@
 <script>
 $(document).ready(function() {
 
-  $('#tabla-ingresos').DataTable({
+  $('#tabla-egresos').DataTable({
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-    //"bProcessing": true,
-		//'serverSide': true, Kga el filtrado u.u
-		'ajax': `../ingresos_otros_dt`,
+		'ajax': `../egresos_dt`,
 		'columns': [
 		  {data: 'fecha_reporte'},
 		  {data: 'categoria'},
 			{data: 'detalle'},
-			{data: 'fecha_ingreso'},
+			{data: 'fecha_egreso'},
 			{data: 'codigo_operacion'},
-			{data: 'monto_ingreso'}
+			{data: 'monto_egreso'}
 		]      
   }); 
 
@@ -68,38 +64,42 @@ $(document).ready(function() {
 
 	$('#btn_filter2').click(function() {
 		let fecha_reporte =$('#fecha_reporte2').val();		
-		RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
-
+		RefreshTable('#tabla-egresos',`../egresos_dt/${fecha_reporte}`);
 	});
 
-  $('#btn_register').click(function(){//store GASTO
-    let categoria_ingreso_id = $('#categoria_ingreso_id').val();   
-    let monto_ingreso =$('#monto_ingreso').val();
-    let fecha_ingreso =$('#fecha_ingreso').val();
+  $('#btn_register').click(function(e){//store GASTO
+    e.preventDefault();
+    let categoria_egreso_id = $('#categoria_egreso_id').val();   
+    let monto_egreso =$('#monto_egreso').val();
+    let fecha_egreso =$('#fecha_egreso').val();
     let fecha_reporte =$('#fecha_reporte').val();
     let codigo_operacion =$('#codigo_operacion').val();  
+    let cuenta_id = $('#cuenta_id option:selected').val();
     let detalle =$('#detalle').val();
     let token =$('#token').val();
+    console.log(cuenta_id);
     $.ajax({
-        url: `../ingresos_otros`,
+        url: `../salidas`,
         headers: {'X-CSRF-TOKEN': token},
         type: 'POST',
         dataType: 'json',
         data:{
-          monto_ingreso: monto_ingreso,
+          cuenta_id: cuenta_id,
+          monto_egreso: monto_egreso,
           fecha_reporte: fecha_reporte,  
-          fecha_ingreso: fecha_ingreso,
-          categoria_ingreso_id: categoria_ingreso_id,
+          fecha_egreso: fecha_egreso,
+          categoria_egreso_id: categoria_egreso_id,
           detalle: detalle,
           codigo_operacion: codigo_operacion
         }
 
     }).done(function (data){
-        $('#monto_ingreso').val('');
+      //console.log('done');
+        $('#monto_egreso').val('');
         $('#detalle').val('');
   			$('#codigo_operacion').val('');	
-      RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
-      toastr.success(data.status, 'Ingreso registrado con éxito', { timeOut: 2000 });
+      RefreshTable('#tabla-egresos',`../egresos_dt/${fecha_reporte}`);
+      toastr.success(data.status, 'Egreso registrado con éxito', { timeOut: 2000 });
     });    
   });
 

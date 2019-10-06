@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/grifos/all/{fecha?}', 'GrifoController@getGrifosSinIngreso')->name('grifos.sinIngreso');
 		Route::resource('/grifos', 'GrifoController');
 		
-		/* Ingreso */
+		/* Ingresos */
 		Route::get('/ingreso_grifos/grifo/{id}', 'IngresoGrifoController@getLastIngreso')->name('pago_clientes.lastIngreso');
 		Route::resource('/ingreso_grifos', 'IngresoGrifoController');
 		Route::resource('/ingresos_otros', 'IngresoController');
@@ -67,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
 
 	/*  EGRESOS OTROS... */
 	Route::resource('/salidas','SalidaController');
+	Route::resource('/categoria_egresos', 'CategoriaEgresoController');
+	Route::get('/egresos_dt/{date?}','SalidaController@egresosDT');
 
 
 	/* EGRESOSS -  GASTOS (GRIFOS)*/

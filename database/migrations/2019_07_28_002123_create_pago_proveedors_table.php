@@ -19,6 +19,9 @@ class CreatePagoProveedorsTable extends Migration
             $table->string('codigo_operacion');
             $table->float('monto_operacion',9, 2);
             $table->string('banco');
+            $table->unsignedBigInteger('categoria_egreso_id')->default(1);
+            $table->foreign('categoria_egreso_id')
+            ->references('id')->on('categoria_ingresos');            
             $table->timestamps();
         });
     }

@@ -86,7 +86,7 @@ class CategoriaIngresoController extends Controller
      */
     public function destroy($id)
     {
-        $c = CategoriaIngreso::where('id',$id)->with('ingresos')->first();
+        $c = CategoriaIngreso::where('id',$id)->with('ingresos')->with('pagoClientes')->with('ingresoGrifos')->first();
         if( count( $categoria->ingresos )      == 0 
         &&  count( $categoria->ingresoGrifos ) == 0
         &&  count( $categoria->pagoClientes)   == 0 ){

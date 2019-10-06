@@ -342,15 +342,27 @@ desired effect
                     </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="#"><i class="fa fa-pencil"></i> 
+                    <li><a href="{{route('salidas.create')}}"><i class="fa fa-pencil"></i> 
                     Registro </a></li>
-                    <li><a href="#"><i class="fa fa-th-list"></i> 
+                    <li><a href="{{route('salidas.index')}}"><i class="fa fa-th-list"></i> 
                     Reporte Diario</a>
                     </li>
                   </ul>
-                </li> 
-                <li><a href="{{route('depositos.create')}}"><i class="glyphicon glyphicon-list-alt"></i> 
-                Registro Depósitos</a>
+                </li>
+                <li id="treeview-depositos" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i> <span>Depositos</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{route('depositos.create')}}"><i class="fa fa-pencil"></i> 
+                    Registro </a></li>
+                    <li><a href="{{route('depositos.index')}}"><i class="fa fa-th-list"></i> 
+                    Reporte Diario</a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
         </li>

@@ -3,8 +3,8 @@
     <div class="box box-success">
       <div class="box-header with-border">
         <div class="row">
-          <div class="col-md-6">
-            <h2 class="box-title">Lista de ingresos [*solo lista ingresos otros]</h2>
+          <div class="col-md-3">
+            <h2 class="box-title">Lista de Egresos</h2>
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -15,20 +15,16 @@
           <div class="col-md-3">
             <button class="btn btn-info" id="btn_filter2"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp; Filtrar</button>
           </div>          
-        </div>     
-     
-       
-
-    
+        </div>    
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-ingresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-egresos" class="table table-bordered table-striped responsive display nowrap" >
           <thead>
             <tr>
               <th>FECHA REPORTE</th>
               <th>CATEGORIA</th>              
               <th>Detalles</th>
-              <th>FECHA Ingreso</th>
+              <th>FECHA egreso</th>
               <th>Extra Info</th>
               <th>Monto</th>
             </tr>

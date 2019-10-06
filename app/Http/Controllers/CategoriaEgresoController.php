@@ -14,7 +14,8 @@ class CategoriaEgresoController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = CategoriaEgreso::all();
+        return  view('salidas.categorias.index', compact('categorias'));
     }
 
     /**
@@ -35,7 +36,11 @@ class CategoriaEgresoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        CategoriaEgreso::create( $request->validate([
+            'categoria' => 'required|max:255',
+        ]) );
+
+        return back()->with('alert-type', 'success')->with('status', 'Categoria registrada con exito');
     }
 
     /**
@@ -78,8 +83,15 @@ class CategoriaEgresoController extends Controller
      * @param  \CorporacionPeru\CategoriaEgreso  $categoriaEgreso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoriaEgreso $categoriaEgreso)
+    public function destroy($id)
     {
-        //
+        $c = CategoriaEgreso::where('id',$id)->with('egresos')->with('pagoProveedores')->first();
+        if( count( $categoria->egresos )      == 0 
+        &&  count( $categoria->pagoProveedores)   == 0 ){
+            CategoriaEgreso::destroy($id);
+            return back()->with(['alert-type' => 'warning', 'status' => 'Categoria eliminada con exito']);
+        }else{
+            return back()->with(['alert-type' => 'warning', 'status' => 'No se puede eliminar, ya tiene egresos']);
+        }    
     }
 }

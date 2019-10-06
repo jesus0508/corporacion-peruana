@@ -6,7 +6,7 @@ use CorporacionPeru\Deposito;
 use Illuminate\Http\Request;
 use CorporacionPeru\Cuenta;
 use CorporacionPeru\Banco;
-
+use CorporacionPeru\PagoCliente;
 class DepositoController extends Controller
 {
     /**
@@ -16,7 +16,23 @@ class DepositoController extends Controller
      */
     public function index()
     {
-        //
+        $depositos1 = Deposito::join('cuentas','cuentas.id','=','depositos.cuenta_id')
+            ->join('bancos','bancos.id','=','cuentas.banco_id')
+            ->select('depositos.*','bancos.abreviacion','bancos.banco','cuentas.nro_cuenta')
+            ->get();
+
+        $depositos2 = PagoCliente::join('pago_cliente_pedido_cliente','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
+            ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')
+            ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
+            //->where('categoria_ingresos',1)//DEPÓSITO por VENTA CLIENTE DIRECTO
+            ->select('pago_clientes.codigo_operacion','pago_clientes.monto_operacion as monto','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_deposito',
+                'clientes.razon_social as detalle')
+            ->get();
+        $collection = collect([$depositos1, $depositos2 ]);
+        $collapsed = $collection->collapse();
+        $depositos =$collapsed->all(); 
+
+        return view('depositos.diario.index', compact('depositos'));
     }
 
     /**

@@ -9,18 +9,16 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Ingresos</a></li>
-  <li><a href="#">Reporte</a></li>
+  <li><a href="#">Registro</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-
-  	@include('ingresos_otros.diario.buttons_top')
-  	@include('ingresos_otros.diario.table')
-
+  	@include('salidas.diario.buttons_top')
+  	@include('salidas.diario.table')
 	<!-- modales -->
-   @include('ingresos_otros.modal_categoria')
+    @include('salidas.modal_categoria')
    <!-- fin modales -->
 </section>
 @endsection
@@ -30,7 +28,7 @@
 <script>
 $(document).ready(function() {
 	var groupColumn = 1;
-  $('#tabla-reporte-ingresos').DataTable({
+  $('#tabla-reporte-egresos').DataTable({
   	"columnDefs": [
             { "visible": false, "targets": groupColumn }
         ],
@@ -115,7 +113,7 @@ $(document).ready(function() {
 
 function validateDates() {
 	//console.log('entro a validate');
-  let $tabla_pagos_lista = $('#tabla-reporte-ingresos');
+  let $tabla_pagos_lista = $('#tabla-reporte-egresos');
  
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,

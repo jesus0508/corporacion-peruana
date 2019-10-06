@@ -21,7 +21,7 @@ class CreateSalidasTable extends Migration
             $table->date('fecha_egreso')->nullable();
             $table->date('fecha_reporte');            
             $table->string('banco')->nullable();
-            $table->unsignedBigInteger('cuenta_id');
+            $table->unsignedBigInteger('cuenta_id')->nullable();
             $table->foreign('cuenta_id')
             ->references('id')->on('cuentas');           
             $table->unsignedBigInteger('categoria_egreso_id');
