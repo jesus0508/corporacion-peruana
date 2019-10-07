@@ -43,7 +43,7 @@ $(document).ready(function() {
 			{data: 'detalle'},
 			{data: 'fecha_egreso'},
 			{data: 'codigo_operacion'},
-			{data: 'monto_egreso'}
+			{data: 'monto_egreso', render: $.fn.dataTable.render.number( ',', '.', 0, 'S/. ' )}
 		]      
   }); 
 

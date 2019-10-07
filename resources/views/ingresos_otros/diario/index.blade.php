@@ -89,12 +89,13 @@ $(document).ready(function() {
                 //Obtener subtotales +TOTAL
                 let elemento            = document.getElementById("e"+val[1]);
                 let elementoTOTAL       = document.getElementById("A");
-                let total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[6]);
+                var total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[6]);
                 elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
                 let subtotal            = parseFloat(elemento.innerHTML) + parseFloat( val[6]);                  
-                elemento.innerHTML      = parseFloat(subtotal).toFixed(2);  
+                elemento.innerHTML      = parseFloat(subtotal).toFixed(2); 
+              //$('#pruebita').val(total);
                       
-        });
+        });   
     },
     "footerCallback": function (row, data, start, end, display) {
         var api = this.api();

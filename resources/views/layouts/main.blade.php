@@ -364,6 +364,21 @@ desired effect
                     </li>
                   </ul>
                 </li>
+                <li id="treeview-comprobacion" class="treeview">
+                  <a href="#">
+                    <i class="fa fa-check-square-o"></i> <span>Comprobación</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ route('comprobaciones.create') }}"><i class="fa fa-pencil"></i> 
+                    Registro </a></li>
+                    <li><a href="{{ route('comprobaciones.index') }}"><i class="fa fa-th-list"></i> 
+                    Reporte Diario</a>
+                    </li>
+                  </ul>
+                </li>
               </ul>
         </li>
         <li id="treeview-empresa" class="treeview">

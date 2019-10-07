@@ -47,7 +47,7 @@ $(document).ready(function() {
 			{data: 'detalle'},
 			{data: 'fecha_ingreso'},
 			{data: 'codigo_operacion'},
-			{data: 'monto_ingreso'}
+			{data: 'monto_ingreso', render: $.fn.dataTable.render.number( ',', '.', 0, '$' )}
 		]      
   }); 
 
@@ -72,7 +72,8 @@ $(document).ready(function() {
 
 	});
 
-  $('#btn_register').click(function(){//store GASTO
+  $('#btn_register').click(function(e){//store GASTO
+    e.preventDefault();
     let categoria_ingreso_id = $('#categoria_ingreso_id').val();   
     let monto_ingreso =$('#monto_ingreso').val();
     let fecha_ingreso =$('#fecha_ingreso').val();

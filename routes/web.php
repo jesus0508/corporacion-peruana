@@ -70,6 +70,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/categoria_egresos', 'CategoriaEgresoController');
 	Route::get('/egresos_dt/{date?}','SalidaController@egresosDT');
 
+	/*   COMPROBACIONES  */
+	Route::resource('/comprobaciones','ComprobacionController');
+	Route::get('/comprobaciones_dt/{date?}','ComprobacionController@comprobacionesDT');
 
 	/* EGRESOSS -  GASTOS (GRIFOS)*/
 	Route::resource('/categoria_gastos', 'CategoriaGastoController');
