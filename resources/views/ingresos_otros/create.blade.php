@@ -22,15 +22,15 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="fecha_ingreso">Fecha de Ingreso* </label>
-                <input autocomplete="off" id="fecha_ingreso" type="date" class="tuiker form-control"
-                        name="fecha_ingreso" placeholder="Fecha de Ingreso" required="">
+                <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control"
+                        name="fecha_ingreso" placeholder="Fecha de Ingreso" required=""/>
               </div>               
             </div>       
             <div class="col-md-2">
               <div class="form-group @error('monto_ingreso') has-error @enderror">
                 <label for="monto_ingreso">Monto* </label>
                 <input id="monto_ingreso" type="text" class="form-control" value="{{old('monto_ingreso')}}"
-                        name="monto_ingreso" placeholder="Monto " required>
+                        name="monto_ingreso" placeholder="Monto " required="" />
                 @error('monto_ingreso')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
               <div class="form-group @error('detalle') has-error @enderror">
                 <label for="detalle">Detalle</label>
                 <input id="detalle" type="text" class="form-control" value="{{old('detalle')}}"
-                        name="detalle" placeholder="Ingrese el detalle del ingreso" required>
+                        name="detalle" placeholder="Ingrese el detalle del ingreso" required />
                 @error('detalle')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>

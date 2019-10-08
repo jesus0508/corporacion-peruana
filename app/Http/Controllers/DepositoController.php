@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Cuenta;
 use CorporacionPeru\Banco;
 use CorporacionPeru\PagoCliente;
+use Carbon\Carbon;
 class DepositoController extends Controller
 {
     /**
@@ -57,7 +58,17 @@ class DepositoController extends Controller
      */
     public function store(Request $request)
     {
-        Deposito::create($request->all());
+      
+        //$request->fecha_reporte= Carbon::createFromFormat('d/m/Y',$request->fecha_reporte);
+        $deposito = new Deposito;
+        //$request->validated();
+        $deposito->monto =$request->monto;
+        $deposito->detalle=$request->detalle;
+        $deposito->codigo_operacion=$request->codigo_operacion;
+        $deposito->cuenta_id=$request->cuenta_id;        
+        $deposito->setFechaFacturaAttribute($request->fecha_reporte);      
+        $deposito->save();   
+                     
         return back()->with('alert-type', 'success')->with('status', 'Deposito Registrado con exito');
     }
 

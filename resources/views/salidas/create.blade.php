@@ -21,7 +21,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="fecha_egreso">Fecha de Egreso* </label>
-                <input autocomplete="off" id="fecha_egreso" type="date" class="tuiker form-control"
+                <input autocomplete="off" id="fecha_egreso" type="text" class="tuiker form-control"
                         name="fecha_egreso" placeholder="Fecha de Egreso" required="">
               </div>               
             </div>       

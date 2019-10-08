@@ -30,11 +30,37 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
+ 
+
+
 $(document).ready(function() {
+  $("#categoria_egreso_id").prop("selectedIndex", -1);  
+
+  $("#categoria_egreso_id").select2({
+    placeholder: "Seleccione la categoria",
+    allowClear:true
+  });
+
+  $("#cuenta_id").prop("selectedIndex", -1);
+  $("#cuenta_id").select2({
+    placeholder: "Seleccione la cuenta",
+    allowClear:true
+  });
+
+  $('#fecha_reporte').datepicker({
+   //minDate: 0,
+  });
+ $('#fecha_egreso').datepicker({
+   //minDate: 0,
+  });
+ $('#fecha_reporte2').datepicker({
+   //minDate: 0,
+  }); 
+
 
   $('#tabla-egresos').DataTable({
     'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
+      'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
 		'ajax': `../egresos_dt`,
 		'columns': [
@@ -46,7 +72,10 @@ $(document).ready(function() {
 			{data: 'monto_egreso', render: $.fn.dataTable.render.number( ',', '.', 0, 'S/. ' )}
 		]      
   }); 
-
+  function convertDateFormat(string) {
+        var info = string.split('/').reverse().join('-');
+        return info;
+  }
 	function RefreshTable(tableId, urlData){
   	$.getJSON(urlData, null, function( json ){
     	table = $(tableId).dataTable();
@@ -63,7 +92,8 @@ $(document).ready(function() {
 	}
 
 	$('#btn_filter2').click(function() {
-		let fecha_reporte =$('#fecha_reporte2').val();		
+	  let fecha_reporte =$('#fecha_reporte2').val();
+    fecha_reporte = convertDateFormat(fecha_reporte);	
 		RefreshTable('#tabla-egresos',`../egresos_dt/${fecha_reporte}`);
 	});
 
@@ -72,12 +102,14 @@ $(document).ready(function() {
     let categoria_egreso_id = $('#categoria_egreso_id').val();   
     let monto_egreso =$('#monto_egreso').val();
     let fecha_egreso =$('#fecha_egreso').val();
+     fecha_egreso = convertDateFormat(fecha_egreso);
     let fecha_reporte =$('#fecha_reporte').val();
+    fecha_reporte = convertDateFormat(fecha_reporte);    
     let codigo_operacion =$('#codigo_operacion').val();  
     let cuenta_id = $('#cuenta_id option:selected').val();
     let detalle =$('#detalle').val();
     let token =$('#token').val();
-    console.log(cuenta_id);
+   // console.log(cuenta_id);
     $.ajax({
         url: `../salidas`,
         headers: {'X-CSRF-TOKEN': token},
@@ -98,6 +130,7 @@ $(document).ready(function() {
         $('#monto_egreso').val('');
         $('#detalle').val('');
   			$('#codigo_operacion').val('');	
+        $('#cuenta_id').val('').trigger('change');
       RefreshTable('#tabla-egresos',`../egresos_dt/${fecha_reporte}`);
       toastr.success(data.status, 'Egreso registrado con éxito', { timeOut: 2000 });
     });    

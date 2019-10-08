@@ -96,19 +96,6 @@ $(document).ready(function() {
               //$('#pruebita').val(total);
                       
         });   
-    },
-    "footerCallback": function (row, data, start, end, display) {
-        var api = this.api();
-        $(api.column(6).footer()).html(
-            api.column(6).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            })
-        );
-        $(api.column(5).footer()).html(
-            api.column(5).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            })
-        );
     }
   });     
 

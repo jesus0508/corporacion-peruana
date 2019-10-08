@@ -8,41 +8,19 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Ingresos</a></li>
-  <li><a href="#">Reporte</a></li>
+  <li><a href="#">Registrar Comprobacion</a></li>
+  <li><a href="#">Reporte Comprobacion</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  <div class="row">
-    <div class="col-md-3">
-      
-    </div>
-    <div class="col-md-5">
-      <div class="row filtrado">
-        <div class="col-md-6" >
-          <button id="filtrar-fecha" class="btn btn-info">
-            <i class="fa fa-search"></i>
-            Filtrar
-          </button>
-          <button id="clear-fecha" class="btn btn-danger">
-            <i class="fa fa-remove "></i>
-            Limpiar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <form action="">
-    @include('comprobacion.create.buttons_top')
-    @include('comprobacion.create.create') 
-  </form>
-  	
 
-  	@include('comprobacion.create.table')
-    @include('comprobacion.create.table_ingresos')
-    @include('comprobacion.create.table_depositos') 
+    @include('comprobacion.diario.buttons_top')
+    @include('comprobacion.diario.create')  	
+  	@include('comprobacion.diario.table')
+    @include('comprobacion.diario.table_ingresos')
+    @include('comprobacion.diario.table_depositos') 
 </section>
 @endsection
 
@@ -51,107 +29,60 @@
 <script>
 $(document).ready(function() {
 
-  $('#fecha').datepicker({
-   //minDate: 0,
-  });
- $('#fecha_reporte2').datepicker({
-   //minDate: 0,
-  });
-  $('#tabla-comprobaciones').DataTable({
+var groupColumn = 1;
+  //ingresos
+  $('#tabla-reporte-comprobaciones').DataTable({
+    "paging":   false,
+    "ordering": true,//debe ser true to work
+    "info":     false,
+    "searching": true,//debe ser true to work
+    "columnDefs": [
+            { "visible": false, "targets": groupColumn }
+        ],
+    "order": [[ groupColumn, 'asc' ]],
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-    //"bProcessing": true,
-    //'serverSide': true, Kga el filtrado u.u
-    "paging":   false,
-    "ordering": false,
-    "info":     false,
-    "searching": true,
-    'ajax': `../comprobaciones_dt`,
-    'columns': [
-      {data: 'fecha_reporte'},
-      {data: 'detalle'},
-      {data: 'fecha'},
-      {data: 'monto'}
-    ],"footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-            // Total over all pages
-            total = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return parseFloat(a) + parseFloat(b);
-                }, 0 );
-  
-            // Update footer
-            $( api.column( 3 ).footer() ).html(
-                '  S/. '+ total 
-            );
-            let monto_comprobacion =  $('#monto_comprobacion').val();
-            $('#restante_comprobacion').val( parseFloat(monto_comprobacion- total).toFixed() );
-        
 
-        } 
-     
-  }); 
-function evaluarBtn(){
-  let res_comp = $('#restante_comprobacion').val();
-  let comp =$('#monto_comprobacion').val();
-  if(res_comp == comp){
-    $('#btn_register').hide();
-  }else{
-    $('#btn_register').show();
-  }
-}
+    "drawCallback": function ( settings ) {
+          // $('#monto_comprobacion').val( 0 );
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+              if( i == 0 ) {
+                //console.log("una vez");
+                $(rows).eq( i ).before(
+                      $("<tr style='background-color: #5F9EA0 !important;'></tr>", { 
 
-
-  $('#btn_filter2').click(function() {
-    let fecha_reporte =$('#fecha_reporte2').val();
-    fecha_reporte = convertDateFormat(fecha_reporte); 
-    RefreshTable('#tabla-comprobaciones',`../comprobaciones_dt/${fecha_reporte}`);
-    //$('#tabla-comprobaciones').DataTable().ajax.url(`../comprobaciones_dt/${sFecha_reporte}`).load();
-   
-  });
-
-  $('#btn_register').click(function(e){//store GASTO  
-    e.preventDefault();
-   // console.log( evaluarComprobacion() );
-    if( evaluarComprobacion() == 1 ){ 
-
-      let monto =$('#monto').val();
-      let sFecha =$('#fecha').val();
-      let fecha = convertDateFormat(sFecha);
-      let sFecha_reporte =  $('#fecha_inicio').val();
-      let fecha_reporte = convertDateFormat(sFecha_reporte);
-      let detalle =$('#detalle').val(); 
-      let token =$('#token').val();
-      $.ajax({
-          url: `../comprobaciones`,
-          headers: {'X-CSRF-TOKEN': token},
-          type: 'POST',
-          dataType: 'json',
-          data:{
-            monto: monto,
-            fecha_reporte: fecha_reporte,  
-            fecha: fecha,
-            detalle: detalle         
-          }
-
-      }).done(function (data){
-          $('#monto').val('');
-          $('#detalle').val(''); 
-        let sFecha_reporte =  $('#fecha_inicio').val();
-        let fecha_reporte = convertDateFormat(sFecha_reporte);
-        RefreshTable('#tabla-comprobaciones',`../comprobaciones_dt/${fecha_reporte}`);
-        //$('#tabla-comprobaciones').DataTable().ajax.url(`../comprobaciones_dt/${sFecha_reporte}`).load();
-        toastr.success(data.status, 'Comprobacion registrada con éxito', { timeOut: 2000 });
-      }); 
-    }else{
-      alert('Debes rellenar todos los campos');
+                    "data-id": group
+                }).append($("<td></td>", {
+                    "colspan": 3, 
+                    "style": "font-weight:bold;"  ,                
+                    "text": "TOTAL: " 
+                })).append($("<td></td>", {
+                    "id": "C",
+                    "style": "font-weight:bold;"  ,                     
+                    "text":"00.0"
+                })).prop('outerHTML'));
+              }
+                            
+                let val  = api.row(api.row($(rows).eq(i)).index()).data();
+                //Obtener subtotales +TOTAL
+               // console.log(val);
+                let elementoTOTAL       = document.getElementById("C");
+                let total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[4]);
+                elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
+                
+                      
+        });   
     }
-});
-
+  });
 }); 
+
+ 
+
 $(document).ready(function() {
 	var groupColumn = 1;
   //ingresos
@@ -328,50 +259,11 @@ $(document).ready(function() {
   });     
 });
 
-function evaluarComprobacion(){
-  let bandera = 1;
-  let monto =$('#monto').val();
-  let sFecha =$('#fecha').val();  
-  let sFecha_reporte =  $('#fecha_inicio').val();
-  let detalle =$('#detalle').val(); 
-  if( monto == '' || sFecha == ''
-      || sFecha_reporte == '' || detalle == '' ){
-    bandera = -1;
-    // console.log(detalle);
-    return bandera;
-  }
-  return bandera;
-
-}
-function RefreshTable(tableId, urlData){
-    $.getJSON(urlData, null, function( json ){
-      table = $(tableId).dataTable();
-      oSettings = table.fnSettings();
-      table.fnClearTable(this);    
-      let fecha_reporte;
-      for (var i=0; i<json.data.length; i++) {
-        fecha_reporte =json.data[i].fecha_reporte;
-        json.data[i].fecha_reporte = convertDateFormat2(fecha_reporte);      
-        table.oApi._fnAddData(oSettings, json.data[i]);       
-      } 
-      oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();      
-      table.fnDraw();   
-    });
-  }
-
-function convertDateFormat(string) {
-        var info = string.split('/').reverse().join('-');
-        return info;
-  }
-
-function convertDateFormat2(string) {
-        var info = string.split('-').reverse().join('/');
-        return info;
-  }
 
 function validateDates() {
   let $tabla_pagos_lista1 = $('#tabla-reporte-ingresos');
   let $tabla_pagos_lista2 = $('#tabla-reporte-depositos');
+  let $tabla_pagos_lista3 = $('#tabla-reporte-comprobaciones');
  
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
@@ -403,7 +295,7 @@ function validateDates() {
   $('#filtrar-fecha').on('click', function () {
     $tabla_pagos_lista1.DataTable().draw();//INGRESOS
     $tabla_pagos_lista2.DataTable().draw();//EGRESOS
-
+    $tabla_pagos_lista3.DataTable().draw();//comprobaciones
   });
 
   $('#clear-fecha').on('click', function () {
@@ -413,6 +305,7 @@ function validateDates() {
     $('#total_ingresos').val("0");
     $tabla_pagos_lista1.DataTable().draw();
     $tabla_pagos_lista2.DataTable().draw();
+    $tabla_pagos_lista3.DataTable().draw();
   });
 }
 $(document).ready(function() {

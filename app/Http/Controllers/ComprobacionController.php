@@ -19,7 +19,55 @@ class ComprobacionController extends Controller
      */
     public function index()
     {
-        //
+        //ingresos EFECTIVO
+        $ingresos1 = Ingreso::join('categoria_ingresos','categoria_ingresos.id','=','ingresos.categoria_ingreso_id')
+            ->whereNull('ingresos.codigo_operacion')
+            ->select('ingresos.*','categoria_ingresos.categoria')
+            ->get();
+                   
+        $ingresos_grifos_NORTE = CategoriaIngreso::join('ingreso_grifos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
+            ->join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
+            ->select( DB::raw('DAY(ingreso_grifos.fecha_ingreso) as day'),
+                      DB::raw('sum(ingreso_grifos.monto_ingreso) as monto_ingreso'),
+                'ingreso_grifos.fecha_ingreso','grifos.zona','categoria_ingresos.categoria'
+            )            
+            ->where('grifos.zona','NORTE')
+            ->groupBy('day')
+            ->get(); 
+            $ingresos_grifos_SUR = CategoriaIngreso::join('ingreso_grifos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
+                ->join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
+                ->select( DB::raw('DAY(ingreso_grifos.fecha_ingreso) as day'),
+                          DB::raw('sum(ingreso_grifos.monto_ingreso) as monto_ingreso'),
+                    'ingreso_grifos.fecha_ingreso','grifos.zona','categoria_ingresos.categoria'
+                )            
+                ->where('grifos.zona','SUR')
+                ->groupBy('day')
+                ->get(); 
+            $ingresos_grifos_ESTE = CategoriaIngreso::join('ingreso_grifos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
+                ->join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
+                ->select( DB::raw('DAY(ingreso_grifos.fecha_ingreso) as day'),
+                          DB::raw('sum(ingreso_grifos.monto_ingreso) as monto_ingreso'),
+                    'ingreso_grifos.fecha_ingreso', 'grifos.zona',
+                    'categoria_ingresos.categoria'
+                )            
+                ->where('grifos.zona','ESTE')
+                ->groupBy('day')
+                ->get();            
+        $collection = collect([$ingresos1, $ingresos_grifos_NORTE ,
+        $ingresos_grifos_SUR,$ingresos_grifos_ESTE]);
+        $collapsed = $collection->collapse();
+        $ingresos =$collapsed->all(); 
+
+        //DEPOSITOS GRIFO DEL DÍA
+        $depositos = Deposito::join('cuentas','cuentas.id','=','depositos.cuenta_id')
+            ->join('bancos','bancos.id','=','cuentas.banco_id')
+            ->select('depositos.*','bancos.abreviacion','bancos.banco','cuentas.nro_cuenta')
+            ->get();
+
+        //COMPROBACIONES
+        $comprobaciones =  Comprobacion::all();
+
+        return view('comprobacion.diario.index', compact('ingresos','depositos','comprobaciones'));
     }
 
        /**

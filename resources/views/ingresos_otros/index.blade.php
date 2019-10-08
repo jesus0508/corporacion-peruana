@@ -33,7 +33,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
+  $("#categoria_ingreso_id").prop("selectedIndex", -1);   
 
+  $("#categoria_ingreso_id").select2({
+    placeholder: "Seleccione la categoria",
+    allowClear: true
+  });
+
+  $("#banco").prop("selectedIndex", -1);
+  $("#banco").select2({
+    placeholder: "Seleccione el banco",
+    allowClear:true
+  });
+ $('#fecha_reporte').datepicker({
+   //minDate: 0,
+  });
+ $('#fecha_ingreso').datepicker({
+   //minDate: 0,
+  });
+ $('#fecha_reporte2').datepicker({
+   //minDate: 0,
+  }); 
   $('#tabla-ingresos').DataTable({
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
@@ -49,7 +69,12 @@ $(document).ready(function() {
 			{data: 'codigo_operacion'},
 			{data: 'monto_ingreso', render: $.fn.dataTable.render.number( ',', '.', 0, '$' )}
 		]      
-  }); 
+  });  
+
+  function convertDateFormat(string) {
+        var info = string.split('/').reverse().join('-');
+        return info;
+  }
 
 	function RefreshTable(tableId, urlData){
   	$.getJSON(urlData, null, function( json ){
@@ -67,7 +92,8 @@ $(document).ready(function() {
 	}
 
 	$('#btn_filter2').click(function() {
-		let fecha_reporte =$('#fecha_reporte2').val();		
+		let fecha_reporte =$('#fecha_reporte2').val();
+    fecha_reporte = convertDateFormat(fecha_reporte);
 		RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
 
 	});
@@ -77,7 +103,9 @@ $(document).ready(function() {
     let categoria_ingreso_id = $('#categoria_ingreso_id').val();   
     let monto_ingreso =$('#monto_ingreso').val();
     let fecha_ingreso =$('#fecha_ingreso').val();
+    fecha_ingreso = convertDateFormat(fecha_ingreso);
     let fecha_reporte =$('#fecha_reporte').val();
+    fecha_reporte = convertDateFormat(fecha_reporte);
     let codigo_operacion =$('#codigo_operacion').val();  
     let detalle =$('#detalle').val();
     let token =$('#token').val();
@@ -98,7 +126,8 @@ $(document).ready(function() {
     }).done(function (data){
         $('#monto_ingreso').val('');
         $('#detalle').val('');
-  			$('#codigo_operacion').val('');	
+  			$('#codigo_operacion').val('');
+        $('#banco').val('').trigger('change');	
       RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
       toastr.success(data.status, 'Ingreso registrado con éxito', { timeOut: 2000 });
     });    

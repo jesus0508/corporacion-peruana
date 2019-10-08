@@ -5,7 +5,7 @@
 			<div class="col-md-12">
 				<div class="box box-success">
 					<div class="box-header with-border">
-						 <h3 class="box-title">Depositos Registro</h3>
+						 <h3 class="box-title">Registro Depósitos</h3>
 					</div>	
 					<div class="box-body">
 						<div class="row">
@@ -14,7 +14,7 @@
 									<label for="razon_social">
 									 Banco - Número de Cuenta *
 									</label>
-									<select name="cuenta_id" id="" class="form-control">
+									<select name="cuenta_id" id="cuenta_id" class="form-control">
 										@foreach($cuentas as $cuenta)
 										<option value="{{$cuenta->id}}">{{$cuenta->nro_cuenta}}</option>
 										@endforeach							
@@ -46,8 +46,8 @@
 									<label for="fecha_reporte">
 											Fecha Reporte Depósito*
 									</label>
-									<input type="date" name="fecha_reporte"
-										placeholder="Ingrese la fecha " class="form-control" required="">				
+									<input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control"
+                        name="fecha_reporte" placeholder="Fecha" required="">			
 								</div>								
 							</div>
 							<div class="col-md-4">

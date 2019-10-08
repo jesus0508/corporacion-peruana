@@ -8,8 +8,8 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label for="">Fecha* </label>
-              <input autocomplete="off" id="fecha_reporte2" type="date" class="tuiker form-control" name="fecha_reporte" placeholder="Fecha reporte" required="">
+              <label for="">Fecha a filtrar </label>
+              <input autocomplete="off" id="fecha_reporte2" type="text" class="tuiker form-control" name="fecha_reporte" placeholder="Fecha reporte" required="">
             </div>  
           </div>
           <div class="col-md-3">

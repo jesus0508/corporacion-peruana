@@ -8,8 +8,8 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label for="">Fecha filtrar </label>
-              <input autocomplete="off" id="fecha_reporte2" type="date" class="tuiker form-control" name="fecha_reporte" placeholder="Fecha reporte" required="">
+              <label for="">Fecha a filtrar </label>
+              <input autocomplete="off" id="fecha_reporte2" type="text" class="tuiker form-control" name="fecha_reporte" placeholder="Fecha reporte" required="">
             </div>  
           </div>
           <div class="col-md-3">
@@ -22,12 +22,18 @@
         <table id="tabla-comprobaciones" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>FECHA REPORTE</th>
-              <th>Detalles</th>              
-              <th>Fecha</th>
-              <th>Monto</th>
+              <th width="15%">FECHA REPORTE</th>
+              <th width="50%">Detalles</th>              
+              <th width="15%"> Fecha</th>
+              <th width="20%">Monto</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <th colspan="3" style="text-align:right">Total:</th>
+              <th></th>
+            </tr>          
+          </tfoot>
         </table>
       </div>
       <div class="box-footer">
