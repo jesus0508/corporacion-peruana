@@ -3,6 +3,7 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Egreso extends Model
 {
@@ -15,4 +16,8 @@ class Egreso extends Model
     public function grifo(){
         return $this->belongsTo(Grifo::class);
 	}
+
+	public function setFechaEgresoAttribute($value){ 
+        $this->attributes['fecha_egreso'] = Carbon::createFromFormat('d/m/Y',$value);
+    }
 }

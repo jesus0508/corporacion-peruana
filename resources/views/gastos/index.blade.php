@@ -153,8 +153,9 @@ $(document).ready(function() {
           url:`./sub_categoria_gastos/${cod}`,
           dataType : 'json',
           success: (data)=>{
-           $(event.currentTarget).find('#id_subcat-add').val(data.id);
-           $(event.currentTarget).find('#codigo_new_concepto').val(cod_subcat*1000+1+data.concepto_gastos.length);
+            $(event.currentTarget).find('#id_subcat-add').val(data.id);
+            $(event.currentTarget).find('#codigo_new_concepto').val(cod_subcat*1000+1+data.concepto_gastos.length);
+            $(event.currentTarget).find('#concepto_aea').val('');
             document.getElementById('subcategoria_val').innerHTML = data.subcategoria ;
           },
           error: (error)=>{

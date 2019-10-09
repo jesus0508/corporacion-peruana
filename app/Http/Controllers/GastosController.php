@@ -7,6 +7,8 @@ use CorporacionPeru\CategoriaGasto;
 use CorporacionPeru\SubCategoriaGasto;
 use CorporacionPeru\Grifo;
 use CorporacionPeru\Egreso;
+use CorporacionPeru\ConceptoGasto;
+
 class GastosController extends Controller
 {
     
@@ -49,26 +51,18 @@ class GastosController extends Controller
     {
         $categorias = CategoriaGasto::orderBy('id','desc')->get();
         $grifos = Grifo::all();
-        $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
-                    ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
+        $conceptos = ConceptoGasto::join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
                     ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
-                    ->join('grifos','grifos.id','=','egresos.grifo_id')
-                    ->select('egresos.monto_egreso','egresos.fecha_egreso',
-                                'grifos.razon_social as grifo',
-                                'categoria_gastos.categoria',
-                                'sub_categoria_gastos.subcategoria',
-                                'concepto_gastos.concepto'
+                    ->select('categoria_gastos.categoria',
+                             'sub_categoria_gastos.subcategoria',
+                                'concepto_gastos.*'
                             )
                     ->get();
 
 
 
-
-
-
-    	return view('gastos.registro.index',compact('categorias','grifos','egresos'));
-      //  return view('pedidosP.create', compact('plantas'));
-        
+        return view( 'gastos.registro2.index', compact('grifos','conceptos') );
+  
     }
 
     /**
@@ -77,11 +71,10 @@ class GastosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+     public function store(StoreEgresoRequest $request)
     {
-      //  return $request;
-        Egreso::create($request->all());
-        return  back()->with('alert-type', 'success')->with('status', 'Egreso registrado con exito');
+        Egreso::create($request->validated());
+        return back()->with('alert-type','success')->with('status','Egreso registrado con exito');
     }
 
 }

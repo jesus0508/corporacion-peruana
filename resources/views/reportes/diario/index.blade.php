@@ -6,6 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
 @endsection
 
 @section('breadcrumb')
@@ -27,6 +28,11 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+
 <script>
 $(document).ready(function() {
   $('#tabla-gastos-diarios').DataTable({
@@ -34,6 +40,38 @@ $(document).ready(function() {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
       "responsive": true,
+      "dom": 'Bfrtip',
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Lista Gastos Grifos',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        customize: function( xlsx ) {
+              var sheet = xlsx.xl.worksheets['sheet1.xml'];
+              let rels = xlsx.xl.worksheets['sheet1.xml'];
+              var clR = $('row', sheet); 
+              
+              let nRows = clR.length;//6
+              let total = $('c[r=F'+nRows+'] t', sheet).text();                
+              $('row:last c t', sheet).text( '' );
+              $('c[r=E'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=E'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=F'+nRows+'] t', sheet).text( total );
+              $('c[r=F'+nRows+'] t', sheet).attr('s','37');             
+              
+            
+            },
+        'exportOptions':
+        {
+          columns:[1,2,3,4,5,6]
+        },
+        footer: true
+      }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
@@ -56,7 +94,7 @@ $(document).ready(function() {
  
             // Update footer
             $( api.column( 6 ).footer() ).html(
-                'S/. '+pageTotal
+                pageTotal
                 // +' (S/.'+ total +' total)'
             );
       }
@@ -103,7 +141,6 @@ function addZero(i) {
 
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-gastos-diarios');
- 
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
     onSelect: function (selected) {
@@ -123,7 +160,7 @@ function validateDates() {
       var sFin = $('#fecha_inicio').val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[5]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
@@ -139,6 +176,7 @@ function validateDates() {
     $('#fecha_inicio').val("");
     $('#fecha_fin').val("");
     $tabla_pagos_lista.DataTable().draw();
+    $('#filter-grifo').val('').trigger('change');
   });
 
   $('#today-fecha').on('click', function () {
@@ -167,7 +205,7 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[1];
+      let cell = data[2];
       if (grifo) {
         return grifo === cell;
       }

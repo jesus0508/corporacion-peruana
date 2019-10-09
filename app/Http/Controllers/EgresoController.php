@@ -9,6 +9,8 @@ use DB;
 use Carbon\Carbon;
 use CorporacionPeru\Charts\PruebaChart;
 use CorporacionPeru\Charts\GastoAnualChart;
+use CorporacionPeru\Http\Requests\StoreEgresoRequest;
+
 
 class EgresoController extends Controller
 {
@@ -45,7 +47,7 @@ class EgresoController extends Controller
         $today = $semana[strftime( '%w',strtotime($date) )];
         $yesterday = $semana[strftime( '%w',strtotime($date_yesterday) )];
 
-        return view('reportes.diario.diario_gastos',compact('egresos','grifos','today','yesterday'));
+        return view('reportes.diario.index',compact('egresos','grifos','today','yesterday'));
     }
 
     /**
@@ -155,7 +157,27 @@ class EgresoController extends Controller
         return view('reportes.general.index',compact('egresos','chart') );
     }
 
+    /**
+     * Listado CRUD de egresos Grifos
+     * @return [type] [description]
+     */
+    public function listado(){
+    
+     $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
+                    ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
+                    ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
+                    ->join('grifos','grifos.id','=','egresos.grifo_id')
+                    ->select('egresos.monto_egreso','egresos.fecha_egreso',
+                            'egresos.id',
+                            'grifos.razon_social as grifo',
+                            'categoria_gastos.categoria',
+                            'sub_categoria_gastos.subcategoria',
+                            'concepto_gastos.concepto'
+                            )
+                    ->get();
 
+        return view( 'gastos.listado.index', compact('egresos') );
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -163,16 +185,10 @@ class EgresoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+     public function store(StoreEgresoRequest $request)
     {
-        if( $request->ajax() ){
-
-            Egreso::create($request->all());
-
-            return response()->json([
-                'mensaje' => 'creado'
-            ]);
-        }
+        Egreso::create($request->validated());
+        return back()->with('alert-type','success')->with('status','Egreso registrado con exito');
     }
 
     /**
@@ -192,9 +208,21 @@ class EgresoController extends Controller
      * @param  \CorporacionPeru\Egreso  $egreso
      * @return \Illuminate\Http\Response
      */
-    public function edit(Egreso $egreso)
+    public function edit($id)
     {
-        //
+        
+        $egreso = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
+            ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
+            ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
+            ->join('grifos','grifos.id','=','egresos.grifo_id')
+            ->where('egresos.id',$id)
+            ->select('egresos.*','grifos.razon_social as grifo',                           
+                    'concepto_gastos.codigo', 'categoria_gastos.categoria',
+                    'sub_categoria_gastos.subcategoria','concepto_gastos.concepto')   
+            ->first();
+
+        $grifos = Grifo::all();
+        return response()->json(['egreso' => $egreso ,'grifos' => $grifos]);
     }
 
     /**
@@ -204,9 +232,12 @@ class EgresoController extends Controller
      * @param  \CorporacionPeru\Egreso  $egreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Egreso $egreso)
+       public function update(StoreEgresoRequest $request, $id)
     {
-        //
+       
+        $id = $request->id;       
+        Egreso::findOrFail($id)->update($request->validated());        
+        return back()->with('alert-type','success')->with('status','Egreso actualizado con exito');
     }
 
     /**
@@ -217,6 +248,8 @@ class EgresoController extends Controller
      */
     public function destroy(Egreso $egreso)
     {
-        //
+        $egreso->delete();
+        
+        return back()->with('alert-type','warning')->with('status','Egreso eliminado con exito');
     }
 }

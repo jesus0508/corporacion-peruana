@@ -82,7 +82,7 @@ function findByNroPedido(id){
     type: 'GET',
     url:`../factura_proveedor/${id}`,
     success: (data)=>{
-      console.log(data);
+      //console.log(data);
       $('#scop').val(data.scop);
       $('#costo_galon').val(data.costo_galon);
       $('#galones').val(data.galones);

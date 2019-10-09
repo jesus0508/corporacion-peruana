@@ -82,6 +82,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
 	Route::get('/conceptos','ConceptoGastoController@getConceptos');
 	Route::resource('gastos','GastosController');
+	Route::get('egresos_listado','EgresoController@listado')->name('egresos.listado');
 	Route::get('reporte_gastos_anual','EgresoController@reporte_gastos_anual')
 			->name('egresos.reporte_gastos_anual');
 	Route::get('reporte_gastos_general','EgresoController@reporte_gastos_general')

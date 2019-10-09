@@ -75,9 +75,15 @@ class ConceptoGastoController extends Controller
      * @param  \CorporacionPeru\ConceptoGasto  $conceptoGasto
      * @return \Illuminate\Http\Response
      */
-    public function edit(ConceptoGasto $conceptoGasto)
+    public function edit( $id )
     {
-        //
+        $concepto = ConceptoGasto::join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
+            ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
+            ->where('concepto_gastos.id',$id)
+            ->select('categoria_gastos.categoria',
+                'sub_categoria_gastos.subcategoria')
+            ->first();
+        return $concepto;
     }
 
     /**
