@@ -20,6 +20,9 @@ class CreateMovimientosTable extends Migration
             $table->float('monto_operacion');
             $table->string('banco');
             $table->integer('estado')->default(1);
+            $table->unsignedBigInteger('categoria_ingreso_id')->default(1);
+            $table->foreign('categoria_ingreso_id')
+            ->references('id')->on('categoria_ingresos');
             $table->timestamps();
         });
     }
@@ -32,5 +35,8 @@ class CreateMovimientosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('movimientos');
+        Schema::table('movimientos', function (Blueprint $table) {
+            $table->dropForeign(['categoria_ingreso_id']);                     
+        });
     }
 }

@@ -26,7 +26,11 @@
                   @if($ingreso->detalle)
                   {{$ingreso->detalle}}
                   @else
-                  {{$ingreso->categoria}}
+                    @if($ingreso->id_cat)
+                    Pendiente
+                    @else
+                    {{$ingreso->categoria}}
+                    @endif                  
                   @endif                
                 </td>
                 <td>

@@ -22,12 +22,16 @@ class IngresoController extends Controller
             ->get();
 
         $ingresos2 = CategoriaIngreso::join('pago_clientes','categoria_ingresos.id','=','pago_clientes.categoria_ingreso_id')
+            ->join('pago_cliente_pedido_cliente','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
+            ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')
+            ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
         //more joins to get the rzon_social del cliente
-            ->select('pago_clientes.codigo_operacion','pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
+            ->select('pago_clientes.codigo_operacion', 'clientes.razon_social as detalle' ,'pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
             ->get(); 
-        // $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
-        //     ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
-        //     ->get();                    
+        $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
+            ->where('movimientos.estado','!=',3)
+            ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria','categoria_ingresos.id as id_cat')
+            ->get();                    
         $ingresos_grifos_NORTE = CategoriaIngreso::join('ingreso_grifos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
             ->join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
             ->select( DB::raw('DAY(ingreso_grifos.fecha_ingreso) as day'),
@@ -56,7 +60,7 @@ class IngresoController extends Controller
                 ->where('grifos.zona','ESTE')
                 ->groupBy('day')
                 ->get();            
-        $collection = collect([$ingresos1, $ingresos2 ,
+        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 ,
              $ingresos_grifos_NORTE , $ingresos_grifos_SUR,$ingresos_grifos_ESTE]);
         $collapsed = $collection->collapse();
         $ingresos =$collapsed->all(); 

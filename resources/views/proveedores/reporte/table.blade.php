@@ -11,10 +11,10 @@
               <tr>
                 <th width="5%">#</th>
                 <th width="35%">Razon Social</th>
-                <th width="15%">Deuda Total </th>
-                <th width="15%"> Linea de Crédito</th>
-                <th width="15%"> Disponible </th>
-                <th width="15%">Sobregiro? </th>                
+                <th width="20%">Deuda Total </th>
+                <th width="20%"> Linea de Crédito</th>
+                <th width="20%"> Disponible </th>
+                <!-- <th width="15%">Sobregiro? </th>    -->             
               </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                   <td><label class="label label-default" style="font-size:13px;">S/ &nbsp;{{$proveedor->calc*100/100}} </label></td>
                   <td>S/. {{$proveedor->linea_credito}}</td>                  
                   <td>S/. {{$proveedor->linea_credito-$proveedor->calc*100/100}}</td>
-                  <td>S/. 450000 ?</td>                  
+                  <!-- <td>S/. 450000 ?</td>    -->               
                 </tr>
               @endforeach
             </tbody>
