@@ -35,7 +35,15 @@ class CuentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        Cuenta::create([
+            'nro_cuenta'=> $request->abreviacion.' '.$request->nro_cuenta,
+            'fondo_actual' => 1500,
+            'tipo' => $request->tipo,
+            'banco_id' => $request->banco_id
+           ]);
+
+        return back()->with('alert-type', 'success')->with('status', 'Cuenta Registrada con exito');
     }
 
     /**
@@ -69,7 +77,12 @@ class CuentaController extends Controller
      */
     public function update(Request $request, Cuenta $cuenta)
     {
-        //
+        
+        $cuenta->update([
+            'nro_cuenta'=> $request->abreviacion.' '.$request->nro_cuenta,           
+            'tipo' => $request->tipo           
+        ]);
+        return  back()->with('alert-type', 'success')->with('status', 'Cuenta editada con exito');
     }
 
     /**
@@ -80,6 +93,7 @@ class CuentaController extends Controller
      */
     public function destroy(Cuenta $cuenta)
     {
-        //
+        $cuenta->delete();
+        return  back()->with('alert-type', 'success')->with('status', 'Cuenta eliminada con exito');
     }
 }

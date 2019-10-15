@@ -16,10 +16,9 @@ class CreatePagoTransportistasTable extends Migration
         Schema::create('pago_transportistas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('fecha_pago');
-            $table->string('codigo_pago');
             $table->float('monto_total_pago');
             $table->float('pendiente_dejado');
-            $table->string('observacion');
+            $table->string('observacion')->nullable();
             $table->timestamps();
         });
     }

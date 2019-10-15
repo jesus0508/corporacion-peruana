@@ -60,14 +60,13 @@
                 <th colspan="1"><p class="pull-right">TOTAL A PAGAR </p></th>
                 <th colspan="3"></th>
                 <th align="center" style="color:red; font-weight: bold; font-size: 15px;"> &nbsp; 
-                  S/. &nbsp; {{$subtotal-$desc}} 
+                  S/. &nbsp; {{number_format((float)
+                  $subtotal-$desc-$transportista->descuento_pendiente , 2, '.', '') }} 
+             
                 </th>
             </tr>
           </tfoot> 
         </table>
-      </div>
-      <div class="box-footer">
-
       </div>
     </div> <!-- end box -->
   </div>

@@ -19,7 +19,7 @@
 <section class="content">
   @include('distribucion.buttons_top')
   @include('distribucion.pedido_proveedor')
-  @include('distribucion.pedido_transportista')
+  @includeWhen($pedido->vehiculo_id == null ,'distribucion.pedido_transportista')
   @includeWhen( $pedido->vehiculo_id != null ,'distribucion.pedido_transportista_show')
   @include('distribucion.tabla_pedido_cliente') 
 </section>

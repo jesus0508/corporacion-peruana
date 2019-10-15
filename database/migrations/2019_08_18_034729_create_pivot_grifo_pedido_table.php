@@ -23,6 +23,7 @@ class CreatePivotGrifoPedidoTable extends Migration
             $table->foreign('pago_transportista_id')
                     ->references('id')->on('pago_transportistas');
             $table->integer('asignacion');
+            $table->string('hora_descarga')->nullable();  
             $table->date('fecha_descarga')->nullable();            
             $table->integer('faltante')->nullable();
             $table->string('grifero')->nullable();

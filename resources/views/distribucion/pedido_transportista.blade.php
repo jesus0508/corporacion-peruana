@@ -4,7 +4,7 @@
   <input type="hidden" id="pedido_asignar_transportista" name="id_pedido">
   <div class="row">
       <div class="col-md-12">
-        <div class="box box-success collapse " id="collapseCisterna">
+        <div class="box box-success collapse in" id="collapseCisterna">
           <div class="box-header with-border">
             <div class="row">
               <div class="col-md-6">

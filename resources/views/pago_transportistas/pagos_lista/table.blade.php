@@ -14,12 +14,9 @@
               <tr>
                 <th>#</th>
                 <th>Transportista  Pagado</th>
-                <th>Fecha de Pago</th>
-                <th>Número de Pago</th>
+                <th>Fecha de Pago</th>              
                 <th>Monto de Pago</th>
-                <th>Dsct Pendiente</th>
-      <!--           <th>Banco</th>  -->
-             <!--    <th>Fecha registro al sistema</th> -->
+                <th>Dsct Pendiente</th>    
                 <th>Acciones</th>
 
               </tr>
@@ -31,11 +28,8 @@
                   <td>{{$loop->iteration}}</td>
                   <td>{{$pago->nombre_transportista}}</td>
                   <td>{{date('d/m/Y', strtotime($pago->fecha_pago))}}</td>              
-                  <td>{{$pago->codigo_pago}}</td>
                   <td>{{$pago->monto_total_pago}}</td>
-                  <td>{{$pago->pendiente_dejado}}</td>
-                 <!--  <td>{{$pago->banco}}</td> -->
-                <!--   <td>{{$pago->created_at}}</td>  -->
+                  <td>{{$pago->pendiente_dejado}}</td>                 
                   <td>
                     <a href="{{ route('pago_transportistas.show', $pago->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i>&nbsp;&nbsp;Ver</a>
              <!--        <a href="{{ route('pago_proveedors.resumen_pago', $pago->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i>&nbsp;&nbsp;Ver Operación</a>

@@ -3,7 +3,7 @@
   	<div class="col-md-5">
   	  <label for="">Seleccione el Transportista que desee:</label>
       <div class="input-group">
-      	<span class="input-group-addon">Proveedor</span>
+      	<span class="input-group-addon">Transportista</span>
       	<select class="form-control" id="filter-proveedor" name="proveedor_id">
           @foreach( $transportistas as $transportista )
             <option value="{{$transportista->id}}">{{$transportista->nombre_transportista}}</option>

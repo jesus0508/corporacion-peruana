@@ -46,20 +46,11 @@ $(document).ready(function() {
           className: 'btn btn-default',
           exportOptions:
             {
-              columns:[1,2,3,4,5]
+              columns:[1,2,3,4]
             }
 
          }
-        // ,{
-        //   extend: 'pdfHtml5',
-        //   title: 'Programación Flete Transportistas',
-        //   exportOptions:
-        //     {
-        //       columns:[0,1,2,3,4,5,6]
-        //     }
-        // }
         ],
-
 
         'language': {
         'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
@@ -130,7 +121,7 @@ $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-proveedor');
     let $tabla_pedido_proveedores = $('#tabla-pagos_lista');
-    inicializarSelect2($filter_proveedor, 'Ingrese el proveedor', '');
+    inicializarSelect2($filter_proveedor, 'Seleccione al transportista', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let proveedor = $filter_proveedor.find('option:selected').text();

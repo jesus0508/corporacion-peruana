@@ -30,7 +30,8 @@ class FleteController extends Controller
                     ->join('plantas','plantas.id','=','pedidos.planta_id')
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
-                            'pedido_clientes.galones','pedido_clientes.horario_descarga',
+                            'pedido_clientes.galones',
+                            'pedido_clientes.horario_descarga',
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'pedido_proveedor_clientes.faltante',
@@ -48,6 +49,7 @@ class FleteController extends Controller
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista',
+                            'pedido_grifos.hora_descarga as horario_descarga',
                             'pedido_grifos.faltante','pedido_grifos.fecha_descarga' )
                     ->get();
         $transportistas = Transportista::all(); 
@@ -57,7 +59,7 @@ class FleteController extends Controller
         $collapsed = $collection->collapse();
         $pedidos =$collapsed->all(); 
 
-        //return $pedidos;
+       // return $pedidos;
         return view('transportistas.flete.index',compact('pedidos','transportistas'));
     }
 
@@ -75,6 +77,7 @@ class FleteController extends Controller
                     ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                  
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->whereNull('pedido_grifos.faltante')
+                    ->where('pedidos.estado_flete','=',1)
                     ->select('grifos.razon_social',
                             'pedido_grifos.asignacion as galones',                            
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',

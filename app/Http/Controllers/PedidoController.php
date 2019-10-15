@@ -234,8 +234,9 @@ class PedidoController extends Controller
      */
     public function asignar_grifo(Request $request)
     {
-
-        $fecha_descarga = $request->fecha_descarga;      
+        //VALIDAR SOME REQEUSETS
+        $fecha_descarga = $request->fecha_descarga; 
+        $hora_descarga = $request->hora_descarga;     
         $grifo = Grifo::findOrFail($request->id_grifo);
         $asignacion = $request->galones_x_asignar;
         $pedido = Pedido::findOrFail($request->id_pedido_pr);
@@ -251,7 +252,7 @@ class PedidoController extends Controller
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
             $pedido->estado = 3;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga ]);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga , 'hora_descarga'=> $hora_descarga ]);
             $pedido->save();
             $grifo->save();
 
@@ -274,7 +275,7 @@ class PedidoController extends Controller
 
             $grifo->stock += $asignacion;
             $pedido->galones_distribuidos += $asignacion;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga ]);
+            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga  , 'hora_descarga'=> $hora_descarga]);
             $pedido->save();
             $grifo->save();
 

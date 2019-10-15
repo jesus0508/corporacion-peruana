@@ -8,9 +8,9 @@
           </button>
         </a>&nbsp;
         @if( $pedido->vehiculo_id == null )
-         <a href="#collapseCisterna" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseCisterna">
+         <a href="#collapseCisterna" class="btn btn-primary" data-toggle="collapse" aria-expanded="true" aria-controls="collapseCisterna">
           <span class="fa fa-plus"> </span>&nbsp;
-          Agregar Transportista
+          Mostrar | Ocultar Transportista
         </a>
         @else 
          <a href="#collapseCisternaShow" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseCisternaShow">

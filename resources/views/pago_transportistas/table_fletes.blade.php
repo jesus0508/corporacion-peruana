@@ -10,12 +10,11 @@
           </div>          
         </div>    
       </div><!-- /.box-header -->
-      <div class="box-body">        
-        <form id="frm-example" method="post" >
+      <div class="box-body">       
+       
             <table id="tabla-pago-transportista" class="table table-bordered select table-striped responsive display nowrap" style="width:100%" cellspacing="0">
               <thead>
                 <tr>
-                  
                   <th>FLETERO</th>
                   <th>GRIFO</th>
                   <th>F PEDIDO</th>
@@ -28,8 +27,7 @@
               </thead>
               <tbody>
                 @foreach ($pedidos as $pedido_cliente)
-                  <tr>
-                    
+                  <tr>                    
                     <td>{{$pedido_cliente->nombre_transportista}}</td>
                     <td>{{$pedido_cliente->razon_social}}</td>
                     <td>
@@ -57,7 +55,7 @@
                 </tr>
               </tfoot>
             </table>
-        </form>
+       
       </div>
       <div class="box-footer">
 

@@ -393,21 +393,9 @@ desired effect
                 </li>
               </ul>
         </li>
-        <li id="treeview-empresa" class="treeview">
-              <a href="#">
-                <i class="glyphicon glyphicon-home"></i> <span>Empresa</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu" style="display: none;">
-                <li><a href="{{ route('empresa.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
-                Empresa Información</a></li>
-                <li><a href="#"><i class="fa fa-bank "></i> 
-                Bancos</a>
-                </li>
-              </ul>
-        </li> 
+        <li><a href="{{ route('empresa.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
+                Empresa Información</a>
+        </li>
 
       </ul>
       <!-- /.sidebar-menu -->

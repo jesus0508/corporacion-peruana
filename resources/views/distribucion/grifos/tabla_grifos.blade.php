@@ -11,8 +11,8 @@
               <th>#</th>
               <th>RUC</th>
               <th>Nombre GRIFO</th>
-              <th>Administrador</th>
               <th>STOCK</th>
+              <th>Hora Descarga</th>
               <th>Fecha Descarga</th>
               <th>Cant x asig</th> 
               <th>Acción  </th>
@@ -22,18 +22,19 @@
           <tbody>
             @foreach ($grifos as $grifo)
               <tr>
-                <td>{{$grifo->id}}</td>
+                <td>{{$loop->iteration}}</td>
                 <td>{{$grifo->ruc}}</td>
-                <td>{{$grifo->razon_social}}</td>
-                <td>{{$grifo->administrador}}</td>
+                <td>{{$grifo->razon_social}}</td>                
                 <td>{{$grifo->stock}}</td>
                 <form method="POST" action="{{route('asignar_gls')}}">
                 @csrf 
                 <td>
-                   <input placeholder="fecha" type="date" style="width: 150px;" name="fecha_descarga" required="">
+                  <input placeholder="Hora" type="text" style="width: 50px;" name="hora_descarga">
+                </td> 
+                <td>
+                  <input placeholder="Fecha" type="date" style="width: 120px;" name="fecha_descarga" required="">
                 </td>              
-                <td>               
-                    
+                <td>
                     <input type="hidden" name="id_grifo" value="{{$grifo->id}}">
                     <input  type="hidden" name="id_pedido_pr" value="{{$pedido->id}}">
                     <input placeholder="gls" type="number" style="width: 70px;" name="galones_x_asignar" required="" >

@@ -18,7 +18,6 @@
 <section class="content">
 	<form id="frm-example" action="{{route('faltante.store')}}" method="post" >
     @csrf
-   
   	@include('pago_transportistas.pago_fletes_selected.header')
   	@include('pago_transportistas.pago_fletes_selected.table')
 	</form>
@@ -30,7 +29,7 @@
 <script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script> 
 <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"> </script> 
 
-<script>
+<script> 
 $(document).ready(function(){
 	var montoFlete = 0;
 	let $table = $('#tabla-pago-select').DataTable({
@@ -42,16 +41,27 @@ $(document).ready(function(){
       ],
       'order': [[1, 'asc']]
   });
+  
+  let rows_selected = $table.column(0).checkboxes.selected();
+  montoFlete=0;
+  $.each(rows_selected, function(index, rowId){  
+    let arrayRow = rowId.split("-");
+    let plus = arrayRow[1];
+    montoFlete += Number(plus);
+  });
+  $('#montoFlete').val(montoFlete);
+ 
 	$('#calcMontoFlete').on('click', function(e){
-		 e.preventDefault();
-		let rows_selected = $table.column(0).checkboxes.selected();
-			montoFlete=0;
+		e.preventDefault();
+      let rows_selected = $table.column(0).checkboxes.selected();
+      montoFlete=0;
       $.each(rows_selected, function(index, rowId){  
-         let arrayRow = rowId.split("-");
-         let plus = arrayRow[1];
-         montoFlete += Number(plus);
+        let arrayRow = rowId.split("-");
+        let plus = arrayRow[1];
+        montoFlete += Number(plus);
       });
-		$('#montoFlete').val(montoFlete);
+      $('#montoFlete').val(montoFlete);
+ 
 	});
 	$('#frm-example').on('submit', function(e){
       let form = this;
@@ -70,10 +80,7 @@ $(document).ready(function(){
                 .val(idPedido)
          );
       });
-    // console.log("Form submission", $(form).serialize()); 
-      // Prevent actual form submission
-     // e.preventDefault();
    });
-});	  
+});	 
 </script>
 @endsection

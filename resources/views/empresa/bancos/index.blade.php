@@ -4,16 +4,17 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Empresa</a></li>
-  <li><a href="#">Información</a></li>
+  <li><a href="#">Banco</a></li>
+  <li><a href="#">Cuentas</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('empresa.show_empresa')
-<!--   modales -->
-	@include('empresa.modal_add')
-<!--   end.modales -->
+  @include('empresa.bancos.header')
+  <div class="container-fluid">
+  	@include('empresa.bancos.contenido')
+  </div>
+	
 </section>
 @endsection

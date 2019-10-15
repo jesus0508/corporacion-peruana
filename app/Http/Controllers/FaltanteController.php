@@ -95,132 +95,140 @@ class FaltanteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Recibe un array de los fletes seleccionados, 
+     * busca estos en pedidos cliente y pedidos grifo
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+       
         $id = $request->id_transportista;
         $array_selected = $request->id;
-        $pedidos_cliente
-                     = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
-                    ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
-                    ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
-                    ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
-                    ->join('plantas','plantas.id','=','pedidos.planta_id')
-                    ->whereNotNull('pedidos.vehiculo_id')
-                    ->where('pedidos.estado_flete','=',1)
-                    ->where('transportistas.id','=',$id) 
-                    ->whereIn('pedidos.id',$array_selected)                   
-                    ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
-                            'pedido_clientes.galones','pedidos.costo_flete',
-                            'pedidos.scop','pedidos.nro_pedido',
-                            'plantas.planta', 'pedidos.id',
-                            'transportistas.nombre_transportista')
-                    ->get();
+       
 
-        $pedidos_grifo = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
-                    ->join('plantas','plantas.id','=','pedidos.planta_id')
-                    ->join('pedido_grifos','pedido_grifos.pedido_id','=','pedidos.id')
-                    ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                    
-                    ->whereNotNull('pedidos.vehiculo_id')
-                    ->where('pedidos.estado_flete','=',1)
-                    ->where('transportistas.id','=',$id)   
-                    ->whereIn('pedidos.id',$array_selected)                       
-                    ->select('grifos.razon_social','pedidos.costo_flete',
-                            'pedido_grifos.asignacion as galones',                            
-                            'pedidos.scop','pedidos.nro_pedido',
-                            'plantas.planta','pedidos.id',
-                            'transportistas.nombre_transportista'
-                            ,'pedido_grifos.fecha_descarga')
-                    ->get();
-        $transportistas = Transportista::all();
+        if( $array_selected == null ){
+            return back()->with('alert-type', 'error')->with('status', 'Seleccione algun flete');
+        }        
+        else{
 
-        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
-        $collapsed = $collection->collapse();
-        $pedidos =$collapsed->all();
+            $pedidos_cliente
+                         = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                        ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                        ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
+                        ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
+                        ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
+                        ->join('plantas','plantas.id','=','pedidos.planta_id')
+                        ->whereNotNull('pedidos.vehiculo_id')
+                        ->where('pedidos.estado_flete','=',1)
+                        ->where('transportistas.id','=',$id) 
+                        ->whereIn('pedidos.id',$array_selected)                   
+                        ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
+                                'pedido_clientes.galones','pedidos.costo_flete',
+                                'pedidos.scop','pedidos.nro_pedido',
+                                'plantas.planta', 'pedidos.id',
+                                'transportistas.nombre_transportista')
+                        ->get();
 
-        //$merged = $pedidos_grifo->merge($pedidos_cliente);
-        //$pedidos = $merged->all(); 
+            $pedidos_grifo = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                        ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                        ->join('plantas','plantas.id','=','pedidos.planta_id')
+                        ->join('pedido_grifos','pedido_grifos.pedido_id','=','pedidos.id')
+                        ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                    
+                        ->whereNotNull('pedidos.vehiculo_id')
+                        ->where('pedidos.estado_flete','=',1)
+                        ->where('transportistas.id','=',$id)   
+                        ->whereIn('pedidos.id',$array_selected)                       
+                        ->select('grifos.razon_social','pedidos.costo_flete',
+                                'pedido_grifos.asignacion as galones',                            
+                                'pedidos.scop','pedidos.nro_pedido',
+                                'plantas.planta','pedidos.id',
+                                'transportistas.nombre_transportista'
+                                ,'pedido_grifos.fecha_descarga')
+                        ->get();
+            $transportistas = Transportista::all();
+
+            $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+            $collapsed = $collection->collapse();
+            $pedidos =$collapsed->all();
+
+            $transportista = Transportista::findOrFail($id);        
+
+            $date = Carbon::now()->format('d/m/Y');
+
+            $subtotal = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                                ->join('transportistas','transportistas.id','vehiculos.transportista_id')
+                                ->whereNotNull('pedidos.vehiculo_id')
+                                ->where('transportistas.id',$id)
+                                ->where('pedidos.estado_flete',1)
+                                ->whereIn('pedidos.id',$array_selected)   
+                                ->sum('pedidos.costo_flete');
 
 
-        $transportista = Transportista::findOrFail($id);        
 
-        $date = Carbon::now()->format('d/m/Y');
-        $subtotal = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                            ->join('transportistas','transportistas.id','vehiculos.transportista_id')
-                            ->whereNotNull('pedidos.vehiculo_id')
-                            ->where('transportistas.id',$id)
-                            ->where('pedidos.estado_flete',1)
-                            // ->groupBy('pedidos.id')
-                            ->sum('pedidos.costo_flete');
-        $lista_descuento1
+            $lista_descuento1
 
-                     = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
-                    ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
-                    ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
-                    ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
-                    ->join('plantas','plantas.id','=','pedidos.planta_id')
-                    ->whereNotNull('pedidos.vehiculo_id')
-                    ->whereNotNull('pedido_proveedor_clientes.faltante')
-                    ->where('transportistas.id',$id)
-                    ->where('pedidos.estado_flete',1)
-                    ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
-                            'pedido_clientes.galones','pedido_clientes.horario_descarga',
-                            'pedidos.scop','pedidos.nro_pedido','pedidos.id',
-                            'plantas.planta', 'pedidos.estado_flete',
-                            'transportistas.nombre_transportista','pedido_clientes.observacion','pedidos.costo_galon',
-                            'pedido_proveedor_clientes.faltante',
-                            'pedido_proveedor_clientes.grifero',
-                            'pedido_proveedor_clientes.descripcion')
-                    ->get();
+                         = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                        ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                        ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
+                        ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
+                        ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
+                        ->join('plantas','plantas.id','=','pedidos.planta_id')
+                        ->whereNotNull('pedidos.vehiculo_id')
+                        ->whereNotNull('pedido_proveedor_clientes.faltante')
+                        ->where('pedidos.estado_flete','=',1)
+                        ->where('transportistas.id','=',$id) 
+                        ->whereIn('pedidos.id',$array_selected)   
+                        ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
+                                'pedido_clientes.galones','pedido_clientes.horario_descarga',
+                                'pedidos.scop','pedidos.nro_pedido','pedidos.id',
+                                'plantas.planta', 'pedidos.estado_flete',
+                                'transportistas.nombre_transportista','pedido_clientes.observacion','pedidos.costo_galon',
+                                'pedido_proveedor_clientes.faltante',
+                                'pedido_proveedor_clientes.grifero',
+                                'pedido_proveedor_clientes.descripcion')
+                        ->get();
 
-        $lista_descuento2 = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
-                    ->join('plantas','plantas.id','=','pedidos.planta_id')
-                    ->join('pedido_grifos','pedido_grifos.pedido_id','=','pedidos.id')
-                    ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                    
-                    ->whereNotNull('pedidos.vehiculo_id')
-                    ->whereNotNull('pedido_grifos.faltante')
-                    ->where('transportistas.id',$id)
-                    ->where('pedidos.estado_flete',1)
-                    ->select('grifos.razon_social',
-                            'pedido_grifos.asignacion as galones','pedidos.costo_galon',                            
-                            'pedidos.scop','pedidos.nro_pedido','pedidos.id',
-                            'plantas.planta', 'pedidos.estado_flete',
-                            'transportistas.nombre_transportista',
-                            'pedido_grifos.faltante',
-                            'pedido_grifos.grifero',
-                            'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
-                    ->get();
+            $lista_descuento2 = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                        ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                        ->join('plantas','plantas.id','=','pedidos.planta_id')
+                        ->join('pedido_grifos','pedido_grifos.pedido_id','=','pedidos.id')
+                        ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                    
+                        ->whereNotNull('pedidos.vehiculo_id')
+                        ->whereNotNull('pedido_grifos.faltante')
+                        ->where('transportistas.id',$id)
+                        ->where('pedidos.estado_flete',1)
+                        ->whereIn('pedidos.id',$array_selected) 
+                        ->select('grifos.razon_social',
+                                'pedido_grifos.asignacion as galones','pedidos.costo_galon',                            
+                                'pedidos.scop','pedidos.nro_pedido','pedidos.id',
+                                'plantas.planta', 'pedidos.estado_flete',
+                                'transportistas.nombre_transportista',
+                                'pedido_grifos.faltante',
+                                'pedido_grifos.grifero',
+                                'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
+                        ->get();
 
-        $merged          = $lista_descuento1->merge($lista_descuento2);
-        $lista_descuento = $merged->all();
+            $collection = collect([$lista_descuento1, $lista_descuento2]);
+            $collapsed = $collection->collapse();
+            $lista_descuento =$collapsed->all();
 
-        $cod_left        ="PAT-";
-        $pago_transportistas = PagoTransportista::all();
-        $last_pago = $pago_transportistas->last();
-       // 
-        if($last_pago){//si ya ha habido 1 pago
-            $id_last_pago = $last_pago->id+1;//codigo_anterior+1=actual.
-            $cod_right    = str_pad( $id_last_pago, 6,'0',STR_PAD_LEFT);
-            $codigo_pago  = $cod_left.$cod_right; 
-        }else{//0 pagos registrados
-            $codigo_pago ='PAT-000001';
-        }     
+            $desc = 0;
+            foreach ($lista_descuento as $faltante){              
+            $desc += number_format((float)
+                                    $faltante->faltante * $faltante->costo_galon, 2, '.', '');
+            }
 
-    //$collection = collect([$lista_descuento1, $lista_descuento2]);
-    // $collapsed = $collection->collapse();
-    // $pedidos =$collapsed->all();
+ 
+        return view('pago_transportistas.index',
+            compact('pedidos','date','transportista','subtotal','lista_descuento','desc','array_selected')); 
+        }    
+
+
     //   return $pedidos;
     //  return $lista_descuento;
-        return view('pago_transportistas.index',
-            compact('pedidos','date','transportista','subtotal','lista_descuento','codigo_pago'));
+        
     }
 
     /**
@@ -234,6 +242,7 @@ class FaltanteController extends Controller
         $pedidosToSelect = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                     ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
                     ->where('transportistas.id',$id)
+                    ->where('pedidos.estado_flete','=',1)
                     ->select('transportistas.nombre_transportista','pedidos.*')
                     ->get();
         $id_transportista = $id;

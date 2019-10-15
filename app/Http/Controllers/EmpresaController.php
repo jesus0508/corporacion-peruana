@@ -3,7 +3,11 @@
 namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Empresa;
+use CorporacionPeru\Banco;
+use CorporacionPeru\Cuenta;
 use Illuminate\Http\Request;
+use CorporacionPeru\Http\Requests\UpdateEmpresaRequest;
+use DB;
 
 class EmpresaController extends Controller
 {
@@ -15,7 +19,18 @@ class EmpresaController extends Controller
     public function index()
     {
         $empresa = Empresa::first();
-        return view( 'empresa.index',compact(  'empresa' ) );
+
+        $bancos = Cuenta::rightJoin('bancos','bancos.id','=','cuentas.banco_id')
+                
+                ->select('bancos.abreviacion','bancos.id', 'bancos.banco',
+                    DB::raw('count(cuentas.id) as total_cuentas') )
+                ->groupBy('bancos.abreviacion')
+                ->get();
+        //$bancos = Banco::with('cuentas')->get();
+        //$bancos = $bancos->cuentas->length()
+        //return $bancos;
+     
+        return view( 'empresa.index',compact(  'empresa' ,'bancos' ) );
     }
 
     /**
@@ -68,9 +83,12 @@ class EmpresaController extends Controller
      * @param  \CorporacionPeru\empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, empresa $empresa)
+    public function update(UpdateEmpresaRequest $request, Empresa $empresa)
     {
-        //
+
+        $empresa->update($request->validated());
+
+        return  back()->with('alert-type', 'success')->with('status', 'Empresa editada con exito');
     }
 
     /**
@@ -79,8 +97,8 @@ class EmpresaController extends Controller
      * @param  \CorporacionPeru\empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(empresa $empresa)
+    public function destroy(Empresa $empresa)
     {
-        //
+        
     }
 }

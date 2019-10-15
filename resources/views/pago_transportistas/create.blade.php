@@ -2,31 +2,10 @@
   <form class="" action="{{route('pago_transportistas.store')}}" method="post">
     @csrf
     <input type="hidden" name="transportista_id" value="{{$transportista->id}}">
+    @foreach($array_selected as $id)
+    <input type="hidden" name="array_selected[]" value="{{$id}}">
+    @endforeach
     <div class="col-md-8">
-      <div class="box box-success">
-        <div class="box-header with-border">
-          <h3 class="box-title">Fechas fletes</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="first_viaje">Desde(1er viaje):</label>
-                  <input id="first_viaje" type="text" class="form-control" 
-                                 value="autorellenable..." readonly>
-              </div>
-            </div><!-- end razon -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="last_viaje">Hasta(ultimo viaje):</label>
-                <input id="last_viaje" type="text" class="form-control" 
-                                 value="autorellenable..." readonly>
-              </div>
-            </div><!-- end ruc -->
-          </div>
-        </div><!-- /.box-body -->
-      </div><!-- /.box datos pedido -->
-
         <div id="datos-pedido" class="box box-success">
           <div class="box-header with-border">
             <div class="row">
@@ -40,8 +19,8 @@
               <div class="col-md-4">
                 <div class="form-group @error('fecha_pago') has-error @enderror">
                   <label for="fecha_pago"> Fecha*</label>
-                  <input id="fecha_pago" type="date" class="form-control" 
-                          name="fecha_pago" required>
+                   <input autocomplete="off" id="fecha_pago" type="text" class="tuiker form-control"
+                      name="fecha_pago" placeholder="Fecha pago" required="">
                   @error('fecha_pago')
                     <span class="help-block" role="alert">
                       <strong>{{ $message }}</strong>
@@ -55,7 +34,12 @@
                   <label for="monto_descuento">Monto a Descontar*</label>
                   <input id="monto_descuento" type="number" class="form-control" 
                           name="monto_descuento" value="{{number_format((float)
-                        $desc, 2, '.', '')}}" placeholder="Ingrese monto a descontar" required>
+                        $desc, 2, '.', '')}}" placeholder="Ingrese monto a descontar"
+                        min="0" step="any"
+                        max="{{number_format((float)
+                        $desc, 2, '.', '')}}" 
+
+                        required>
                   @error('monto_descuento')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -82,7 +66,7 @@
               <div class="col-md-8">
                 <div class="form-group @error('observacion') has-error @enderror">
                   <label for="observacion"> Observacion</label>
-                  <textarea class="form-control" name="observacion" cols="30" rows="2" placeholder="Ingrese alguna observación.."></textarea>
+                  <textarea class="form-control" name="observacion" cols="30" rows="2" placeholder="Ingrese alguna observación.." ></textarea>
                   @error('observacion')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -110,24 +94,6 @@
       <div class="col-md-4">
         <div class="box">
           <div class="box-header with-border">
-            <div class="row">
-              <div class="col-lg-6">
-                <label for=""> Código Pago</label>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <input id="" type="text" value="{{$codigo_pago}}" name="codigo_pago" class="form-control" readonly>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="box-body">
-
-          </div> <!-- end box body -->
-        </div><!--  end box -->
-        <div class="box">
-          <div class="box-header with-border">
             <h3 class="box-title"> Cálculo Pago</h3>
           </div>
           <div class="box-body">  
@@ -137,7 +103,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="costo_galon" value="0.00" type="text" class="form-control" readonly>
+                  <input id="descuento_pendiente_anterior" value="{{$transportista->descuento_pendiente}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -163,7 +129,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <label for="galones"><b>TOTAL A PAGAR</b> </label>
+                <label for="total_pago"><b>TOTAL A PAGAR</b> </label>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
@@ -173,7 +139,7 @@
             </div>
             <div class="row">
               <div class="col-lg-12">
-              <button class="btn btn-success btn-lg pull-right">
+              <button type="submit" class="btn btn-success btn-lg pull-right">
                <i class="fa fa-money"></i> &nbsp;PAGAR 
               </button>                 
               </div>             

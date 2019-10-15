@@ -1,28 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
-      <div class="box box-success">
-        <div class="box-header with-border">
-          <h3 class="box-title">Fechas fletes</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="first_viaje">Desde(1er viaje):</label>
-                  <input id="first_viaje" type="text" class="form-control" 
-                                 value="autorellenable..." readonly>
-              </div>
-            </div><!-- end razon -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="last_viaje">Hasta(ultimo viaje):</label>
-                <input id="last_viaje" type="text" class="form-control" 
-                                 value="autorellenable..." readonly>
-              </div>
-            </div><!-- end ruc -->
-          </div>
-        </div><!-- /.box-body -->
-      </div><!-- /.box datos pedido -->
+    <div class="col-md-8">     
 
         <div id="datos-pedido" class="box box-success">
           <div class="box-header with-border">
@@ -106,24 +83,6 @@
       <div class="col-md-4">
         <div class="box">
           <div class="box-header with-border">
-            <div class="row">
-              <div class="col-lg-6">
-                <label for=""> Código Pago</label>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <input id="" type="text" value="{{$pago_transportista->codigo_pago}}" name="codigo_pago" class="form-control" readonly>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="box-body">
-
-          </div> <!-- end box body -->
-        </div><!--  end box -->
-        <div class="box">
-          <div class="box-header with-border">
             <h3 class="box-title"> Cálculo Pago</h3>
           </div>
           <div class="box-body">  
@@ -133,7 +92,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="costo_galon" value="0.00" type="text" class="form-control" readonly>
+                  <input id="descuento_pendiente_anterior" value="{{$transportista->descuento_pendiente}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>

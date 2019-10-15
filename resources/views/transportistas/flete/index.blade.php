@@ -165,16 +165,7 @@ $(document).ready(function() {
               columns:[0,1,2,3,4,5,6]
             }
 
-         }
-        // ,{
-        //   extend: 'pdfHtml5',
-        //   title: 'Programación Flete Transportistas',
-        //   exportOptions:
-        //     {
-        //       columns:[0,1,2,3,4,5,6]
-        //     }
-        // }
-        ],
+         }],
       "columnDefs": [
         { "visible": false, "targets": 8 },
         {"className": "dt-center", "targets":  [4]  }
@@ -182,7 +173,7 @@ $(document).ready(function() {
       "order": [[4, 'desc']],
      // "ordering": false,
        'rowsGroup':[4], 
-       "rowGroup": {  dataSrc: 4 } ,
+       // "rowGroup": {  dataSrc: 4 } ,
       "responsive": true,             
       'language': {
         'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
