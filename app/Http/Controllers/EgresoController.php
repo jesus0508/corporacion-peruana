@@ -35,19 +35,10 @@ class EgresoController extends Controller
         $grifos         = Grifo::all();
         $date           = Carbon::now();
         $date_yesterday = Carbon::yesterday();
-        $semana = array(  //quitar luego
-                  "Domingo",
-                  "Lunes",
-                  "Martes",
-                  "Miercoles",
-                  "Jueves",
-                  "Viernes",
-                  "Sábado"
-            );
+        $semana = config('constants.semana_name');//constant week
         $today = $semana[strftime( '%w',strtotime($date) )];
         $yesterday = $semana[strftime( '%w',strtotime($date_yesterday) )];
-
-        return view('reportes.diario.index',compact('egresos','grifos','today','yesterday'));
+        return view('reportes_gastos_grifo.diario.index',compact('egresos','grifos','today','yesterday'));
     }
 
     /**
@@ -72,7 +63,7 @@ class EgresoController extends Controller
         $last_month   = $date->subMonth();
         $last_month   = $meses[($last_month->format('n')) - 1];
 
-        return view('reportes.mensual.index',compact('egresos','month_actual','last_month','semana'));
+        return view('reportes_gastos_grifo.mensual.index',compact('egresos','month_actual','last_month','semana'));
     }
     /**
      * [reporte_gastos_anual description]
@@ -80,7 +71,6 @@ class EgresoController extends Controller
      */
     public function reporte_gastos_anual(){
         $anios=array(
-        //'2009','2010','2011','2012','2013','2014',
         '2015','2016','2017','2018',
                         '2019','2020','2021','2022','2023','2024','2025','2026');
         $egresos = Egreso::select( 
@@ -122,7 +112,7 @@ class EgresoController extends Controller
         //$chart->labelsRotation(45.5);
         //$chart->displayLegend(true);
 
-        return view('reportes.anual.index',compact('egresos','anios','year','last_year','chart') );
+        return view('reportes_gastos_grifo.anual.index',compact('egresos','anios','year','last_year','chart') );
     }
 
     /**
@@ -154,7 +144,7 @@ class EgresoController extends Controller
 
         //return $g;
 
-        return view('reportes.general.index',compact('egresos','chart') );
+        return view('reportes_gastos_grifo.general.index',compact('egresos','chart') );
     }
 
     /**

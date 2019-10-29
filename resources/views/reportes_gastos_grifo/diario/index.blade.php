@@ -18,8 +18,8 @@
 
 @section('content')
 <section class="content">
-  @include('reportes.diario.filtrado')
-  @include('reportes.diario.table')
+  @include('reportes_gastos_grifo.diario.filtrado')
+  @include('reportes_gastos_grifo.diario.table')
 
   <!--/.end-modales-->
 </section>
@@ -35,7 +35,7 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-gastos-diarios').DataTable({
+  $('#tabla-gastos-grifo-diarios').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -140,7 +140,7 @@ function addZero(i) {
 }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-gastos-diarios');
+  let $tabla_pagos_lista = $('#tabla-gastos-grifo-diarios');
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
     onSelect: function (selected) {
@@ -181,14 +181,14 @@ function validateDates() {
 
   $('#today-fecha').on('click', function () {
     let hoy = hoyFecha();
-    console.log(hoy);
+    //console.log(hoy);
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
    let ayer = ayerFecha();
-    console.log(ayer);
+   // console.log(ayer);
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
@@ -200,7 +200,7 @@ function validateDates() {
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-gastos-diarios');
+    let $tabla_pedido_proveedores = $('#tabla-gastos-grifo-diarios');
     inicializarSelect2($filter_proveedor, 'Ingrese el grifo', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {

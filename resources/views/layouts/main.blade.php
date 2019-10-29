@@ -251,9 +251,59 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li>
+            <!-- <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li> -->
             <li><a href="{{route('pedidos.programacion')}}"><i class="fa fa-calendar-minus-o"></i> Reporte Programación</a></li>
+            <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Ganancia por Grifo</a></li>
+            <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="glyphicon glyphicon-list-alt"></i> General por Zona</a></li>
+
+            <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
+              <a href="#">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                  <span>Ingresos Netos Grifos</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              </a>
+                <ul class="treeview-menu" style="display: none;">               
+                  <li><a href="{{route('ingreso_grifo_neto.index')}}"><i class="fa fa-listS-alt">D</i> 
+                    Ingreso Neto Diario</a>
+                  </li>
+                  <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+                    Reporte Gastos Mensual</a>
+                  </li>
+                  <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                    Reporte Gastos Anual</a>
+                  </li>
+                  <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+                    Reporte Gastos General</a>
+                  </li>
+                </ul>
+            </li> 
+            <li id="treeview-reporte-gastos-grifo" class="treeview">
+              <a href="#">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                  <span>Gastos Grifos</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              </a>
+                <ul class="treeview-menu" style="display: none;">               
+                  <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
+                    Reporte Gastos Diario</a>
+                  </li>
+                  <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+                    Reporte Gastos Mensual</a>
+                  </li>
+                  <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                    Reporte Gastos Anual</a>
+                  </li>
+                  <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+                    Reporte Gastos General</a>
+                  </li>
+                </ul>
+            </li>
           </ul>
+
         </li>
         
         @if( Auth::user()->hasRole('Administrador'))
@@ -297,30 +347,6 @@ desired effect
                 <li><a href="{{ route('egresos.listado') }}"><i class="fa fa-list"></i> 
                 Lista Gastos</a>
                 </li>
-                <li id="treeview-reporte-gastos-grifo" class="treeview">
-                  <a href="#">
-                    <i class="glyphicon glyphicon-list-alt"></i>
-                    <span>Reportes</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu" style="display: none;">               
-                    <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
-                    Reporte Gastos Diario</a>
-                    </li>
-                    <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
-                    Reporte Gastos Mensual</a>
-                    </li>
-                    <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                    Reporte Gastos Anual</a>
-                    </li>
-                    <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
-                    Reporte Gastos General</a>
-                    </li>
-                  </ul>
-                </li> 
-
               </ul>
             </li> 
           </ul>

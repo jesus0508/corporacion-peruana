@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-body">
-        <table id="tabla-gastos-diarios" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-gastos-grifo-diarios" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>#</th>
@@ -12,8 +12,6 @@
               <th>Subcategoria</th>
               <th>Gasto Descripcion</th>
               <th>Monto (S/.)</th>
-<!-- 
-              <th>Estado</th> -->
             </tr>
           </thead>
           <tbody>
@@ -26,9 +24,6 @@
                 <td>{{$egreso->subcategoria}}</td>
                 <td>{{$egreso->concepto}}</td>
                 <td>{{$egreso->monto_egreso}}</td>
-             
-<!--                 <td> <label for="" class="label">estado</label>
-                </td>   -->
               </tr>            
             @endforeach        
 

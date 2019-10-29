@@ -11,10 +11,10 @@ class Salida extends Model
 
     public function cuenta()
     {
-    	return $this->belongsTo(Cuenta::class,);
+    	return $this->belongsTo(Cuenta::class);
     } 
     public function categoria()
     {
-    	return $this->belongsTo(CategoriaEgreso::class,);
+    	return $this->belongsTo(CategoriaEgreso::class);
     } 
 }

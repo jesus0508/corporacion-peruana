@@ -1,4 +1,4 @@
-@extends('layouts.main')
+_gastos_grifo@extends('layouts.main')
 
 @section('title','Gastos')
 
@@ -13,10 +13,10 @@
 <section class="content">
   <div class="row">
     <div class="col-md-6">
-      @include('reportes.general.table')      
+      @include('reportes_gastos_grifo.general.table')      
     </div>   
     <div class="col-md-6">
-      @include('reportes.general.chart')     
+      @include('reportes_gastos_grifo.general.chart')     
     </div>    
   </div>
   <!--/.end-modales-->

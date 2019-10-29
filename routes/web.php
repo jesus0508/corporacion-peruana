@@ -88,6 +88,12 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('reporte_gastos_general','EgresoController@reporte_gastos_general')
 			->name('egresos.reporte_gastos_general');
 
+	/* INGRESOS NETOS  (GRIFOS)*/	
+	Route::resource('ingreso_grifo_neto','IngresoNetoGrifoController');//grifos
+	Route::resource('ganancia_grifo_neto','GananciaNetaGrifoController');//X grifo
+	Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
+
+
 	Route::group(['middleware' => ['role:Proveedores']], function () {
 		/* Proveedor & planta */	
 		Route::resource('/proveedores', 'ProveedorController');

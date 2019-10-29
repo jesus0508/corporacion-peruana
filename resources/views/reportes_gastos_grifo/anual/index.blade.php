@@ -25,18 +25,15 @@
 @section('content')
 <section class="content">
 
-  @include('reportes.anual.filtrado')
+  @include('reportes_gastos_grifo.anual.filtrado')
 
   <div class="row">
     <div class="col-md-6">  
-
-     @include('reportes.anual.table')
-      
+     @include('reportes_gastos_grifo.anual.table')      
     </div>   
 
     <div class="col-md-6">
-      @include('reportes.anual.chart')
-       
+      @include('reportes_gastos_grifo.anual.chart')       
     </div>    
   </div>
 

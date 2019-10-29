@@ -22,8 +22,8 @@
 
 @section('content')
 <section class="content">
-  @include('reportes.mensual.filtrado')
-  @include('reportes.mensual.table')
+  @include('reportes_gastos_grifo.mensual.filtrado')
+  @include('reportes_gastos_grifo.mensual.table')
 
   <!--/.end-modales-->
 </section>
