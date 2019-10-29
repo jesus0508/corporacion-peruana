@@ -99,7 +99,7 @@ function findByIdFecha(id,fecha){
     success: (data)=>{
       console.log(data);
       if (data) {
- 			$('#nro_serie').val('Boletas serie X');
+ 			$('#nro_serie').val('Boletas serie X, serie Y..');
       $('#facturacion').val('...');
       let galones = Number(data.lectura_final) - Number(data.lectura_inicial);
       $('#galones').val(galones);

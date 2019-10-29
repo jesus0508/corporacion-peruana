@@ -13,8 +13,8 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group @error('fecha') has-error @enderror">
-                  <label for="fecha">Fecha</label>
-                  <input autocomplete="off" id="fecha" type="text" class="tuiker form-control"                  placeholder="Ingrese la fecha "
+                  <label for="fecha">Fecha Ingreso</label>
+                  <input autocomplete="off" id="fecha" type="text" class="tuiker form-control"                  placeholder="Ingrese la fecha ingresoG "
                   required="" >
                   @error('fecha')
                   <span class="help-block" role="alert">
@@ -34,20 +34,20 @@
 
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
               <div class="form-group">
-                <label for="nro_serie">Nro de serie</label>
+                <label for="nro_serie">Número(s) de serie</label>
                 <input id="nro_serie" type="text" class="form-control" 
                         readonly="">
               </div>
             </div>
-            <div class="col-md-3">
+<!--             <div class="col-md-3">
               <div class="form-group">
-                <label for="facturacion">Número factura</label>
+                <label for="facturacion">Número(s) factura</label>
                 <input id="facturacion" type="text" class="form-control" 
                         readonly="">
               </div>
-            </div>
+            </div> -->
           </div>                    
 
           <div class="row">
@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="monto_ingreso">MONTO DE FACTURA </label>
+                <label for="monto_ingreso">Monto resultante </label>
                 <input id="monto_ingreso" type="text" class="form-control" 
                        readonly="">
               </div>

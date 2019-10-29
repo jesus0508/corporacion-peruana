@@ -69,7 +69,7 @@ $(document).ready(function() {
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5,6,7]
+          columns:[0,1,2,3,4,5,6,7,8]
         },
         footer: true
       }], 
@@ -79,7 +79,7 @@ $(document).ready(function() {
  
             // Total over all pages
             total = api
-                .column( 7 )
+                .column( 8 )
                 .data()
                 .reduce( function (a, b) {
                     return Number(a) + Number(b);
@@ -87,14 +87,14 @@ $(document).ready(function() {
  
             // Total over this page
             pageTotal = api
-                .column( 7, { page: 'current'} )
+                .column( 8, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
  
             // Update footer
-            $( api.column( 7 ).footer() ).html(
+            $( api.column( 8 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -161,7 +161,7 @@ function validateDates() {
       var sFin = $('#fecha_inicio').val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
@@ -206,7 +206,7 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[2];
+      let cell = data[1];
       if (grifo) {
         return grifo === cell;
       }

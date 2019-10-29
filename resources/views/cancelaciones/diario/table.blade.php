@@ -5,11 +5,12 @@
         <table id="tabla-gastos-grifo-diarios" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>#</th>
               <th>Fecha Ingreso</th>
               <th>Grifo</th>
               <th>Galones</th>
-              <th>Precio</th>              
+              <th>Precio</th>
+              <th>Monto Total</th>
+              <th>Saldo</th>              
               <th>N° de operación</th>
               <th>Fecha de depósito </th>
               <th>Monto Depósito</th>
@@ -17,13 +18,13 @@
           </thead>
           <tbody>
             @foreach( $cancelaciones as $cancelacion )
-              <tr>
-                <td>{{$loop->iteration}}</td>
+              <tr>                
                 <td>{{date('d/m/Y', strtotime($cancelacion->ingresoGrifo->fecha_ingreso))}}</td>
                 <td>{{$cancelacion->razon_social}}</td>                  
                 <td>{{$cancelacion->lectura_final-$cancelacion->lectura_inicial}}</td>
                 <td>{{$cancelacion->precio_galon}}</td>
-                
+                <td>{{$cancelacion->monto_ingreso}}</td>
+                <td>saldo</td>                
                 <td>{{$cancelacion->nro_operacion}}</td>
                 <td>{{$cancelacion->fecha}}</td>
                 <td>{{$cancelacion->monto}}</td>
@@ -33,7 +34,7 @@
           </tbody>
             <tfoot>
             <tr>
-                <th colspan="7" style="text-align:right">Total:</th>
+                <th colspan="8" style="text-align:right">Total:</th>
                 <th></th>
             </tr>
         </tfoot>
