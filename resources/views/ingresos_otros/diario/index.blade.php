@@ -4,6 +4,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
 @endsection
 
 @section('breadcrumb')
@@ -27,7 +28,13 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+
 <script>
+
 $(document).ready(function() {
 	var groupColumn = 1;
   $('#tabla-reporte-ingresos').DataTable({
@@ -38,6 +45,36 @@ $(document).ready(function() {
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
+    "dom": 'Bfrtip',
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Lista Ingresos Diario',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        // customize: function( xlsx ) {
+        //       var sheet = xlsx.xl.worksheets['sheet1.xml'];
+        //       let rels = xlsx.xl.worksheets['sheet1.xml'];
+        //       var clR = $('row', sheet); 
+              
+        //       let nRows = clR.length;//6
+        //       let total = $('c[r=F'+nRows+'] t', sheet).text();                
+        //       $('row:last c t', sheet).text( '' );
+        //       $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
+        //       $('c[r=C'+nRows+'] t', sheet).attr('s','37');
+        //       $('c[r=D'+nRows+'] t', sheet).text( total );
+        //       $('c[r=D'+nRows+'] t', sheet).attr('s','37');             
+        //     },
+        'exportOptions':
+        {
+          columns:[0,1,2,3,4,5,6]
+        }
+        //, footer: true
+      }],
     //"ordering": ,
     //"searching": true,
 		"drawCallback": function ( settings ) {

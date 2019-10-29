@@ -19,7 +19,9 @@ class CreateSalidasTable extends Migration
             $table->string('detalle')->nullable();
             $table->string('codigo_operacion')->nullable();
             $table->date('fecha_egreso')->nullable();
-            $table->date('fecha_reporte');            
+            $table->date('fecha_reporte'); 
+            $table->string('nro_cheque')->nullable();
+            $table->string('nro_comprobante')->nullable();           
             $table->string('banco')->nullable();
             $table->unsignedBigInteger('cuenta_id')->nullable();
             $table->foreign('cuenta_id')
@@ -38,6 +40,10 @@ class CreateSalidasTable extends Migration
      */
     public function down()
     {
+        Schema::table('salidas', function (Blueprint $table) {
+            $table->dropForeign(['cuenta_id','categoria_egreso_id']);
+        });
+
         Schema::dropIfExists('salidas');
     }
 }

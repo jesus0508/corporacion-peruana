@@ -13,7 +13,7 @@
           <thead>
             <tr>
               <th width="14%">FECHA REPORTE</th>
-              <th width="1%">  asdasdas    </th>
+              <th width="1%">  fecha reporte    </th>
               <th width="50%">Detalles</th>              
               <th width="15%"> Fecha</th>
               <th width="20%">Monto</th>

@@ -67,9 +67,10 @@ $(document).ready(function() {
 		  {data: 'fecha_reporte'},
 		  {data: 'categoria'},
 			{data: 'detalle'},
-			{data: 'fecha_egreso'},
+			{data: 'nro_cheque'},
 			{data: 'codigo_operacion'},
-			{data: 'monto_egreso', render: $.fn.dataTable.render.number( ',', '.', 0, 'S/. ' )}
+			{data: 'monto_egreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, 'S/. ' )
+    }
 		]      
   }); 
   function convertDateFormat(string) {
@@ -105,8 +106,10 @@ $(document).ready(function() {
      fecha_egreso = convertDateFormat(fecha_egreso);
     let fecha_reporte =$('#fecha_reporte').val();
     fecha_reporte = convertDateFormat(fecha_reporte);    
-    let codigo_operacion =$('#codigo_operacion').val();  
-    let cuenta_id = $('#cuenta_id option:selected').val();
+    let codigo_operacion =$('#codigo_operacion').val(); 
+    let nro_comprobante =$('#nro_comprobante').val(); 
+    let nro_cheque =$('#nro_cheque').val();  
+    let cuenta_id = $('#cuenta_id option:selected').val();    
     let detalle =$('#detalle').val();
     let token =$('#token').val();
    // console.log(cuenta_id);
@@ -122,13 +125,17 @@ $(document).ready(function() {
           fecha_egreso: fecha_egreso,
           categoria_egreso_id: categoria_egreso_id,
           detalle: detalle,
-          codigo_operacion: codigo_operacion
+          codigo_operacion: codigo_operacion,
+          nro_cheque: nro_cheque,
+          nro_comprobante: nro_comprobante
         }
 
     }).done(function (data){
       //console.log('done');
         $('#monto_egreso').val('');
         $('#detalle').val('');
+        $('#nro_comprobante').val('');        
+        $('#nro_cheque').val('');
   			$('#codigo_operacion').val('');	
         $('#cuenta_id').val('').trigger('change');
       RefreshTable('#tabla-egresos',`../egresos_dt/${fecha_reporte}`);

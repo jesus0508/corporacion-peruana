@@ -8,6 +8,7 @@ return [
     |
     |
     */
+        'meses_name' =>["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","             Septiembre","Octubre","Noviembre","Diciembre"],
 
         'semana_name' => ["Domingo",
                   "Lunes",

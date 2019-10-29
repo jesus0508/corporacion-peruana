@@ -72,7 +72,8 @@
                     <div class="form-group">
                       <label for="calibracion">Calibracion</label>
                       <input id="calibracion" type="number" step="any" class="form-control"
-                              name="calibracion" placeholder="Ingrese la calibracion" required min="0">
+                              name="calibracion" placeholder="Ingrese la calibracion" 
+                              value="0"  min="0">
                     </div>
                   </div>
                 </div>

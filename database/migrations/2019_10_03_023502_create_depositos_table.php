@@ -35,6 +35,9 @@ class CreateDepositosTable extends Migration
      */
     public function down()
     {
+        Schema::table('depositos', function (Blueprint $table) {
+            $table->dropForeign(['cuenta_id']);            
+        });
         Schema::dropIfExists('depositos');
     }
 }

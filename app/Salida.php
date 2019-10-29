@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Salida extends Model
 {
 	protected $table = 'salidas';
-    protected $fillable= ['monto_egreso','fecha_egreso','fecha_reporte','detalle','codigo_operacion','cuenta_id', 'banco','categoria_egreso_id'];
+    protected $fillable= ['monto_egreso','fecha_egreso','fecha_reporte','detalle','codigo_operacion','cuenta_id', 'banco','categoria_egreso_id','nro_comprobante','nro_cheque'];
 
     public function cuenta()
     {

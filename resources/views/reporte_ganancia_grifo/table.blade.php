@@ -33,11 +33,11 @@
 
           </tbody>
             <tfoot>
-            <tr>
-                <th colspan="4" style="text-align:right">TOTAL NETO:</th>
-                <th></th>
-            </tr>
-        </tfoot>
+              <tr>
+                  <th colspan="4" style="text-align:right">TOTAL NETO:</th>
+                  <th></th>
+              </tr>
+            </tfoot>
         </table>
       </div>
     </div> <!-- end box -->

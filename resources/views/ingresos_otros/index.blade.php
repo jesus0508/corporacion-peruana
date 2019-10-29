@@ -67,7 +67,8 @@ $(document).ready(function() {
 			{data: 'detalle'},
 			{data: 'fecha_ingreso'},
 			{data: 'codigo_operacion'},
-			{data: 'monto_ingreso', render: $.fn.dataTable.render.number( ',', '.', 0, '$' )}
+			{data: 'monto_ingreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
+    }
 		]      
   });  
 
@@ -109,6 +110,7 @@ $(document).ready(function() {
     let codigo_operacion =$('#codigo_operacion').val();  
     let detalle =$('#detalle').val();
     let token =$('#token').val();
+    let banco = $('#banco').val();
     $.ajax({
         url: `../ingresos_otros`,
         headers: {'X-CSRF-TOKEN': token},
@@ -120,7 +122,8 @@ $(document).ready(function() {
           fecha_ingreso: fecha_ingreso,
           categoria_ingreso_id: categoria_ingreso_id,
           detalle: detalle,
-          codigo_operacion: codigo_operacion
+          codigo_operacion: codigo_operacion,
+          banco: banco
         }
 
     }).done(function (data){

@@ -137,7 +137,62 @@ function inicializarDataTable($table) {
         searchable: false,
         targets: [-1]
       },
-    ]
+    ],"dom": 'Bfrtip',
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Lista Ingresos Grifos',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        customize: function( xlsx ) {
+              var sheet = xlsx.xl.worksheets['sheet1.xml'];
+              let rels = xlsx.xl.worksheets['sheet1.xml'];
+              var clR = $('row', sheet); 
+              
+              let nRows = clR.length;
+              let total = $('c[r=F'+nRows+'] t', sheet).text();                
+              $('row:last c t', sheet).text( '' );
+              $('c[r=F'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=F'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=G'+nRows+'] t', sheet).text( total );
+              $('c[r=G'+nRows+'] t', sheet).attr('s','37');             
+            },
+        'exportOptions':
+        {
+          columns:[1,2,3,4,5,6,7]
+        },
+        footer: true
+      }], 
+
+      "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Total over all pages
+            total = api
+                .column( 7 )
+                .data()
+                .reduce( function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 7, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                      return Number(a) + Number(b);
+                }, 0 );
+            pageTotal = pageTotal.toFixed(2);
+            // Update footer
+            $( api.column( 7 ).footer() ).html(
+                pageTotal
+                // +' (S/.'+ total +' total)'
+            );
+      }
   });
 }
 

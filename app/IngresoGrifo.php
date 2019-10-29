@@ -11,7 +11,8 @@ class IngresoGrifo extends Model
     protected $table = 'ingreso_grifos';
     protected $fillable = [
         'lectura_inicial', 'lectura_final', 'calibracion','monto_ingreso',
-        'fecha_ingreso', 'precio_galon', 'grifo_id','categoria_ingreso_id'
+        'fecha_ingreso', 'precio_galon', 'grifo_id','categoria_ingreso_id',
+        'total_galones_factura','total_galones_boleta','facturacion'
     ];
 
     public function grifo()
@@ -21,6 +22,10 @@ class IngresoGrifo extends Model
     
     public function categoriaIngreso(){
         return $this->belongsTo(CategoriaIngreso::class);
+    }
+
+    public function cancelaciones(){
+        return $this->hasMany(Cancelacion::class);
     }
 
     public function setFechaIngresoAttribute($value)

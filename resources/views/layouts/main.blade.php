@@ -268,15 +268,13 @@ desired effect
                   <li><a href="{{route('ingreso_grifo_neto.index')}}"><i class="fa fa-listS-alt">D</i> 
                     Ingreso Neto Diario</a>
                   </li>
-                  <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
-                    Reporte Gastos Mensual</a>
+                  <li><a href="{{route('ingreso_grifo_neto.create')}}"><i class="fa fa-taSble">M</i> 
+                    Ingreso Neto Mensual</a>
                   </li>
-                  <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+<!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
                     Reporte Gastos Anual</a>
-                  </li>
-                  <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
-                    Reporte Gastos General</a>
-                  </li>
+                  </li> -->
+
                 </ul>
             </li> 
             <li id="treeview-reporte-gastos-grifo" class="treeview">
@@ -346,6 +344,21 @@ desired effect
                 </li>
                 <li><a href="{{ route('egresos.listado') }}"><i class="fa fa-list"></i> 
                 Lista Gastos</a>
+                </li>
+              </ul>
+            </li>
+            <li id="treeview-ventas-facturadas" class="treeview">
+              <a href="#">
+                <i class="glyphicon glyphicon-list-alt"></i> <span>Venta Facturada</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{route('cancelacion.create')}}"><i class="fa fa-plus"></i> 
+                Registrar cancelación </a></li>
+                <li><a href="{{route('cancelacion.index')}}"><i class="fa fa-list"></i> 
+                Lista Cancelación Grifo</a>
                 </li>
               </ul>
             </li> 

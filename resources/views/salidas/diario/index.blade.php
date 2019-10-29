@@ -4,6 +4,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
 @endsection
 
 @section('breadcrumb')
@@ -25,6 +26,11 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+
 <script>
 $(document).ready(function() {
 	var groupColumn = 1;
@@ -35,9 +41,36 @@ $(document).ready(function() {
     "order": [[ groupColumn, 'asc' ]],
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
-    //"ordering": ,
-    //"searching": true,
+          },"dom": 'Bfrtip',
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Lista Egresos Diario',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        // customize: function( xlsx ) {
+        //       var sheet = xlsx.xl.worksheets['sheet1.xml'];
+        //       let rels = xlsx.xl.worksheets['sheet1.xml'];
+        //       var clR = $('row', sheet); 
+              
+        //       let nRows = clR.length;//6
+        //       let total = $('c[r=F'+nRows+'] t', sheet).text();                
+        //       $('row:last c t', sheet).text( '' );
+        //       $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
+        //       $('c[r=D'+nRows+'] t', sheet).attr('s','37');
+        //       $('c[r=E'+nRows+'] t', sheet).text( total );
+        //       $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
+        //     },
+        'exportOptions':
+        {
+          columns:[0,1,2,3,4,5,6,7]
+        }
+        //,footer: true
+      }], 
 		"drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();
@@ -51,7 +84,7 @@ $(document).ready(function() {
 
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 6, 
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
@@ -70,7 +103,7 @@ $(document).ready(function() {
                     "class": "group",
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 6, 
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {
@@ -87,25 +120,12 @@ $(document).ready(function() {
                 //Obtener subtotales +TOTAL
                 let elemento            = document.getElementById("e"+val[1]);
                 let elementoTOTAL       = document.getElementById("A");
-                let total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[6]);
+                let total               = parseFloat(elementoTOTAL.innerHTML) + parseFloat( val[7]);
                 elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
-                let subtotal            = parseFloat(elemento.innerHTML) + parseFloat( val[6]);                  
+                let subtotal            = parseFloat(elemento.innerHTML) + parseFloat( val[7]);                  
                 elemento.innerHTML      = parseFloat(subtotal).toFixed(2);  
                       
         });
-    },
-    "footerCallback": function (row, data, start, end, display) {
-        var api = this.api();
-        $(api.column(6).footer()).html(
-            api.column(6).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            })
-        );
-        $(api.column(5).footer()).html(
-            api.column(5).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            })
-        );
     }
   });     
 

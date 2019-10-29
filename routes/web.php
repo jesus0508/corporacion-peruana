@@ -56,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/ingresos_otros', 'IngresoController');
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
 		Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
+
+		/* Venta Facturada*/
+		Route::resource('/cancelacion','CancelacionController');
+		Route::get('/cancelacion_search/{id}/{fecha}','CancelacionController@cancelacion_search')->name('cancelacion_search');
 	});
 
 	/* EMPRESA */

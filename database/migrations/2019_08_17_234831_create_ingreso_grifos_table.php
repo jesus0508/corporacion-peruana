@@ -17,10 +17,13 @@ class CreateIngresoGrifosTable extends Migration
             $table->bigIncrements('id');
             $table->float('lectura_inicial');
             $table->float('lectura_final');
-            $table->integer('calibracion');
+            $table->integer('calibracion')->nullable();
             $table->float('monto_ingreso');
             $table->decimal('precio_galon', 9, 5);
             $table->date('fecha_ingreso');
+            $table->float('total_galones_factura')->nullable();
+            $table->float('total_galones_boleta')->nullable();
+            $table->string('facturacion')->nullable();
             $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')->references('id')->on('grifos');
             $table->unsignedBigInteger('categoria_ingreso_id')->default(2);
@@ -38,7 +41,7 @@ class CreateIngresoGrifosTable extends Migration
      */
     public function down()
     {
-        Schema::table('pago_cliente_pedido_cliente', function (Blueprint $table) {
+        Schema::table('ingreso_grifos', function (Blueprint $table) {
             $table->dropForeign(['grifo_id']);
             $table->dropForeign(['categoria_ingreso_id']);
         });

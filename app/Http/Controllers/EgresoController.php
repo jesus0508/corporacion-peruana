@@ -55,9 +55,8 @@ class EgresoController extends Controller
                 ->groupBy('day')
                 //->orderBy('id','DESC')
                 ->get();
-        $semana       = array("Domingo","Lunes", "Martes","Miércoles",
-                         "Jueves","Viernes","Sábado");                    
-        $meses        = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $semana       =  config('constants.semana_name');//constant week                  
+        $meses        = config('constants.meses_name');
         $date         = Carbon::now();
         $month_actual = $meses[($date->format('n')) - 1];
         $last_month   = $date->subMonth();

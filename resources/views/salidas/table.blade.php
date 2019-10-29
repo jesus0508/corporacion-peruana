@@ -21,12 +21,12 @@
         <table id="tabla-egresos" class="table table-bordered table-striped responsive display nowrap" >
           <thead>
             <tr>
-              <th>FECHA REPORTE</th>
-              <th>CATEGORIA</th>              
-              <th>Detalles</th>
-              <th>FECHA egreso</th>
-              <th>Extra Info</th>
-              <th>Monto</th>
+              <th width="5%">FECHA REPORTE</th>
+              <th width="10%">CATEGORIA</th>              
+              <th width="40%">Detalles</th>
+              <th width="15%">N° de cheque </th>
+              <th width="15%">N° de operación</th>
+              <th width="15%">Monto (S./)</th>
             </tr>
           </thead>
         </table>

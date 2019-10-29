@@ -32,5 +32,11 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6">
+        <button id="clear-fecha" class="btn btn-danger">
+            <i class="fa fa-remove "></i>
+            Limpiar
+      </button>
+    </div>
   </div>
 </div>

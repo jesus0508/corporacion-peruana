@@ -12,6 +12,7 @@
               <th>CATEGORIA</th>              
               <th>Detalles</th>
               <th>FECHA reporte</th>
+              <th>N° Cheque</th>
               <th>Extra Info</th>
               <th>Banco</th>
               <th>Monto</th>
@@ -36,6 +37,7 @@
                     {{date('d/m/Y', strtotime($egreso->fecha_egreso))}}
                     @endif
                 </td>
+                <td>{{$egreso->nro_cheque}}</td>
                 <td>
                   {{$egreso->codigo_operacion}}                 
                 </td>

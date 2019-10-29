@@ -26,7 +26,7 @@ class StoreIngresoGrifoRequest extends FormRequest
         return [
             'lectura_inicial'=>'required|numeric|gt: 0',
             'lectura_final'=>'required|numeric|gt: 0',
-            'calibracion'=>'required|numeric|gt: 0',
+            'calibracion'=>'nullable',
             'monto_ingreso' => 'required|numeric|gt: 0',
             'precio_galon'=>'required|numeric|gt:0',
             'fecha_ingreso'=>'required',

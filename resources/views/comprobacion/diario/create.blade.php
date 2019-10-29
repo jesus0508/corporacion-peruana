@@ -1,11 +1,7 @@
 <div class="row">
   <!-- left column -->
-    <div class="col-md-6">
-      <!-- general form elements -->
-      
-    </div><!--/.col (left) -->
-  
-    <div class="col-md-6">
+
+    <div class="col-md-12">
       <!-- general form elements -->
       <div class="box">
        <div class="box-header with-border">

@@ -86,9 +86,14 @@ class CategoriaEgresoController extends Controller
     public function destroy($id)
     {
         $c = CategoriaEgreso::where('id',$id)->with('egresos')->with('pagoProveedores')->first();
-        if( count( $categoria->egresos )      == 0 
-        &&  count( $categoria->pagoProveedores)   == 0 ){
+        if( count( $c->egresos )      == 0 
+        &&  count( $c->pagoProveedores)   == 0 
+        && $id !== 1 //para no eliminar cat otras salidas por banco
+        ){
+          
             CategoriaEgreso::destroy($id);
+          
+            
             return back()->with(['alert-type' => 'warning', 'status' => 'Categoria eliminada con exito']);
         }else{
             return back()->with(['alert-type' => 'warning', 'status' => 'No se puede eliminar, ya tiene egresos']);

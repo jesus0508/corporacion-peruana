@@ -72,7 +72,53 @@ class IngresoNetoGrifoController extends Controller
      */
     public function create()
     {
-        //
+       $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
+                    ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
+                    ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
+                    ->join('grifos','grifos.id','=','egresos.grifo_id')
+
+                    ->select(DB::raw('MONTH(fecha_egreso) as month'), 'grifos.razon_social as grifo',
+                        DB::raw('-1*(sum(monto_egreso)) as monto'),DB::raw('DAY(fecha_egreso) as day')
+                            )
+                    ->groupBy('egresos.grifo_id' , 'month')
+                    ->get();
+            
+            $ingresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
+                    ->select(DB::raw('MONTH(fecha_ingreso) as month'),'grifos.razon_social as grifo',
+                     'ingreso_grifos.monto_ingreso as monto' ,DB::raw('DATE(fecha_ingreso) as day'))
+                    ->groupBy('month')
+                    ->get();
+          
+            $netos = collect([]); 
+            foreach ($ingresos as $ingreso) {
+                foreach ($egresos as $egreso ) {
+                    if( $ingreso->month == $egreso->month AND $ingreso->grifo==$egreso->grifo){
+                        $consolidado = $egreso->monto + $ingreso->monto;
+                        $consolidado = round( $consolidado, 2 );
+                        $neto =[    'month'   => $egreso->month, 
+                                    'grifo' => $egreso->grifo,
+                                    'monto_ingreso' =>$ingreso->monto,
+                                    'day' => $ingreso->day,
+                                 
+                                    'monto_egreso' =>$egreso->monto,
+                                    'monto_neto' => $consolidado ];    
+                        $neto = (object)$neto;                  
+                        $netos->push($neto);
+                    }
+                    
+                }
+                
+            }
+  //     return  $netos  ;       
+   $grifos         = Grifo::all();
+        $grifos         = Grifo::all();
+        $semana       =  config('constants.semana_name');//constant week                  
+        $meses        = config('constants.meses_name');
+        $date         = Carbon::now();
+        $month_actual = $meses[($date->format('n')) - 1];
+        $last_month   = $date->subMonth();
+        $last_month   = $meses[($last_month->format('n')) - 1];
+        return view('reporte_ingresos_grifo_neto.mensual.index',compact('netos','grifos','month_actual','last_month','semana'));
     }
 
     /**
