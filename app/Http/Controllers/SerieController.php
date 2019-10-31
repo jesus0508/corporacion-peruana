@@ -111,13 +111,14 @@ class SerieController extends Controller
      */
     public function update(Request $request)
     {
+        //falta validacion
         $id = $request->id;
-        Serie::findOrFail($id)->update($request->validate([
-            'serie' =>  'unique:series|max:255',
-            'nro' =>  'required|max:255'
-            //|unique:series,nro,'.$this->id
-        ])
-        );
+        $serie_add = str_pad($request->nro, 3, "0", STR_PAD_LEFT);
+        Serie::findOrFail($id)->update([
+            'nro'=> $request->nro,
+            'serie'=>'Serie'.$serie_add
+        ]);
+        //return  Serie::findOrFail($id);
         return  back()->with('alert-type', 'success')->with('status', 'Serie editada con exito');
     }
 
