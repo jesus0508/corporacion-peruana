@@ -432,9 +432,15 @@ desired effect
                 </li>
               </ul>
         </li>
+
+        <li><a href="{{ route('transporte.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
+                Transporte</a>
+        </li>
         <li><a href="{{ route('empresa.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
                 Empresa Información</a>
         </li>
+
+        
 
       </ul>
       <!-- /.sidebar-menu -->

@@ -100,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('ingreso_grifo_neto','IngresoNetoGrifoController');//grifos
 	Route::resource('ganancia_grifo_neto','GananciaNetaGrifoController');//X grifo
 	Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
-
+	Route::resource('transporte','TransporteController');
 
 	Route::group(['middleware' => ['role:Proveedores']], function () {
 		/* Proveedor & planta */	
@@ -141,8 +141,11 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('asignar_individual', 'PedidoController@asignar_individual')
 				->name('asignar_individual');//asignar gls de pedido a grifos(algoritmo)
 		Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')
-				->name('pedidos.distribuir_grifo');//mostrar interfaz distribucion a grifos
+				->name('pedidos.distribuir_grifo');
+				//mostrar interfaz distribucion a grifos
 	});
+
+
 
 
 });
