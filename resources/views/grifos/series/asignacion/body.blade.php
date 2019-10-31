@@ -17,12 +17,15 @@
 			      </div>
 			    </div>
 	        @if($hasSerie)
-	        <div class="col-md-4">
-	        	<label for=""> Series</label> <br/>
+	        <div class="col-md-6">
+	        	<label for="">Series </label> <br/>
 	        	@foreach( $grifo->series as $serie)
-	        		<button class="btn btn-sm bg-purple">{{$serie->serie}}</button>
-
-	        	@endforeach			       
+	        		<a class="btn btn-sm btn-danger" href="{{route('eliminar_asignacion',$serie->id)}}"><span>x</span>&nbsp;
+	        			{{$serie->serie}}
+	        		</a>	       	
+						@endforeach
+	        	
+	        				       
 	        </div>
 	        <div class="col-md-2"></div>
 	        		@else
@@ -40,7 +43,7 @@
 	    					<form action="{{route('asignacion_series')}}" method="post">
 	    								@csrf
 	    								<input type="hidden" name="id" value="{{$grifo->id}}">
-	    								<p><b>Seleccione las nuevas series a asociar</b></p>
+	    								<p><b>Seleccione las series a agregar</b></p>
 	    								<div class="form-group">	    									
 	    									<label for="">SERIES</label>
 		    							<select name="series[]" multiple="" id="serie_multi" class="form-control select2-multi">

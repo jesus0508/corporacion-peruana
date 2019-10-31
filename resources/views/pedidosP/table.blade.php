@@ -38,7 +38,7 @@
                 <th>GLS</th>
                 <th>Precio galon/u</th> 
                 <th>Monto (S/.)</th>
-                <th>M.Facturado (S/.) </th>
+                <!-- <th>M.Facturado (S/.) </th> -->
                 <th>Saldo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -55,13 +55,13 @@
                   <td>{{$pedido->galones}}</td>
                   <td>{{$pedido->costo_galon}}</td>
                   <td>{{ $pedido->calc }} </td>
-                  <td>
+<!--                   <td>
                     @if( $pedido->factura_proveedor_id != null )                      
                      {{$pedido->monto_factura}} 
                     @else
                       0.00
                     @endif
-                  </td>
+                  </td> -->
                   <td>
                     {{$pedido->saldo}}                     
                   </td>  

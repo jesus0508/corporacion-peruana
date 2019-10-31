@@ -3,7 +3,7 @@
 
 		<div class="row">
 			@foreach($series as $serie)
-			<div class="col-md-6">
+			<div class="col-md-4">
 	      <div class="box box-success">
 	        <div class="box-body">
 	        	<div class="row">
@@ -20,9 +20,9 @@
 			        			<label for="">Número de serie</label>
 			        			<input type="number" class="form-control" name="nro" value="{{$serie->nro}}">
 			        		</div>			        		
-			        			<button type="submit" class="btn pull-left btn-success">
-					            <i class="fa fa-pencil"> </i>
-					              Guardar 
+			        			<button type="submit" class="btn pull-left btn-primary">
+					            <i class="fa fa-save"> </i>
+					               
 					          </button>	   
         				</form>	        				
 						    <form style="display:inline" method="POST" 
@@ -49,8 +49,9 @@
 	        		@else
 	        		<div class="col-md-7">
 	        			<div class="callout callout-danger">
-			        		<h5>Ningun grifo asociado</h5>
-			        		<label for="">Ningun grifo asociado</label>
+			        		<p>Ningun grifo asociado</p>
+			        	<!-- 	<label for="">Ningun grifo asociado</label> -->
+
 			        	</div>
 	        		</div>
 	        		@endif        		

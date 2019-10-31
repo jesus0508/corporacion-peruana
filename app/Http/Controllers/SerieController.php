@@ -32,11 +32,11 @@ class SerieController extends Controller
         $grifo = Grifo::findOrFail($id)->with('series')->first();
         $series_grifo_old = $grifo->series;
         //TRANSACTION AGREGAR LUEGOP
-        foreach ($series_grifo_old as $serie) {
-            $serie = Serie::findOrFail($serie->id);
-            $serie->grifo_id=null;
-            $serie->save();           
-        }
+        // foreach ($series_grifo_old as $serie) {
+        //     $serie = Serie::findOrFail($serie->id);
+        //     $serie->grifo_id=null;
+        //     $serie->save();           
+        // }
         if ($array_series) {
             foreach ($array_series as $id_serie) {
                 $serie = Serie::findOrFail($id_serie);
@@ -47,9 +47,21 @@ class SerieController extends Controller
        
         //END TRANSACTION
 
-        return back()->with(['alert-type' => 'success', 'status' => 'Series (des)asignadas con exito']);
+        return back()->with(['alert-type' => 'success', 'status' => 'Series asignadas con exito']);
     }
+    /**
+     * Elimina gestion_id de series.
+     * @param  [type] $grifo_id
+     * @return [type]     [description]
+     */
+    public function eliminar_asignacion($id){
+        Serie::findOrFail($id)->update([
+            'grifo_id' => null
+        ]);
 
+        return back()->with(['alert-type' => 'success', 'status' => 'Series desasignada de grifo']);   
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -73,7 +85,7 @@ class SerieController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Vista asignar series
      *
      * @param  \CorporacionPeru\Serie  $serie
      * @return \Illuminate\Http\Response
@@ -81,7 +93,7 @@ class SerieController extends Controller
     public function show(Grifo $grifo)
     {
         $grifo = Grifo::with('series')->first();      
-        $series= Serie::all();
+        $series= Serie::where('grifo_id','=',null)->get();
         $hasSerie = false;
         $numSeries = count($grifo->series);
         if ($numSeries>0) {
