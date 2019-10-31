@@ -11,11 +11,13 @@
 
 @section('content')
 <section class="content">
+	@include('grifos.header')
   @include('grifos.create')
   @include('grifos.table')
   <!--modales-->
   @include('grifos.show')
   @include('grifos.edit')
+  @include('grifos.series.modal_new_serie')
   <!--/.end-modales-->
 </section>
 @endsection

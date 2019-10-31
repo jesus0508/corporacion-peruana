@@ -27,8 +27,6 @@
 <script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script>
 <script>
 
-
-
 $(document).ready(function(){
   $('#fecha_pago').datepicker({});
   

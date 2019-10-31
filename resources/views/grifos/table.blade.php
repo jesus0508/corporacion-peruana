@@ -29,10 +29,14 @@
                 <td>{{$grifo->distrito}}</td>
                 <td>{{$grifo->zona}}</td>
                 <td>
+                  <a href="{{route('series.show', $grifo->id)}}" class="btn bg-purple"       >
+                    <span class="fa fa-chain"></span>&nbsp;Series
+                  </a>             
+
                   <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-grifo"
                             data-id="{{$grifo->id}}">
                     <span class="glyphicon glyphicon-eye-open"></span>
-                  </button>
+                  </button>                  
                   <button class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-grifo"
                             data-id="{{$grifo->id}}">
                     <span class="glyphicon glyphicon-edit"></span>

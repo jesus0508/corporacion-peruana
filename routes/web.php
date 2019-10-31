@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
 		/* Grifo */
 		Route::get('/grifos/all/{fecha?}', 'GrifoController@getGrifosSinIngreso')->name('grifos.sinIngreso');
 		Route::resource('/grifos', 'GrifoController');
+		Route::resource('/series','SerieController');
+		Route::post('/asignar_series','SerieController@asignar_series')->name('asignacion_series');
 		
 		/* Ingresos */
 		Route::get('/ingreso_grifos/grifo/{id}', 'IngresoGrifoController@getLastIngreso')->name('pago_clientes.lastIngreso');

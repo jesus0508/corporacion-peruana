@@ -15,6 +15,10 @@ class Grifo extends Model
         return $this->hasMany(IngresoGrifo::class);
     }
 
+    public function series(){
+        return $this->hasMany(Serie::class);
+    }
+
     public function latestIngresoGrifos()
     {
         return $this->hasOne(IngresoGrifo::class)->latest();
