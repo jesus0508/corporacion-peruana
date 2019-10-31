@@ -14,8 +14,10 @@ class TransporteController extends Controller
      */
     public function index()
     {
-        return view('nelida.index');
+         $transportes = Transporte::orderBy('id', 'DESC')->get();
+        return view('nelida.index',compact('transportes'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -24,7 +26,13 @@ class TransporteController extends Controller
      */
     public function create()
     {
-        //
+        $transportes = Transporte::orderBy('id', 'DESC')->get();
+        return view('nelida.ingresos.index',compact('transportes'));
+    }
+    public function salida()
+    {
+        $transportes = Transporte::orderBy('id', 'DESC')->get();
+        return view('nelida.salidas.index',compact('transportes'));
     }
 
     /**
@@ -33,9 +41,10 @@ class TransporteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTransporteRequest $request)
     {
-        //
+        Transporte::create($request->validated());
+        return back()->with(['alert-type' => 'success', 'status' => 'Transporte creado con exito']);
     }
 
     /**

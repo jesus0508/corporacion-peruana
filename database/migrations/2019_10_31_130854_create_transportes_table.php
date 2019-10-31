@@ -13,8 +13,14 @@ class CreateTransportesTable extends Migration
      */
     public function up()
     {
+
+        
         Schema::create('transportes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('tipo');
+            $table->string('placa')->unique();
+            $table->string('chofer');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

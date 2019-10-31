@@ -433,8 +433,18 @@ desired effect
               </ul>
         </li>
 
-        <li><a href="{{ route('transporte.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
-                Transporte</a>
+       <li id="treeview-proveedores" class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>Tranporte</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{route('transporte.index')}}"><i class="fa fa-pencil"></i> Registro</a></li>
+            <li><a href="{{route('transporte.create')}}"><i class="fa fa-list"></i>Ingreso</a></li>
+            <li><a href="{{route('transporte.salidas_transporte')}}"><i class="fa fa-file-text-o"></i>Egreso</a></li>
+          </ul>
         </li>
         <li><a href="{{ route('empresa.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
                 Empresa Información</a>

@@ -11,7 +11,7 @@
 
 @section('content')
 <section class="content">
-  @include('nelida.gestion.create')
+  @include('nelida.ingresos.create')
   @include('nelida.table')
   
   <!--modales-->
