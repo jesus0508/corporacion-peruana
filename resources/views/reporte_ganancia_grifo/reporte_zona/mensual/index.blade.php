@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
 <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
+    <style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+    </style>
 @endsection
 
 @section('breadcrumb')
@@ -18,8 +23,8 @@
 
 @section('content')
 <section class="content">
-  @include('reporte_ganancia_grifo.reporte_zona.header')
-  @include('reporte_ganancia_grifo.reporte_zona.table')
+  @include('reporte_ganancia_grifo.reporte_zona.mensual.header')
+  @include('reporte_ganancia_grifo.reporte_zona.mensual.table')
   <!--/.end-modales-->
 </section>
 @endsection
@@ -34,7 +39,7 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-ingresos-netos-zona').DataTable({
+  $('#tabla-ingresos-netos-zona-mensual').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -43,7 +48,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto x Zona',
+        'title': 'Lista Ingreso Neto x Zona Mensual',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -88,6 +93,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
+            pageTotal = pageTotal.toFixed(2);
  
             // Update footer
             $( api.column( 5 ).footer() ).html(
@@ -98,7 +104,7 @@ $(document).ready(function() {
   });
 });
 
-	function inicializarSelect2($select, text, data) {
+  function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -106,43 +112,18 @@ $(document).ready(function() {
     data: data
     });
   }
-function ayerFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-        dd -= 1;
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-
-function hoyFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-function addZero(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
-}
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-ingresos-netos-zona');
+  let $tabla_pagos_lista = $('#tabla-ingresos-netos-zona-mensual');
+
   $('#fecha_inicio').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_fin').datepicker('option', 'minDate', selected)
-    }
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
   });
   $('#fecha_fin').datepicker({
     numberOfMonths: 1,
@@ -155,13 +136,11 @@ function validateDates() {
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
       var sFin = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
+      let cell = data[1];
+      if (sInicio) {
+        return sInicio === cell;
       }
-      return false;
+      return true;
     }
   );
 
@@ -177,15 +156,13 @@ function validateDates() {
   });
 
   $('#today-fecha').on('click', function () {
-    let hoy = hoyFecha();
-    console.log(hoy);
+    let hoy = $('#month_actual_date').val();
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
-   let ayer = ayerFecha();
-    console.log(ayer);
+    let ayer = $('#last_month_date').val();
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
@@ -197,7 +174,7 @@ function validateDates() {
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-zona');
+    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-zona-mensual');
     inicializarSelect2($filter_proveedor, 'Ingrese la zona', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
@@ -212,9 +189,12 @@ $(document).ready(function() {
   );
 
   $filter_proveedor.on('change', function () {
+    console.log('aqui toy cambio');
     $tabla_pedido_proveedores.DataTable().draw();
   });
 } );
+
+</script>
 
 </script>
 

@@ -43,7 +43,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto Grifos',
+        'title': 'Lista Ingreso Neto Grifos Diario',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -88,7 +88,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
- 
+            pageTotal = pageTotal.toFixed(2);
             // Update footer
             $( api.column( 5 ).footer() ).html(
                 pageTotal

@@ -7,11 +7,6 @@
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
 <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
-    <style>
-    .ui-datepicker-calendar {
-        display: none;
-    }
-    </style>
 @endsection
 
 @section('breadcrumb')
@@ -23,8 +18,8 @@
 
 @section('content')
 <section class="content">
-  @include('reporte_ingresos_grifo_neto.mensual.header')
-  @include('reporte_ingresos_grifo_neto.mensual.table')
+  @include('reporte_ganancia_grifo.reporte_zona.diario.header')
+  @include('reporte_ganancia_grifo.reporte_zona.diario.table')
   <!--/.end-modales-->
 </section>
 @endsection
@@ -39,7 +34,7 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-ingresos-netos-mensual').DataTable({
+  $('#tabla-ingresos-netos-zona').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -48,7 +43,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto Grifos Mensual',
+        'title': 'Lista Ingreso Neto x Zona Diario',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -93,7 +88,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
-            pageTotal = pageTotal.toFixed(2);
+            pageTotal = pageTotal.toFixed(2); 
             // Update footer
             $( api.column( 5 ).footer() ).html(
                 pageTotal
@@ -113,15 +108,12 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-ingresos-netos-mensual');
+  let $tabla_pagos_lista = $('#tabla-ingresos-netos-zona');
   $('#fecha_inicio').datepicker({
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: true,
-        dateFormat: 'MM yy',
-        onClose: function(dateText, inst) { 
-            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-            }
+    numberOfMonths: 1,
+    onSelect: function (selected) {
+      $('#fecha_fin').datepicker('option', 'minDate', selected)
+    }
   });
   $('#fecha_fin').datepicker({
     numberOfMonths: 1,
@@ -134,11 +126,13 @@ function validateDates() {
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
       var sFin = $('#fecha_inicio').val();
-      let cell = data[1];
-      if (sInicio) {
-        return sInicio === cell;
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+      var fin = $.datepicker.parseDate('d/m/yy', sFin);
+      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      if (!inicio || !dia || fin >= dia && inicio <= dia) {
+        return true;
       }
-      return true;
+      return false;
     }
   );
 
@@ -153,27 +147,28 @@ function validateDates() {
     $('#filter-grifo').val('').trigger('change');
   });
 
-  $('#today-fecha').on('click', function () {
-    let hoy = $('#month_actual_date').val();
+$('#today-fecha').on('click', function () {
+    let hoy = $('#today_date').val();
+    //console.log(hoy);
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
-    let ayer = $('#last_month_date').val();
+   let ayer = $('#yesterday_date').val();
+   // console.log(ayer);
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
   });
-
 
 }
 
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-mensual');
-    inicializarSelect2($filter_proveedor, 'Ingrese el grifo', '');
+    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-zona');
+    inicializarSelect2($filter_proveedor, 'Ingrese la zona', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();

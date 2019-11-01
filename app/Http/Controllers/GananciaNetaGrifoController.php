@@ -36,12 +36,14 @@ class GananciaNetaGrifoController extends Controller
                     //return $ingresos_egresos;
 
         $grifos         = Grifo::all();
-        $date           = Carbon::now();
-        $date_yesterday = Carbon::yesterday();
         $semana = config('constants.semana_name');
-        $today = $semana[strftime( '%w',strtotime($date) )];
-        $yesterday = $semana[strftime( '%w',strtotime($date_yesterday) )];
-        return view('reporte_ganancia_grifo.index',compact('ingresos_egresos','grifos','today','yesterday'));
+        $semana = config('constants.semana_name');
+        $today = $semana[strftime( '%w',strtotime('now') )];
+        $today_date = strftime( '%d/%m/%Y',strtotime('now') );
+        $yesterday = $semana[strftime( '%w',strtotime('-1 day') )];
+        $yesterday_date = strftime( '%d/%m/%Y',strtotime('-1 day') );
+
+        return view('reporte_ganancia_grifo.reporte_detallado.index',compact('ingresos_egresos','grifos','today','yesterday','today_date','yesterday_date'));
     }
 
 }

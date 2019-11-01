@@ -58,6 +58,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
+            pageTotal = pageTotal.toFixed(2);
  
             // Update footer
             $( api.column( 4 ).footer() ).html(
@@ -68,18 +69,6 @@ $(document).ready(function() {
   });
 });
 
-var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-
-function ayerFecha(){
- 	let f=new Date();
-	f.setMonth(f.getMonth() - 1); 
-	
-    return meses[f.getMonth()] +" " + f.getFullYear();
-}
-function hoyFecha(){
-	let f=new Date();
-    return meses[f.getMonth()] +" " + f.getFullYear();
-}
 
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-gastos-mensual');
@@ -121,15 +110,13 @@ function validateDates() {
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#today-fecha').on('click', function () {
-    let hoy = hoyFecha();
-    console.log(hoy);
+    let hoy = $('#month_actual_date').val();
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
-   let ayer = ayerFecha();
-    console.log(ayer);
+    let ayer = $('#last_month_date').val();
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();

@@ -253,8 +253,30 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <!-- <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li> -->
             <li><a href="{{route('pedidos.programacion')}}"><i class="fa fa-calendar-minus-o"></i> Reporte Programación</a></li>
-            <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Ganancia por Grifo</a></li>
-            <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="glyphicon glyphicon-list-alt"></i> General por Zona</a></li>
+            <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Ganancia por Grifo detallado</a></li>
+
+            <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
+              <a href="#">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                  <span>General por Zona</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              </a>
+                <ul class="treeview-menu" style="display: none;">               
+                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> 
+                    Ingreso Neto Diario</a>
+                  </li>
+                  <li><a href="{{route('ganancia_zona_neta.create')}}"><i class="fa fa-taSble">M</i> 
+                    Ingreso Neto Mensual</a>
+                  </li>
+<!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                    Reporte Gastos Anual</a>
+                  </li> -->
+
+                </ul>
+            </li> 
+
 
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
               <a href="#">
@@ -435,13 +457,13 @@ desired effect
 
        <li id="treeview-proveedores" class="treeview">
           <a href="#">
-            <i class="fa fa-users"></i> <span>Tranporte</span>
+            <i class="fa fa-bus"></i> <span>Tranporte</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <li><a href="{{route('transporte.index')}}"><i class="fa fa-pencil"></i> Registro</a></li>
+            <li><a href="{{route('transporte.index')}}"><i class="fa fa-pencil"></i> Gestión</a></li>
             <li><a href="{{route('transporte.create')}}"><i class="fa fa-list"></i>Ingreso</a></li>
             <li><a href="{{route('transporte.salidas_transporte')}}"><i class="fa fa-file-text-o"></i>Egreso</a></li>
           </ul>

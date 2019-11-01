@@ -18,8 +18,8 @@
 
 @section('content')
 <section class="content">
-  @include('reporte_ganancia_grifo.header')
-  @include('reporte_ganancia_grifo.table')
+  @include('reporte_ganancia_grifo.reporte_detallado.header')
+  @include('reporte_ganancia_grifo.reporte_detallado.table')
   <!--/.end-modales-->
 </section>
 @endsection
@@ -43,7 +43,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ganancias neta  Grifo',
+        'title': 'Lista Ingresos Grifo Neto Detallado',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -106,35 +106,6 @@ $(document).ready(function() {
     data: data
     });
   }
-function ayerFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-        dd -= 1;
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-
-function hoyFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-function addZero(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
-}
 
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-ganancia-grifo');
@@ -176,16 +147,16 @@ function validateDates() {
     $('#filter-grifo').val('').trigger('change');
   });
 
-  $('#today-fecha').on('click', function () {
-    let hoy = hoyFecha();
-    console.log(hoy);
+$('#today-fecha').on('click', function () {
+    let hoy = $('#today_date').val();
+    //console.log(hoy);
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
-  $('#yesterday-fecha').on('click', function () {
-   let ayer = ayerFecha();
-    console.log(ayer);
+$('#yesterday-fecha').on('click', function () {
+   let ayer = $('#yesterday_date').val();
+   // console.log(ayer);
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
