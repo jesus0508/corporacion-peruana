@@ -12,7 +12,7 @@
               <th>FECHA Descarga</th>
               <th>Grifo</th>              
               <th>Galones</th>
-              <th>Horario descarga</th>
+              <th>Hora descarga</th>
               <th>SCOP</th>
               <th>Nro Pedido</th>
               <th>Transportista</th>
@@ -30,7 +30,7 @@
                     @if($pedido->horario_descarga)
                     {{$pedido->horario_descarga}}                     
                     @else
-                    PROPIO
+                    -
                     @endif
                 </td>
                 <td>{{$pedido->scop}}</td>
@@ -39,7 +39,7 @@
                   @if($pedido->nombre_transportista)
                     {{$pedido->nombre_transportista}}
                   @else
-                  PROPIO
+                  -
                   @endif
                 </td>
                 <td>{{$pedido->planta}}</td>

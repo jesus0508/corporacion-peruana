@@ -25,13 +25,13 @@ class GananciaNetaZonaController extends Controller
                     ->select(DB::raw('DATE(fecha_egreso) as day'), 'grifos.zona',
                         DB::raw('-1*(sum(monto_egreso)) as monto')
                             )
-                    ->groupBy('egresos.grifo_id' , 'day')
+                    ->groupBy('grifos.zona' , 'day')
                     ->get();
 
             $ingresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
                     ->select('ingreso_grifos.fecha_ingreso as day','grifos.zona',
                      DB::raw('sum(monto_ingreso) as monto') )
-                    ->groupBy('grifos.zona')
+                    ->groupBy('grifos.zona','day')
                     ->get();
 
             $netos = collect([]); 

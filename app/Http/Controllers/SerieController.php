@@ -73,7 +73,7 @@ class SerieController extends Controller
 
         $serie_add = str_pad($request->nro, 3, "0", STR_PAD_LEFT);
         $serie_validada = $request->validate([
-            'serie' =>  'unique:series|max:255',
+            'serie' =>  'unique:series|max:999',
             'nro' =>  'required|unique:series|numeric|gt:0|max:255',
         ]); 
   
@@ -90,16 +90,15 @@ class SerieController extends Controller
      * @param  \CorporacionPeru\Serie  $serie
      * @return \Illuminate\Http\Response
      */
-    public function show(Grifo $grifo)
-    {
-        $grifo = Grifo::with('series')->first();      
+    public function show($id)
+    {      
+        $grifo = Grifo::with('series')->where('id','=',$id)->first(); 
+
         $series= Serie::where('grifo_id','=',null)->get();
         $hasSerie = false;
-        $numSeries = count($grifo->series);
-        if ($numSeries>0) {
+        if ($grifo->series) {
             $hasSerie = true; 
-        }
-
+        }       
         return view('grifos.series.asignacion.index',compact('grifo','series','hasSerie'));
     }
 
@@ -140,9 +139,9 @@ class SerieController extends Controller
      * @param  \CorporacionPeru\Serie  $serie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Serie $serie)
+    public function destroy($id)
     {
-       
+       $serie = Serie::findOrFail($id);
         if ($serie->grifo_id) {
             return  back()->with('alert-type', 'warning')->with('status', 'Numero de serie asociado a un grifo, desaciar primero');
         }
