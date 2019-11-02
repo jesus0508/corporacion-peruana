@@ -33,12 +33,15 @@ class EgresoController extends Controller
                             )
                     ->get();
         $grifos         = Grifo::all();
-        $date           = Carbon::now();
-        $date_yesterday = Carbon::yesterday();
-        $semana = config('constants.semana_name');//constant week
-        $today = $semana[strftime( '%w',strtotime($date) )];
-        $yesterday = $semana[strftime( '%w',strtotime($date_yesterday) )];
-        return view('reportes_gastos_grifo.diario.index',compact('egresos','grifos','today','yesterday'));
+        //return strftime( '%d',strtotime('-1 day'));
+
+        $semana = config('constants.semana_name');
+        $today = $semana[strftime( '%w',strtotime('now') )];
+        $today_date = strftime( '%d/%m/%Y',strtotime('now') );
+        $yesterday = $semana[strftime( '%w',strtotime('-1 day') )];
+        $yesterday_date = strftime( '%d/%m/%Y',strtotime('-1 day') );
+        //return $yesterday_date;
+        return view('reportes_gastos_grifo.diario.index',compact('egresos','grifos','today','yesterday','today_date','yesterday_date'));
     }
 
     /**
@@ -55,36 +58,32 @@ class EgresoController extends Controller
                 ->groupBy('day')
                 //->orderBy('id','DESC')
                 ->get();
-        $semana       =  config('constants.semana_name');//constant week                  
+        $this_year = strftime( '%Y',strtotime('now') );
+        $semana       =  config('constants.semana_name');//constant            
         $meses        = config('constants.meses_name');
-        $date         = Carbon::now();
-        $month_actual = $meses[($date->format('n')) - 1];
-        $last_month   = $date->subMonth();
-        $last_month   = $meses[($last_month->format('n')) - 1];
+        $month_actual = $meses[strftime( '%m',strtotime('now') )-1];
+        $month_actual_date = $month_actual.' '.$this_year;
+        $last_month = $meses[strftime( '%m',strtotime('first day of -1 month') )-1];
+        $last_month_date = $last_month.' '.$this_year;
 
-        return view('reportes_gastos_grifo.mensual.index',compact('egresos','month_actual','last_month','semana'));
+        return view('reportes_gastos_grifo.mensual.index',compact('egresos','month_actual','last_month','semana','month_actual_date','last_month_date'));
+
     }
     /**
      * [reporte_gastos_anual description]
      * @return [type] [description]
      */
     public function reporte_gastos_anual(){
-        $anios=array(
-        '2015','2016','2017','2018',
-                        '2019','2020','2021','2022','2023','2024','2025','2026');
+        $anios=config('constants.anios');
         $egresos = Egreso::select( 
                 DB::raw('DATE(fecha_egreso) as day') ,DB::raw('MONTH(fecha_egreso) as month'),DB::raw('YEAR(fecha_egreso) as year'),DB::raw('sum(monto_egreso) as subtotal')
                 )
                 ->groupBy('month')
-                //->orderBy('id','DESC')
                 ->get();
-        $meses        = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $meses        = config('constants.meses_name');
+        $year = strftime('%Y',strtotime('now'));       
+        $last_year = strftime('%Y',strtotime('first day of -1 year'));
 
-        $date         = Carbon::now();
-        $year = $date->format('Y');
-        $last_year   = $date->subYear();
-        $last_year   = $last_year->format('Y');
-        
         $p1 =   Egreso::select( 
                 DB::raw('sum(monto_egreso) as subtotal','MONTH(fecha_egreso) as mes'),DB::raw('MONTH(fecha_egreso) as mes'),'fecha_egreso'
                 )

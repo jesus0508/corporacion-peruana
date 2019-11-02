@@ -78,7 +78,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
- 
+            pageTotal = pageTotal.toFixed(2);
             // Update footer
             $( api.column( 3 ).footer() ).html(
                 'S/. '+pageTotal

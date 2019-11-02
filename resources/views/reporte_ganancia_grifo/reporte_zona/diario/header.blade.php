@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-3">
     <div class="input-group">
-      <span class="input-group-addon">Grifo</span>
+      <span class="input-group-addon">Zona</span>
       <select class="form-control" id="filter-grifo" name="planta_id">
-        @foreach( $grifos as $grifo )
-          <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
+        @foreach( $zonas as $zona )
+          <option value="{{$zona['id']}}">{{$zona['zona']}}</option>
         @endforeach
       </select>
     </div><!-- /input-group -->

@@ -18,11 +18,6 @@
                 Registrar Factura &nbsp;   <i class="fa fa-share-square-o"></i>
                 </button>
               </a>  
-              <a href="#">
-                <button class="btn btn-default">
-                  <span class="fa fa-file-excel-o"></span> &nbsp;Exportar a Excel 
-                </button>
-              </a>
             </div>   
         </div>
         <!-- /.box-header -s-->
@@ -37,8 +32,8 @@
                 <!-- <th>Fecha pedido</th> -->
                 <th>GLS</th>
                 <th>Precio galon/u</th> 
-                <th>Monto (S/.)</th>
-                <!-- <th>M.Facturado (S/.) </th> -->
+                <th>Monto</th>
+                <th>M.Facturado</th>
                 <th>Saldo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -55,13 +50,13 @@
                   <td>{{$pedido->galones}}</td>
                   <td>{{$pedido->costo_galon}}</td>
                   <td>{{ $pedido->calc }} </td>
-<!--                   <td>
+                  <td>
                     @if( $pedido->factura_proveedor_id != null )                      
                      {{$pedido->monto_factura}} 
                     @else
                       0.00
                     @endif
-                  </td> -->
+                  </td>
                   <td>
                     {{$pedido->saldo}}                     
                   </td>  

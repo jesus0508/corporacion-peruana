@@ -14,9 +14,11 @@
       <button class="btn btn-primary" id="yesterday-fecha">
       <span class="fa fa-list-alt"></span> &nbsp;{{$last_month}}
       </button>
+      <input type="hidden" id="last_month_date" value="{{$last_month_date}}">
       <button class="btn btn-success" id="today-fecha">
       <span class="fa fa-list-alt"></span> &nbsp;{{$month_actual}}
       </button>
+      <input type="hidden" id="month_actual_date" value="{{$month_actual_date}}">
       <button id="clear-fecha" class="btn btn-danger">
             <i class="fa fa-remove "></i>
             Limpiar
@@ -31,7 +33,7 @@
           <div class="form-inline">
             <label for="fecha_inicio">FECHA: </label>
             <input autocomplete="off" id="fecha_inicio" type="text" class="tuiker form-control"
-              name="fecha_inicio" placeholder="Ingrese día">
+              name="fecha_inicio" placeholder="Seleccione MES">
           </div>
         </div>
         <div class="col-md-6 pull-right" >

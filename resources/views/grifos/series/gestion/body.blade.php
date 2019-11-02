@@ -24,15 +24,18 @@
 					            <i class="fa fa-save"> </i>
 					               
 					          </button>	   
-        				</form>	        				
-						    <form style="display:inline" method="POST" 
+        				</form>	  
+        				@if(!$serie->grifo_id)
+								<form style="display:inline" method="POST" 
 						    	action="{{ route('series.destroy', $serie->id) }}">
 				          @csrf
 				          @method('DELETE')
 				          <button class="btn btn-danger pull-right">
 				            <span class="glyphicon glyphicon-trash"></span>
-				              				          </button>
+				          </button>
 			        	</form>
+        				@endif      				
+						    
 	        		</div>
 	        		@if($serie->grifo_id)
 	        		<div class="col-md-7">

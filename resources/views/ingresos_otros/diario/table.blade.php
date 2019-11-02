@@ -23,31 +23,35 @@
                 <td>{{$ingreso->fecha_ingreso}}</td>
                 <td>{{$ingreso->categoria}}</td>
                 <td>
-                  @if($ingreso->detalle)
-                  {{$ingreso->detalle}}
+                  @if($ingreso->categoria)
+                   {{$ingreso->categoria}}
+                  
                   @else
                     @if($ingreso->id_cat)
                     Pendiente
                     @else
-                    {{$ingreso->categoria}}
+                   {{$ingreso->detalle}}
                     @endif                  
                   @endif                
                 </td>
                 <td>
-                    @if($ingreso->fecha_reporte)
-                    {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}}                     
+                    @if($ingreso->fecha_ingreso)
+                    {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}                                        
                     @else
-                    {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}
+                    {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}} 
                     @endif
                 </td>
                 <td>
-                  @if($ingreso->codigo_operacion)
-                  {{$ingreso->codigo_operacion}}
+                  @if($ingreso->zona)
+                  {{$ingreso->zona}}                 
                   @else
-                  {{$ingreso->zona}}
+                   {{$ingreso->codigo_operacion}}
                   @endif                  
                 </td>
-                <td>{{$ingreso->banco}}</td>
+                <td>@if(!$ingreso->zona)
+                   {{$ingreso->banco}}                
+                  @endif
+                 </td>
                 <td>{{$ingreso->monto_ingreso}}</td>
               </tr>
             @endforeach

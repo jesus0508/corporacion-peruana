@@ -9,12 +9,11 @@ class Proveedor extends Model
 {
     protected $table = 'proveedores';
     protected $primaryKey = 'id';
-    protected $fillable= ['id','razon_social','ruc' , 'linea_credito','deuda' ,'representante', 'email'];
+    protected $fillable= ['id','razon_social','ruc' , 'linea_credito','deuda' ,'representante', 'email','sobregiro'];
 
 
     public function plantas()
     {
-    	//return $this->hasMany('App\PlantaModel', 'id_empleado');
     	return $this->hasMany(Planta::class,'proveedor_id');
     } 
 }

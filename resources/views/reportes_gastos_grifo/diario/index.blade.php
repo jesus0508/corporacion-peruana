@@ -91,7 +91,7 @@ $(document).ready(function() {
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
- 
+            pageTotal = pageTotal.toFixed(2);
             // Update footer
             $( api.column( 6 ).footer() ).html(
                 pageTotal
@@ -109,35 +109,6 @@ $(document).ready(function() {
     data: data
     });
   }
-function ayerFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-        dd -= 1;
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-
-function hoyFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-function addZero(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
-}
 
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-gastos-grifo-diarios');
@@ -180,14 +151,14 @@ function validateDates() {
   });
 
   $('#today-fecha').on('click', function () {
-    let hoy = hoyFecha();
+    let hoy = $('#today_date').val();
     //console.log(hoy);
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
-   let ayer = ayerFecha();
+   let ayer = $('#yesterday_date').val();
    // console.log(ayer);
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);

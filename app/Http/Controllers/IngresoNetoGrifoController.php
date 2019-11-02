@@ -53,15 +53,12 @@ class IngresoNetoGrifoController extends Controller
                 }
                 
             }
-       // $netos =   collect($netos)  ;       
-                    //return $netos;
-                    //return $ingresos;
+
         $grifos         = Grifo::all();
-        $date           = Carbon::now();
-        $date_yesterday = Carbon::yesterday();
         $semana = config('constants.semana_name');
-        $today = $semana[strftime( '%w',strtotime($date) )];
-        $yesterday = $semana[strftime( '%w',strtotime($date_yesterday) )];
+        $today = $semana[strftime( '%w',strtotime('now') )];
+        $yesterday = $semana[strftime( '%w',strtotime('-1 day') )];       
+
         return view('reporte_ingresos_grifo_neto.index',compact('netos','grifos','today','yesterday'));
     }
 
@@ -109,16 +106,16 @@ class IngresoNetoGrifoController extends Controller
                 }
                 
             }
-  //     return  $netos  ;       
-   $grifos         = Grifo::all();
         $grifos         = Grifo::all();
         $semana       =  config('constants.semana_name');//constant week                  
+        $this_year = strftime( '%Y',strtotime('now') );
         $meses        = config('constants.meses_name');
-        $date         = Carbon::now();
-        $month_actual = $meses[($date->format('n')) - 1];
-        $last_month   = $date->subMonth();
-        $last_month   = $meses[($last_month->format('n')) - 1];
-        return view('reporte_ingresos_grifo_neto.mensual.index',compact('netos','grifos','month_actual','last_month','semana'));
+        $month_actual = $meses[strftime( '%m',strtotime('now') )-1];
+        $month_actual_date = $month_actual.' '.$this_year;
+        $last_month = $meses[strftime( '%m',strtotime('first day of -1 month') )-1];
+        $last_month_date = $last_month.' '.$this_year;
+
+        return view('reporte_ingresos_grifo_neto.mensual.index',compact('netos','grifos','month_actual','last_month','semana','month_actual_date','last_month_date'));
     }
 
     /**
