@@ -88,7 +88,11 @@ class PedidoController extends Controller
         $pedido->save();
         return  back()->with('alert-type', 'success')->with('status', 'Pedido confirmado con exito');
     }
-
+    /**
+     * [Obtener 1 pedido, a partir del id_proveedor]
+     * @param  [int] $id_proveedor [description]
+     * @return [response] [pedido en json]
+     */
     public function show2($id_proveedor)
     {
         $planta = Planta::findOrFail($id_proveedor);
@@ -100,7 +104,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muestra todos los pedidos
      *
      * @return \Illuminate\Http\Response
      */
@@ -137,14 +141,33 @@ class PedidoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
+
     public function store(StorePedidoRequest $request)
     {
-
+        //START TRANSACTION
         $pedido=Pedido::create( $request->validated() );
         $stock = Stock::first();
         $stock->stock_general += $pedido->galones;
         $stock->save();
-        
+        //END TRANSACTION
+        $planta =  $pedido->planta ;
+        $proveedor = $planta->proveedor;
+        $deuda_proveedor = Proveedor::
+            leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
+            ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id') 
+            ->where('proveedores.id','=',$proveedor->proveedor_id)        
+            ->select( DB::raw('sum(pedidos.saldo) as deuda_total') )
+            ->first(); 
+    //deuda total (solo facturados) + monto potencial a ser deuda(pedido actual)
+        $monto_pedido_actual = round($pedido->galones*$pedido->costo_galon,2);
+        $deuda_total_nueva = $deuda_proveedor->deuda_total +  $monto_pedido_actual; 
+
+        if ($deuda_total_nueva >= $proveedor->linea_credito) {
+            return  redirect()->action('PedidoController@index')
+                ->with(['alert-type' => 'info', 'status' => 'Si se factura el nuevo pedido excederá su línea de crédito. Pedido Registrado']);
+        }
+
         return  redirect()->action('PedidoController@index')->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
     }
 

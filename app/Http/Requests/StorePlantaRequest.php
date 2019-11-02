@@ -26,8 +26,8 @@ class StorePlantaRequest extends FormRequest
         return [
             //'razon_social'=>'required|max: 255|unique:proveedores,razon_social,'.$this->id,
             'planta'=>'required|max: 255|unique:plantas,planta,'.$this->id,
-            'direccion_planta' => 'max: 255',
-            'celular_planta'=>'regex:/^([9]{1})([0-9]{8})$/i',
+            'direccion_planta' => 'nullable|max: 255',
+            'celular_planta'=>'nullable|regex:/^([9]{1})([0-9]{8})$/i',
             'proveedor_id' => 'required',
             
       

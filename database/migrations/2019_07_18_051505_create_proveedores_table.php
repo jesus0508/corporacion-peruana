@@ -17,7 +17,8 @@ class CreateProveedoresTable extends Migration
             $table->bigIncrements('id');
             $table->string('razon_social');
             $table->string('ruc');
-            $table->float('linea_credito',9, 2);
+            $table->float('linea_credito',9, 2)->nullable();
+            $table->float('sobregiro',9, 2)->nullable();
             $table->string('deuda')->default(0);
             $table->string('email')->unique()->nullable();
             $table->string('representante')->nullable();
