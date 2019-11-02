@@ -6,9 +6,13 @@ use CorporacionPeru\PedidoCliente;
 use CorporacionPeru\Http\Requests\StorePedidoClienteRequest;
 use CorporacionPeru\Http\Requests\UpdatePedidoClienteRequest;
 use CorporacionPeru\Http\Requests\ProcessPedidoClienteRequest;
+use CorporacionPeru\Http\Requests\StoreFacturaClienteRequest;
 use CorporacionPeru\Cliente;
+use CorporacionPeru\FacturaCliente;
 use CorporacionPeru\Exports\PedidoClienteExport;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Log;
 
 class PedidoClienteController extends Controller
 {
@@ -65,19 +69,17 @@ class PedidoClienteController extends Controller
     public function show(PedidoCliente $pedidoCliente)
     {
         //
-        $pedidoCliente->load('cliente');
+        $pedidoCliente->load(['cliente','facturaCliente']);
         return response()->json(['pedidoCliente' => $pedidoCliente]);
     }
 
     public function getDetalles($id)
     {
-        $pedidoCliente = PedidoCliente::with('cliente')->where('id', $id)->first();
+        $pedidoCliente = PedidoCliente::with('cliente')->with('facturaCliente')->where('id', $id)->first();
         if ($pedidoCliente->estado > 2) {
-            
             $pedidoCliente->load(['pedidos' => function($query){
                  $query->select('pedido_proveedor_clientes.*','pedidos.*');
              }]);
-            //return  $pedidoCliente;
             return view('pedido_clientes.detalles', compact('pedidoCliente'));
         }
         return back()->with('alert-type', 'error')->with('status', 'Ocurrio un erro al ver detalles');
@@ -115,11 +117,24 @@ class PedidoClienteController extends Controller
         $validated = $request->validated();
         $id = $validated['id'];
         $pedido = PedidoCliente::findOrFail($id);
-        $pedido->nro_factura = $validated['nro_factura'];
-        $pedido->fecha_confirmacion = $validated['fecha_confirmacion'];
+        $pedido->fecha_confirmacion = Carbon::now()->format('d/m/Y');
         $pedido->estado = 2;
         $pedido->save();
         return  back()->with('alert-type', 'success')->with('status', 'Pedido confirmado con exito con exito');
+    }
+
+    public function agregarFactura(StoreFacturaClienteRequest $request, $id)
+    {
+        $validated = $request->validated();
+        $id = $validated['id'];
+        $pedido = PedidoCliente::findOrFail($id);
+        $factura_cliente = new FacturaCliente();
+        $factura_cliente->nro_factura = $validated['nro_factura'];
+        $factura_cliente->fecha_factura = $validated['fecha_factura'];
+        $factura_cliente->save();
+        $pedido->facturaCliente()->associate($factura_cliente);
+        $pedido->save();
+        return back()->with('alert-type', 'success')->with('status', 'Se agrego factura con exito con exito con exito');
     }
 
     /**

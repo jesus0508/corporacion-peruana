@@ -11,8 +11,8 @@ class PedidoCliente extends Model
     use SoftDeletes;
     protected $table = 'pedido_clientes';
     protected $fillable = [
-        'nro_factura', 'galones', 'horario_descarga', 'estado', 'saldo', 'fecha_confirmacion',
-        'precio_galon', 'planta', 'observacion', 'fecha_descarga', 'cliente_id'
+        'galones', 'horario_descarga', 'estado', 'saldo', 'fecha_confirmacion',
+        'precio_galon', 'planta', 'observacion', 'fecha_descarga', 'cliente_id', 'factura_cliente_id'
     ];
     protected $dates = ['deleted_at'];
 
@@ -33,6 +33,11 @@ class PedidoCliente extends Model
     public function pedidos()
     {
         return $this->belongsToMany(Pedido::class, 'pedido_proveedor_clientes');
+    }
+
+    public function facturaCliente()
+    {
+        return $this->belongsTo(FacturaCliente::class);
     }
 
     public function getPrecioTotal()
@@ -79,4 +84,5 @@ class PedidoCliente extends Model
     {
         return $this->estado == 5;
     }
+
 }

@@ -15,7 +15,7 @@ class CreatePedidoClientesTable extends Migration
     {
         Schema::create('pedido_clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nro_factura')->nullable();
+            $table->unsignedBigInteger('factura_cliente_id')->nullable();
             $table->integer('galones');
             $table->integer('galones_asignados')->default(0);
             $table->integer('estado')->default(1);
@@ -23,7 +23,7 @@ class CreatePedidoClientesTable extends Migration
             $table->float('saldo');
             $table->date('fecha_descarga')->nullable();
             $table->string('horario_descarga')->nullable();
-            $table->string('fecha_confirmacion')->nullable();
+            $table->date('fecha_confirmacion')->nullable();
             $table->text('observacion')->nullable();
             $table->unsignedBigInteger('cliente_id');
             $table->timestamps();

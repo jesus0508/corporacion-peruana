@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
 	
 		/* Pedidos Clientes*/
 		Route::put('/pedido_clientes/{id}/confirmar', 'PedidoClienteController@confirmarPedido')->name('pedido_clientes.confirmarPedido');
+		Route::put('/pedido_clientes/{id}/facturar', 'PedidoClienteController@agregarFactura')->name('pedido_clientes.agregarFactura');
 		Route::get('/pedido_clientes/{id}/pagos/excel', 'PedidoClienteController@exportPagosToExcel')->name('pedido_clientes.pagosToExcel');
 		Route::get('/pedido_clientes/cliente/{id}', 'PedidoClienteController@getByRazonSocial');
 		Route::get('/pedido_clientes/detalles/{id}', 'PedidoClienteController@getDetalles')->name('pedido_clientes.detalles');

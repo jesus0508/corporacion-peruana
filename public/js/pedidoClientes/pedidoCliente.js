@@ -49,7 +49,7 @@ $(document).ready(function () {
       url: `./pedido_clientes/${id}/edit`,
       dataType: 'json',
       success: (data) => {
-        $(event.currentTarget).find('#nro_factura-edit').val(data.pedidoCliente.nro_factura);
+        $(event.currentTarget).find('#nro_factura-edit').val(data.pedidoCliente.factura_cliente.nro_factura);
         $(event.currentTarget).find('#galones-edit').val(data.pedidoCliente.galones);
         $(event.currentTarget).find('#precio_galon-edit').val(data.pedidoCliente.precio_galon);
         $(event.currentTarget).find('#fecha_descarga-edit').val(data.pedidoCliente.fecha_descarga);
@@ -73,10 +73,12 @@ $(document).ready(function () {
       url: `./pedido_clientes/${id}`,
       dataType: 'json',
       success: (data) => {
+        console.log(data.pedidoCliente);
         $(event.currentTarget).find('#cliente-show').val(data.pedidoCliente.cliente.razon_social);
         $(event.currentTarget).find('#ruc-show').val(data.pedidoCliente.cliente.ruc);
         $(event.currentTarget).find('#numero-show').val(data.pedidoCliente.cliente.telefono);
-        $(event.currentTarget).find('#nro_factura-show').val(data.pedidoCliente.nro_factura);
+        const factura_cliente = data.pedidoCliente.factura_cliente;
+        $(event.currentTarget).find('#nro_factura-show').val(factura_cliente ? factura_cliente.nro_factura : 'Sin asignar');
         $(event.currentTarget).find('#galones-show').val(data.pedidoCliente.galones);
         $(event.currentTarget).find('#precio_galon-show').val(data.pedidoCliente.precio_galon);
         $(event.currentTarget).find('#fecha_descarga-show').val(data.pedidoCliente.fecha_descarga);
@@ -107,7 +109,7 @@ $(document).ready(function () {
         'id': $('#id').val(),
       },
       success: (data) => {
-        $(event.currentTarget).find('#nro_factura-pago').val(data.pedidoCliente.nro_factura);
+        $(event.currentTarget).find('#nro_factura-pago').val(data.pedidoCliente.factura_cliente.nro_factura);
         $(event.currentTarget).find('#pedido_cliente_id-pago').val(data.pedidoCliente.id);
         $(event.currentTarget).find('#saldo-pago').val(data.pedidoCliente.saldo);
         // fecha_pedido=$.datepicker.parseDate('d/m/yy',data.pedidoCliente.created_at);
@@ -124,6 +126,14 @@ $(document).ready(function () {
   $('#modal-confirmar_pedido').on('show.bs.modal', function (event) {
     let id = $(event.relatedTarget).data('id');
     $('#id-confirmar').val(id);
+  });
+
+  $('#modal-agregar_factura').on('show.bs.modal', function (event) {
+    const id = $(event.relatedTarget).data('id');
+    $('#id-agregar').val(id);
+  });
+
+  $('#fecha_factura-agregar').datepicker({
   });
 
 });

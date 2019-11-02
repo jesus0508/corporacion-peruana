@@ -19,6 +19,7 @@
 <section class="content">
   @include('pedido_clientes.table')
   @include('pedido_clientes.confirmar_pedido')
+  @include('pedido_clientes.facturar_pedido')
   @include('pedido_clientes.show')
   @include('pedido_clientes.edit') 
   @include('pago_clientes.create')

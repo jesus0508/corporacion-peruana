@@ -7,7 +7,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Confirmar Pedido</h4>
-        <h3> <span class="label label-danger text-center"> Si confirma este pedido, ya no podrá eliminarlo luego!</span></h3>
+        
       </div>
         <div class="modal-body">
         <div class="row">
@@ -19,16 +19,7 @@
                 <h3 class="box-title"> CONFIRMAR PEDIDO</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                <div class="form-group">
-                  <label for="nro_factura-confirmar">Numero Factura</label>
-                  <input id="nro_factura-confirmar" type="text" class="form-control"
-                          name="nro_factura" placeholder="Ingrese el numero de factura" autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="fecha_confirmacion-confirmar">Fecha</label>
-                  <input id="fecha_confirmacion-confirmar" type="text" class="form-control" 
-                          name="fecha_confirmacion" placeholder="Ingrese la fecha" autocomplete="off">
-                </div>
+                <h3 class="text-center"> <span class="label label-danger"> Si confirma este pedido, ya no podrá eliminarlo luego!</span></h3>
                 <input id="id-confirmar" type="hidden" name="id">
               </div><!-- /.box-body -->
             </div><!-- /.box -->

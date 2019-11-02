@@ -95,7 +95,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="nro_factura-detalles">Número de Factura</label>
-                <input id="nro_factura-detalles" type="text" class="form-control" value="{{$pedidoCliente->nro_factura}}" readonly>
+                <input id="nro_factura-detalles" type="text" class="form-control" value="{{$pedidoCliente->facturaCliente->nro_factura}}" readonly>
               </div>
             </div>
             <div class="col-md-4">
@@ -206,7 +206,7 @@
                   <td>{{$loop->iteration}}</td>
                   <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
                   <td>{{$pago->codigo_operacion}}</td>
-                  <td>{{$pedidoCliente->nro_factura}}</td>
+                  <td>{{$pedidoCliente->facturaCliente->nro_factura}}</td>
                   <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                   <td>S/&nbsp;{{$pago->saldo}}</td>
                   <td>{{$pago->banco}}</td>

@@ -32,7 +32,7 @@
                 <td>{{$loop->parent->iteration}}</td>
                 <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
                 <td>{{$pago->codigo_operacion}}</td>
-                <td>{{$pedidoCliente->nro_factura}}</td>
+                <td>{{$pedidoCliente->factura->nro_factura}}</td>
                 <td>{{$pedidoCliente->cliente->razon_social}}</td>
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                 <td>S/&nbsp;{{$pago->saldo}}</td>
