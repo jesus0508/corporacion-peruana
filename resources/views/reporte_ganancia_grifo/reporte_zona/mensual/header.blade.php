@@ -23,7 +23,6 @@
             <i class="fa fa-remove "></i>
             Limpiar
       </button>
-
     </div>
   </div>
 

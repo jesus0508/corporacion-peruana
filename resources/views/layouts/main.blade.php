@@ -10,6 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>{{ config('app.nombres', 'Laravel') }} | @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" nombres="viewport">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('iconoCorp.ico') }}">
   <link rel="stylesheet" href="{{ asset('adminlte/bootstrap/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('adminlte/font-awesome/css/font-awesome.min.css') }}">
@@ -111,14 +112,14 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+              <img src="{{asset('dist/img/iconoCorp.png')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the usernombres on small devices so only the image appears. -->
               <span class="hidden-xs">{{ Auth::user()->trabajador->nombres }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                <img src="{{asset('dist/img/iconoCorp.png')}}" class="img-circle" alt="User Image">
 
                 <p>
                   {{ Auth::user()->trabajador->nombres }}
@@ -152,7 +153,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+          <img src="{{asset('dist/img/iconoCorp.png')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ Auth::user()->trabajador->nombres }}</p>
@@ -377,6 +378,8 @@ desired effect
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{route('factura_grifos.create')}}"><i class="fa fa-plus"></i> 
+                Registrar facturación día </a></li>
                 <li><a href="{{route('cancelacion.create')}}"><i class="fa fa-plus"></i> 
                 Registrar cancelación </a></li>
                 <li><a href="{{route('cancelacion.index')}}"><i class="fa fa-list"></i> 
@@ -455,7 +458,7 @@ desired effect
               </ul>
         </li>
 
-       <li id="treeview-proveedores" class="treeview">
+        <li id="treeview-transporte" class="treeview">
           <a href="#">
             <i class="fa fa-bus"></i> <span>Tranporte</span>
             <span class="pull-right-container">
@@ -467,12 +470,19 @@ desired effect
             <li><a href="{{route('transporte.create')}}"><i class="fa fa-list"></i>Ingreso</a></li>
             <li><a href="{{route('transporte.salidas_transporte')}}"><i class="fa fa-file-text-o"></i>Egreso</a></li>
           </ul>
-        </li>
-        <li><a href="{{ route('empresa.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> 
-                Empresa Información</a>
-        </li>
+        </li>        
 
-        
+        <li id="treeview-empresa" class="treeview">
+          <a href="#">
+            <i class="glyphicon glyphicon-menu-hamburger"></i> <span>Empresa</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li><a href="{{ route('empresa.index') }}"><i class="fa fa-pencil"></i> Gestión</a></li>
+          </ul>
+        </li>       
 
       </ul>
       <!-- /.sidebar-menu -->

@@ -16,9 +16,9 @@
 
 @section('content')
 <section class="content">
-  @include( 'cancelaciones.header' )
-  @include('cancelaciones.create') 
-  @include('cancelaciones.table')
+  @include( 'factura_grifos.cancelaciones.header' )
+  @include('factura_grifos.cancelaciones.create') 
+  @include('factura_grifos.cancelaciones.table')
   
 </section>
 @endsection

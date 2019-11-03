@@ -18,9 +18,10 @@ class CreateCancelacionsTable extends Migration
             $table->string('monto');
             $table->string('nro_operacion');
             $table->string('fecha');
-            $table->unsignedBigInteger('ingreso_grifo_id');
-            $table->foreign('ingreso_grifo_id')
-            ->references('id')->on('ingreso_grifos');
+            $table->unsignedBigInteger('facturacion_grifo_id');
+            $table->foreign('facturacion_grifo_id')
+            ->references('id')->on('facturacion_grifos');
+            $table->softDeletes(); 
             $table->timestamps();
         });
     }
@@ -33,7 +34,7 @@ class CreateCancelacionsTable extends Migration
     public function down()
     {
         Schema::table('cancelacions', function (Blueprint $table) {
-            $table->dropForeign(['ingreso_grifo_id']);
+            $table->dropForeign(['facturacion_grifo_id']);
          });
         Schema::dropIfExists('cancelacions');
     }

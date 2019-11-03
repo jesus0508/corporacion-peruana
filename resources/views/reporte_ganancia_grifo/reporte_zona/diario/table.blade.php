@@ -26,12 +26,12 @@
             @endforeach       
 
           </tbody>
-            <tfoot>
+          <tfoot>
             <tr>
                 <th colspan="5" style="text-align:right">Total:</th>
                 <th></th>
             </tr>
-        </tfoot>
+          </tfoot>
         </table>
       </div>
     </div> <!-- end box -->

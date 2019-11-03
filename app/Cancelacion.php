@@ -8,8 +8,10 @@ class Cancelacion extends Model
 {
     protected $table = 'cancelacions';
     protected $fillable= ['id','monto','nro_operacion','fecha','ingreso_grifo_id'];
+    protected $dates = ['deleted_at'];
 
-    public function ingresoGrifo(){
-    	return $this->belongsTo(IngresoGrifo::class);
+
+    public function facturaGrifo(){
+    	return $this->belongsTo(FacturaGrifo::class);
     }
 }
