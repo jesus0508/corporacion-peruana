@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFacturacionGrifoRequest extends FormRequest
+class StoreCancelacionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,10 @@ class StoreFacturacionGrifoRequest extends FormRequest
     public function rules()
     {
         return [
-            'grifo_id' => 'required',
-            'fecha_facturacion' => 'required|date_format:"d/m/Y"',
-            'series'=> 'required|max:255',
-            'numero_factura'=> 'nullable|max:255',
-            'venta_factura'=> 'nullable|numeric|gt: 0',
-            'venta_boleta'=> 'nullable|numeric|gt: 0',
-            'precio_venta'=> 'required|numeric|min:0|not_in:0',
+            'nro_operacion' => 'required|max: 255|unique:cancelacions,nro_operacion,'.$this->id,
+            'fecha' => 'required|date_format:"d/m/Y"',
+            'monto' => 'required|numeric|gt:0',
+            'facturacion_grifo_id'=> 'required',
         ];
     }
 }

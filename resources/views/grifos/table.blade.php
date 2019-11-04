@@ -13,8 +13,9 @@
               <th>Teléfono</th>
               <th>Administrador</th>
               <th>Stock</th>
-              <th>Distrito</th>
+              <!-- <th>Distrito</th> -->
               <th>Zona</th>
+              <th>Series</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -26,8 +27,22 @@
                 <td>{{$grifo->telefono}}</td>
                 <td>{{$grifo->administrador}}</td>
                 <td>{{$grifo->stock}}</td>
-                <td>{{$grifo->distrito}}</td>
+                <!-- <td>{{$grifo->distrito}}</td> -->
                 <td>{{$grifo->zona}}</td>
+                <td>
+                  @if(count($grifo->series)>0)
+                    <label for="series"class="label label-default">                    
+                      Serie:&nbsp;                  
+                      @foreach($grifo->series as $serie)
+                        {{$serie->nro}}&nbsp;
+                      @endforeach
+                    </label>
+                  @else
+                    <label for="series" class="label label-default">
+                      No tiene  
+                    </label>                  
+                  @endif                
+                </td>
                 <td>
                   <a href="{{route('series.show', $grifo->id)}}" class="btn bg-purple"       >
                     <span class="fa fa-chain"></span>&nbsp;Series

@@ -39,7 +39,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label for="facturacion">Número(s) factura</label>
-                <input id="facturacion" name="nro_factura" type="text" class="form-control" 
+                <input id="facturacion" name="numero_factura" type="text" class="form-control" 
                         placeholder="Ingrese Números de facturas" readonly="" >
               </div>
             </div>
@@ -49,14 +49,14 @@
             <div class="col-md-2">
               <div class="form-group">
                 <label for="venta_factura">Venta Factura </label>
-                <input id="venta_factura" type="text" class="form-control" 
+                <input id="venta_factura" type="number" step="any" min="0" class="form-control" 
                         placeholder="Venta factura"  name="venta_factura" readonly="">
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group">
                 <label for="venta_boleta">Venta Boleta</label>
-                <input id="venta_boleta" type="text" class="form-control" 
+                <input id="venta_boleta" type="number" step="any" min="0" class="form-control" 
                         placeholder="Venta boleta" name="venta_boleta" readonly="" >
               </div>
             </div>

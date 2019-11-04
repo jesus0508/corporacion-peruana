@@ -6,6 +6,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"></link> 
+<link src="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css"></link> 
 <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
 @endsection
 
@@ -19,8 +21,8 @@
 
 @section('content')
 <section class="content">
-  @include('cancelaciones.diario.header')
-  @include('cancelaciones.diario.table')
+  @include('factura_grifos.cancelaciones.diario.header')
+  @include('factura_grifos.cancelaciones.diario.table')
 
   <!--/.end-modales-->
 </section>
@@ -29,6 +31,7 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -36,11 +39,17 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-gastos-grifo-diarios').DataTable({
+  $('#tabla-cancelaciones-total').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-      "responsive": true,
+      "responsive": false, 
+      "columnDefs": [
+        {"className": "dt-center", "targets":  [0,1,2,3,4,5,6,7,8]  },
+        {"targets": [ 11 ],   "visible": false }
+                      ],
+      'rowsGroup':[0,1,2,3,4,5,6,7,8],
+      "scrollX": true,
       "dom": 'Bfrtip',
       "buttons": [
       {
@@ -55,153 +64,136 @@ $(document).ready(function() {
         customize: function( xlsx ) {
               var sheet = xlsx.xl.worksheets['sheet1.xml'];
               let rels = xlsx.xl.worksheets['sheet1.xml'];
-              var clR = $('row', sheet); 
-              
+              var clR = $('row', sheet);               
               let nRows = clR.length;//6
-              let total = $('c[r=F'+nRows+'] t', sheet).text();                
+              //let total = $('c[r=F'+nRows+'] t', sheet).text();
               $('row:last c t', sheet).text( '' );
-              $('c[r=E'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=F'+nRows+'] t', sheet).text( total );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');             
-              
-            
+              showExcelSubtotal(sheet,nRows,'J','Total Depósitos');               
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5,6,7,8]
+          columns:[0,1,2,3,4,5,6,7,8,9,10]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 8 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
-            // Total over this page
-            pageTotal = api
-                .column( 8, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                      return Number(a) + Number(b);
-                }, 0 );
- 
-            // Update footer
-            $( api.column( 8 ).footer() ).html(
-                pageTotal
-                // +' (S/.'+ total +' total)'
-            );
+            getSubtotal(api,10);
       }
   });
 });
 
-	function inicializarSelect2($select, text, data) {
-  $select.prop('selectedIndex', -1);
-  $select.select2({
-    placeholder: text,
-    allowClear: true,
-    data: data
-    });
+  function showExcelSubtotal(sheet,nRows,letter,text){
+    $('c[r='+letter+nRows+'] t', sheet).text(text);
+    $('c[r='+letter+nRows+'] t', sheet).attr('s','37');//Negrita
   }
-function ayerFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-        dd -= 1;
-        dd = addZero(dd);
-        mm = addZero(mm);
 
-        return dd+'/'+mm+'/'+yyyy;
-}
+  function getSubtotal(api,column){
+    pageTotal = api
+                .column( column, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                      return Number(a) + Number(b);
+                }, 0 );
+            pageTotal = pageTotal.toFixed(2); 
+            // Update footer
+            $( api.column( column ).footer() ).html(
+                pageTotal
+                // +' (S/.'+ total +' total)'
+            );
 
-function hoyFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
+  }
 
-        dd = addZero(dd);
-        mm = addZero(mm);
+	function inicializarSelect2($select, text, data) {
+    $select.prop('selectedIndex', -1);
+    $select.select2({
+      placeholder: text,
+      allowClear: true,
+      data: data
+      });
+  }
+      $('#fecha_inicio_month').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'MM yy',
+            onClose: function(dateText, inst) { 
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                }
+      });
+  function validateDatesMonth(){
+    //let $tabla_pagos_lista = $('#tabla-cancelaciones-total');
+      $('#fecha_inicio_month').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'MM yy',
+            onClose: function(dateText, inst) { 
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                }
+      });
 
-        return dd+'/'+mm+'/'+yyyy;
-}
-function addZero(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
-}
-
-function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-gastos-grifo-diarios');
-  $('#fecha_inicio').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_fin').datepicker('option', 'minDate', selected)
-    }
-  });
-  $('#fecha_fin').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_inicio').datepicker('option', 'maxDate', selected)
-    }
-  });
-
-  $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      var sInicio = $('#fecha_inicio').val();
-      var sFin = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
+    $.fn.dataTable.ext.search.push(
+      function (settings, data, dataIndex) {
+        var sInicio = $('#fecha_inicio_month').val();
+        var sFin = $('#fecha_inicio_month').val();
+        let cell = data[7];
+        if (sInicio) {
+          return sInicio === cell;
+        }
         return true;
       }
-      return false;
-    }
-  );
+    );
+  }
 
-  $('#filtrar-fecha').on('click', function () {
-    $tabla_pagos_lista.DataTable().draw();
-  });
+  function validateDates() {
+    let $tabla_pagos_lista = $('#tabla-cancelaciones-total');
+    $('#fecha_inicio').datepicker({
+      numberOfMonths: 1,
+      onSelect: function (selected) {
+        $('#fecha_fin').datepicker('option', 'minDate', selected)
+      }
+    });
+    $('#fecha_fin').datepicker({
+      numberOfMonths: 1,
+      onSelect: function (selected) {
+        $('#fecha_inicio').datepicker('option', 'maxDate', selected)
+      }
+    });
 
-  $('#clear-fecha').on('click', function () {
-    $('#fecha_inicio').val("");
-    $('#fecha_fin').val("");
-    $tabla_pagos_lista.DataTable().draw();
-    $('#filter-grifo').val('').trigger('change');
-  });
+    $.fn.dataTable.ext.search.push(
+      function (settings, data, dataIndex) {
+        var sInicio = $('#fecha_inicio').val();
+        var sFin = $('#fecha_inicio').val();
+        var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+        var fin = $.datepicker.parseDate('d/m/yy', sFin);
+        var dia = $.datepicker.parseDate('d/m/yy', data[0]);
+        if (!inicio || !dia || fin >= dia && inicio <= dia) {
+          return true;
+        }
+        return false;
+      }
+    );
 
-  $('#today-fecha').on('click', function () {
-    let hoy = hoyFecha();
-    //console.log(hoy);
-    $('#fecha_inicio').val(hoy);
-    $('#fecha_fin').val(hoy);
-    $tabla_pagos_lista.DataTable().draw();
-  });
-  $('#yesterday-fecha').on('click', function () {
-   let ayer = ayerFecha();
-   // console.log(ayer);
-    $('#fecha_inicio').val(ayer);
-    $('#fecha_fin').val(ayer);
-    $tabla_pagos_lista.DataTable().draw();
-  });
+    $('#filtrar-fecha').on('click', function () {
+      $tabla_pagos_lista.DataTable().draw();
+    });
 
-
-}
+    $('#clear-fecha').on('click', function () {
+      $('#fecha_inicio').val("");
+      $('#fecha_inicio_month').val("");
+      $('#fecha_fin').val("");
+      $tabla_pagos_lista.DataTable().draw();
+      $('#filter-grifo').val('').trigger('change');
+    });
+  }
 
 $(document).ready(function() {
+    validateDatesMonth();
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-gastos-grifo-diarios');
+    let $tabla_pedido_proveedores = $('#tabla-cancelaciones-total');
     inicializarSelect2($filter_proveedor, 'Ingrese el grifo', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {

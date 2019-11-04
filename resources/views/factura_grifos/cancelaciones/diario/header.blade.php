@@ -1,43 +1,26 @@
 <div class="row">
-  <div class="col-md-3">
-    <div class="input-group">
-      <span class="input-group-addon">Grifo</span>
-      <select class="form-control" id="filter-grifo" name="planta_id">
-        @foreach( $grifos as $grifo )
-          <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
-        @endforeach
-      </select>
-    </div><!-- /input-group -->
-  </div>
-  <div class="col-md-4">
-    <div class="form-group">
-
-    
-
+  <div class="col-md-5">
+    <div class="alert alert-info alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <p> 
+        <label for="" class="label label-default">Solo mostrará las facturaciones grifo que tienen cancelaciones.</label> 
+      </p>
     </div>
   </div>
-
-      <div class="col-md-5">
-      <div class="row filtrado">
-        <div class="col-md-6">
-          <div class="form-inline">
-            <label for="fecha_inicio">FECHA: </label>
-            <input autocomplete="off" id="fecha_inicio" type="text" class="tuiker form-control"
-              name="fecha_inicio" placeholder="Ingrese día">
-          </div>
-        </div>
-        <div class="col-md-6 pull-right" >
-          <button id="filtrar-fecha" class="btn btn-info">
-            <i class="fa fa-search"></i>
-            Filtrar
-          </button>
-            <button id="clear-fecha" class="btn btn-danger">
-            <i class="fa fa-remove "></i>
-            Limpiar
-      </button>
-
-
-        </div>
-      </div>
-    </div>
+  <div class="col-md-7">
+    <div class="pull-right">
+      <a class="btn btn-primary" href="{{route('grifos.index')}}">
+        <i class="fa fa-building-o">&nbsp;</i>Gestion
+      </a>
+      <a class="btn btn-success" href="{{route('factura_grifos.create')}}">
+        <i class="fa fa-plus">&nbsp;</i>Registrar Venta Facturación Grifo
+      </a>
+      <a class="btn btn-success" href="{{route('cancelacion.create')}}">
+            <i class="fa fa-plus"></i>&nbsp;Registrar Cancelación
+      </a>      
+    </div>    
+  </div>
+</div>
+<div class="row">
+  <p></p> 
 </div>

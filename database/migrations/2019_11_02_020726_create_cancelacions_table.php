@@ -17,7 +17,7 @@ class CreateCancelacionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('monto');
             $table->string('nro_operacion');
-            $table->string('fecha');
+            $table->date('fecha');
             $table->unsignedBigInteger('facturacion_grifo_id');
             $table->foreign('facturacion_grifo_id')
             ->references('id')->on('facturacion_grifos');

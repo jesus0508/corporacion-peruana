@@ -60,7 +60,7 @@
               <th>Precio</th>
               <th>Monto Total</th>
               <th></th>
-              <!-- <th>Saldo</th> -->              
+              <th>Saldo</th>              
             </tr>
           </thead>
           <tbody>   
@@ -75,16 +75,22 @@
                 <td>{{$factura_grifo->precio_venta}}</td>
                 <td>{{round($factura_grifo->getMontoTotal(),2)}}</td>
                 <td>{{ ucfirst(strftime("%B %Y",strtotime($factura_grifo->fecha_facturacion) ) )}}</td>
+                <td>{{round($factura_grifo->getSaldo(),2)}}</td>
               </tr>
             @endforeach
           </tbody>
-            <tfoot>
+          <tfoot>
             <tr>
-                <th colspan="6" style="text-align:right">Total:</th>
-                <th></th>
-                <th></th>
+                <th colspan="2">Total Factura</th>
+                <th></th> <!-- total factura -->
+                <th>Total Galones</th>
+                <th></th> <!-- total galones -->
+                <th colspan="1" style="text-align:right">Total:</th>
+                <th></th><!--  total -->
+                <th></th> <!-- no visible -->
+                <th></th> <!-- saldo -->
             </tr>
-        </tfoot>
+          </tfoot>
         </table>
       </div>
     </div> <!-- end box -->

@@ -17,9 +17,21 @@ class FacturacionGrifo extends Model
     public function getGalones(){
         return $this->venta_boleta+ $this->venta_factura;
     }
-
     public function getMontoTotal(){       
         return $this->getGalones()*$this->precio_venta;
+    }
+    public function getSaldo(){
+        return $this->getMontoTotal()-$this->getPagado();
+    }
+
+    public function getPagado(){
+        $cancelaciones =  $this->cancelaciones;
+        $pagado=0;
+        foreach ($cancelaciones as $cancelacion) {
+            $pagado= $pagado +
+            $cancelacion->monto;
+        }
+        return $pagado;
     }
 
     public function grifo(){

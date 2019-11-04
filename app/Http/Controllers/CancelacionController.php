@@ -5,8 +5,8 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\Cancelacion;
 use Illuminate\Http\Request;
 use CorporacionPeru\Grifo;
-use CorporacionPeru\IngresoGrifo;
-
+use CorporacionPeru\FacturacionGrifo;
+use CorporacionPeru\Http\Requests\StoreCancelacionRequest;
 
 class CancelacionController extends Controller
 {
@@ -18,12 +18,8 @@ class CancelacionController extends Controller
     public function index()
     {
         $grifos = Grifo::all();
-        $cancelaciones = Cancelacion::join('ingreso_grifos','ingreso_grifos.id','=','cancelacions.ingreso_grifo_id')
-            ->join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
-            ->select('cancelacions.*','ingreso_grifos.fecha_ingreso','grifos.razon_social','ingreso_grifos.precio_galon','ingreso_grifos.lectura_inicial',
-                'ingreso_grifos.lectura_final','ingreso_grifos.monto_ingreso')->get();
-        //return $cancelaciones;
-        return view('cancelaciones.diario.index',compact('grifos', 'cancelaciones'));
+        $cancelaciones = Cancelacion::all();
+        return view('factura_grifos.cancelaciones.diario.index',compact('grifos', 'cancelaciones'));
     }
     /**
      * [cancelacion_search description]
@@ -31,7 +27,7 @@ class CancelacionController extends Controller
      */
     public function cancelacion_search( $id, $fecha ){//id: id del grifo
 
-        $ingreso_grifo=IngresoGrifo::with('cancelaciones')->where('grifo_id','=',$id)->where('fecha_ingreso',$fecha)->first();
+        $ingreso_grifo=FacturacionGrifo::with('cancelaciones')->where('grifo_id','=',$id)->where('fecha_facturacion',$fecha)->first();       
          
          return $ingreso_grifo;
     }
@@ -42,9 +38,10 @@ class CancelacionController extends Controller
      */
     public function create()
     {
-         $grifos = Grifo::all();
-        $cancelaciones = Cancelacion::all();
-        return view('cancelaciones.index',compact('grifos', 'cancelaciones'));
+        $grifos = Grifo::all();
+        $cancelaciones = Cancelacion::all()->take(100);
+
+        return view('factura_grifos.cancelaciones.index',compact('grifos', 'cancelaciones'));
     }
 
     /**
@@ -53,9 +50,27 @@ class CancelacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-         Cancelacion::create($request->all());
+    public function store(StoreCancelacionRequest $request)
+    {   $validado = $request->validated();//input validar
+        //validar monto ingreso
+        $id_facturacion_grifo = $request->facturacion_grifo_id;
+        $facturacion_grifo = FacturacionGrifo::findOrFail($id_facturacion_grifo);
+        $pagado=0;
+        foreach ($facturacion_grifo->cancelaciones as $cancelacion) {
+            $pagado += $cancelacion->monto;
+        }
+        $monto_total = $facturacion_grifo->getMontoTotal();
+        $saldo = $monto_total-$pagado;
+        if ($request->monto > $saldo) {
+            $exceso = $request->monto -$saldo;
+            return back()->with('alert-type', 'warning')
+                ->with('status', 'Cancelación excede en '.$exceso.' el monto total. No Registrado');
+        }
+
+        $cancelaciones =Cancelacion::create($validado);
+        $cancelaciones->setFechaCancelacionAttribute($request->fecha);
+        $cancelaciones->save();
+
         return back()->with('alert-type', 'success')->with('status', 'Cancelación Registrada con éxito');
     }
 

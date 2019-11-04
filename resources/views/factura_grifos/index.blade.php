@@ -10,8 +10,8 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Grifos</a></li>
-  <li><a href="#">Cancelaciones</a></li>
+  <li><a href="{{route('grifos.index')}}">Grifos</a></li>
+  <li><a href="#">Facturacion Venta Grifo</a></li>
 </ol>
 @endsection
 
@@ -58,19 +58,17 @@ $(document).ready(function() {
         customize: function( xlsx ) {
               var sheet = xlsx.xl.worksheets['sheet1.xml'];
               let rels = xlsx.xl.worksheets['sheet1.xml'];
-              var clR = $('row', sheet); 
-              
-              let nRows = clR.length;//6
-              let total = $('c[r=F'+nRows+'] t', sheet).text();                
+              var clR = $('row', sheet);               
+              let nRows = clR.length;
+              //let total = $('c[r=F'+nRows+'] t', sheet).text();              
               $('row:last c t', sheet).text( '' );
-              $('c[r=F'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=G'+nRows+'] t', sheet).text( total );
-              $('c[r=G'+nRows+'] t', sheet).attr('s','37');             
+              showExcelSubtotal(sheet,nRows,'B','Total Factura');
+              showExcelSubtotal(sheet,nRows,'D','Galones');
+              showExcelSubtotal(sheet,nRows,'F','Total');                                     
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5,6]
+          columns:[0,1,2,3,4,5,6,8]
         },
         footer: true
       }], 
@@ -78,22 +76,34 @@ $(document).ready(function() {
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
             // Total over this page
-            pageTotal = api
-                .column( 6, { page: 'current'} )
+            getSubtotal(api,2);
+            getSubtotal(api,4);
+            getSubtotal(api,6);
+            getSubtotal(api,8);
+      }
+  });
+});
+  
+  function showExcelSubtotal(sheet,nRows,letter,text){
+    $('c[r='+letter+nRows+'] t', sheet).text(text);
+    $('c[r='+letter+nRows+'] t', sheet).attr('s','37');//Negrita
+  }
+
+  function getSubtotal(api,column){
+    pageTotal = api
+                .column( column, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2); 
             // Update footer
-            $( api.column( 6 ).footer() ).html(
+            $( api.column( column ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
-      }
-  });
-});
 
+  }
 $(document).ready(function() { 
 
   let $select_grifo  = $('#select_grifos');
@@ -137,7 +147,13 @@ $(document).ready(function() {
     let precio_galon = $precio_galon.val();
     precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
     let monto_total = parseFloat(total_galones * precio_galon).toFixed(2);
-    $monto_total.val(monto_total);   
+    $monto_total.val(monto_total);
+    if (monto_total<=0.00) {
+      $('#register').attr("disabled", true);
+    }else{
+      $('#register').attr("disabled", false);
+    }   
+
   });
 
   function evaluateSeries(){
