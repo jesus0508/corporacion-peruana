@@ -259,7 +259,7 @@ desired effect
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>
-                  <span>General por Zona</span>
+                  <span>General por Zona - Grifos</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>

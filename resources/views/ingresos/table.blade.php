@@ -19,21 +19,22 @@
         <table id="tabla-ingreso_grifos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>#</th>              
+              <th>#</th>
+              <th>Fecha Reporte</th>              
               <th>Fecha Ingreso</th>
               <th>Grifo</th>
               <th>Lectura Inicial</th>
               <th>Lectura Final</th> 
               <th>Total Galones</th>
               <th>Precio x Galon</th>
-              <th>Monto</th>
-              
+              <th>Monto</th>              
             </tr>
           </thead>
           <tbody>
             @foreach ($ingresoGrifos as $ingresoGrifo)
               <tr>
                 <td>{{$loop->iteration}}</td>
+                <td>{{$ingresoGrifo->fecha_reporte}}</td>
                 <td>{{$ingresoGrifo->fecha_ingreso}}</td>
                 <td>{{$ingresoGrifo->grifo->razon_social}}</td>
                 <td>{{$ingresoGrifo->lectura_inicial}}</td>
@@ -47,7 +48,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <th colspan="7" style="text-align:right">TOTAL:</th>
+              <th colspan="8" style="text-align:right">TOTAL:</th>
               <th></th>
             </tr>
           </tfoot>

@@ -11,7 +11,7 @@ class IngresoGrifo extends Model
     protected $table = 'ingreso_grifos';
     protected $fillable = [
         'lectura_inicial', 'lectura_final', 'calibracion','monto_ingreso',
-        'fecha_ingreso', 'precio_galon', 'grifo_id','categoria_ingreso_id',
+        'fecha_ingreso', 'fecha_reporte', 'precio_galon', 'grifo_id','categoria_ingreso_id',
         'total_galones_factura','total_galones_boleta','facturacion'
     ];
 
@@ -33,7 +33,17 @@ class IngresoGrifo extends Model
         $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
+    public function setFechaReporteAttribute($value)
+    {
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
     public function getFechaIngresoAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
+
+    public function getFechaReporteAttribute($value)
     {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }

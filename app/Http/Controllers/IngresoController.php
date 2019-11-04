@@ -29,43 +29,50 @@ class IngresoController extends Controller
             ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
         //more joins to get the rzon_social del cliente
             ->select('pago_clientes.codigo_operacion', 'clientes.razon_social as detalle' ,'pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
+            ->groupBy('pago_clientes.codigo_operacion')
             ->get(); 
         $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
             ->where('movimientos.estado','!=',3)
             ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria','categoria_ingresos.id as id_cat')
             ->get(); 
             //PARA OBTENER LOS INGRESOS NETOS DE GRIFOS X ZONA
+            //agregar egreso de monto 0 con estado, visible1 e invisible0 
+            //para mostrar en neto
         $egresos_zona_grifo = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
                     ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
                     ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
                     ->join('grifos','grifos.id','=','egresos.grifo_id')
                     ->select(DB::raw('DATE(fecha_egreso) as day'), 'grifos.zona',
                         DB::raw('-1*(sum(monto_egreso)) as monto'),'egresos.grifo_id'
-                            )
+                            )//estado 0
                     ->groupBy('grifos.zona' ,'day')
                     ->get();
 
         $ingresos_zona_grifo = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
                     ->join('categoria_ingresos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
-                    ->select('ingreso_grifos.fecha_ingreso as day','grifos.zona',
+                    ->select('ingreso_grifos.fecha_reporte',
+                        'ingreso_grifos.fecha_ingreso as day','grifos.zona',
                      DB::raw('sum(monto_ingreso) as monto') , 'categoria_ingresos.categoria' ,'ingreso_grifos.grifo_id')
                     ->groupBy('day','grifos.zona')
                     ->get();
+
         $ingreso_grifos_zonas = collect([]); 
         foreach ($ingresos_zona_grifo as $ingreso) {
             foreach ($egresos_zona_grifo as $egreso ) {
                 if( $ingreso->day == $egreso->day AND $ingreso->zona==$egreso->zona){
                         $consolidado = $egreso->monto + $ingreso->monto;
                         $consolidado = round( $consolidado, 2 );
-                        $neto =[    'fecha_ingreso'   => $egreso->day, 
+                        $neto =[    'fecha_reporte'   => $ingreso->fecha_reporte, 
+                                    'fecha_ingreso'   => $ingreso->day, 
                                     'zona' => $egreso->zona,
                                     'categoria' => $ingreso->categoria,
                                     'monto_ingreso' => $consolidado ];    
                         $neto = (object)$neto;                  
                         $ingreso_grifos_zonas->push($neto);
-                    }                    
+                    }
                 }                
-            }        
+            } 
+
         $collection = collect([$ingresos1, $ingresos2 , $ingresos3 ,
              $ingreso_grifos_zonas]);
         $collapsed = $collection->collapse();

@@ -58,39 +58,31 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=E'+nRows+'] t', sheet).text( total );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=F'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=F'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=G'+nRows+'] t', sheet).text( total );
+              $('c[r=G'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5]
+          columns:[1,2,3,4,5,6]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
+
             // Total over this page
             pageTotal = api
-                .column( 5, { page: 'current'} )
+                .column( 6, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 5 ).footer() ).html(
+            $( api.column( 6 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -106,35 +98,6 @@ $(document).ready(function() {
     data: data
     });
   }
-function ayerFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-        dd -= 1;
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-
-function hoyFecha(){
-    var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1;
-        var yyyy = hoy.getFullYear();
-
-        dd = addZero(dd);
-        mm = addZero(mm);
-
-        return dd+'/'+mm+'/'+yyyy;
-}
-function addZero(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
-}
 
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-ingresos-netos-diarios');
@@ -177,15 +140,13 @@ function validateDates() {
   });
 
   $('#today-fecha').on('click', function () {
-    let hoy = hoyFecha();
-    console.log(hoy);
+    let hoy = $('#today_date').val();
     $('#fecha_inicio').val(hoy);
     $('#fecha_fin').val(hoy);
     $tabla_pagos_lista.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
-   let ayer = ayerFecha();
-    console.log(ayer);
+    let ayer = $('#yesterday_date').val();
     $('#fecha_inicio').val(ayer);
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
@@ -202,7 +163,7 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[2];
+      let cell = data[3];
       if (grifo) {
         return grifo === cell;
       }

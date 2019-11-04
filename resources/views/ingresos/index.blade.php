@@ -49,6 +49,9 @@
     dateFormat: 'd-m-yy',
     maxDate: 0,
   });
+  $('#fecha_reporte').datepicker({
+    dateFormat: 'd-m-yy',
+  });
 
   validateDates();
 
@@ -133,7 +136,7 @@
       var sFin = $fecha_fin.val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[2]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
@@ -154,7 +157,7 @@ function inicializarSelect2($select, text, data) {
     allowClear: true,
     data: data
   });
-  $select.prop('selectedIndex', -1);
+  //$select.prop('selectedIndex', -1);
 }
 
 function inicializarDataTable($table) {
@@ -190,39 +193,30 @@ function inicializarDataTable($table) {
               let nRows = clR.length;
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=F'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=G'+nRows+'] t', sheet).text( total );
-              $('c[r=G'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=G'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=G'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=H'+nRows+'] t', sheet).text( total );
+              $('c[r=H'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5,6,7]
+          columns:[1,2,3,4,5,6,7,8]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 7 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
             // Total over this page
             pageTotal = api
-                .column( 7, { page: 'current'} )
+                .column( 8, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 7 ).footer() ).html(
+            $( api.column( 8 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -245,8 +239,5 @@ function getIngresoByGrifo(idGrifo = '') {
     dataType: 'json',
   });
 }
-
-
-
 </script>
 @endsection

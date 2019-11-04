@@ -16,6 +16,7 @@ class CreateStockTable extends Migration
         Schema::create('stock', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('stock_general')->default(0);
+            $table->integer('stock_reserva')->default(0);            
             $table->timestamps();
         });
     }

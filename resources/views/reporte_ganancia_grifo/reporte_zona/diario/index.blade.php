@@ -65,32 +65,23 @@ $(document).ready(function() {
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5]
+          columns:[1,2,3,4,5,6]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
-            // Total over this page
+             // Total over this page
             pageTotal = api
-                .column( 5, { page: 'current'} )
+                .column( 6, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2); 
             // Update footer
-            $( api.column( 5 ).footer() ).html(
+            $( api.column( 6 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -172,21 +163,16 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[2];
+      let cell = data[3];
       if (grifo) {
         return grifo === cell;
       }
       return true;
     }
-
   );
-
   $filter_proveedor.on('change', function () {
     $tabla_pedido_proveedores.DataTable().draw();
   });
 } );
-
-</script>
-
- 
+</script> 
 @endsection

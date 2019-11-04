@@ -58,39 +58,30 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=C'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=D'+nRows+'] t', sheet).text( total );
-              $('c[r=D'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=E'+nRows+'] t', sheet).text( total );
+              $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
-          columns:[1,2,3,4]
+          columns:[1,2,3,4,5]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 4 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
+            var api = this.api(), data; 
             // Total over this page
             pageTotal = api
-                .column( 4, { page: 'current'} )
+                .column( 5, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 4 ).footer() ).html(
+            $( api.column( 5 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -161,8 +152,6 @@ $('#yesterday-fecha').on('click', function () {
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
   });
-
-
 }
 
 $(document).ready(function() {
@@ -173,13 +162,12 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[2];
+      let cell = data[3];
       if (grifo) {
         return grifo === cell;
       }
       return true;
     }
-
   );
 
   $filter_proveedor.on('change', function () {
@@ -187,7 +175,5 @@ $(document).ready(function() {
   });
 } );
 
-</script>
-
- 
+</script> 
 @endsection

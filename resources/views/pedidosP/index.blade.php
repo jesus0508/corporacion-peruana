@@ -38,10 +38,12 @@
         <span class="info-box-number">760</span>
       </div>
    -->
-   <h4 class=" ">&nbsp;&nbsp;&nbsp;&nbsp;<b>STOCK GENERAL: </b>
+   &nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="label label-default">
+    Stock Total= Stock general + reserva</label>
+   <h4 class=" ">&nbsp;&nbsp;&nbsp;&nbsp;<b>STOCK TOTAL: </b>
     <span class="label label-default">
       @if( $stock!=null ) 
-        {{$stock->stock_general}}
+        {{$stock->getTotal()}}
       @else 
       0
       @endif

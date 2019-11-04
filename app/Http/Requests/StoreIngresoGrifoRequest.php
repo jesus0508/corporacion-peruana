@@ -30,6 +30,7 @@ class StoreIngresoGrifoRequest extends FormRequest
             'monto_ingreso' => 'required|numeric|gt: 0',
             'precio_galon'=>'required|numeric|gt:0',
             'fecha_ingreso'=>'required',
+            'fecha_reporte'=>'required',
             'grifo_id'=>'required'
         ];
     }

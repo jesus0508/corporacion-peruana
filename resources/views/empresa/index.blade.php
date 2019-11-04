@@ -17,3 +17,13 @@
 <!--   end.modales -->
 </section>
 @endsection
+
+@section('scripts')
+<script>
+// $(document).ready(function() {
+// 	$('#update_stock').submit(function(e){
+// 		e.preventDefault();
+// 	});
+// });
+</script>
+@endsection

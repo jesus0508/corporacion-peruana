@@ -5,6 +5,7 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\Empresa;
 use CorporacionPeru\Banco;
 use CorporacionPeru\Cuenta;
+use CorporacionPeru\Stock;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\UpdateEmpresaRequest;
 use DB;
@@ -26,11 +27,12 @@ class EmpresaController extends Controller
                     DB::raw('count(cuentas.id) as total_cuentas') )
                 ->groupBy('bancos.abreviacion')
                 ->get();
+        $stock = Stock::first();
         //$bancos = Banco::with('cuentas')->get();
         //$bancos = $bancos->cuentas->length()
         //return $bancos;
      
-        return view( 'empresa.index',compact(  'empresa' ,'bancos' ) );
+        return view( 'empresa.index',compact(  'empresa' ,'bancos' , 'stock' ) );
     }
 
     /**

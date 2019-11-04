@@ -6,7 +6,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Fecha</th>
+              <th>Fecha Reporte</th>
+              <th>Fecha Ingreso</th>
               <th>Grifo</th>
               <th>Descripción</th>
               <th>Monto (S/.)</th>
@@ -16,6 +17,7 @@
             @foreach( $ingresos_egresos as $neto )
               <tr>
                 <td>{{$loop->iteration}}</td>
+                <td>{{date('d/m/Y', strtotime($neto->fecha_reporte))}}</td>
                 <td>{{date('d/m/Y', strtotime($neto->day))}}</td>
                 <td>{{$neto->grifo}}</td>  
                 <td>
@@ -34,7 +36,7 @@
           </tbody>
             <tfoot>
               <tr>
-                  <th colspan="4" style="text-align:right">TOTAL NETO:</th>
+                  <th colspan="5" style="text-align:right">TOTAL NETO:</th>
                   <th></th>
               </tr>
             </tfoot>

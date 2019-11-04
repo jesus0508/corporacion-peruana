@@ -23,13 +23,17 @@ class GananciaNetaGrifoController extends Controller
                     ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
                     ->join('grifos','grifos.id','=','egresos.grifo_id')
 
-                    ->select(DB::raw('DATE(fecha_egreso) as day'), 'grifos.razon_social as grifo',
+                    ->select(DB::raw('DATE(fecha_egreso) as day'), 
+                        'fecha_egreso as fecha_reporte',
+                        'grifos.razon_social as grifo',
                         DB::raw('-1*(monto_egreso) as monto') , 'concepto_gastos.concepto as detalle'
                             );
                   
 
             $ingresos_egresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
-                    ->select('ingreso_grifos.fecha_ingreso as day','grifos.razon_social as grifo',
+                    ->select('ingreso_grifos.fecha_ingreso as day',
+                        'ingreso_grifos.fecha_reporte',
+                        'grifos.razon_social as grifo',
                      'ingreso_grifos.monto_ingreso as monto' , 'ingreso_grifos.id as detalle')
                     ->union($egresos)
                     ->get();

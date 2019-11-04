@@ -19,18 +19,28 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="fecha_ingreso">Fecha de Ingreso: </label>
-                      <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control"
-                        name="fecha_ingreso" placeholder="Fecha de Ingreso">
+                      <label for="fecha_reporte">Fecha de Reporte: </label>
+                      <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control"
+                        name="fecha_reporte" placeholder="Fecha de Reporte" required="">
                     </div>
                   </div>
                   <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_ingreso">Fecha de Ingreso: </label>
+                      <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control"
+                        name="fecha_ingreso" placeholder="Fecha de Ingreso" required="">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-8">
                     <div class="form-group">
                       <label for="seletc-grifos">Grifo</label>
                       <select class="form-control" id="seletc-grifos" name="grifo_id" required>
                       </select>
                     </div>
-                  </div>
+                  </div>                  
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->

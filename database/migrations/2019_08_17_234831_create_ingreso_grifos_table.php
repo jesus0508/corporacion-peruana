@@ -21,6 +21,7 @@ class CreateIngresoGrifosTable extends Migration
             $table->float('monto_ingreso');
             $table->decimal('precio_galon', 9, 5);
             $table->date('fecha_ingreso');
+            $table->date('fecha_reporte');
             $table->float('total_galones_factura')->nullable();
             $table->float('total_galones_boleta')->nullable();
             $table->string('facturacion')->nullable();

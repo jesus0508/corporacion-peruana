@@ -50,12 +50,13 @@ class PagoClienteController extends Controller
         $pedido_cliente = PedidoCliente::findOrFail($request->pedido_cliente_id);
         $pedido_cliente->saldo -= $request->monto_operacion;
         $pago->saldo = $pedido_cliente->saldo;
+        $monto_asignado=$request->monto_operacion;
         $pedido_cliente->estado = 4;
         if ($pedido_cliente->saldo <= 0) {
             $pago->saldo = 0;
             $pedido_cliente->estado = 5;
         }
-        $pedido_cliente->pagoClientes()->attach($pago->id);
+        $pedido_cliente->pagoClientes()->attach($pago->id,['monto_asignado'=> $monto_asignado]);
         $pago->save();
         $pedido_cliente->save();
         return back()->with('alert-type', 'success')->with('status', 'Pago registrado con exito');
@@ -75,14 +76,16 @@ class PagoClienteController extends Controller
             foreach ($pedidos_cliente as $pedido_cliente) {
                 if ($monto_actual >= $pedido_cliente->saldo) {
                     $monto_actual -= $pedido_cliente->saldo;
+                    $monto_asignado= $pedido_cliente->saldo;
                     $pedido_cliente->saldo = 0;
                     $pedido_cliente->estado = 5;
-                    $pedido_cliente->pagoClientes()->attach($pago->id);
+                    $pedido_cliente->pagoClientes()->attach($pago->id,['monto_asignado'=> $monto_asignado]);
                     $pedido_cliente->save();
                 } else {
                     $pedido_cliente->saldo -= $monto_actual;
                     $pedido_cliente->estado = 4;
-                    $pedido_cliente->pagoClientes()->attach($pago->id);
+                    $monto_asignado= $monto_actual;
+                    $pedido_cliente->pagoClientes()->attach($pago->id,['monto_asignado'=> $monto_asignado]);
                     $pedido_cliente->save();
                     $monto_actual = 0;
                     break;

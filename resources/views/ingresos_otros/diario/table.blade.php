@@ -24,8 +24,7 @@
                 <td>{{$ingreso->categoria}}</td>
                 <td>
                   @if($ingreso->categoria)
-                   {{$ingreso->categoria}}
-                  
+                   {{$ingreso->categoria}}                  
                   @else
                     @if($ingreso->id_cat)
                     Pendiente
@@ -35,10 +34,11 @@
                   @endif                
                 </td>
                 <td>
-                    @if($ingreso->fecha_ingreso)
-                    {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}                                        
+                    @if($ingreso->fecha_reporte)
+                    {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}}
+
                     @else
-                    {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}} 
+                    {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}
                     @endif
                 </td>
                 <td>

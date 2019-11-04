@@ -17,6 +17,7 @@ class CreatePagoClientePedidoClienteTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('pago_cliente_id');
             $table->unsignedBigInteger('pedido_cliente_id');
+            $table->float('monto_asignado');
             $table->foreign('pago_cliente_id')->references('id')->on('pago_clientes');
             $table->foreign('pedido_cliente_id')->references('id')->on('pedido_clientes');
             $table->timestamps();

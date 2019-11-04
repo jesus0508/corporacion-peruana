@@ -29,7 +29,8 @@ class GananciaNetaZonaController extends Controller
                     ->get();
 
             $ingresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
-                    ->select('ingreso_grifos.fecha_ingreso as day','grifos.zona',
+                    ->select('ingreso_grifos.fecha_ingreso as day',
+                        'grifos.zona','ingreso_grifos.fecha_reporte',
                      DB::raw('sum(monto_ingreso) as monto') )
                     ->groupBy('grifos.zona','day')
                     ->get();
@@ -42,6 +43,7 @@ class GananciaNetaZonaController extends Controller
                         $consolidado = round( $consolidado, 2 );
                         $neto =[    'day'   => $egreso->day, 
                                     'zona' => $egreso->zona,
+                                    'fecha_reporte' => $ingreso->fecha_reporte,
                                     'monto_ingreso' =>$ingreso->monto,                                 
                                     'monto_egreso' =>$egreso->monto,
                                     'monto_neto' => $consolidado ];    
@@ -71,9 +73,7 @@ class GananciaNetaZonaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-
-      
+    {      
         $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
                     ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
                     ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')

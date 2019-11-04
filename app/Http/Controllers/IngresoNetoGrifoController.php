@@ -30,7 +30,8 @@ class IngresoNetoGrifoController extends Controller
                     ->get();
 
             $ingresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
-                    ->select('ingreso_grifos.fecha_ingreso as day','grifos.razon_social as grifo',
+                    ->select('ingreso_grifos.fecha_ingreso as day',
+                        'ingreso_grifos.fecha_reporte','grifos.razon_social as grifo',
                      'ingreso_grifos.monto_ingreso as monto' )
                     ->get();
 
@@ -40,7 +41,9 @@ class IngresoNetoGrifoController extends Controller
                     if( $ingreso->day == $egreso->day AND $ingreso->grifo==$egreso->grifo){
                         $consolidado = $egreso->monto + $ingreso->monto;
                         $consolidado = round( $consolidado, 2 );
-                        $neto =[    'day'   => $egreso->day, 
+                        $neto =[    'day'   => $egreso->day,
+                                    'fecha_reporte' => $ingreso->fecha_reporte, 
+
                                     'grifo' => $egreso->grifo,
                                     'monto_ingreso' =>$ingreso->monto,
                                  
@@ -54,12 +57,15 @@ class IngresoNetoGrifoController extends Controller
                 
             }
 
-        $grifos         = Grifo::all();
+        $grifos = Grifo::all();
         $semana = config('constants.semana_name');
-        $today = $semana[strftime( '%w',strtotime('now') )];
-        $yesterday = $semana[strftime( '%w',strtotime('-1 day') )];       
+        $today  = $semana[strftime( '%w',strtotime('now') )];
+        $today_date = strftime( '%d/%m/%Y',strtotime('now') );
+        $yesterday = $semana[strftime( '%w',strtotime('-1 day') )];
+        $yesterday_date = strftime( '%d/%m/%Y',strtotime('-1 day') );
+      
 
-        return view('reporte_ingresos_grifo_neto.index',compact('netos','grifos','today','yesterday'));
+        return view('reporte_ingresos_grifo_neto.index',compact('netos','grifos','today','yesterday','today_date','yesterday_date'));
     }
 
     /**
