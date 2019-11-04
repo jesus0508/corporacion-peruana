@@ -12,7 +12,7 @@
 @section('content')
 <section class="content">
   @include('nelida.ingresos.create')
-  @include('nelida.table')
+  @include('nelida.ingresos.table')
   
   <!--modales-->
   
