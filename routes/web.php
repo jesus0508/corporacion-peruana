@@ -111,6 +111,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/ingreso_transporte','IngresoTransporteController');
 	Route::resource('/egreso_transporte','EgresoTransporteController');
 	Route::get('/placas_transporte/{id}','EgresoTransporteController@placas_transporte')->name('egreso_transporte.placas_transporte');
+	Route::resource('/ingreso_neto_transporte','IngresoNetoTransporteController');
 
 
 	Route::group(['middleware' => ['role:Proveedores']], function () {

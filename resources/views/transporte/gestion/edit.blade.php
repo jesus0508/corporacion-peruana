@@ -9,7 +9,7 @@
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Editar datos del transporte</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" >
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">

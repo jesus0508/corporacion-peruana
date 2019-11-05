@@ -477,9 +477,9 @@ desired effect
                     </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="#"><i class="fa fa-list"></i> 
+                    <li><a href="{{route('ingreso_neto_transporte.index')}}"><i class="fa fa-list"></i> 
                     Reporte Unidades </a></li>
-                    <li><a href="#"><i class="fa fa-th-list"></i> 
+                    <li><a href="{{route('ingreso_neto_transporte.create')}}"><i class="fa fa-th-list"></i> 
                     Reporte General</a>
                     </li>
                   </ul>

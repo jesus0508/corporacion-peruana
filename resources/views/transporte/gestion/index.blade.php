@@ -38,7 +38,7 @@ $(document).ready(function() {
 
 
   inicializarSelect2($select_tipo,'Seleccione tipo','');
-  inicializarSelect2($select_tipo_edit,'Seleccione tipo','');
+ // inicializarSelect2Modal($select_tipo_edit, 'Seleccione tipo', '','modal-edit-transporte')
   //inicializarSelect2(); 
    $('#tabla-transporte').DataTable({
       'language': {
@@ -66,6 +66,15 @@ $(document).ready(function() {
     });
 });
 
+ function inicializarSelect2Modal($select, text, data,modal) {
+  $select.prop('selectedIndex', -1);
+  $select.select2({
+    placeholder: text,
+    dropdownParent: $("#"+modal),
+    allowClear: true,
+    data: data
+    });
+  }
 function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
