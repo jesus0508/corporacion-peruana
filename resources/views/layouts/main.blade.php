@@ -467,8 +467,24 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{route('transporte.index')}}"><i class="fa fa-pencil"></i> Gestión</a></li>
-            <li><a href="{{route('transporte.create')}}"><i class="fa fa-list"></i>Ingreso</a></li>
-            <li><a href="{{route('transporte.salidas_transporte')}}"><i class="fa fa-file-text-o"></i>Egreso</a></li>
+            <li><a href="{{route('ingreso_transporte.create')}}"><i class="fa fa-list"></i>Ingreso</a></li>
+            <li><a href="{{route('egreso_transporte.create')}}"><i class="fa fa-file-text-o"></i>Egreso</a></li>
+            <li id="treeview-reporte-transporte" class="treeview">
+                  <a href="#">
+                    <i class="fa fa-list"></i> <span>Reporte</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-list"></i> 
+                    Reporte Unidades </a></li>
+                    <li><a href="#"><i class="fa fa-th-list"></i> 
+                    Reporte General</a>
+                    </li>
+                  </ul>
+            </li>
+
           </ul>
         </li>        
 

@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-create-ingreso" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('ingreso_grifos.store')}}" method="post" class="modal-content pago">
+    <form action="{{route('ingreso_grifos.store')}}" method="post" class="modal-content">
       @csrf
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

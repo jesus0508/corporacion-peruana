@@ -106,9 +106,12 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('ganancia_grifo_neto','GananciaNetaGrifoController');//X grifo
 	Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
 
+	/* Transporte - Nelida*/
+	Route::resource('/transporte','TransporteController');
+	Route::resource('/ingreso_transporte','IngresoTransporteController');
+	Route::resource('/egreso_transporte','EgresoTransporteController');
+	Route::get('/placas_transporte/{id}','EgresoTransporteController@placas_transporte')->name('egreso_transporte.placas_transporte');
 
-	Route::resource('transporte','TransporteController');
-	Route::get('salidas_transporte','TransporteController@salida')->name('transporte.salidas_transporte');
 
 	Route::group(['middleware' => ['role:Proveedores']], function () {
 		/* Proveedor & planta */	

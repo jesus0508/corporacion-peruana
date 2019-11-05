@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Gastos')
+@section('title','Transporte')
 
 @section('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
@@ -11,20 +11,18 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Gastos</a></li>
-  <li><a href="#">Reportes Diario</a></li>
+  <li><a href="#">Transporte</a></li>
+  <li><a href="#">Registro Ingreso</a></li>
 </ol>
 @endsection
 
+
 @section('content')
 <section class="content">
-  @include('reportes_gastos_grifo.diario.filtrado')
-  @include('reportes_gastos_grifo.diario.table')
-
-  <!--/.end-modales-->
+  @include('transporte.ingresos.create')
+  @include('transporte.ingresos.table') 
 </section>
 @endsection
-
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
@@ -32,10 +30,21 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-
 <script>
 $(document).ready(function() {
-  $('#tabla-gastos-grifo-diarios').DataTable({
+
+  let $select_placa = $('#placa');
+  let $table = $('#tabla-ingreso-transporte');
+	inicializarSelect2($select_placa,'Seleccione placa','');
+	$('#fecha_reporte').datepicker();
+ 	$('#fecha_ingreso').datepicker();
+ 	let fecha_reporte = $('#fecha_reporte').val(); 
+	inicializarDataTable($table,'');
+
+});
+
+function inicializarDataTable($table, fecha_reporte){
+	 $table.DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -44,7 +53,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Gastos Grifos',
+        'title': fecha_reporte+' Alquiler de Buses',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -59,40 +68,37 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=E'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=F'+nRows+'] t', sheet).text( total );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');             
-              
-            
-            },
+              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=E'+nRows+'] t', sheet).text( total );
+              $('c[r=E'+nRows+'] t', sheet).attr('s','37');            
+			       },
         'exportOptions':
         {
-          columns:[1,2,3,4,5,6]
+          columns:[0,1,2,3,4]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
-            // Total over this page
             pageTotal = api
-                .column( 6, { page: 'current'} )
+                .column( 4, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 6 ).footer() ).html(
+            $( api.column( 4 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
       }
   });
-});
 
-	function inicializarSelect2($select, text, data) {
+}
+function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -102,7 +108,7 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-gastos-grifo-diarios');
+  let $tabla_pagos_lista = $('#tabla-ingreso-transporte');
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
     onSelect: function (selected) {
@@ -122,7 +128,7 @@ function validateDates() {
       var sFin = $('#fecha_inicio').val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
@@ -141,29 +147,12 @@ function validateDates() {
     $('#filter-grifo').val('').trigger('change');
   });
 
-  $('#today-fecha').on('click', function () {
-    let hoy = $('#today_date').val();
-    //console.log(hoy);
-    $('#fecha_inicio').val(hoy);
-    $('#fecha_fin').val(hoy);
-    $tabla_pagos_lista.DataTable().draw();
-  });
-  $('#yesterday-fecha').on('click', function () {
-   let ayer = $('#yesterday_date').val();
-   // console.log(ayer);
-    $('#fecha_inicio').val(ayer);
-    $('#fecha_fin').val(ayer);
-    $tabla_pagos_lista.DataTable().draw();
-  });
-
-
 }
-
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-gastos-grifo-diarios');
-    inicializarSelect2($filter_proveedor, 'Ingrese el grifo', '');
+    let $tabla_pedido_proveedores = $('#tabla-ingreso-transporte');
+    inicializarSelect2($filter_proveedor, 'Ingrese la placa', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
@@ -180,8 +169,5 @@ $(document).ready(function() {
     $tabla_pedido_proveedores.DataTable().draw();
   });
 } );
-
 </script>
-
- 
 @endsection
