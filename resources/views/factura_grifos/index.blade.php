@@ -303,9 +303,8 @@ function validateDates() {
     $('#fecha_fin').val(ayer);
     $tabla_pagos_lista.DataTable().draw();
   });
-
-
 }
+
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
