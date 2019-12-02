@@ -23,7 +23,11 @@ class SalidaController extends Controller
             ->get();
 
         $egresos2 = CategoriaEgreso::join('pago_proveedors','categoria_egresos.id','=','pago_proveedors.categoria_egreso_id')
-            ->select('pago_proveedors.codigo_operacion','pago_proveedors.monto_operacion as monto_egreso','pago_proveedors.banco','pago_proveedors.fecha_operacion as fecha_egreso','categoria_egresos.categoria')
+            ->select('pago_proveedors.codigo_operacion',
+                'pago_proveedors.monto_operacion as monto_egreso',
+                'pago_proveedors.banco',
+                'pago_proveedors.fecha_operacion as fecha_egreso',
+                'categoria_egresos.categoria','pago_proveedors.id as esPagoProveedor')
             ->get(); 
         $collection = collect([$egresos1, $egresos2]);
         $collapsed = $collection->collapse();
@@ -95,9 +99,14 @@ class SalidaController extends Controller
      * @param  \CorporacionPeru\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function edit(Salida $salida)
+    public function edit($id)
     {
-        //
+        $salida = Salida::where('id',$id)->first();
+        $cuentas = Cuenta::all();
+        $categorias = CategoriaEgreso::all();
+        return response()->json(['salida' => $salida ,
+                                'cuentas' => $cuentas,
+                                'categorias' => $categorias ]);
     }
 
     /**
@@ -107,9 +116,12 @@ class SalidaController extends Controller
      * @param  \CorporacionPeru\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Salida $salida)
+    public function update(Request $request,  $id)
     {
-        //
+       // return $request;
+        $id = $request->id;       
+        Salida::findOrFail($id)->update($request->all());
+        return back()->with('alert-type','success')->with('status','Egreso actualizado con exito');  
     }
 
     /**

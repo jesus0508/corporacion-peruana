@@ -22,8 +22,18 @@
             @foreach( $ingresos as $ingreso )
               <tr>
                 <td>{{$ingreso->fecha_ingreso}}</td>
-                <td>{{$ingreso->categoria}}</td>
                 <td>
+                  @if($ingreso->esGrifo)
+                   Ingresos Extraordinarios              
+                  @else
+                    {{$ingreso->categoria}} 
+                  @endif                
+                </td>
+                <td>
+                  @if($ingreso->esGrifo)
+                     Ingreso Extraordinario               
+                  @endif 
+                
                   @if($ingreso->categoria)
                    {{$ingreso->categoria}} 
                     @if($ingreso->razon_social)

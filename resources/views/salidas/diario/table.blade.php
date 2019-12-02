@@ -16,6 +16,7 @@
               <th>Extra Info</th>
               <th>Banco</th>
               <th>Monto</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -43,6 +44,17 @@
                 </td>
                 <td>{{$egreso->banco}}</td>
                 <td>{{$egreso->monto_egreso}}</td>
+                <td>
+                  @if(!$egreso->esPagoProveedor)
+                    <btn class="btn btn-xs btn-warning btn-block" 
+                      href="#modal-edit-salidas"  
+                      data-toggle="modal" data-target=" #modal-edit-salidas"
+                      data-id="{{$egreso->id}}">
+                      <span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Editar                       
+                    </btn> 
+                  @endif
+
+                </td>
               </tr>
             @endforeach
           </tbody>

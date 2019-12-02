@@ -8,6 +8,7 @@ use CorporacionPeru\Categoria;
 use CorporacionPeru\Egreso;
 use CorporacionPeru\IngresoGrifo;
 use CorporacionPeru\CategoriaIngreso;
+use CorporacionPeru\MovimientoGrifo;
 use Carbon\Carbon;
 use DB;
 class IngresoController extends Controller
@@ -34,7 +35,20 @@ class IngresoController extends Controller
         $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
             ->where('movimientos.estado','!=',3)
             ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria','categoria_ingresos.id as id_cat')
-            ->get(); 
+            ->get();  
+                //Ingresos movimientos grifo -- ingreso extraordinario
+        $ingresos4 = MovimientoGrifo::where('estado','!=',3)
+            ->select('id as esGrifo', 'codigo_operacion',
+                'monto_operacion as monto_ingreso',
+                'fecha_operacion as fecha_ingreso')
+            ->get();
+
+         // CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
+         //    ->where('movimientos.estado','!=',3)
+         //    ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria','categoria_ingresos.id as id_cat')
+         //    ->get(); 
+
+
             //PARA OBTENER LOS INGRESOS NETOS DE GRIFOS X ZONA
             //agregar egreso de monto 0 con estado, visible1 e invisible0 
             //para mostrar en neto
@@ -73,7 +87,7 @@ class IngresoController extends Controller
                 }                
             } 
 
-        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 ,
+        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 , $ingresos4,
              $ingreso_grifos_zonas]);
         $collapsed = $collection->collapse();
         $ingresos =$collapsed->all(); 

@@ -3,7 +3,7 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Salida extends Model
 {
 	protected $table = 'salidas';
@@ -16,5 +16,13 @@ class Salida extends Model
     public function categoria()
     {
     	return $this->belongsTo(CategoriaEgreso::class);
+    } 
+
+    public function setFechaEgresoAttribute($value){
+        $this->attributes['fecha_egreso'] = Carbon::createFromFormat('d/m/Y',$value);
+    } 
+
+    public function setFechaReporteAttribute($value){
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y',$value);
     } 
 }

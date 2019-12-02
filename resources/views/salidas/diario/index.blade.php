@@ -19,7 +19,7 @@
   	@include('salidas.diario.buttons_top')
   	@include('salidas.diario.table')
 	<!-- modales -->
-    @include('salidas.modal_categoria')
+    @include('salidas.diario.modal_edit')
    <!-- fin modales -->
 </section>
 @endsection
@@ -32,7 +32,58 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 
 <script>
+
 $(document).ready(function() {
+
+  $('#fecha_egreso').datepicker();
+  $('#fecha_reporte').datepicker();
+  $select_categorias = $('#categoria_egreso_id');
+  $select_cuentas = $('#cuenta_id');
+
+  $('#modal-edit-salidas').on('show.bs.modal',function(event){
+    var id= $(event.relatedTarget).data('id');
+    $.ajax({
+      type: 'GET',
+      url:`./salidas/${id}/edit`,
+      dataType : 'json',
+      success: (data)=>{        
+        console.log(data);
+
+        let categoria_id = data.salida.categoria_egreso_id;
+        let fecha_egreso = convertDateFormat2(data.salida.fecha_egreso);
+        let fecha_reporte = convertDateFormat2(data.salida.fecha_reporte);
+        $(event.currentTarget).find('#monto_egreso').val(data.salida.monto_egreso);    
+        $(event.currentTarget).find('#fecha_egreso').val(fecha_egreso);
+        $(event.currentTarget).find('#fecha_reporte').val(fecha_reporte);
+        $(event.currentTarget).find('#detalle').val(data.salida.detalle);
+        $(event.currentTarget).find('#nro_comprobante').val(data.salida.nro_comprobante);
+        $(event.currentTarget).find('#codigo_operacion').val(data.salida.codigo_operacion);
+        $(event.currentTarget).find('#nro_cheque').val(data.salida.nro_cheque);
+        $(event.currentTarget).find('#id-edit').val(data.salida.id);
+
+        let lista_cuentas = '';
+        data.cuentas.forEach((cuenta) => {
+          lista_cuentas += `<option value="${cuenta.id}">${cuenta.nro_cuenta}</option>`;
+        });
+        $select_cuentas.html(lista_cuentas);
+        inicializarSelect2($select_cuentas, 'Seleccione la categoría');
+        $select_cuentas.val(categoria_id).trigger('change');
+        
+        let lista_categorias = '';
+        data.categorias.forEach((categoria) => {
+          lista_categorias += `<option value="${categoria.id}">${categoria.categoria}</option>`;
+        });
+        $select_categorias.html(lista_categorias);
+        inicializarSelect2($select_categorias, 'Seleccione la categoría');
+        $select_categorias.val(categoria_id).trigger('change');
+      },
+      error: (error)=>{
+        toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+      }
+    });
+  });
+
+
 	var groupColumn = 1;
   $('#tabla-reporte-egresos').DataTable({
   	"columnDefs": [
@@ -88,6 +139,7 @@ $(document).ready(function() {
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
+                   "colspan": 2, 
                     "id": "A",
                     "style": "font-weight:bold;"  ,                     
                     "text":"00.0"
@@ -107,6 +159,7 @@ $(document).ready(function() {
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {
+                    "colspan": 2, 
                     "id": "e" + group,
                     "style": "font-weight:bold;"  ,                     
                     "value": "0.00",
@@ -131,6 +184,17 @@ $(document).ready(function() {
 
 });
 
+function convertDateFormat2(string) {
+        var info = string.split('-').reverse().join('/');
+        return info;
+  }
+function inicializarSelect2($select, text) {
+  $select.prop('selectedIndex', -1);
+  $select.select2({
+    placeholder: text,
+    allowClear: true,
+  });
+}
 function validateDates() {
 	//console.log('entro a validate');
   let $tabla_pagos_lista = $('#tabla-reporte-egresos');
