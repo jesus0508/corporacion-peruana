@@ -5,7 +5,7 @@
         <h3 class="box-title">Lista de depositos </h3>
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-depositos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>NUMERO DE CUENTA</th>
@@ -22,7 +22,7 @@
                 <td>{{$deposito->detalle}}</td>
                 <td>{{$deposito->codigo_operacion}}</td>
                 <td>{{$deposito->monto}}</td>
-                <td>  {{$deposito->fecha_reporte}}                
+                <td> {{$deposito->fecha_reporte}}                
                   
                 </td>
               </tr>

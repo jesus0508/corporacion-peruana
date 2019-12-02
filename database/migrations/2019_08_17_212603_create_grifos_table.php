@@ -16,7 +16,7 @@ class CreateGrifosTable extends Migration
         Schema::create('grifos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('razon_social');
-            $table->string('ruc');
+            $table->string('ruc')->nullable();
             $table->string('telefono')->nullable();
             $table->string('administrador');
             $table->integer('stock');

@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Agregar nueva Categoría </h4>
-         <a href="{{route('categoria_ingresos.index')}}" class="btn btn-success pull-right"> <span class="fa fa-list"></span>&nbsp;&nbsp;Lista  Ingreso Categorías</a>
+         <a href="{{route('categoria_ingresos.index')}}" class="btn btn-primary pull-right"> <span class="fa fa-list"></span>&nbsp;&nbsp;Lista  Ingreso Categorías</a>
       </div>
       <div class="modal-body">
       <form class="modal-content" action="{{route('categoria_ingresos.store')}}" method="post">

@@ -15,7 +15,12 @@ class Deposito extends Model
         return $this->belongsTo(Cuenta::class);
     }
 
-    public function setFechaFacturaAttribute($value){ 
+    public function setFechaReporteAttribute($value){ 
         $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y',$value);
+    }
+
+    public function getFechaReporteAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 }

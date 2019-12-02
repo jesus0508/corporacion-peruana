@@ -17,7 +17,18 @@
 
 @section('content')
 <section class="content">
-
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pull-right ">
+        <a  class="btn btn-success"
+         href="http://localhost/C/corporacion-peruana/public/egresos_listado">
+          <i class="fa fa-list"></i> 
+            Lista Gastos Grifos
+        </a>
+      </div>
+    </div>
+  </div>
+  <p></p>  
   @include('gastos.registro2.register')
   <!--/.end-modales-->
 </section>

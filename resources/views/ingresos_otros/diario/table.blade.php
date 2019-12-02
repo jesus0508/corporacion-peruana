@@ -25,12 +25,20 @@
                 <td>{{$ingreso->categoria}}</td>
                 <td>
                   @if($ingreso->categoria)
-                   {{$ingreso->categoria}}                  
+                   {{$ingreso->categoria}} 
+                    @if($ingreso->razon_social)
+                      -&nbsp;{{$ingreso->razon_social}} 
+                      @else
+                        @if($ingreso->id_cat)
+                          -&nbsp;Pendiente         
+                        @endif                   
+                    @endif
+                   <!-- categoria ingreso  -->                
                   @else
                     @if($ingreso->id_cat)
-                    Pendiente
-                    @else
-                   {{$ingreso->detalle}}
+                    Pendiente             <!-- pago pendiente   --> 
+                    @else 
+                   {{$ingreso->detalle}}   <!-- pago detalle --> 
                     @endif                  
                   @endif                
                 </td>
@@ -57,8 +65,8 @@
                 <td>
                   <button class="btn btn-sm btn-warning"> 
                     <span class="fa fa-pencil"></span> &nbsp;Edit</button>
-                  <button class="btn btn-sm btn-danger">
-                    <span class="fa fa-trash"></span>&nbsp;Delete</button>
+                  <!-- <button class="btn btn-sm btn-danger">
+                    <span class="fa fa-trash"></span>&nbsp;Delete</button> -->
                 </td>
               </tr>              
             @endforeach

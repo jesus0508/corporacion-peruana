@@ -64,7 +64,7 @@
         	<div class="col-md-4">
             <div class="form-group @error('monto_egreso') has-error @enderror">
               <label for="monto_egreso">Monto gasto*</label>
-              <input id="monto_egreso" type="text" class="form-control" name="monto_egreso" placeholder=" Ingrese el monto"  required>
+              <input id="monto_egreso" type="number" class="form-control" name="monto_egreso" placeholder=" Ingrese el monto" step="any" min="0" max="999999" required>
               @error('monto_egreso')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>

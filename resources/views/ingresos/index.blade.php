@@ -136,7 +136,7 @@
       var sFin = $fecha_fin.val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[2]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[1]);//filtro x reporte
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }

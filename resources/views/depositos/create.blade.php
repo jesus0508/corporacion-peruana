@@ -33,21 +33,32 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group">
+								<div class="form-group @error('codigo_operacion') has-error @enderror">
 									<label for="codigo_operacion">
 											Código de Operación*
 									</label>
-									<input type="text" name="codigo_operacion"
-										placeholder="Ingrese el Código de Operación " class="form-control" required="">				
+									<input type="text" name="codigo_operacion"  value="{{old('codigo_operacion')}}"
+										placeholder="Ingrese el Código de Operación " class="form-control" required="">	
+										@error('codigo_operacion')
+			                <span class="help-block" role="alert">
+			                  <strong>{{ $message }}</strong>
+			                </span>
+		                @enderror			
 								</div>	
 							</div>
 							<div class="col-md-4">
-								<div class="form-group">
+								<div class="form-group @error('fecha_reporte') has-error @enderror">
 									<label for="fecha_reporte">
 											Fecha Reporte Depósito*
 									</label>
-									<input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control"
-                        name="fecha_reporte" placeholder="Fecha" required="">			
+									<input autocomplete="off" id="fecha_reporte" type="text"
+									 class="tuiker form-control" value="{{old('fecha_reporte')}}"
+                        name="fecha_reporte" placeholder="Fecha" required="">		
+                    @error('fecha_reporte')
+			                <span class="help-block" role="alert">
+			                  <strong>{{ $message }}</strong>
+			                </span>
+		                @enderror		
 								</div>								
 							</div>
 							<div class="col-md-4">
@@ -55,14 +66,17 @@
 									<label for="monto">
 											 Monto*
 									</label>
-									<input type="text" name="monto" 
+									<input type="number" name="monto" step="any" min="0" 
 										placeholder="Monto" class="form-control" required="">				
 								</div>
 							</div>								
 						</div>				
 					</div>
 					<div class="box-footer">
-							<button class="btn btn-primary pull-right">Guardar</button>
+						<button class="btn btn-success pull-right">
+							<span class="fa fa-save"></span> &nbsp;
+							Registrar
+						</button>
 					</div>
 				</div>	 <!-- end-box.success		 -->
 			</div>	

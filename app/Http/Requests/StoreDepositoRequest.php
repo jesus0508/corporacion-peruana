@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEgresoRequest extends FormRequest
+class StoreDepositoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class StoreEgresoRequest extends FormRequest
     public function rules()
     {
         return [
-            'concepto_gasto_id' => 'required|numeric|gt: 0',
-            'fecha_egreso'=>'date_format:"d/m/Y"',
-            'monto_egreso' => 'required|numeric|gte: 0',
-            'grifo_id'=> 'required|numeric|gt: 0',
-
+            'codigo_operacion' => 'required|unique:depositos,codigo_operacion,'.$this->id,
+            'fecha_reporte'=>'date_format:"d/m/Y"',
+            'monto' => 'required|numeric|gte: 0',
+            'detalle' => 'max: 255',
+            'cuenta_id' => 'required|numeric|gt:0',
         ];
     }
 }

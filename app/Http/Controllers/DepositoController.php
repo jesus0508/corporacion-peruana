@@ -2,12 +2,15 @@
 
 namespace CorporacionPeru\Http\Controllers;
 
+use CorporacionPeru\Http\Requests\StoreDepositoRequest;
 use CorporacionPeru\Deposito;
 use Illuminate\Http\Request;
 use CorporacionPeru\Cuenta;
 use CorporacionPeru\Banco;
 use CorporacionPeru\PagoCliente;
 use Carbon\Carbon;
+
+
 class DepositoController extends Controller
 {
     /**
@@ -56,20 +59,10 @@ class DepositoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDepositoRequest $request)
     {
-      
-        //$request->fecha_reporte= Carbon::createFromFormat('d/m/Y',$request->fecha_reporte);
-        $deposito = new Deposito;
-        //$request->validated();
-        $deposito->monto =$request->monto;
-        $deposito->detalle=$request->detalle;
-        $deposito->codigo_operacion=$request->codigo_operacion;
-        $deposito->cuenta_id=$request->cuenta_id;        
-        $deposito->setFechaFacturaAttribute($request->fecha_reporte);      
-        $deposito->save();   
-                     
-        return back()->with('alert-type', 'success')->with('status', 'Deposito Registrado con exito');
+       Deposito::create($request->validated());                     
+        return back()->with('alert-type', 'success')->with('status', 'Depósito Registrado con exito');
     }
 
     /**

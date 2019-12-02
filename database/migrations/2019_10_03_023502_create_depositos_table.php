@@ -18,7 +18,7 @@ class CreateDepositosTable extends Migration
             $table->float('monto');
             $table->string('detalle')->nullable();
             $table->string('codigo_operacion')->nullable();
-            $table->date('fecha_deposito')->nullable();;
+            $table->date('fecha_deposito')->nullable();
             $table->date('fecha_reporte');            
             $table->string('banco')->nullable();           
             $table->unsignedBigInteger('cuenta_id')->nullable();

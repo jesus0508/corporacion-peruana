@@ -14,7 +14,7 @@
               <div class="form-group @error('ruc') has-error @enderror">
                 <label for="ruc">RUC</label>
                 <input id="ruc" type="text" class="form-control" value="{{old('ruc')}}"
-                        name="ruc" placeholder="Ingrese su RUC" required>
+                        name="ruc" placeholder="Ingrese su RUC">
                 @error('ruc')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>

@@ -28,7 +28,7 @@ class IngresoController extends Controller
             ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')
             ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
         //more joins to get the rzon_social del cliente
-            ->select('pago_clientes.codigo_operacion', 'clientes.razon_social as detalle' ,'pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
+            ->select('pago_clientes.codigo_operacion', 'clientes.razon_social' ,'pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
             ->groupBy('pago_clientes.codigo_operacion')
             ->get(); 
         $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
@@ -77,7 +77,7 @@ class IngresoController extends Controller
              $ingreso_grifos_zonas]);
         $collapsed = $collection->collapse();
         $ingresos =$collapsed->all(); 
-
+        //return $ingresos2;
         return view('ingresos_otros.diario.index', compact('ingresos'));
     }
 
