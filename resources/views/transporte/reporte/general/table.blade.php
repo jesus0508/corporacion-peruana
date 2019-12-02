@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-body">
-        <table id="tabla-ingresos-netos-diarios" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-ingresos-netos-general-diario" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>#</th>
@@ -10,18 +10,36 @@
               <th>Fecha</th>
               <th>Placa</th>
               <th>Tipo</th>
-              <th>Monto (S/.)</th>
+              <th>Monto(S/.)</th>
             </tr>
           </thead>
           <tbody>
             @foreach( $netos as $neto )
               <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$neto->fecha_reporte}}</td>
+                <td>{{$neto->fecha_reporte }}</td>
                 <td>{{date('d/m/Y', strtotime($neto->day))}}</td>
-                <td>{{$neto->placa}}</td>
-                <td>Unidades(Buses)</td>                  
+                <td>{{$neto->placa}}</td>   
+                <td>
+                  @switch($neto->tipo)
+                      @case(1)
+                          Auto
+                          @break
+                      @case(2)
+                          Bus
+                          @break
+                      @case(3)
+                          Cisterna
+                          @break
+                      @case(4)
+                          Administrativo
+                          @break
+                      @default
+                          Default case...
+                  @endswitch
+                </td>               
                 <td>{{$neto->monto}}</td>
+
               </tr>            
             @endforeach       
 

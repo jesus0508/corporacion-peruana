@@ -24,7 +24,7 @@
     </div>
     </div>	
 		<div class="col-md-2">			
-			<a href="{{route('salidas.create')}}" class="btn btn-success pull-right"> <span class="fa fa-plus"></span>&nbsp;&nbsp; Nuevo Ingreso  </a>		
+			<a href="{{route('salidas.create')}}" class="btn btn-success pull-right"> <span class="fa fa-plus"></span>&nbsp;&nbsp; Nuevo Egreso  </a>		
 		</div>		
 	</div>
 </div>

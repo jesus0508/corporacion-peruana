@@ -15,6 +15,7 @@
               <th>Extra Info</th>
               <th>Banco</th>
               <th>Monto</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -53,7 +54,13 @@
                   @endif
                  </td>
                 <td>{{$ingreso->monto_ingreso}}</td>
-              </tr>
+                <td>
+                  <button class="btn btn-sm btn-warning"> 
+                    <span class="fa fa-pencil"></span> &nbsp;Edit</button>
+                  <button class="btn btn-sm btn-danger">
+                    <span class="fa fa-trash"></span>&nbsp;Delete</button>
+                </td>
+              </tr>              
             @endforeach
           </tbody>
         </table>

@@ -19,47 +19,26 @@ class IngresoNetoTransporteController extends Controller
     public function index()
     {
         $egresos = EgresoTransporte::join('transportes','transportes.id','=',
-                                        'egreso_transportes.id')
+                                        'egreso_transportes.transporte_id')
                     ->where('transportes.tipo',2)
                     ->select(DB::raw('DATE(fecha_egreso) as day'),
                          'transportes.placa', 'egreso_transportes.fecha_reporte',
-                        DB::raw('(sum(monto_egreso)) as monto'))
+                        DB::raw('(-1*sum(monto_egreso)) as monto'))
                     ->groupBy('egreso_transportes.transporte_id' , 'day')
                     ->get();
         //return $egresos;
         $ingresos = IngresoTransporte::join('transportes','transportes.id','=',
-                                        'ingreso_transportes.id')
+                                        'ingreso_transportes.transporte_id')
                     ->where('transportes.tipo','=',2)
                     ->select(DB::raw('DATE(fecha_ingreso) as day'),
                          'transportes.placa','ingreso_transportes.fecha_reporte',
                         DB::raw('(sum(monto_ingreso)) as monto'))
                     ->groupBy('ingreso_transportes.transporte_id' , 'day')
                     ->get();
-       // return $ingresos;
-        //AGREGAR PARA QUE SE VEA CUANDO NO HAY EGRESOS DE UN TRANSPORTE
-            $netos = collect([]); 
-            foreach ($ingresos as $ingreso) {
-                foreach ($egresos as $egreso ) {
-                    if( $ingreso->day == $egreso->day AND $ingreso->placa==$egreso->placa){
-                        $consolidado = $ingreso->monto-$egreso->monto;
-                        $consolidado = round( $consolidado, 2 );
-                        $neto =[    'day'   => $egreso->day,
-                                    'fecha_reporte' => $ingreso->fecha_reporte, 
-                                    'placa' => $egreso->placa,
-                                    'monto_ingreso' =>$ingreso->monto,
-                                 
-                                    'monto_egreso' =>$egreso->monto,
-                                    'monto_neto' => $consolidado ];    
-                        $neto = (object)$neto;                  
-                        $netos->push($neto);
-                    }
-                    
-                }
-                
-            }
-     //   return $netos;
+        $collection = collect([$ingresos, $egresos]);
+        $collapsed = $collection->collapse();
+        $netos =  $collapsed->all();
         $transportes = Transporte::where('tipo','=',2)->get();
-
         return view('transporte.reporte.unidades.index',compact('netos','transportes'));
     }
 
@@ -70,8 +49,31 @@ class IngresoNetoTransporteController extends Controller
      */
     public function create()
     {
-        //
+        $egresos = EgresoTransporte::join('transportes','transportes.id','=',
+                                        'egreso_transportes.transporte_id')
+                    ->select(DB::raw('DATE(fecha_egreso) as day'),
+                         'transportes.placa', 'transportes.tipo',
+                         'egreso_transportes.fecha_reporte', 
+                        DB::raw('(-1*sum(monto_egreso)) as monto'))
+                    ->groupBy('egreso_transportes.transporte_id' , 'day')
+                    ->get();
+        //return $egresos;
+        $ingresos = IngresoTransporte::join('transportes','transportes.id','=',
+                                        'ingreso_transportes.transporte_id')
+                    ->select(DB::raw('DATE(fecha_ingreso) as day'),'transportes.tipo',
+                         'transportes.placa','ingreso_transportes.fecha_reporte',
+                        DB::raw('(sum(monto_ingreso)) as monto'))
+                    ->groupBy('ingreso_transportes.transporte_id' , 'day')
+                    ->get();
+
+        $collection = collect([$ingresos, $egresos]);
+        $collapsed = $collection->collapse();
+        $netos =  $collapsed->all();
+        $transportes = Transporte::all();
+
+        return view('transporte.reporte.general.index',compact('netos','transportes'));
     }
+    
 
     /**
      * Store a newly created resource in storage.

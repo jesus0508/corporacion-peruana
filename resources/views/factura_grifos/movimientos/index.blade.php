@@ -16,6 +16,7 @@
   @include('factura_grifos.movimientos.table')
 </section>
   @include('factura_grifos.movimientos.create')
+  
 @endsection
 
 @section('scripts')

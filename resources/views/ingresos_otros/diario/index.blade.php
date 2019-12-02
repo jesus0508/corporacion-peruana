@@ -94,6 +94,7 @@ $(document).ready(function() {
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
+                  "colspan": 2, 
                     "id": "A",
                     "style": "font-weight:bold;"  ,                     
                     "text":"00.0"
@@ -113,6 +114,7 @@ $(document).ready(function() {
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {
+                     "colspan": 2, 
                     "id": "e" + group,
                     "style": "font-weight:bold;"  ,                     
                     "value": "0.00",

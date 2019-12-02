@@ -17,6 +17,7 @@
                   <option value="1">Autos</option>
                   <option value="2">Buses</option>
                   <option value="3">Cisternas</option>
+                  <option value="4">Administrativo</option>
               <!--     <option value="4">Unidades</option>    -->                           
                 </select>
               </div>

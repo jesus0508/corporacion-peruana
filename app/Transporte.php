@@ -22,7 +22,7 @@ class Transporte extends Model
         $result="";
         switch($this->tipo){
         	case 4: 
-                $result="Unidades";
+                $result="Administrativo";
                 break;
         	case 3: 
                 $result="Cisternas";

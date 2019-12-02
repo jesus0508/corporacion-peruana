@@ -12,14 +12,14 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Reportes Diario</a></li>
+  <li><a href="#">Reportes Diario General</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('transporte.reporte.unidades.header')
-  @include('transporte.reporte.unidades.table')
+  @include('transporte.reporte.general.header')
+  @include('transporte.reporte.general.table')
   <!--/.end-modales-->
 </section>
 @endsection
@@ -34,7 +34,7 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-ingresos-netos-diarios').DataTable({
+  $('#tabla-ingresos-netos-general-diario').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -43,7 +43,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto Unidades(Buses) Transporte',
+        'title': 'Lista Ingreso Neto General Transporte',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -58,10 +58,10 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=E'+nRows+'] t', sheet).text( total );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=C'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=D'+nRows+'] t', sheet).text( total );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
             // Total over this page
             pageTotal = api
-                .column(5 , { page: 'current'} )
+                .column( 5, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
@@ -100,7 +100,7 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-ingresos-netos-diarios');
+  let $tabla_pagos_lista = $('#tabla-ingresos-netos-general-diario');
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
     onSelect: function (selected) {
@@ -143,7 +143,7 @@ function validateDates() {
 $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-diarios');
+    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-general-diario');
     inicializarSelect2($filter_proveedor, 'Elija la placa', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
