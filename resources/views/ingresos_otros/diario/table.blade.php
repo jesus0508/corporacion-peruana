@@ -73,8 +73,14 @@
                  </td>
                 <td>{{$ingreso->monto_ingreso}}</td>
                 <td>
-                  <button class="btn btn-sm btn-warning"> 
-                    <span class="fa fa-pencil"></span> &nbsp;Edit</button>
+                  @if($ingreso->esIngreso)
+                    <btn class="btn btn-xs btn-warning btn-block" 
+                      href="#modal-edit-ingresos"  
+                      data-toggle="modal" data-target=" #modal-edit-ingresos"
+                      data-id="{{$ingreso->id}}">
+                      <span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Editar                       
+                    </btn> 
+                  @endif
                   <!-- <button class="btn btn-sm btn-danger">
                     <span class="fa fa-trash"></span>&nbsp;Delete</button> -->
                 </td>

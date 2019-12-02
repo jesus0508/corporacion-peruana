@@ -21,7 +21,7 @@ class IngresoController extends Controller
     public function index()
     {
         $ingresos1 = Ingreso::join('categoria_ingresos','categoria_ingresos.id','=','ingresos.categoria_ingreso_id')
-            ->select('ingresos.*','categoria_ingresos.categoria')
+            ->select('ingresos.*','categoria_ingresos.categoria','ingresos.created_at as esIngreso')
             ->get();
 
         $ingresos2 = CategoriaIngreso::join('pago_clientes','categoria_ingresos.id','=','pago_clientes.categoria_ingreso_id')
@@ -42,12 +42,6 @@ class IngresoController extends Controller
                 'monto_operacion as monto_ingreso',
                 'fecha_operacion as fecha_ingreso')
             ->get();
-
-         // CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
-         //    ->where('movimientos.estado','!=',3)
-         //    ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria','categoria_ingresos.id as id_cat')
-         //    ->get(); 
-
 
             //PARA OBTENER LOS INGRESOS NETOS DE GRIFOS X ZONA
             //agregar egreso de monto 0 con estado, visible1 e invisible0 
@@ -164,9 +158,12 @@ class IngresoController extends Controller
      * @param  \CorporacionPeru\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ingreso $ingreso)
+    public function edit($id)
     {
-        //
+        $ingreso = Ingreso::where('id',$id)->first();
+        $categorias = CategoriaIngreso::all();
+        return response()->json(['ingreso' => $ingreso ,                                
+                                'categorias' => $categorias ]);
     }
 
     /**
@@ -176,9 +173,13 @@ class IngresoController extends Controller
      * @param  \CorporacionPeru\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ingreso $ingreso)
+    public function update(Request $request,  $id)
     {
-        //
+       // return $request;
+        $id = $request->id;       
+        Ingreso::findOrFail($id)->update($request->all());
+        return 
+        back()->with('alert-type','success')->with('status','Ingreso actualizado con exito');  
     }
 
     /**
