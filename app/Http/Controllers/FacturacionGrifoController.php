@@ -122,9 +122,10 @@ class FacturacionGrifoController extends Controller
      * @param  \CorporacionPeru\FacturacionGrifo  $facturacionGrifo
      * @return \Illuminate\Http\Response
      */
-    public function edit(FacturacionGrifo $facturacionGrifo)
+    public function edit($id)
     {
-        //
+        $facturacion = FacturacionGrifo::findOrFail($id)->with('grifo')->first();
+        return response()->json(['facturacion' => $facturacion ]);
     }
 
     /**
@@ -134,9 +135,13 @@ class FacturacionGrifoController extends Controller
      * @param  \CorporacionPeru\FacturacionGrifo  $facturacionGrifo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FacturacionGrifo $facturacionGrifo)
-    {
-        //
+    public function update(StoreFacturacionGrifoRequest $request, $id)
+    {  
+
+        $id = $request->id;       
+        FacturacionGrifo::findOrFail($id)->update($request->validated());
+
+        return back()->with(['alert-type' => 'success', 'status' => 'Facturacion Grifo Actualizado con exito']);
     }
 
     /**

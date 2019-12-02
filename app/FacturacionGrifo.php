@@ -37,7 +37,7 @@ class FacturacionGrifo extends Model
     public function grifo(){
     	return $this->belongsTo(Grifo::class);
     }
-    public function setFechaFacturaAttribute($value){ 
+    public function setFechaFacturacionAttribute($value){ 
         $this->attributes['fecha_facturacion'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 }

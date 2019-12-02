@@ -53,7 +53,6 @@
                       <span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Editar                       
                     </btn> 
                   @endif
-
                 </td>
               </tr>
             @endforeach

@@ -60,7 +60,8 @@
               <th>Precio</th>
               <th>Monto Total</th>
               <th></th>
-              <th>Saldo</th>              
+              <th>Saldo</th>   
+              <th>Acción</th>           
             </tr>
           </thead>
           <tbody>   
@@ -76,6 +77,14 @@
                 <td>{{round($factura_grifo->getMontoTotal(),2)}}</td>
                 <td>{{ ucfirst(strftime("%B %Y",strtotime($factura_grifo->fecha_facturacion) ) )}}</td>
                 <td>{{round($factura_grifo->getSaldo(),2)}}</td>
+                <td>
+                  <btn class="btn btn-xs btn-warning btn-block" 
+                      href="#modal-edit-facturacion"  
+                      data-toggle="modal" data-target=" #modal-edit-facturacion"
+                      data-id="{{$factura_grifo->id}}">
+                      <span class="glyphicon glyphicon-edit"></span>                     
+                  </btn> 
+                </td>
               </tr>
             @endforeach
           </tbody>
@@ -89,6 +98,7 @@
                 <th></th><!--  total -->
                 <th></th> <!-- no visible -->
                 <th></th> <!-- saldo -->
+                <th></th>
             </tr>
           </tfoot>
         </table>
@@ -96,3 +106,11 @@
     </div> <!-- end box -->
   </div>
 </div><!-- end row -->
+
+
+
+
+
+
+
+
