@@ -21,7 +21,7 @@ class CreatePagoProveedorsTable extends Migration
             $table->string('banco');
             $table->unsignedBigInteger('categoria_egreso_id')->default(1);
             $table->foreign('categoria_egreso_id')
-            ->references('id')->on('categoria_ingresos');            
+            ->references('id')->on('categoria_egresos');            
             $table->timestamps();
         });
     }

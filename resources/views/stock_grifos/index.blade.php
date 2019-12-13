@@ -17,11 +17,11 @@
 
 @section('content')
 <section class="content">
-  @include( 'factura_grifos.header' )
-  @include('factura_grifos.create') 
-  @include('factura_grifos.table')
+  @include( 'stock_grifos.header' )
+  @include('stock_grifos.create') 
+ {{--@include('stock_grifos.table')--}}
  <!--  modal -->
- @include('factura_grifos.modal_edit')
+ {{--@include('stock_grifos.modal_edit')--}}
  <!--  end modal -->
 </section>
 @endsection
@@ -65,48 +65,6 @@ $(document).ready(function() {
 
   });
 
-  $('#modal-edit-facturacion').on('show.bs.modal',function(event){
-    var id= $(event.relatedTarget).data('id');
-    $.ajax({
-      type: 'GET',
-      url:`./${id}/edit`,
-      dataType : 'json',
-      success: (data)=>{        
-        console.log(data);
-
-        let fecha_facturacion = convertDateFormat2(data.facturacion.fecha_facturacion);
-        let venta_factura = data.facturacion.venta_factura;
-        let venta_boleta =  data.facturacion.venta_boleta;
-        let precio_galon = data.facturacion.precio_venta;
-
-        $(event.currentTarget).find('#grifo_id-edit').val(data.facturacion.grifo.id); 
-        $(event.currentTarget).find('#grifo_name-edit').val(data.facturacion.grifo.razon_social); 
-        $(event.currentTarget).find('#venta_boleta-edit').val(venta_boleta); 
-        $(event.currentTarget).find('#venta_factura-edit').val(venta_factura);   
-        $(event.currentTarget).find('#fecha_facturacion-edit').val(fecha_facturacion);
-        $(event.currentTarget).find('#numero_factura-edit').val(data.facturacion.numero_factura);
-        $(event.currentTarget).find('#precio_venta-edit').val(precio_galon);
-        $(event.currentTarget).find('#nro_serie-edit').val(data.facturacion.series);
-        //en caso no ingrese nada, se asignará 0.00
-        venta_factura  = (venta_factura)? parseFloat( venta_factura ): 0.00;
-        venta_boleta   = (venta_boleta)? parseFloat( venta_boleta ): 0.00;    
-        precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
-        let total_galones = parseFloat(venta_factura+venta_boleta).toFixed(2);
-        let monto_total = parseFloat(total_galones * precio_galon).toFixed(2);
-
-        $(event.currentTarget).find('#total_galones-edit').val(total_galones);
-        $(event.currentTarget).find('#monto_total-edit').val(monto_total);
-
-        $(event.currentTarget).find('#id-edit').val(data.facturacion.id);
-
-      },
-      error: (error)=>{
-        toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
-      }
-    });
-  });
-
-
   $('#tabla-factura-grifos').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
@@ -121,7 +79,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Facturación Grifo',
+        'title': 'Lista Stock Grifo',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'

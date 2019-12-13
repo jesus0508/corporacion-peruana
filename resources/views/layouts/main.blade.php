@@ -387,7 +387,12 @@ desired effect
                 </li>
               </ul>
             </li>
-            <li><a href="{{route('movimiento_grifos.index')}}"><i class="fa fa-money"></i>  Movimientos Grifos</a></li>
+            <li>
+              <a href="{{route('movimiento_grifos.index')}}"><i class="fa fa-money"></i>  Movimientos Grifos</a>
+            </li>
+            <li>
+              <a href="{{route('stock_grifos.index')}}"><i class="fa fa-battery-half"></i>  Stock de Grifos</a>
+            </li>
 
           </ul>
         </li>

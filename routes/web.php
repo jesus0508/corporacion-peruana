@@ -54,6 +54,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/asignar_series','SerieController@asignar_series')->name('asignacion_series');
 		Route::get('/eliminar_asignacion/{id}','SerieController@eliminar_asignacion')
 			->name('eliminar_asignacion');
+
+		/**	STOCK GRIFOS */
+		Route::resource('/stock_grifos','StockGrifoController');
 		
 		/* Ingresos */
 		Route::get('/ingreso_grifos/grifo/{id}', 'IngresoGrifoController@getLastIngreso')->name('pago_clientes.lastIngreso');
