@@ -36,34 +36,7 @@
 
 $(document).ready(function() {
 
-    let $input_user_edit = $('#input_user-edit');
-    let $venta_factura_edit = $('#venta_factura-edit');
-    let $venta_boleta_edit = $('#venta_boleta-edit');
-    let $total_galones_edit=$('#total_galones-edit');
-    let $monto_total_edit=$('#monto_total-edit');
-    let $precio_galon_edit =$('#precio_venta-edit');
 
-    $input_user_edit.on('keyup', function (event) {
-
-    let venta_factura_edit = $venta_factura_edit.val();
-    let venta_boleta_edit =  $venta_boleta_edit.val();
-    console.log(venta_factura_edit);
-    //en caso no ingrese nada, se asignará 0.00
-    venta_factura_edit  = (venta_factura_edit)? parseFloat( venta_factura_edit ): 0.00;
-    venta_boleta_edit   = (venta_boleta_edit)? parseFloat( venta_boleta_edit ): 0.00;
-    let total_galones_edit = parseFloat(venta_factura_edit+venta_boleta_edit).toFixed(2);
-    $total_galones_edit.val(total_galones_edit);
-    let precio_galon_edit = $precio_galon_edit.val();
-    precio_galon_edit = (precio_galon_edit)?parseFloat(precio_galon_edit):0.00;
-    let monto_total_edit = parseFloat(total_galones_edit * precio_galon_edit).toFixed(2);
-    $monto_total_edit.val(monto_total_edit);
-    if (monto_total_edit<=0.00) {
-      $('#register-edit').attr("disabled", true);
-    }else{
-      $('#register-edit').attr("disabled", false);
-    }   
-
-  });
 
   $('#tabla-factura-grifos').DataTable({
       'language': {
@@ -140,76 +113,141 @@ $(document).ready(function() {
             );
 
   }
+
+
 $(document).ready(function() { 
 
-  let $select_grifo  = $('#select_grifos');
-  let $fecha_ingreso = $('#fecha');
-  let $series        = $('#nro_serie');
-  let $venta_factura = $('#venta_factura');
-  let $venta_boleta  = $('#venta_boleta');
-  let $total_galones = $('#total_galones');
-  let $precio_galon  = $('#precio_galon');
-  let $monto_total   = $('#monto_total');
-  let $input_user    = $('#input_user');//row 
-  let $facturacion   = $('#facturacion');
-  let $input_user_top= $('#input_user_top');
+  let $select_grifo       = $('#select_grifos');
+  let $fecha_stock        = $('#fecha_stock');
+  let $lectura_inicial    = $('#lectura_inicial');
+  let $lectura_final      = $('#lectura_final');
+  let $calibracion        = $('#calibracion');
+  let $venta_dia_anterior = $('#venta_dia_anterior');
+  let $venta_soles        = $('#venta_soles');
+  let $precio_galon       = $('#precio_galon');
+  let $stock_sistema      = $('#stock_sistema'); 
+  let $stock_grifo       = $('#stock_grifo');
+  let $traspaso           = $('#traspaso');
+  let $diferencia         = $('#diferencia');
+  let $recepcion          = $('#recepcion');
+  let $cantidad_primax    = $('#cantidad_primax');
+  let $cantidad_pecsa     = $('#cantidad_pecsa');  
+  let $cantidad_pbf       = $('#cantidad_pbf');
+  let $horario_pbf        = $('#horario_pbf');
+  let $horario_pecsa      = $('#horario_pecsa');
+  let $horario_primax     = $('#horario_primax');
+  let $input_user         = $('#input_user');
+  let $new_stock          = $('#new_stock');
 
-  $fecha_ingreso.datepicker({
+  $fecha_stock.datepicker({
     //maxDate: 0,
   });  
-
-  $fecha_ingreso.on('change', function (event) { 
+  
+  $fecha_stock.on('change', function (event) { 
     console.log();   
-    let fecha_ingreso = $fecha_ingreso.val();
-    fecha_ingreso = convertDateFormat(fecha_ingreso);
-    fillSelectGrifos(fecha_ingreso); 
+    let fecha_stock = $fecha_stock.val();
+    fecha_stock = convertDateFormat(fecha_stock);
+    fillSelectGrifos(fecha_stock); 
   });
 
   $select_grifo.on('change', function (event) {
     let id = $select_grifo.val();
       id = (id)?id:-1;   
-    fillSeries(id);       
+    fillGrifo(id);       
   });
 
 
   $input_user.on('keyup', function (event) {
-    let venta_factura = $venta_factura.val();
-    let venta_boleta =  $venta_boleta.val();
+    let lectura_inicial = $lectura_inicial.val();
+    let lectura_final =  $lectura_final.val();
+    let calibracion = $calibracion.val();
     //en caso no ingrese nada, se asignará 0.00
-    venta_factura  = (venta_factura)? parseFloat( venta_factura ): 0.00;
-    venta_boleta   = (venta_boleta)? parseFloat( venta_boleta ): 0.00;
-    let total_galones = parseFloat(venta_factura+venta_boleta).toFixed(2);
-    $total_galones.val(total_galones);
-    let precio_galon = $precio_galon.val();
-    precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
-    let monto_total = parseFloat(total_galones * precio_galon).toFixed(2);
-    $monto_total.val(monto_total);
-    if (monto_total<=0.00) {
-      $('#register').attr("disabled", true);
-    }else{
-      $('#register').attr("disabled", false);
-    }   
+    lectura_inicial   = (lectura_inicial)? parseFloat( lectura_inicial ): 0.00;
+    lectura_final     = (lectura_final)? parseFloat( lectura_final ): 0.00;
+    calibracion       = (calibracion)? parseFloat( calibracion ): 0.00;
+    let total_galones = parseFloat(lectura_final-lectura_inicial-calibracion).toFixed(2);
+    $venta_dia_anterior.val(total_galones);
+    let precio_galon  = $precio_galon.val();
+    precio_galon      = (precio_galon)?parseFloat(precio_galon):0.00;
+    let monto_total   = parseFloat(total_galones * precio_galon).toFixed(2);
+    $venta_soles.val(monto_total);
 
+    
+  /* --------------------- Obtener Diferencia  ----------------------*/
+    let stock_sistema = $stock_sistema.val();
+    let stock_grifo   = $stock_grifo.val();
+    //stock_sistema   = (stock_sistema)? parseFloat( stock_sistema ): 0.00;
+    stock_grifo    = (stock_grifo)? parseFloat( stock_grifo ): 0.00;  
+    let diferencia = parseFloat(stock_grifo-stock_sistema).toFixed(2);
+    $diferencia.val(diferencia);
+    (diferencia<0)?   
+    $diferencia.css('background-color', '#D17A69'):$diferencia.css('background-color', '#A3D58B');
+    /* --------------------- Obtener nuevo stock sistema ----------------------*/
+    let traspaso        = $traspaso.val();
+    let recepcion       =  $recepcion.val();
+    let cantidad_primax = $cantidad_primax.val();
+    let cantidad_pecsa  = $cantidad_pecsa.val();
+    let cantidad_pbf    = $cantidad_pbf.val();
+                        //en caso no ingrese nada, se asignará 0.00
+    cantidad_primax     = (cantidad_primax)? parseFloat( cantidad_primax ): 0.00;
+    cantidad_pecsa      = (cantidad_pecsa)? parseFloat( cantidad_pecsa ): 0.00;
+    cantidad_pbf        = (cantidad_pbf)? parseFloat( cantidad_pbf ): 0.00;
+
+    let new_stock = parseFloat(Number(stock_sistema)-Number(traspaso)
+                              +Number(recepcion)+Number(cantidad_primax)
+                              +Number(cantidad_pecsa) + Number(cantidad_pbf)).toFixed(2);
+    $new_stock.val(new_stock);
+
+    if (monto_total<0.00) {
+      activeDisabled('register');
+    }else{
+      desactiveDisabled('register'); 
+    } 
+    console.log(monto_total);
   });
 
   function evaluateSeries(){
-    series =$series.val();
-    if (series=='') {
+    stock_sistema =$stock_sistema.val();
+    if (stock_sistema=='') {//si no existe grifo
       $('#register').attr("disabled", true);
-      activeReadOnly('facturacion');
-      activeReadOnly('venta_factura');
-      activeReadOnly('venta_boleta');
+      activeReadOnly('lectura_inicial');
+      activeReadOnly('lectura_final');
+      activeReadOnly('calibracion');
       activeReadOnly('precio_galon');
-      $total_galones.val('');
-      $monto_total.val('');     
+      activeReadOnly('calibracion');
+      activeReadOnly('stock_grifo');
+      activeReadOnly('traspaso');
+      activeReadOnly('recepcion');
+      activeReadOnly('cantidad_primax');
+      activeReadOnly('cantidad_pbf');
+      activeReadOnly('cantidad_pecsa');
+      activeDisabled('horario_primax');      
+      activeDisabled('horario_pecsa');     
+      activeDisabled('horario_pbf');
+      $venta_dia_anterior.val('');
+      $venta_soles.val('');     
     }else{     
       $('#register').attr("disabled", false);
-      desactiveReadOnly('facturacion');
-      desactiveReadOnly('venta_factura');
-      desactiveReadOnly('venta_boleta');
+      desactiveReadOnly('lectura_inicial');
+      desactiveReadOnly('lectura_final');
+      desactiveReadOnly('calibracion');
       desactiveReadOnly('precio_galon');
-      $total_galones.val('');
-      $monto_total.val(''); 
+      desactiveReadOnly('stock_grifo');
+      desactiveReadOnly('traspaso');
+      desactiveReadOnly('recepcion');
+      desactiveReadOnly('cantidad_primax');
+      desactiveReadOnly('cantidad_pbf');
+      desactiveReadOnly('cantidad_pecsa');
+      desactiveReadOnly('cantidad_primax');
+      desactiveDisabled('horario_primax');
+      desactiveDisabled('horario_pecsa');
+      desactiveDisabled('horario_pbf');
+      inicializarSelect2plus($horario_primax,"Elija horario", '');
+      inicializarSelect2plus($horario_pecsa,"Elija horario", '');
+      inicializarSelect2plus($horario_pbf,"Elija horario", '');
+
+      $venta_dia_anterior.val('');
+      $venta_soles.val('');      
     }
   }
 
@@ -218,15 +256,28 @@ $(document).ready(function() {
     $('#' + IdInput).prop('readonly', true);
   }
 
+  function activeDisabled(IdInput){
+    $('#' + IdInput).val('');
+    $('#' + IdInput).prop('disabled', true);
+  }
+
+  function desactiveDisabled(IdInput){
+    $('#' + IdInput).val('');
+    $('#' + IdInput).prop('disabled', false);
+  }
+
   function desactiveReadOnly(IdInput) {
     $('#' + IdInput).val('');
     $('#' + IdInput).prop('readonly', false);
   }
 
-  function fillSeries(idGrifo){
-    getIngresoByGrifo(idGrifo).done((data) => {     
-    $series.val(data.series_grifo);
+  function fillGrifo(idGrifo){
+    getGrifoById(idGrifo).done((data) => {     
+    //$series.val(data.series_grifo);
+    $stock_sistema.val(data.grifo.stock);
     evaluateSeries();
+    console.log();
+
     }).fail((error) => {
       toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
     });
@@ -251,8 +302,8 @@ $(document).ready(function() {
         //llenado de series
         let id = $select_grifo.val();
         id = (id)?id:-1;   
-        fillSeries(id);
-        evaluateSeries();//evalua valor series         
+        fillGrifo(id);
+        //evaluateSeries();//evalua valor series         
       })
       .fail((error) => {
         toastr.error('Ocurrió un error', 'Error Alert', { timeOut: 2000 });
@@ -265,15 +316,15 @@ $(document).ready(function() {
   function getAllGrifos(fecha) {
     return $.ajax({
       type: 'GET',
-      url: `../grifos_facturacion/all/${fecha}`,
+      url: `./stock_grifos/all/${fecha}`,
       dataType: 'json',
     });
   }
 
-  function getIngresoByGrifo(idGrifo) {
+  function getGrifoById(idGrifo) {
     return $.ajax({
       type: 'GET',
-      url: `../series_grifo/${idGrifo}`,
+      url: `./grifos/${idGrifo}`,
       dataType: 'json',
     });
   }

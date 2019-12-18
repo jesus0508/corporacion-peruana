@@ -15,6 +15,10 @@ class Grifo extends Model
         return $this->hasMany(IngresoGrifo::class);
     }
 
+    public function stock_grifos(){
+        return $this->hasMany(StockGrifo::class);
+    }
+
     public function series(){
         return $this->hasMany(Serie::class);
     }

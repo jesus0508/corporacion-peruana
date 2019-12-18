@@ -18,15 +18,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="pull-right">
-					<a class="btn btn-primary" href="{{route('grifos.index')}}">
-						<i class="fa fa-building-o"></i> &nbsp;Gestion
+					<a class="btn btn-primary" href="{{route('stock_grifos.index')}}">
+						<i class="fa fa-building-o"></i> &nbsp;Lista Stock Grifos
 					</a>
-					<a class="btn btn-success" href="{{route('cancelacion.create')}}">
-						<i class="fa fa-plus"></i>&nbsp;Registrar Cancelación
-          </a>
-          <a class="btn btn-info" href="{{route('cancelacion.index')}}">
-						<i class="fa fa-list"></i>&nbsp;Cancelaciones 
-          </a>		
 				</div>						
 			</div>	
 		</div>

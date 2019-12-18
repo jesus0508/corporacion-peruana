@@ -20,11 +20,13 @@ class FacturacionGrifoController extends Controller
         //
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
         $grifos = Grifo::all();
@@ -46,19 +48,12 @@ class FacturacionGrifoController extends Controller
      * @return [type] [description]
      */
     public function series_grifo($id = -1){
-        $series_grifo = '';
+        $grifo = '';
         if ($id!=-1) {
-            $grifo = Grifo::findOrFail($id);
-            $series_grifo = '';
-            if ($grifo->series) {
-                $series_grifo = '';
-               foreach ($grifo->series as $serie) {
-                $series_grifo = $series_grifo.' '.$serie->serie;            
-                }  
-            }          
-            return response()->json(['series_grifo' => $series_grifo]);
+            $grifo = Grifo::findOrFail($id);       
+            return response()->json(['grifo' => $grifo]);
         }else{
-            return response()->json(['series_grifo' => $series_grifo]);
+            return response()->json(['grifo' => $grifo]);
         }
             
     }

@@ -4,6 +4,8 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\StockGrifo;
 use Illuminate\Http\Request;
+use CorporacionPeru\Grifo;
+use CorporacionPeru\Http\Requests\StoreStockGrifoRequest;
 
 class StockGrifoController extends Controller
 {
@@ -12,9 +14,13 @@ class StockGrifoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()    
     {
-        return view('stock_grifos.index');
+
+        $stock_grifos = StockGrifo::with('grifos')->orderBy('id', 'DESC')->get();
+
+//return $stock_grifos;
+        return view('stock_grifos.gestion.index',compact('stock_grifos'));
     }
 
     /**
@@ -24,7 +30,32 @@ class StockGrifoController extends Controller
      */
     public function create()
     {
-        //
+        return view('stock_grifos.index');
+    }
+    /**
+     * Obtener grifos q no se ahn registrado su stock
+     */
+
+    public function getGrifosSinStockRegistrado($fecha = null){
+        if ($fecha) {
+            $grifos = Grifo::join('stock_grifos','stock_grifos.grifo_id','=','grifos.id')
+                        ->whereDate('stock_grifos.fecha_stock',$fecha)
+                        ->select('grifos.id')
+                        ->get();
+            $grifos_with_stock = [];
+            foreach ($grifos as $grifo) {
+                $grifos_with_stock[] = $grifo->id;
+            }
+            //return $grifos_with_stock;
+            $grifos = Grifo::select('id', 'razon_social as text')->whereNotIn('id',$grifos_with_stock)                   
+            ->get();
+            return response()->json(['grifos' => $grifos]);
+        }else{
+
+            $grifos =[];
+            return response()->json(['grifos' => $grifos]);
+        }
+            
     }
 
     /**
@@ -33,9 +64,17 @@ class StockGrifoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStockGrifoRequest $request)
     {
-        //
+        //return $request;
+        $nuevo_stock = $request->new_stock;
+        StockGrifo::create($request->validated());
+        //actualizar stock grifos
+    
+
+        return back()->with('alert-type', 'success')->with('status', 'Stock Registrado con exito');
+
+
     }
 
     /**
