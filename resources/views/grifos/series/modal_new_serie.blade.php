@@ -25,7 +25,7 @@
 	                </div> -->
 	                <div class="form-group">
 	                  <label for="nro-add">Número Serie</label>
-	                  <input id="nro-add" type="number" step="any" min="1" name="nro" class="form-control" placeholder="Ejemplo: 016" required="">
+	                  <input id="nro-add" type="number" step="any" min="1" name="nro" class="form-control" placeholder="Ejemplo: 5" required="">
 	                </div>                
 	              </div><!-- /.box-body -->
 	            </div><!-- /.box -->

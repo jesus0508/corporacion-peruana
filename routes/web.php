@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
 		/* Grifo */
 		Route::get('/grifos/all/{fecha?}', 'GrifoController@getGrifosSinIngreso')->name('grifos.sinIngreso');
 		Route::resource('/grifos', 'GrifoController');
+		Route::get('/balanceo_grifos','GrifoController@balanceo')->name('grifos.balanceo');
+		Route::post('/balancear_grifos','GrifoController@balancear')->name('grifos.balancear');
 		Route::resource('/series','SerieController');
 		Route::post('/asignar_series','SerieController@asignar_series')->name('asignacion_series');
 		Route::get('/eliminar_asignacion/{id}','SerieController@eliminar_asignacion')

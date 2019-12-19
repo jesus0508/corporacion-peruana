@@ -34,7 +34,44 @@ class GrifoController extends Controller
     {
         //
     }
+    /**
+     * Balancear galonaje grifos
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function balancear(Request $request)
+    {
+        //return $request;
+        $grifo1_id = $request->grifo_a_quitar;
+        $grifo2_id = $request->grifo_a_dar;
+        if ($grifo1_id==$grifo2_id) {      
+            return back()->with(['alert-type' => 'warning', 'status' => 'Escoja grifos diferentes']);
+        }else{
+            $grifo1 = Grifo::findOrFail($grifo1_id);
+            $grifo2 = Grifo::findOrFail($grifo2_id);
+            $grifo1->stock -= $request->galones;
+            $grifo2->stock += $request->galones;
+            $grifo1->save();
+            $grifo2->save();
+            return back()->with(['alert-type' => 'success', 'status' => 'Balanceo realizado con exito']);
+        }
+//
+        $grifos = Grifo::all();
+        return view('grifos.balanceo.index',compact('grifos'));
+    }
 
+    /**
+     * Lleva a la vista balanceo galonaje grifos
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function balanceo()
+    {
+
+        $grifos = Grifo::all();
+     //   return $grifos;
+        return view('grifos.balanceo.index',compact('grifos'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -84,7 +121,7 @@ class GrifoController extends Controller
      */
     public function update(StoreGrifoRequest $request, $id)
     {
-        //
+       // return $request;
         $id = $request->id;
         $grifo_anterior = Grifo::findOrFail($id);                
         $gls_anterior = $grifo_anterior->stock;
@@ -109,12 +146,19 @@ class GrifoController extends Controller
      */
     public function destroy(Grifo $grifo)
     {
-        //falta delete sotck general
-        $grifo->delete();
-        $stock = Stock::first();
-        $stock->stock_general -= $grifo->stock;
-        $stock->save();        
-        return back()->with(['alert-type' => 'success', 'status' => 'Grifo eliminado con exito']);
+       
+        try {
+            $grifo->delete();
+            $stock = Stock::first();
+            $stock->stock_general -= $grifo->stock;
+            $stock->save(); 
+
+            return back()->with(['alert-type' => 'success', 'status' => 'Grifo eliminado con exito']);
+        } catch (\Illuminate\Database\QueryException $e) {
+                
+                return back()->with(['alert-type' => 'error', 'status' => $grifo->razon_social.' no puede ser eliminado!']);
+            }
+
     }
 
     public function getGrifosSinIngreso($fecha = null)

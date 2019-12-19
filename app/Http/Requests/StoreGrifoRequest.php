@@ -27,7 +27,7 @@ class StoreGrifoRequest extends FormRequest
          
             'razon_social' => 'required',
             'telefono' => 'nullable|regex:/^([9]{1})([0-9]{8})$/i',
-            'ruc' => 'nullable|min: 11|unique:grifos,ruc,'. $this->id,
+            'ruc' => 'nullable|min: 11',
             'administrador' => 'required',
             'direccion' => 'required|max: 255|min: 5',
             'distrito' => 'max: 255|min: 5',

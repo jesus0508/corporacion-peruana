@@ -63,6 +63,11 @@
                   <input id="direccion-edit" type="text" class="form-control" 
                           name="direccion" placeholder="Ingrese la direccion">
                 </div>
+                <div class="form-group">
+                  <label for="zona-edit">Zona</label>
+                  <input id="zona-edit" type="text" class="form-control" 
+                          name="zona" placeholder="Ingrese la zona">
+                </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (right) -->

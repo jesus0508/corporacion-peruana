@@ -18,8 +18,12 @@
 
 @section('content')
 <section class="content">
+
   @include('grifos.series.gestion.header')
   @include('grifos.series.gestion.body')
+  <!-- modal new serie -->
+  @include('grifos.series.modal_new_serie')
+
 </section>
 @endsection
 

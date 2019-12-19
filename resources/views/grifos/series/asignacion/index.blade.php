@@ -20,6 +20,8 @@
 <section class="content">
   @include('grifos.series.asignacion.header')
   @include('grifos.series.asignacion.body')
+    <!-- modal new serie -->
+  @include('grifos.series.modal_new_serie')
 </section>
 @endsection
 

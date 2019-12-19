@@ -71,17 +71,25 @@ class SerieController extends Controller
     public function store(Request $request)
     {
 
-        $serie_add = str_pad($request->nro, 3, "0", STR_PAD_LEFT);
-        $serie_validada = $request->validate([
-            'serie' =>  'unique:series|max:999',
-            'nro' =>  'required|unique:series|numeric|gt:0|max:255',
-        ]); 
+        $serie_add = str_pad($request->nro, 2, "0", STR_PAD_LEFT);
+
+        if ( Serie::where('nro', '=', $request->nro )->exists()) {   // serie found
+
+            return back()->with(['alert-type' => 'error', 'status' => 'La Serie '.$request->nro.' ya existe. Intente con otra serie']);
+        }else{
+            $serie = Serie::create([
+                'nro' => $request->nro ,
+                'serie' => 'Serie '.$serie_add
+            ]);
+
+            return back()->with(['alert-type' => 'success', 'status' => 'Serie creada con exito']);
+        }
+
   
-        $serie = Serie::create($serie_validada);
-        Serie::findOrFail($serie->id)->update([
-            'serie' => 'Serie'.$serie_add
-        ]);  
-        return back()->with(['alert-type' => 'success', 'status' => 'Serie creada con exito']);
+  
+        
+
+
     }
 
     /**

@@ -15,6 +15,7 @@ $('#modal-edit-grifo').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#stock-edit').val(data.grifo.stock);
       $(event.currentTarget).find('#distrito-edit').val(data.grifo.distrito);
       $(event.currentTarget).find('#direccion-edit').val(data.grifo.direccion);
+      $(event.currentTarget).find('#zona-edit').val(data.grifo.zona);
       $(event.currentTarget).find('#id-edit').val(data.grifo.id);
     },
     error: (error)=>{
