@@ -63,7 +63,20 @@ class PagoProveedorController extends Controller
     
     public function create()
     {
-        $proveedores = Proveedor::where('deuda','>',0)->get();
+        
+        $proveedores = Proveedor::
+            leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
+            ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id')         
+            //->where('sum(pedidos.saldo)','!=',null)
+            ->groupBy('proveedores.id')
+            ->select(
+                'proveedores.*'
+                ,DB::raw('sum(pedidos.saldo)')
+                 
+            )
+            
+            ->get(); 
+
         return $proveedores;
     }
 
