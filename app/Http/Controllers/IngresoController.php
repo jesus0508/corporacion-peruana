@@ -80,7 +80,7 @@ class IngresoController extends Controller
                     }
                 }                
             } 
-
+           // return $ingreso_grifos_zonas; 
         $collection = collect([$ingresos1, $ingresos2 , $ingresos3 , $ingresos4,
              $ingreso_grifos_zonas]);
         $collapsed = $collection->collapse();

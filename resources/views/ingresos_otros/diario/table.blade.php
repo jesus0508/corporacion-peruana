@@ -23,39 +23,38 @@
               <tr>
                 <td>{{$ingreso->fecha_ingreso}}</td>
                 <td>
-                  @if($ingreso->esGrifo)
+                  @if(isset($ingreso->esGrifo))
                    Ingresos Extraordinarios              
                   @else
                     {{$ingreso->categoria}} 
                   @endif                
                 </td>
                 <td>
-                  @if($ingreso->esGrifo)
+                  @if(isset($ingreso->esGrifo))
                      Ingreso Extraordinario               
                   @endif 
                 
                   @if($ingreso->categoria)
                    {{$ingreso->categoria}} 
-                    @if($ingreso->razon_social)
-                      -&nbsp;{{$ingreso->razon_social}} 
+                    @if(isset($ingreso->razon_social))
+                      &nbsp;{{$ingreso->razon_social}} 
                       @else
-                        @if($ingreso->id_cat)
+                        @if(isset($ingreso->id_cat))
                           -&nbsp;Pendiente         
                         @endif                   
                     @endif
                    <!-- categoria ingreso  -->                
                   @else
-                    @if($ingreso->id_cat)
+                    @if(isset($ingreso->id_cat))
                     Pendiente             <!-- pago pendiente   --> 
                     @else 
-                   {{$ingreso->detalle}}   <!-- pago detalle --> 
+                    {{$ingreso->detalle}}   <!-- pago detalle --> 
                     @endif                  
                   @endif                
                 </td>
                 <td>
                     @if($ingreso->fecha_reporte)
                     {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}}
-
                     @else
                     {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}
                     @endif
@@ -73,7 +72,7 @@
                  </td>
                 <td>{{$ingreso->monto_ingreso}}</td>
                 <td>
-                  @if($ingreso->esIngreso)
+                  @if(isset($ingreso->esIngreso))
                     <btn class="btn btn-xs btn-warning btn-block" 
                       href="#modal-edit-ingresos"  
                       data-toggle="modal" data-target=" #modal-edit-ingresos"
