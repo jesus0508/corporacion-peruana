@@ -15,10 +15,10 @@ class Ingreso extends Model
     }
 
     public function setFechaIngresoAttribute($value){
-        $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('d/m/Y',$value);
+        $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('Y-m-d',$value);
     } 
 
     public function setFechaReporteAttribute($value){
-        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y',$value);
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('Y-m-d',$value);
     } 
 }
