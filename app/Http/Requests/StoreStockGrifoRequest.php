@@ -31,6 +31,7 @@ class StoreStockGrifoRequest extends FormRequest
             'precio_galon'=>'required|numeric|gt:0',
             'fecha_stock'=>'required|date_format:"d/m/Y"',
             'stock_grifo'=>'required|numeric|gt: 0',
+            'stock_sistema'=>'required|numeric|gt: 0',                
             'traspaso'=> 'nullable|numeric|gt: 0',
             'recepcion'=> 'nullable|numeric|gt: 0',
             'cantidad_pbf'=> 'nullable|numeric|gt: 0',

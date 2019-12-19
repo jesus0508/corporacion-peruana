@@ -33,7 +33,7 @@
             @foreach ($stock_grifos as $stock_grifo)
               <tr>
                 <td>{{$stock_grifo->fecha_stock}}</td>
-                <td>nombre grifo</td>
+                <td>{{$stock_grifo->razon_social}}</td>
                 <td>{{$stock_grifo->lectura_inicial}}</td>
                 <td>{{$stock_grifo->lectura_final}}</td>
                 <td>{{$stock_grifo->calibracion}}</td>
@@ -41,14 +41,14 @@
                 <td>{{$stock_grifo->precio_galon}}</td>
                 <td>{{$stock_grifo->getGalones()}}</td>
                 <td>{{$stock_grifo->stock_grifo}}</td>
-                <td>100</td>
-                <td>{{$stock_grifo->stock_grifo-100}}</td>
+                <td>{{$stock_grifo->stock_sistema}}</td>
+                <td>{{$stock_grifo->stock_grifo-$stock_grifo->stock}}</td>
                 <td>{{$stock_grifo->traspaso}}</td>
                 <td>{{$stock_grifo->recepcion}}</td>
                 <td>{{$stock_grifo->cantidad_primax}}</td>
                 <td>{{$stock_grifo->cantidad_pecsa}}</td>
                 <td>{{$stock_grifo->cantidad_pbf}}</td>
-                <td>nuevo stock</td>
+                <td>{{$stock_grifo->getNewStock()}}</td>
               </tr>
             @endforeach
           </tbody>

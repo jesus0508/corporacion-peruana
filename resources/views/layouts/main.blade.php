@@ -390,10 +390,6 @@ desired effect
             <li>
               <a href="{{route('movimiento_grifos.index')}}"><i class="fa fa-money"></i>  Movimientos Grifos</a>
             </li>
-            <li>
-              <a href="{{route('stock_grifos.create')}}"><i class="fa fa-battery-half"></i>  Stock de Grifos</a>
-            </li>
-
           </ul>
         </li>
         @endif
@@ -494,7 +490,9 @@ desired effect
 
           </ul>
         </li>        
-
+        <li>
+          <a href="{{route('stock_grifos.create')}}"><i class="fa fa-battery-half"></i>  Stock de Grifos</a>
+        </li>
         <li id="treeview-empresa" class="treeview">
           <a href="#">
             <i class="glyphicon glyphicon-menu-hamburger"></i> <span>Empresa</span>

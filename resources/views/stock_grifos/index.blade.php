@@ -316,7 +316,7 @@ $(document).ready(function() {
   function getAllGrifos(fecha) {
     return $.ajax({
       type: 'GET',
-      url: `./stock_grifos/all/${fecha}`,
+      url: `../stock_grifos/all/${fecha}`,
       dataType: 'json',
     });
   }
@@ -324,7 +324,7 @@ $(document).ready(function() {
   function getGrifoById(idGrifo) {
     return $.ajax({
       type: 'GET',
-      url: `./grifos/${idGrifo}`,
+      url: `../grifos/${idGrifo}`,
       dataType: 'json',
     });
   }

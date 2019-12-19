@@ -17,7 +17,8 @@ class StockGrifoController extends Controller
     public function index()    
     {
 
-        $stock_grifos = StockGrifo::with('grifos')->orderBy('id', 'DESC')->get();
+        $stock_grifos = StockGrifo::orderBy('id', 'DESC')->get();
+        $stock_grifos = StockGrifo::join('grifos','grifos.id','=','stock_grifos.grifo_id')->select('stock_grifos.*','grifos.razon_social','grifos.stock')->get();
 
 //return $stock_grifos;
         return view('stock_grifos.gestion.index',compact('stock_grifos'));
@@ -66,7 +67,7 @@ class StockGrifoController extends Controller
      */
     public function store(StoreStockGrifoRequest $request)
     {
-        //return $request;
+        //return $request->validated();
         $nuevo_stock = $request->new_stock;
         StockGrifo::create($request->validated());
         //actualizar stock grifos
