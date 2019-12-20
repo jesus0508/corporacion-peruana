@@ -28,6 +28,7 @@ function editarProveedor(id){
       document.getElementById('ruc-edit').value = data.ruc;
       document.getElementById('email-edit').value = data.email;
       document.getElementById('id-edit').value = data.id;
+      document.getElementById('linea_credito-edit').value = data.linea_credito;
     },
     error: (error)=>{
       toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});

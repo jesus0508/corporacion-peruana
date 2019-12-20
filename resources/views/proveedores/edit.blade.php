@@ -59,7 +59,16 @@
                       <strong>{{ $message }}</strong>
                     </span>
                   @enderror
-                </div>  
+                </div>
+                <div class="form-group @error('linea_credito') has-error @enderror">
+                  <label for="linea_credito">Linea de crédito</label>
+                  <input id="linea_credito-edit" type="number" class="form-control" name="linea_credito" placeholder="Línea de crédito" step="any" min="0" value="{{ old('linea_credito') }}">
+                  @error('linea_credito')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>                  
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (right) -->
