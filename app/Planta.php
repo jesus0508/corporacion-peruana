@@ -14,8 +14,12 @@ class Planta extends Model
 
     public function proveedor()
     {
-    	//return $this->hasMany('App\PlantaModel', 'id_empleado');
     	return $this->belongsTo(Proveedor::class,'proveedor_id');
+    } 
+
+    public function pedidos()
+    {
+    	return $this->hasMany(Pedido::class);
     } 
 
 

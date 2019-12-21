@@ -60,7 +60,7 @@
               Guardar Cambios 
           </button>
     </form>
-
+      @if(count($planta->pedidos)<=0)
         <form style="display:inline" method="POST" action="{{ route('planta.destroy', $planta->id) }}">
           @csrf
           @method('DELETE')
@@ -69,6 +69,7 @@
               Eliminar
           </button>
         </form>
+      @endif
       </div><!-- /.box-body -->
     </div><!-- /.box -->
   </div>
