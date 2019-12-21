@@ -15,13 +15,13 @@ class PagoProveedor extends Model
         return $this->belongsToMany(Pedido::class,'pago_pedido_proveedors');        
     }
 
-    public function setFechaFacturaAttribute($value){ 
+    public function setFechaOperacionAttribute($value){ 
         $this->attributes['fecha_operacion']=Carbon::createFromFormat('d/m/Y',$value);
     }
 
-    public function getFechaOperacionAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
-    }
+    // public function getFechaOperacionAttribute($value)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    // }
 
    }

@@ -9,7 +9,8 @@
                 <div class="form-group">
                   <label for="fecha_operacion">Fecha</label>
                   <input type="text" class="form-control"
-                          name="fecha_operacion" value="{{$pago_proveedor->fecha_operacion}}" disabled>
+                          name="fecha_operacion" 
+                          value="{{date('d/m/Y', strtotime($pago_proveedor->fecha_operacion))}}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="codigo_operacion">Codigo de operacion</label>

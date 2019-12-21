@@ -17,8 +17,7 @@
               <div class="col-md-6">
                 &nbsp;&nbsp;&nbsp;
                 <h3 class="box-title">Datos Chofer | <b> Transportista</b>                  
-                </h3> 
-                
+                </h3>                 
               </div>              
             </div>            
           </div>
@@ -29,10 +28,10 @@
                   <div class="col-md-6">
                     <div class="form-group ">
                       <label for="placa">Placa*</label>
-                      <select class="form-control" id="placa" name="vehiculo_id">
-                      @foreach ( $vehiculos as $vehiculo)
-                        <option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
-                      @endforeach
+                      <select class="form-control" id="placa" name="vehiculo_id" required="">
+                        @foreach ( $vehiculos as $vehiculo)
+                          <option value="{{$vehiculo->id}}">{{$vehiculo->placa}}</option>
+                        @endforeach
                       </select>                  
                     </div>
                   </div>
@@ -58,15 +57,25 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="col-md-6">
-                      <div class="form-group ">
+                      <div class="form-group @error('chofer') has-error @enderror">
                         <label for="chofer">Nombre Chofer </label>
-                        <input id="chofer" name="chofer" type="text" class="form-control" placeholder="Ingrese chofer asignado">
+                        <input id="chofer" name="chofer" type="text" class="form-control" placeholder="Ingrese chofer asignado" value="{{ old('chofer') }}" >
+                        @error('chofer')
+                        <span class="help-block" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-group ">
+                      <div class="form-group @error('brevete_chofer') has-error @enderror">
                         <label for="brevete_chofer">Brevete Chofer </label>
-                        <input id="brevete_chofer" name="brevete_chofer" type="text" class="form-control" placeholder="Ingrese el brevete de chofer">
+                        <input id="brevete_chofer" name="brevete_chofer" type="text" class="form-control" placeholder="Ingrese el brevete de chofer" value="{{ old('brevete_chofer') }}">
+                        @error('brevete_chofer')
+                        <span class="help-block" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                       </div>
                     </div>                    
                   </div>                
@@ -75,9 +84,16 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="col-md-6">
-                      <div class="form-group ">
+                      <div class="form-group @error('costo_flete') has-error @enderror">
                         <label for="costo_flete"> Pago transportista *</label>
-                        <input id="costo_flete" name="costo_flete" type="text" class="form-control" placeholder="Ingrese monto correspondiente" required="">
+                        <input id="costo_flete" name="costo_flete" type="number" class="form-control" placeholder="Ingrese monto correspondiente" required="" step="any" 
+                        min="0"  max="9999" 
+                         value="{{ old('costo_flete') }}">
+                        @error('costo_flete')
+                          <span class="help-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
                       </div>
                     </div>
                     <div class="col-md-6">

@@ -15,7 +15,7 @@ class FacturaProveedor extends Model
         return $this->belongsTo(Pedido::class);
     }
 
-    public function setFechaFacturaAttribute($value){ 
+    public function setFechaFacturaProveedorAttribute($value){ 
         $this->attributes['fecha_factura_proveedor'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 

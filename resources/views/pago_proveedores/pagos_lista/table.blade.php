@@ -44,7 +44,7 @@
                 <tr>
                   <td>{{$loop->iteration}}</td>
                   <td>{{$pago->razon_social}}</td>
-                  <td>{{$pago->fecha_operacion}}</td>         
+                  <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>         
                   <td>{{$pago->codigo_operacion}}</td>
                   <td>{{$pago->monto_operacion}}</td>
                   <td>{{$pago->banco}}</td>
