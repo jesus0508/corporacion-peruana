@@ -32,11 +32,11 @@
 $(document).ready(function() {    
     $('#tabla-pagos_lista').DataTable({
         "order": [[ 0, "desc" ]],       
-          "responsive": true,             
+        "responsive": true,             
         'language': {
         'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'        
       }, 
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
         {
           extend: 'excelHtml5',
@@ -53,14 +53,6 @@ $(document).ready(function() {
             }
 
          }
-        // ,{
-        //   extend: 'pdfHtml5',
-        //   title: 'Programación Flete Transportistas',
-        //   exportOptions:
-        //     {
-        //       columns:[0,1,2,3,4,5,6]
-        //     }
-        // }
         ],
 
       columnDefs: [ 
@@ -72,6 +64,8 @@ $(document).ready(function() {
       searchable: false, 
       targets: [-1] 
     },
+              
+      { responsivePriority: 1, targets: [1,-1] }
     ] 
    
     });

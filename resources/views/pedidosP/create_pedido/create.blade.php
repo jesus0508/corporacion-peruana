@@ -11,7 +11,8 @@
           <div class="box-body">
             <div class="form-group @error('nro_pedido') has-error @enderror">
               <label for="numero_pedido">Numero Pedido</label>
-              <input id="numero_pedido" type="number" class="form-control" name="nro_pedido" placeholder="Ingrese el número de pedido" min="0" required>
+              <input id="numero_pedido" type="number" class="form-control" name="nro_pedido" placeholder="Ingrese el número de pedido" min="0" 
+              value="{{ old('nro_pedido') }}" required>
               @error('nro_pedido')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -21,26 +22,21 @@
             </div>
             <div class="form-group @error('scop') has-error @enderror">
               <label for="scop_pedido">SCOP</label>
-              <input id="scop_pedido" type="number" class="form-control" name="scop" placeholder="Ingrese el SCOP" min="0" required>
+              <input id="scop_pedido" type="number" class="form-control" name="scop" placeholder="Ingrese el SCOP" min="0" value="{{ old('scop') }}" required>
               @error('scop')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
               @enderror
             </div>
-
             <div class="form-group">
-
-                 <label for="planta">Planta</label>
-                  <select class="form-control" id="planta" name="planta_id" required>
-                    @foreach ( $plantas as $planta)
-                      <option value="{{$planta->id}}">{{$planta->planta}}</option>
-                    @endforeach
-                  </select>
-
+              <label for="planta">Planta</label>
+                <select class="form-control" id="planta" name="planta_id" value="1" required>
+                  @foreach ( $plantas as $planta)
+                    <option value="{{$planta->id}}">{{$planta->planta}}</option>
+                  @endforeach
+                </select>
             </div>
-
- 
 
           </div><!-- /.box-body -->
         {{-- </form> --}}
@@ -59,7 +55,8 @@
           <div class="box-body">
             <div class="form-group @error('galones') has-error @enderror">
                 <label for="galones">Cantidad de galones del pedido</label>
-               <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" max="99999" required>
+               <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" max="99999" value="{{ old('galones') }}"
+                 required>
               @error('galones')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -69,7 +66,8 @@
             </div>
             <div class="form-group @error('costo_galon') has-error @enderror">
               <label for="costo_galon">Precio del galón</label>
-              <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
+              <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" value="{{ old('costo_galon') }}"
+              pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
               @error('costo_galon')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>

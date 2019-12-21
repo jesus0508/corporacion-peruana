@@ -23,7 +23,7 @@
                     @else
                       <input id="placa" value="FLETE PROPIO" type="text" class="form-control" readonly>
                     @endif
-                  </select>                  
+                
                 </div>
               </div>
               <div class="col-md-6">
@@ -33,8 +33,7 @@
                 </div>
               </div>
             </div>
-            @if( $pedido->vehiculo_id == null )
-            @else
+            @if( !$pedido->vehiculo_id == null )
             <div id="" class="row">
               <div class="col-md-3">
                 <div class="form-group ">
@@ -51,6 +50,20 @@
                   </textarea>
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="chofer">Chofer</label>
+                  <input id="chofer"  value="{{$pedido->chofer}}" type="text" class="form-control" readonly>
+              </div>
+              <div class="col-md-4">
+                <label for="chofer">Brevete Chofer</label>
+                  <input id="chofer"  value="{{$pedido->brevete_chofer}}" type="text" class="form-control" readonly>
+              </div>
+              <div class="col-md-4">
+                <label for="chofer">Costo Flete</label>
+                  <input id="chofer"  value="{{$pedido->costo_flete}}" type="text" class="form-control" readonly>
+              </div>              
             </div>
             @endif
 

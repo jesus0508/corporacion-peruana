@@ -17,7 +17,7 @@
           <!-- left column -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="box box-primary">
+            <div class="box box-success">
               <div class="box-header with-border">
                 <h3 class="box-title">Datos principales</h3>
               </div><!-- /.box-header -->
@@ -57,11 +57,11 @@
           </div><!--/.col (left) -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="box box-primary">
+            <div class="box box-success">
               <div class="box-header with-border">
                 <h3 class="box-title"> DIESEL B5 (S50) UV</h3>
               </div><!-- /.box-header -->
-              <div class="box-body">
+              <div class="box-body" id="input-edit">
                 
                  <div class="form-group @error('galones') has-error @enderror">
                   <label for="galones-edit"> Galones  </label>
@@ -96,7 +96,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary pull-left">Guardar cambios</button>
+        <button type="submit" class="btn btn-success pull-left">Guardar cambios</button>
         <button type="" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </form><!-- /.form-modal-content -->

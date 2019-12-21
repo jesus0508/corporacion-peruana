@@ -3,7 +3,6 @@
     <div class="col-xs-12">
       <div class="box box-success">
         <div class="box-header">
-
           <h3 class="box-title pull-left">Lista de COMPRAS A 
             <a href="{{route('proveedores.index')}}">PROVEEDORES</a> &nbsp; &nbsp; &nbsp;
           </h3>
@@ -23,7 +22,7 @@
         <!-- /.box-header -s-->
         <div class="box-body">
              @include('pedidosP.partials.opciones')
-          <table id="proveedores" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+          <table id="proveedores" class="table table-bordered table-striped responsive  " style="width:100%" cellspacing="0">
             <thead>
               <tr>
                 <th>Nro pedido</th>
@@ -31,9 +30,10 @@
                 <th>Planta</th>
                 <!-- <th>Fecha pedido</th> -->
                 <th>GLS</th>
-                <th>Precio galon/u</th> 
+      <!-- 4 --><th>Precio galon/u</th> 
                 <th>Monto</th>
-                <th>M.Facturado</th>
+   <!-- 6-->    <th>M.Facturado</th>
+<!--  7 -->     <th>Fecha Factura</th>
                 <th>Saldo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -49,14 +49,15 @@
                   <!-- <td>{{$pedido->created_at}}</td> -->
                   <td>{{$pedido->galones}}</td>
                   <td>{{$pedido->costo_galon}}</td>
-                  <td>{{ $pedido->calc }} </td>
-                  <td>
+                  <td>{{$pedido->calc}} </td>
+                  
                     @if( $pedido->factura_proveedor_id != null )                      
-                     {{$pedido->monto_factura}} 
+                  <td>{{$pedido->monto_factura}}</td>
+                  <td>{{date( 'd/m/Y', strtotime($pedido->fecha_factura_proveedor) )}}</td>                   
                     @else
-                      0.00
+                    <td>0.00</td>
+                    <td></td>
                     @endif
-                  </td>
                   <td>
                     {{$pedido->saldo}}                     
                   </td>  

@@ -8,7 +8,7 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="fecha_operacion">Fecha</label>
-                  <input type="date" class="form-control"
+                  <input type="text" class="form-control"
                           name="fecha_operacion" value="{{$pago_proveedor->fecha_operacion}}" disabled>
                 </div>
                 <div class="form-group">

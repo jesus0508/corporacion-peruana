@@ -19,4 +19,9 @@ class PagoProveedor extends Model
         $this->attributes['fecha_operacion']=Carbon::createFromFormat('d/m/Y',$value);
     }
 
+    public function getFechaOperacionAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
+
    }
