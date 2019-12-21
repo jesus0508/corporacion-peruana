@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use CorporacionPeru\Stock;
+use Log;
 
 class PedidoController extends Controller
 {
@@ -145,30 +146,39 @@ class PedidoController extends Controller
 
     public function store(StorePedidoRequest $request)
     {
-        //START TRANSACTION
-        $pedido=Pedido::create( $request->validated() );
-        $stock = Stock::first();
-        $stock->stock_general += $pedido->galones;
-        $stock->save();
-        //END TRANSACTION
-        $planta =  $pedido->planta ;
-        $proveedor = $planta->proveedor;
-        $deuda_proveedor = Proveedor::
-            leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
-            ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id') 
-            ->where('proveedores.id','=',$proveedor->proveedor_id)        
-            ->select( DB::raw('sum(pedidos.saldo) as deuda_total') )
-            ->first(); 
-    //deuda total (solo facturados) + monto potencial a ser deuda(pedido actual)
-        $monto_pedido_actual = round($pedido->galones*$pedido->costo_galon,2);
-        $deuda_total_nueva = $deuda_proveedor->deuda_total +  $monto_pedido_actual; 
+        DB::beginTransaction();
+        try {
+            $pedido=Pedido::create( $request->validated() );
+            $stock = Stock::first();
+            $stock->stock_general += $pedido->galones;
+            $stock->save();
+            DB::commit();
 
-        if ($deuda_total_nueva >= $proveedor->linea_credito) {
-            return  redirect()->action('PedidoController@index')
-                ->with(['alert-type' => 'info', 'status' => 'Si se factura el nuevo pedido excederá su línea de crédito. Pedido Registrado']);
-        }
+            $planta =  $pedido->planta ;
+            $proveedor = $planta->proveedor;
+            $deuda_proveedor = Proveedor::
+                leftJoin('plantas','plantas.proveedor_id','=','proveedores.id')
+                ->leftJoin('pedidos','pedidos.planta_id','=','plantas.id') 
+                ->where('proveedores.id','=',$proveedor->proveedor_id)        
+                ->select( DB::raw('sum(pedidos.saldo) as deuda_total') )
+                ->first(); 
+        //deuda total (solo facturados) + monto potencial a ser deuda(pedido actual)
+            $monto_pedido_actual = round($pedido->galones*$pedido->costo_galon,2);
+            $deuda_total_nueva = $deuda_proveedor->deuda_total +  $monto_pedido_actual; 
 
-        return  redirect()->action('PedidoController@index')->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
+            if ($deuda_total_nueva >= $proveedor->linea_credito) {
+                return  redirect()->action('PedidoController@index')
+                    ->with(['alert-type' => 'info', 'status' => 'Si se factura el nuevo pedido excederá su línea de crédito. Pedido Registrado']);
+            }
+
+            return  redirect()->action('PedidoController@index')->with('alert-type', 'success')->with('status', 'Pedido creado con exito');
+
+        } catch (Exception $e) {          
+            DB::rollback();
+            return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
+        } 
+
+
     }
 
     /**
@@ -256,8 +266,8 @@ class PedidoController extends Controller
      * @return [view]           [back|resumen distribucion]
      */
     public function asignar_grifo(Request $request)
-    {
-        //VALIDAR SOME REQEUSETS
+    {       
+
         $fecha_descarga = $request->fecha_descarga; 
         $hora_descarga = $request->hora_descarga;     
         $grifo = Grifo::findOrFail($request->id_grifo);
@@ -266,54 +276,57 @@ class PedidoController extends Controller
         $galonaje_stock = $pedido->getGalonesStock();
             // 200       <         300
         if ( $galonaje_stock < $asignacion or $asignacion <= 0 ) {
-
             return back()->with('alert-type', 'error')->with('status', 'Galonaje incorrecto!');
         }
-         
-        if ( $galonaje_stock == $asignacion ) {
 
-            $grifo->stock += $asignacion;
-            $pedido->galones_distribuidos += $asignacion;
-            $pedido->estado = 3;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga , 'hora_descarga'=> $hora_descarga ]);
-            $pedido->save();
-            $grifo->save();
+        DB::beginTransaction();
+        try {
 
-            $pedidos_cl = 
-                PedidoCliente::join('pedido_proveedor_clientes', 
-                    'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
-                ->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')
-                ->where('pedido_id', $request->id_pedido_pr)->get();
+            if ( $galonaje_stock == $asignacion ) {
+                $grifo->stock += $asignacion;
+                $pedido->galones_distribuidos += $asignacion;
+                $pedido->estado = 3;
+                $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga , 'hora_descarga'=> $hora_descarga ]);
+                $pedido->save();
+                $grifo->save();
 
-            $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
-                ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
-                ->where('pedido_id', $pedido->id)
-                ->get();
-            Session::flash('alert-type', 'info');
-            Session::flash('status', 'Galones asignados a Grifo');
-        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
-        }
-        else //( $galonaje_stock < $asignacion  )
-         { 
+                $pedidos_cl = 
+                    PedidoCliente::join('pedido_proveedor_clientes', 
+                        'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
+                    ->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')
+                    ->where('pedido_id', $request->id_pedido_pr)->get();
 
-            $grifo->stock += $asignacion;
-            $pedido->galones_distribuidos += $asignacion;
-            $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga  , 'hora_descarga'=> $hora_descarga]);
-            $pedido->save();
-            $grifo->save();
+                $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
+                    ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
+                    ->where('pedido_id', $pedido->id)
+                    ->get();
+                Session::flash('alert-type', 'info');
+                Session::flash('status', 'Galones asignados a Grifo');
+                DB::commit();
+            return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
+            }
+            else //( $galonaje_stock < $asignacion  )
+             { 
+                $grifo->stock += $asignacion;
+                $pedido->galones_distribuidos += $asignacion;
+                $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga  , 'hora_descarga'=> $hora_descarga]);
+                $pedido->save();
+                $grifo->save();
+                return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
+            }
 
-            return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
-        }
-
+        } catch (Exception $e) {          
+            DB::rollback();
+            return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
+        } 
 
     }
 
 
     public function asignar_individual(Request $request)
     {
-
+        //START TRANSACTION
         $pedido_cl = PedidoCliente::findOrFail($request->id_pedido_cliente);
-       // $cantDistribuir = $request->galonesXasignar;
         $pedido = Pedido::findOrFail($request->id_pedido_pr);
         $galonaje_stock = $pedido->getGalonesStock();
 
@@ -324,11 +337,10 @@ class PedidoController extends Controller
 
             return back()->with('alert-type', 'error')->with('status', 'Galonaje incorrecto!');
         }
-
         $restanteXasignar = $pedido_cl->galonesXasignar();
-        //$request->galones_pedido_cl;
-
-        if ($restanteXasignar > $galonaje_stock) {
+        DB::beginTransaction();
+        try {
+           if ($restanteXasignar > $galonaje_stock) {
 
             $pedido_cl->galones_asignados += $galonaje_stock;
             $pedido->galones_distribuidos += $galonaje_stock;
@@ -369,12 +381,16 @@ class PedidoController extends Controller
             $pedido_cl->save();  
 
         }
- 
+        DB::commit();
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
         Session::flash('alert-type', 'info');
         Session::flash('status', 'Galones asignados a Pedido de Cliente');
+        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));   
 
-            return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));        
+        } catch (Exception $e) {          
+            DB::rollback();
+            return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
+        } 
     }
 
     /**
@@ -402,23 +418,27 @@ class PedidoController extends Controller
      */
     public function update(StorePedidoRequest $request, $id)
     {
-        $id = $request->id;
-        $pedido_anterior=Pedido::findOrFail($id);
-        $gls_anterior = $pedido_anterior->galones;
-        $pedido=Pedido::findOrFail($id);
-        Pedido::findOrFail($id)->update($request->validated());
-        $gls_nuevo = $pedido->galones; 
+        DB::beginTransaction();
+        try {
+            $id = $request->id;
+            $pedido_anterior=Pedido::findOrFail($id);
+            $gls_anterior = $pedido_anterior->galones;
+            $pedido=Pedido::findOrFail($id);
+            Pedido::findOrFail($id)->update($request->validated());
+            $gls_nuevo = $pedido->galones; 
 
-        $stock = Stock::first();       
-        $stock->stock_general -= $gls_anterior;
-        $stock->stock_general += $gls_nuevo;
-        $stock->save();        
+            $stock = Stock::first();       
+            $stock->stock_general -= $gls_anterior;
+            $stock->stock_general += $gls_nuevo;
+            $stock->save();  
+            DB::commit();
+            return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');
+        } catch (Exception $e) {          
+            DB::rollback();
+            return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
+        }     
 
-        return  back()->with('alert-type', 'success')->with('status', 'Pedido editado con exito');
     }
-
-
-
 
 
     /**
@@ -430,12 +450,19 @@ class PedidoController extends Controller
     public function destroy($id)
     {
 
-        $pedido = Pedido::findOrFail($id);
-        Pedido::destroy($id);
-        $stock = Stock::first();
-        $stock->stock_general -= $pedido->galones;
-        $stock->save();
+        DB::beginTransaction();
+        try {
+            $pedido = Pedido::findOrFail($id);
+            Pedido::destroy($id);
+            $stock = Stock::first();
+            $stock->stock_general -= $pedidASo->galones;
+            $stock->save();
+            DB::commit();
+            return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');
+        } catch (Exception $e) {          
+            DB::rollback();
+            return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
+        }        
         
-        return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');
     }
 }

@@ -7,17 +7,19 @@
           IR PEDIDOS &nbsp; <span class="fa fa-list"></span>
           </button>
         </a>&nbsp;
+
         @if( $pedido->vehiculo_id == null )
          <a href="#collapseCisterna" class="btn btn-primary" data-toggle="collapse" aria-expanded="true" aria-controls="collapseCisterna">
           <span class="fa fa-plus"> </span>&nbsp;
           Mostrar | Ocultar Transportista
-        </a>
+        </a>  
         @else 
          <a href="#collapseCisternaShow" class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapseCisternaShow">
           <span class="fa fa-eye"> </span>&nbsp;
           Ver Transportista
         </a>
         @endif
+        
         &nbsp;
         @if( $pedido->getGalonesStock() > 0)
         <a class="btn bg-orange" href="{{route('pedidos.distribuir_grifo', $pedido->id)}}">
