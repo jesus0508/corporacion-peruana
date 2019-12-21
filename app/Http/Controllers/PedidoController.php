@@ -281,7 +281,7 @@ class PedidoController extends Controller
 
         DB::beginTransaction();
         try {
-
+            
             if ( $galonaje_stock == $asignacion ) {
                 $grifo->stock += $asignacion;
                 $pedido->galones_distribuidos += $asignacion;
@@ -312,8 +312,10 @@ class PedidoController extends Controller
                 $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga  , 'hora_descarga'=> $hora_descarga]);
                 $pedido->save();
                 $grifo->save();
+                DB::commit();
                 return back()->with('alert-type', 'success')->with('status', 'Galones asignados a Grifo');
             }
+
 
         } catch (Exception $e) {          
             DB::rollback();
@@ -455,7 +457,7 @@ class PedidoController extends Controller
             $pedido = Pedido::findOrFail($id);
             Pedido::destroy($id);
             $stock = Stock::first();
-            $stock->stock_general -= $pedidASo->galones;
+            $stock->stock_general -= $pedido->galones;
             $stock->save();
             DB::commit();
             return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');

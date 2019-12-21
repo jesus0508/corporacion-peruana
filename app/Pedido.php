@@ -18,6 +18,11 @@ class Pedido extends Model
         return $this->belongsTo(Planta::class);
     }
 
+    public function getMonto(){
+        $monto = $this->costo_galon*$this->galones;
+        return round($monto,2);
+    }
+
     public function facturaProveedor(){
         return $this->belongsTo(FacturaProveedor::class);
     }
