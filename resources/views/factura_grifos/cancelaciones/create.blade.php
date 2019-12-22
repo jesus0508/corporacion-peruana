@@ -41,13 +41,13 @@
                         readonly="">
               </div>
             </div>
-            <div class="col-md-4">
+{{--             <div class="col-md-4">
               <div class="form-group">
                 <label for="facturacion">Número(s) factura</label>
                 <input id="facturacion" type="text" class="form-control" 
                         readonly="">
               </div>
-            </div>
+            </div> --}}
           </div>                    
 
           <div class="row">

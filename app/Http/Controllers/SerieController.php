@@ -84,12 +84,6 @@ class SerieController extends Controller
 
             return back()->with(['alert-type' => 'success', 'status' => 'Serie creada con exito']);
         }
-
-  
-  
-        
-
-
     }
 
     /**

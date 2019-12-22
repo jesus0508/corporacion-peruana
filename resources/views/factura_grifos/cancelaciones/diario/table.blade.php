@@ -64,20 +64,25 @@
           </thead>
           <tbody>
             @php setlocale(LC_TIME, "spanish"); @endphp 
-            @foreach( $cancelaciones as $cancelacion )
+            @foreach( $facturacion_grifos as $facturacion_grifo )
               <tr>                
-                <td>{{date('d/m/Y', strtotime($cancelacion->facturacionGrifo->fecha_facturacion))}}</td>
-                <td>{{$cancelacion->facturacionGrifo->grifo->razon_social}}</td>
-                <td>{{$cancelacion->facturacionGrifo->venta_factura}}</td>
-                <td>{{$cancelacion->facturacionGrifo->venta_boleta}}</td>
-                <td>{{$cancelacion->facturacionGrifo->getGalones() }}</td>
-                <td>{{$cancelacion->facturacionGrifo->precio_venta}}</td>
-                <td>{{round($cancelacion->facturacionGrifo->getMontoTotal(),2)}}</td>    
-                <td>{{round($cancelacion->facturacionGrifo->getSaldo(),2)}}</td>         
-                <td>{{$cancelacion->nro_operacion}}</td>
-                <td>{{date('d/m/Y', strtotime($cancelacion->fecha))}}</td>
-                <td>{{$cancelacion->monto}}</td>   
-                <td>{{ ucfirst(strftime("%B %Y",strtotime($cancelacion->facturacionGrifo->fecha_facturacion) ) )}}</td>          
+                <td>{{date('d/m/Y', strtotime($facturacion_grifo->fecha_facturacion))}}</td>
+                <td>{{$facturacion_grifo->grifo->razon_social}}</td>
+                <td>{{$facturacion_grifo->venta_factura}}</td>
+                <td>{{$facturacion_grifo->venta_boleta}}</td>
+                <td>{{$facturacion_grifo->getGalones() }}</td>
+                <td>{{$facturacion_grifo->precio_venta}}</td>
+                <td>{{round($facturacion_grifo->getMontoTotal(),2)}}</td>    
+                <td>{{round($facturacion_grifo->getSaldo(),2)}}</td>         
+                <td>{{$facturacion_grifo->nro_operacion}}</td>
+                <td>
+                  @if($facturacion_grifo->fecha)
+                   {{date('d/m/Y', strtotime($facturacion_grifo->fecha))}} 
+                  @endif
+                
+                </td>
+                <td>{{$facturacion_grifo->monto}}</td>   
+                <td>{{ ucfirst(strftime("%B %Y",strtotime($facturacion_grifo->fecha_facturacion) ) )}}</td>          
               </tr>            
             @endforeach        
 

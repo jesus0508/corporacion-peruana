@@ -18,8 +18,10 @@ class CancelacionController extends Controller
     public function index()
     {
         $grifos = Grifo::all();
-        $cancelaciones = Cancelacion::all();
-        return view('factura_grifos.cancelaciones.diario.index',compact('grifos', 'cancelaciones'));
+        $facturacion_grifos = FacturacionGrifo::leftJoin('cancelacions',
+            'cancelacions.facturacion_grifo_id','facturacion_grifos.id')->get();
+
+        return view('factura_grifos.cancelaciones.diario.index',compact('grifos', 'facturacion_grifos'));
     }
     /**
      * [cancelacion_search description]

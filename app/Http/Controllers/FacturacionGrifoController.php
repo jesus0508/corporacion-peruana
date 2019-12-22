@@ -48,12 +48,15 @@ class FacturacionGrifoController extends Controller
      * @return [type] [description]
      */
     public function series_grifo($id = -1){
-        $grifo = '';
+        $series = '';
         if ($id!=-1) {
-            $grifo = Grifo::findOrFail($id);       
-            return response()->json(['grifo' => $grifo]);
+            $grifo = Grifo::findOrFail($id)->with('series')->first();
+            foreach ($grifo->series as $serie ) {                
+                       $series = $series.' '.$serie->serie;
+                   }       
+            return response()->json(['series' => $series]);
         }else{
-            return response()->json(['grifo' => $grifo]);
+            return response()->json(['series' => $series]);
         }
             
     }
@@ -93,9 +96,7 @@ class FacturacionGrifoController extends Controller
     public function store(StoreFacturacionGrifoRequest $request)
     {
 
-        $facturacion_grifo = FacturacionGrifo::create($request->validated());
-        $facturacion_grifo->setFechaFacturaAttribute($request->fecha_facturacion);
-        $facturacion_grifo->save();
+        FacturacionGrifo::create($request->validated());
 
         return back()->with(['alert-type' => 'success', 'status' => 'Facturacion Grifo Registrado con exito']);
     }

@@ -47,13 +47,13 @@
                         readonly="" name="series">
               </div>
             </div>
-            <div class="col-md-3">
+  {{--           <div class="col-md-3">
               <div class="form-group">
                 <label for="facturacion">Número(s) factura</label>
                 <input id="numero_factura-edit" name="numero_factura" type="text" class="form-control" 
                         placeholder="Ingrese Números de facturas" >
               </div>
-            </div>
+            </div> --}}
           </div>                  
             <div class="row" id="input_user-edit">
               <div class="col-md-2">

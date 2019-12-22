@@ -201,7 +201,7 @@ $(document).ready(function() {
   });  
 
   $fecha_ingreso.on('change', function (event) { 
-    console.log();   
+    console.log("cambio fecha ingreso");   
     let fecha_ingreso = $fecha_ingreso.val();
     fecha_ingreso = convertDateFormat(fecha_ingreso);
     fillSelectGrifos(fecha_ingreso); 
@@ -209,7 +209,8 @@ $(document).ready(function() {
 
   $select_grifo.on('change', function (event) {
     let id = $select_grifo.val();
-      id = (id)?id:-1;   
+      id = (id)?id:-1; 
+      console.log(id);  
     fillSeries(id);       
   });
 
@@ -267,7 +268,7 @@ $(document).ready(function() {
 
   function fillSeries(idGrifo){
     getIngresoByGrifo(idGrifo).done((data) => {     
-    $series.val(data.series_grifo);
+    $series.val(data.series);   
     evaluateSeries();
     }).fail((error) => {
       toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
