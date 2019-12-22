@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
 
 		/* Venta Facturada*/
 		Route::resource('/cancelacion','CancelacionController');
+		Route::get('/cancelaciones/modify','CancelacionController@modify')->name('cancelacion.modify');
 		Route::resource('/factura_grifos','FacturacionGrifoController');
 		Route::get('/cancelacion_search/{id}/{fecha}','CancelacionController@cancelacion_search')->name('cancelacion_search');
 		Route::get('/grifos_facturacion/all/{fecha?}','FacturacionGrifoController@getGrifosSinFacturacion')->name('factura_grifos.sinFactura');

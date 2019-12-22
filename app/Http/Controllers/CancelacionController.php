@@ -12,7 +12,7 @@ class CancelacionController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * Redirije a 'Lista Cancelación Grifo' 
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -24,8 +24,10 @@ class CancelacionController extends Controller
         return view('factura_grifos.cancelaciones.diario.index',compact('grifos', 'facturacion_grifos'));
     }
     /**
-     * [cancelacion_search description]
-     * @return [type] [description]
+     * Busca cancelaciones de una facturación grifo, con $id y $fecha
+     * @param  int $id       id del grifo
+     * @param  string $fecha fecha de la facturación grifo
+     * @return [array]        [FacturacionGrifo objeto]
      */
     public function cancelacion_search( $id, $fecha ){//id: id del grifo
 
@@ -47,13 +49,14 @@ class CancelacionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar cancelación y verificando si el monto supera el 
+     * saldo de FacturacionGrifo
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCancelacionRequest $request)
-    {   $validado = $request->validated();//input validar
+    {   
         //validar monto ingreso
         $id_facturacion_grifo = $request->facturacion_grifo_id;
         $facturacion_grifo = FacturacionGrifo::findOrFail($id_facturacion_grifo);
@@ -68,14 +71,15 @@ class CancelacionController extends Controller
             return back()->with('alert-type', 'warning')
                 ->with('status', 'Cancelación excede en '.$exceso.' el monto total. No Registrado');
         }
-
-        $cancelaciones =Cancelacion::create($validado);
-        $cancelaciones->setFechaCancelacionAttribute($request->fecha);
-        $cancelaciones->save();
-
+        Cancelacion::create($request->validated());
         return back()->with('alert-type', 'success')->with('status', 'Cancelación Registrada con éxito');
     }
 
+    public function modify(){
+        $cancelaciones = Cancelacion::all();
+        return view('factura_grifos.cancelaciones.modify.index',compact('cancelaciones'));
+    }
+ 
     /**
      * Display the specified resource.
      *
@@ -84,7 +88,7 @@ class CancelacionController extends Controller
      */
     public function show(Cancelacion $cancelacion)
     {
-        //
+
     }
 
     /**
@@ -95,7 +99,7 @@ class CancelacionController extends Controller
      */
     public function edit(Cancelacion $cancelacion)
     {
-        //
+        return response()->json(['cancelacion' => $cancelacion ]);      
     }
 
     /**
@@ -105,9 +109,12 @@ class CancelacionController extends Controller
      * @param  \CorporacionPeru\Cancelacion  $cancelacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cancelacion $cancelacion)
+    public function update(StoreCancelacionRequest $request)
     {
-        //
+        $cancelacion = Cancelacion::findOrFail($request->id);
+        $cancelacion->update($request->validated());
+
+        return back()->with('alert-type', 'success')->with('status', 'Cancelación Actualizada con éxito');
     }
 
     /**

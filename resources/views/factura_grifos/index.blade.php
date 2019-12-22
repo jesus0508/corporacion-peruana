@@ -114,10 +114,14 @@ $(document).ready(function() {
       "columnDefs": [{
                 "targets": [ 7 ],
                 "visible": false
-            }],
+            },
+            { orderable: false, targets: -1},
+            { searchable: false, targets: [-1]},
+
+            ],
       "responsive": true,
       "searching":true,
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
       {
         'extend': 'excelHtml5',

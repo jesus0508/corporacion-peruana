@@ -11,12 +11,9 @@
         <h4 class="modal-title">Editar datos  Facturación</h4>        
       </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
       <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
-          <h2 class="box-title">Registrar facturación venta grifo</h2>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="row" id="">
@@ -32,7 +29,7 @@
                   @enderror
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label for="grifo_id">Grifo</label>
                 <input type="text" id="grifo_name-edit" readonly=""
@@ -40,7 +37,7 @@
          
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
               <div class="form-group">
                 <label for="nro_serie">Número(s) de serie</label>
                 <input id="nro_serie-edit" type="text" class="form-control" 
@@ -70,7 +67,7 @@
                           placeholder="Venta boleta" name="venta_boleta" >
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label for="total_galones">Total galones </label>
                   <input id="total_galones-edit" type="text" class="form-control" 
@@ -85,25 +82,37 @@
                     required="" >
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label for="monto_total">Monto Total</label>
                   <input id="monto_total-edit" type="text" class="form-control" 
                          readonly="" >
                 </div>
               </div>  
+            </div>        
+          </div> <!-- /.end-box-body --> 
+          <div class="box-footer row">
+            <div class="pull-right">
               <div class="col-md-2">
-                <br>
                 <div class="form-group">                  
-                <button  type="submit" id="register-edit" class="btn btn-lg btn-success pull-right" >
-                  <i class="fa fa-save"> </i>&nbsp;
-                  Guardar                  
-                </button>
+                  <button type="" class="btn btn-default" data-dismiss="modal">
+                  Cancelar</button>
                 </div>                
-              </div>                                  
-            </div>          
-          </div> <!-- /.row-top -->    
-      </div> <!-- end-modal-body -->
+              </div> 
+            </div>
+            <div class="pull-left">
+              <div class="col-md-2">
+                <div class="form-group">                  
+                  <button  type="submit" id="register-edit" class="btn btn-success " >
+                    <i class="fa fa-save"> </i>&nbsp;
+                    Guardar                  
+                  </button>
+                </div>                
+              </div> 
+            </div> 
+          </div>   
+        </div> {{-- box-success --}}
+      </div> {{-- modal-body --}}
     </form><!-- /.form-modal-content -->
   </div><!-- /.modal-dialog -->
 </div>

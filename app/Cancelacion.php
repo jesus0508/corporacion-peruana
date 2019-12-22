@@ -16,7 +16,7 @@ class Cancelacion extends Model
     	return $this->belongsTo(FacturacionGrifo::class);
     }
 
-    public function setFechaCancelacionAttribute($value){
+    public function setFechaAttribute($value){
 		$this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y',$value);
     }    
 }

@@ -165,7 +165,7 @@ function validateDates() {
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
      // console.log(data[7]);
       if (data[7]=='') {
-      var dia = "20/09/1997";
+      var dia = "06/06/1966";//fecha random que nunca hará match 
       }else{
         var dia = $.datepicker.parseDate('d/m/yy', data[7]);
       }
@@ -211,11 +211,9 @@ $(document).ready(function() {
             {
               columns:[0,1,2,3,4,5,6,7,8]
             }
-
          }
         ],
      // "ordering": false,
-
         columnDefs: [
           { orderable: false, targets: -1},
           { searchable: false, targets: [-1]},

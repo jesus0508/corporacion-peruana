@@ -382,6 +382,8 @@ desired effect
                 Registrar facturación día </a></li>
                 <li><a href="{{route('cancelacion.create')}}"><i class="fa fa-plus"></i> 
                 Registrar cancelación </a></li>
+                <li><a href="{{route('cancelacion.modify')}}"><i class="fa fa-pencil"></i> 
+                Modificar Cancelaciones</a></li>
                 <li><a href="{{route('cancelacion.index')}}"><i class="fa fa-list"></i> 
                 Lista Cancelación Grifo</a>
                 </li>
@@ -443,7 +445,7 @@ desired effect
                     </li>
                   </ul>
                 </li>
-                <li id="treeview-comprobacion" class="treeview">
+{{--                 <li id="treeview-comprobacion" class="treeview">
                   <a href="#">
                     <i class="fa fa-check-square-o"></i> <span>Comprobación</span>
                     <span class="pull-right-container">
@@ -457,7 +459,7 @@ desired effect
                     Reporte Diario</a>
                     </li>
                   </ul>
-                </li>
+                </li> --}}
               </ul>
         </li>
 

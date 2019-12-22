@@ -50,7 +50,7 @@ $(document).ready(function() {
                       ],
       'rowsGroup':[0,1,2,3,4,5,6,7,8],
       "scrollX": true,
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
       {
         'extend': 'excelHtml5',
