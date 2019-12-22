@@ -11,8 +11,6 @@
 #div-tabla-export-factura {
 display: none;
 }
-
-
 </style>
 @endsection
 
@@ -51,7 +49,7 @@ display: none;
 $(document).ready(function() {
 
   $('#export_factura_table').on('click', function () {
-    console.log("click");
+    //console.log("click");
     document.getElementById("excelButton").click();
   });
 

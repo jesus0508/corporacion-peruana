@@ -35,11 +35,11 @@
           </div>
         </div>
         <div class="col-md-4 pull-right" >
-          <button id="filtrar-fecha" class="btn btn-info">
+          <button id="filtrar-fecha" class="btn btn-sm btn-info">
             <i class="fa fa-search"></i>
             Filtrar
           </button>
-          <button id="clear-fecha" class="btn btn-danger">
+          <button id="clear-fecha" class="btn btn-sm btn-danger">
             <i class="fa fa-remove "></i>
             Limpiar
           </button>
