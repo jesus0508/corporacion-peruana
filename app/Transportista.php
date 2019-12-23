@@ -16,6 +16,6 @@ class Transportista extends Model
     {
     	
     	return $this->hasMany(Vehiculo::class, 'transportista_id');
-}
+	}
 
 }
