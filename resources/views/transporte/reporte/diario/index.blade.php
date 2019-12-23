@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Transporte')
+@section('title','Reporte Transportes')
 
 @section('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
@@ -11,19 +11,20 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Transporte</a></li>
-  <li><a href="#">Registro Egreso</a></li>
+  <li><a href="#">Reportes</a></li>
+  <li><a href="#">Transportes</a></li>
+  <li><a href="#">Reportes Diario</a></li>
 </ol>
 @endsection
 
-
 @section('content')
 <section class="content">
-  @include('transporte.egresos.create')
-  @include('transporte.egresos.table')
-  
+  @include('transporte.reporte.diario.header')
+  @include('transporte.reporte.diario.table')
+  <!--/.end-modales-->
 </section>
 @endsection
+
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
@@ -31,60 +32,26 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+
 <script>
+
+
+
 $(document).ready(function() {
 
-  let $select_placa = $('#placa');
-  let $select_tipo = $('#tipo');
-  let $select_tipo_comprobante = $('#tipo_comprobante');
-  let $table = $('#tabla-egreso-transporte');
-	inicializarSelect2($select_placa,'Seleccione placa','');
-  inicializarSelect2($select_tipo,'Seleccione el tipo','');
-  inicializarSelect2($select_tipo_comprobante,'Seleccione el tipo','');
-	$('#fecha_reporte').datepicker();
- 	$('#fecha_egreso').datepicker();
- 	let fecha_reporte = $('#fecha_reporte').val(); 
-	inicializarDataTable($table,'');
-
-  $select_tipo.on('change', function (event) {
-    //console.log('cambió');
-    let id = $select_tipo.val();
-      id = (id)?id:-1;   
-    fillSeries(id);       
-  });
-
-});
-
-function fillSeries(idTipo){
-    getPlacaByTipo(idTipo).done((data) => {
-    //console.log(data);     
-    $('#placa').html('');
-    inicializarSelect2Less($('#placa'), 'Seleccione la placa', data.transporte);
-    //$('#placa').val(data.transportes);
-    //evaluateSeries();
-    }).fail((error) => {
-      toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
-    });
-  }
-function getPlacaByTipo(idTipo) {
-    return $.ajax({
-      type: 'GET',
-      url: `../placas_transporte/${idTipo}`,
-      dataType: 'json',
-    });
-  }
-function inicializarDataTable($table, fecha_reporte){
-	 $table.DataTable({
+  var fecha_reporte_selected = $('#fecha_inicio').val();
+  console.log('xd');
+  $('#tabla-netos-unidades-diario').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-      "responsive": false,
+      "responsive": true,
       "dom": 'Blfrtip',
-      "scrollX": true,
+      "iDisplayLength": 50,
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': fecha_reporte+' Alquiler de Buses',
+        'title': 'Lista Ingreso Neto Unidades(Buses) Transporte',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -95,37 +62,42 @@ function inicializarDataTable($table, fecha_reporte){
               var sheet = xlsx.xl.worksheets['sheet1.xml'];
               let rels = xlsx.xl.worksheets['sheet1.xml'];
               var clR = $('row', sheet); 
-              
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=F'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=G'+nRows+'] t', sheet).text( total );
-              $('c[r=G'+nRows+'] t', sheet).attr('s','37');            
-			       },
+              $('c[r=D'+nRows+'] t', sheet).text('TOTAL NETO:' );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=E'+nRows+'] t', sheet).text( total );
+              $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
+            },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5,6]
+          columns:[0,1,2,3,4]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
+
+            // Total over this page
             pageTotal = api
-                .column( 6, { page: 'current'} )
+                .column(4 , { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
-            $( api.column( 6 ).footer() ).html(pageTotal);
+            // Update footer
+            $( api.column( 4 ).footer() ).html(
+                pageTotal
+                // +' (S/.'+ total +' total)'
+            );
       }
   });
+});
 
-}
-function inicializarSelect2($select, text, data) {
+	function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -133,14 +105,9 @@ function inicializarSelect2($select, text, data) {
     data: data
     });
   }
-  function inicializarSelect2Less($select, text, data) {
-    $select.select2({
-      placeholder: text,
-      data: data
-    });
-  }
-  function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-egreso-transporte');
+
+function validateDates() {
+  let $tabla_ingresos_diario = $('#tabla-netos-unidades-diario');
   $('#fecha_inicio').datepicker({
     numberOfMonths: 1,
     onSelect: function (selected) {
@@ -169,25 +136,25 @@ function inicializarSelect2($select, text, data) {
   );
 
   $('#filtrar-fecha').on('click', function () {
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_ingresos_diario.DataTable().draw();
   });
 
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
     $('#fecha_fin').val("");
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_ingresos_diario.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
   });
-
 }
+
 $(document).ready(function() {
     validateDates();
-    let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-egreso-transporte');
-    inicializarSelect2($filter_proveedor, 'Ingrese la placa', '');
+    let $filter_placa = $('#filter-grifo');
+    let $tabla_pedido_proveedores = $('#tabla-netos-unidades-diario');
+    inicializarSelect2($filter_placa, 'Elija la placa', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-      let grifo = $filter_proveedor.find('option:selected').text();
+      let grifo = $filter_placa.find('option:selected').text();
       let cell = data[2];
       if (grifo) {
         return grifo === cell;
@@ -197,9 +164,12 @@ $(document).ready(function() {
 
   );
 
-  $filter_proveedor.on('change', function () {
+  $filter_placa.on('change', function () {
     $tabla_pedido_proveedores.DataTable().draw();
   });
 } );
+
 </script>
+
+ 
 @endsection

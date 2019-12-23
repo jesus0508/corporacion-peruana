@@ -121,6 +121,14 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/egreso_transporte','EgresoTransporteController');
 	Route::get('/placas_transporte/{id}','EgresoTransporteController@placas_transporte')->name('egreso_transporte.placas_transporte');
 	Route::resource('/ingreso_neto_transporte','IngresoNetoTransporteController');
+							//Reportes Unidades
+	Route::get('/reporte_diario_unidades',
+		'TransporteController@reporteDiario')->name('transporte.reporteDiario');
+	Route::get('/reporte_mensual_unidades',
+		'TransporteController@reporteMensual')->name('transporte.reporteMensual');
+
+
+
 
 
 	Route::group(['middleware' => ['role:Proveedores']], function () {

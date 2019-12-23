@@ -252,76 +252,117 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu" style="display: none;">
-            <!-- <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li> -->
-            <li><a href="{{route('pedidos.programacion')}}"><i class="fa fa-calendar-minus-o"></i> Reporte Programación</a></li>
-            <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Ganancia por Grifo detallado</a></li>
+ {{--             <li><a href="{{route('pedido_clientes.index')}}"><i class="fa fa-book"></i> Reportes</a></li>  --}}
 
+            <li><a href="{{route('pedidos.programacion')}}"><i class="fa fa-calendar-minus-o"></i> Reporte Programación</a>
+            </li>
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>
-                  <span>General por Zona - Grifos</span>
+                  <span>Reporte General</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
               </a>
-                <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> 
-                    Ingreso Neto Diario</a>
-                  </li>
-                  <li><a href="{{route('ganancia_zona_neta.create')}}"><i class="fa fa-taSble">M</i> 
-                    Ingreso Neto Mensual</a>
-                  </li>
-<!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                    Reporte Gastos Anual</a>
-                  </li> -->
+              <ul class="treeview-menu" style="display: none;">               
+                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-arrow-up"></i> Ingresos</a></li>
+                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-arrow-down"></i> Egresos </a></li>
+                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Depósitos </a></li>
+                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">G</i> General </a></li>
 
-                </ul>
-            </li> 
+              </ul>
+            </li>
+            <li id="treeview-grifos-reporte" class="treeview">
+              <a href="#">
+                <i class="fa fa fa-building-o"></i> <span>Grifos</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i>Ingreso detallado</a></li>           
 
+                <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Neto por Zona </span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                    <ul class="treeview-menu" style="display: none;">               
+                      <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> 
+                        Diario</a>
+                      </li>
+                      <li><a href="{{route('ganancia_zona_neta.create')}}"><i class="fa fa-taSble">M</i> 
+                        Mensual</a>
+                      </li>
+    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Reporte Gastos Anual</a>
+                      </li> -->
 
+                    </ul>
+                </li> 
+                <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Neto por Grifo</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                    <ul class="treeview-menu" style="display: none;">               
+                      <li><a href="{{route('ingreso_grifo_neto.index')}}"><i class="fa fa-listS-alt">D</i> 
+                        Diario</a>
+                      </li>
+                      <li><a href="{{route('ingreso_grifo_neto.create')}}"><i class="fa fa-taSble">M</i> 
+                        Mensual</a>
+                      </li>
+    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Reporte Gastos Anual</a>
+                      </li> -->
+
+                    </ul>
+                </li> 
+                <li id="treeview-reporte-gastos-grifo" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Gastos Grifos</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                    <ul class="treeview-menu" style="display: none;">               
+                      <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
+                        Diario</a>
+                      </li>
+                      <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
+                        Mensual</a>
+                      </li>
+{{--                       <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Anual</a>
+                      </li>
+                      <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
+                        General</a>
+                      </li> --}}
+                    </ul>
+                </li>               
+              </ul>
+            </li>
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>
-                  <span>Ingresos Netos Grifos</span>
+                  <span>Reporte Unidades</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
               </a>
-                <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('ingreso_grifo_neto.index')}}"><i class="fa fa-listS-alt">D</i> 
-                    Ingreso Neto Diario</a>
-                  </li>
-                  <li><a href="{{route('ingreso_grifo_neto.create')}}"><i class="fa fa-taSble">M</i> 
-                    Ingreso Neto Mensual</a>
-                  </li>
-<!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                    Reporte Gastos Anual</a>
-                  </li> -->
-
-                </ul>
-            </li> 
-            <li id="treeview-reporte-gastos-grifo" class="treeview">
-              <a href="#">
-                <i class="glyphicon glyphicon-list-alt"></i>
-                  <span>Gastos Grifos</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-              </a>
-                <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('egresos.index')}}"><i class="fa fa-listS-alt">D</i> 
-                    Reporte Gastos Diario</a>
-                  </li>
-                  <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
-                    Reporte Gastos Mensual</a>
-                  </li>
-                  <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                    Reporte Gastos Anual</a>
-                  </li>
-                  <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
-                    Reporte Gastos General</a>
-                  </li>
-                </ul>
+              <ul class="treeview-menu" style="display: none;">               
+                  <li><a href="{{route('transporte.reporteDiario')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
+                  <li><a href="{{route('transporte.reporteMensual')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
+                  {{-- <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> Anual </a></li>
+                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> General </a></li> --}}
+              </ul>
             </li>
           </ul>
 

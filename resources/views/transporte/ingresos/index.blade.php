@@ -49,7 +49,7 @@ function inicializarDataTable($table, fecha_reporte){
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
       "responsive": true,
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
       {
         'extend': 'excelHtml5',
