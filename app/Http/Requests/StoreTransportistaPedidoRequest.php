@@ -24,8 +24,8 @@ class StoreTransportistaPedidoRequest extends FormRequest
     public function rules()
     {
         return [
-            'chofer'=>'string|max: 255',
-            'brevete_chofer' => 'max: 12',
+            'chofer'=>'nullable|max: 255',
+            'brevete_chofer' => 'nullable|max: 12',
             'vehiculo_id'=>'required|numeric',
             'costo_flete' =>'required|numeric|gt:0'
         ];

@@ -21,6 +21,9 @@ class CreateIngresoTransportesTable extends Migration
             $table->unsignedBigInteger('transporte_id');
             $table->foreign('transporte_id')
             ->references('id')->on('transportes');
+            $table->unsignedBigInteger('categoria_ingreso_id')->default(3);
+            $table->foreign('categoria_ingreso_id')
+            ->references('id')->on('categoria_ingresos');
             $table->softDeletes(); 
             $table->timestamps();
         });

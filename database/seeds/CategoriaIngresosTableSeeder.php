@@ -19,6 +19,10 @@ class CategoriaIngresosTableSeeder extends Seeder
         DB::table('categoria_ingresos')->insert([
             'categoria' => 'INGRESOS POR GRIFOS',
         ]);
+        
+        DB::table('categoria_ingresos')->insert([
+            'categoria' => 'INGRESO EN EFECTIVO POR ALQUILER DE UNIDADES',
+        ]);        
 
                        
     }

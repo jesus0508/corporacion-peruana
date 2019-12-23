@@ -9,6 +9,8 @@ use CorporacionPeru\Egreso;
 use CorporacionPeru\IngresoGrifo;
 use CorporacionPeru\CategoriaIngreso;
 use CorporacionPeru\MovimientoGrifo;
+use CorporacionPeru\IngresoTransporte;
+
 use Carbon\Carbon;
 use DB;
 class IngresoController extends Controller
@@ -32,16 +34,27 @@ class IngresoController extends Controller
             ->select('pago_clientes.codigo_operacion', 'clientes.razon_social' ,'pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria')
             ->groupBy('pago_clientes.codigo_operacion')
             ->get(); 
+            //movimientos Depósitos Venta Directa a Clientes
         $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
             ->where('movimientos.estado','!=',3)
             ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso','categoria_ingresos.categoria','categoria_ingresos.id as id_cat')
-            ->get();  
-                //Ingresos movimientos grifo -- ingreso extraordinario
+            ->get(); 
+            //Ingresos movimientos grifo -- ingreso extraordinario
         $ingresos4 = MovimientoGrifo::where('estado','!=',3)
             ->select('id as esGrifo', 'codigo_operacion',
                 'monto_operacion as monto_ingreso',
                 'fecha_operacion as fecha_ingreso')
             ->get();
+
+            //Ingresos por transportes, Unidades
+        $ingresos5 = IngresoTransporte::join('categoria_ingresos',
+                    'categoria_ingresos.id','=','ingreso_transportes.categoria_ingreso_id')
+            ->select('ingreso_transportes.id as ingresoBuses','ingreso_transportes.fecha_ingreso',
+                     'ingreso_transportes.fecha_ingreso as day', 'ingreso_transportes.fecha_reporte',
+                     DB::raw('sum(monto_ingreso) as monto_ingreso'),
+                     'categoria_ingresos.categoria'  )
+            ->groupBy('day')
+            ->get();  
 
             //PARA OBTENER LOS INGRESOS NETOS DE GRIFOS X ZONA
             //agregar egreso de monto 0 con estado, visible1 e invisible0 
@@ -81,11 +94,11 @@ class IngresoController extends Controller
                 }                
             } 
            // return $ingreso_grifos_zonas; 
-        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 , $ingresos4,
+        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 , $ingresos4,$ingresos5,
              $ingreso_grifos_zonas]);
         $collapsed = $collection->collapse();
         $ingresos =$collapsed->all(); 
-        //return $ingresos2;
+       //return $ingresos3;
         return view('ingresos_otros.diario.index', compact('ingresos'));
     }
 
@@ -177,6 +190,7 @@ class IngresoController extends Controller
     {
        // return $request;
         $id = $request->id;       
+       // $request->fecha_ingreso = date('Y-m-d', strtotime($request->fecha_ingreso));
         Ingreso::findOrFail($id)->update($request->all());
         return 
         back()->with('alert-type','success')->with('status','Ingreso actualizado con exito');  

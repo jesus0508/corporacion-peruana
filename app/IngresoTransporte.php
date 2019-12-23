@@ -10,7 +10,7 @@ class IngresoTransporte extends Model
     protected $table = 'ingreso_transportes';
     protected $fillable = [
         'transporte_id', 'fecha_reporte','monto_ingreso',
-        'fecha_ingreso'
+        'fecha_ingreso','categoria_ingreso_id'
     ];
     protected $dates = ['deleted_at'];
 
@@ -29,10 +29,10 @@ class IngresoTransporte extends Model
     {
         $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
-    public function getFechaIngresoAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
-    }
+    // public function getFechaIngresoAttribute($value)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    // }
 
     public function getFechaReporteAttribute($value)
     {

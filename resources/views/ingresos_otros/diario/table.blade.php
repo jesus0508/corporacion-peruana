@@ -22,6 +22,8 @@
             @foreach( $ingresos as $ingreso )
               <tr>
                 <td>{{$ingreso->fecha_ingreso}}</td>
+                
+            {{-- Categoría a agrupar  --}}
                 <td>
                   @if(isset($ingreso->esGrifo))
                    Ingresos Extraordinarios              
@@ -29,32 +31,39 @@
                     {{$ingreso->categoria}} 
                   @endif                
                 </td>
+            {{-- Categoría a agrupar  --}}
                 <td>
-                  @if(isset($ingreso->esGrifo))
-                     Ingreso Extraordinario               
+                  @if(isset($ingreso->esGrifo)){{--  movimiento  grifo sin verificar --}}
+                     Ingreso Extraordinario           
                   @endif 
-                
-                  @if($ingreso->categoria)
-                   {{$ingreso->categoria}} 
-                    @if(isset($ingreso->razon_social))
-                      &nbsp;{{$ingreso->razon_social}} 
-                      @else
-                        @if(isset($ingreso->id_cat))
-                          -&nbsp;Pendiente         
-                        @endif                   
-                    @endif
-                   <!-- categoria ingreso  -->                
-                  @else
-                    @if(isset($ingreso->id_cat))
-                    Pendiente             <!-- pago pendiente   --> 
-                    @else 
-                    {{$ingreso->detalle}}   <!-- pago detalle --> 
-                    @endif                  
-                  @endif                
+
+                  @if(isset($ingreso->esIngreso))  {{-- Ingreso Registrado en ingresos--}}
+                    {{$ingreso->detalle}}
+                  @endif
+
+                  @if(isset($ingreso->id_cat))  {{-- Movimiento venta directa a cliente --}}
+                    Pendiente  
+                  @endif
+                       
+                  @if(isset($ingreso->zona))  {{--  Ingresos Netos de Grifos   --}}
+                    Ingreso por Grifos, según reportes
+                  @endif
+
+                  @if(isset($ingreso->razon_social)) {{-- Ingreso VENTA DIRECTA  --}}
+                    Depósito &nbsp;{{$ingreso->razon_social}}    
+                  @endif
+
+                  @if(isset($ingreso->ingresoBuses)) {{-- Ingreso porr transportes  --}}
+                    Ingreso por Buses  
+                  @endif     
                 </td>
                 <td>
                     @if($ingreso->fecha_reporte)
+                      @if(!isset($ingreso->ingresoBuses))
                     {{date('d/m/Y', strtotime($ingreso->fecha_reporte))}}
+                      @else
+                      {{$ingreso->fecha_reporte}}
+                      @endif
                     @else
                     {{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}
                     @endif

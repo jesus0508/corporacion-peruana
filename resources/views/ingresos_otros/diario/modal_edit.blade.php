@@ -42,14 +42,14 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="fecha_ingreso">Fecha de Ingreso </label>
-                <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control"
+                <input autocomplete="off" id="fecha_ingreso" type="date" class="form-control"
                         name="fecha_ingreso" placeholder="Fecha de Ingreso" required=""/>
               </div>               
             </div> 
             <div class="col-md-6">
               <div class="form-group">
                 <label for="fecha_reporte">Fecha de Reporte </label>
-                <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control"
+                <input autocomplete="off" id="fecha_reporte" type="date" class="form-control"
                         name="fecha_reporte" placeholder="Fecha de Reporte" required=""/>
               </div>               
             </div>  

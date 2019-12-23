@@ -14,11 +14,11 @@ class Ingreso extends Model
         return $this->belongsTo(CategoriaIngreso::class);
     }
 
-    public function setFechaIngresoAttribute($value){
-        $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('Y-m-d',$value);
-    } 
+    // public function setFechaIngresoAttribute($value){
+    //     $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('Y-m-d',$value);
+    // } 
 
-    public function setFechaReporteAttribute($value){
-        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('Y-m-d',$value);
-    } 
+    // public function setFechaReporteAttribute($value){
+    //     $this->attributes['fecha_reporte'] = Carbon::createFromFormat('Y-m-d',$value);
+    // } 
 }

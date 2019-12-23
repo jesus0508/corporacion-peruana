@@ -37,8 +37,8 @@
 
 $(document).ready(function() {
 
-  $('#fecha_ingreso').datepicker();
-  $('#fecha_reporte').datepicker();
+  // $('#fecha_ingreso').datepicker();
+  // $('#fecha_reporte').datepicker();
   $select_categorias = $('#categoria_ingreso_id');
   $select_bancos = $('#banco');
   $('#modal-edit-ingresos').on('show.bs.modal',function(event){
@@ -51,8 +51,8 @@ $(document).ready(function() {
         console.log(data);
 
         let categoria_id = data.ingreso.categoria_ingreso_id;
-        let fecha_ingreso = convertDateFormat2(data.ingreso.fecha_ingreso);
-        let fecha_reporte = convertDateFormat2(data.ingreso.fecha_reporte);
+        let fecha_ingreso = data.ingreso.fecha_ingreso;
+        let fecha_reporte = data.ingreso.fecha_reporte;
         let banco_id = data.ingreso.banco;
         $(event.currentTarget).find('#monto_ingreso').val(data.ingreso.monto_ingreso);    
         $(event.currentTarget).find('#fecha_ingreso').val(fecha_ingreso);
@@ -88,7 +88,8 @@ $(document).ready(function() {
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-    "dom": 'Bfrtip',
+    "dom": 'Blfrtip',
+    "scrollX": true,
       "buttons": [
       {
         'extend': 'excelHtml5',

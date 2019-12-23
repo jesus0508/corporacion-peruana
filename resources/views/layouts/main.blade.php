@@ -264,11 +264,16 @@ desired effect
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
               </a>
+           {{--  <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li> --}}
+           {{--                     <li><a href="{{route('salidas.index')}}"><i class="fa fa-th-list"></i> 
+                    Reporte Diario</a> --}}
+            {{--                     <li><a href="{{route('depositos.index')}}"><i class="fa fa-th-list"></i> 
+                    Reporte Diario</a> --}}
               <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-arrow-up"></i> Ingresos</a></li>
-                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-arrow-down"></i> Egresos </a></li>
-                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Depósitos </a></li>
-                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">G</i> General </a></li>
+                  <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-arrow-up"></i> Ingresos</a></li>
+                  <li><a href="{{route('salidas.index')}}"><i class="fa fa-arrow-down"></i> Egresos </a></li>
+                  <li><a href="{{route('depositos.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Depósitos </a></li>
+                  {{-- <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-listS-alt">G</i> General </a></li> --}}
 
               </ul>
             </li>
@@ -452,8 +457,8 @@ desired effect
                     </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Registro</a></li>
-                    <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li>
+                    <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-plus"></i> Registro</a></li>
+                    <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Modificar</a></li>
                   </ul>
                 </li> 
                 <li id="treeview-gastos" class="treeview">
@@ -464,10 +469,10 @@ desired effect
                     </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{route('salidas.create')}}"><i class="fa fa-pencil"></i> 
+                    <li><a href="{{route('salidas.create')}}"><i class="fa fa-plus"></i> 
                     Registro </a></li>
-                    <li><a href="{{route('salidas.index')}}"><i class="fa fa-th-list"></i> 
-                    Reporte Diario</a>
+                    <li><a href="{{route('salidas.create')}}"><i class="fa fa-plus"></i> 
+                    Modificar </a></li>
                     </li>
                   </ul>
                 </li>
@@ -479,10 +484,10 @@ desired effect
                     </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{route('depositos.create')}}"><i class="fa fa-pencil"></i> 
+                    <li><a href="{{route('depositos.create')}}"><i class="fa fa-plus"></i> 
                     Registro </a></li>
-                    <li><a href="{{route('depositos.index')}}"><i class="fa fa-th-list"></i> 
-                    Reporte Diario</a>
+                    <li><a href="{{route('depositos.create')}}"><i class="fa fa-pencil"></i> 
+                    Modificar </a></li>
                     </li>
                   </ul>
                 </li>

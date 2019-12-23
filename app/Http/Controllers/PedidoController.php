@@ -385,10 +385,14 @@ class PedidoController extends Controller
         }
         DB::commit();
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
+        $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')          
+            ->where('pedido_id', $pedido->id)
+            ->get();   
+
         Session::flash('alert-type', 'info');
         Session::flash('status', 'Galones asignados a Pedido de Cliente');
-        return view('distribucion.resumen.index', compact('pedido', 'pedidos_cl'));   
 
+        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
         } catch (Exception $e) {          
             DB::rollback();
             return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
