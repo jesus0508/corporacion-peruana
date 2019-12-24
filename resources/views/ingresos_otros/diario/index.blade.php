@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
 <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
-<link href="https://unpkg.com/tableexport@5.2.0/dist/css/tableexport.css">
+
 @endsection
 
 @section('breadcrumb')
@@ -34,15 +34,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 
-{{-- <script src="xlsx.core.js"></script> --}}
-{{-- <script src="https://raw.githubusercontent.com/hhurz/tableExport.jquery.plugin/master/libs/FileSaver/FileSaver.min.js"> </script>
-<script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.js"></script>
- --}}
 <script>
 
 $(document).ready(function() {
 
-// $("#tabla-reporte-ingresos").tableExport();
 
   // $('#fecha_ingreso').datepicker();
   // $('#fecha_reporte').datepicker();
