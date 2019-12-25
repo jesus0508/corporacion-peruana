@@ -121,12 +121,19 @@ Route::middleware(['auth'])->group(function () {
 		
 		// REPORTESSSSSS
 	//GENERAL
+	//INGRESOS
 	Route::get('reporte_general_ingresos_diario'
 		,'ReporteGeneralIngresosController@reporteIngresosDiario')
 			->name('reporte_general.ingresos.diario');
-
 	Route::get('reporte_general_ingresos_diario_data/{date?}',
 		'ReporteGeneralIngresosController@reporteIngresosDiarioData');
+	Route::get('reporte_general_ingresos_mensual'
+		,'ReporteGeneralIngresosController@reporteIngresosMensual')
+			->name('reporte_general.ingresos.mensual');
+	Route::get('reporte_general_ingresos_mensual_data/{date?}',
+		'ReporteGeneralIngresosController@reporteIngresosMensualData');
+
+
 
 		// GASTOS GRIFO
 	Route::get('reporte_gastos_anual','EgresoController@reporte_gastos_anual')
