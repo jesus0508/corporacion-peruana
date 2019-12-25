@@ -270,7 +270,7 @@ desired effect
             {{--                     <li><a href="{{route('depositos.index')}}"><i class="fa fa-th-list"></i> 
                     Reporte Diario</a> --}}
               <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-arrow-up"></i> Ingresos</a></li>
+                  <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-arrow-up"></i> Ingresos</a></li>
                   <li><a href="{{route('salidas.index')}}"><i class="fa fa-arrow-down"></i> Egresos </a></li>
                   <li><a href="{{route('depositos.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Depósitos </a></li>
                   {{-- <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-listS-alt">G</i> General </a></li> --}}

@@ -16,9 +16,10 @@ class CreateMovimientoGrifosTable extends Migration
         Schema::create('movimiento_grifos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('fecha_operacion');
+            $table->date('fecha_reporte');
             $table->string('codigo_operacion');
             $table->float('monto_operacion');
-            //$table->string('banco');
+            $table->string('banco');
             $table->integer('estado')->default(1);
             $table->timestamps();
         });

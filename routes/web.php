@@ -105,10 +105,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/conceptos','ConceptoGastoController@getConceptos');
 	Route::resource('gastos','GastosController');
 	Route::get('egresos_listado','EgresoController@listado')->name('egresos.listado');
-	Route::get('reporte_gastos_anual','EgresoController@reporte_gastos_anual')
-			->name('egresos.reporte_gastos_anual');
-	Route::get('reporte_gastos_general','EgresoController@reporte_gastos_general')
-			->name('egresos.reporte_gastos_general');
+
 
 	/* INGRESOS NETOS  (GRIFOS)*/	
 	Route::resource('ingreso_grifo_neto','IngresoNetoGrifoController');//grifos
@@ -121,7 +118,23 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/egreso_transporte','EgresoTransporteController');
 	Route::get('/placas_transporte/{id}','EgresoTransporteController@placas_transporte')->name('egreso_transporte.placas_transporte');
 	Route::resource('/ingreso_neto_transporte','IngresoNetoTransporteController');
-							//Reportes Unidades
+		
+		// REPORTESSSSSS
+	//GENERAL
+	Route::get('reporte_general_ingresos_diario'
+		,'ReporteGeneralIngresosController@reporteIngresosDiario')
+			->name('reporte_general.ingresos.diario');
+
+	Route::get('reporte_general_ingresos_diario_data/{date?}',
+		'ReporteGeneralIngresosController@reporteIngresosDiarioData');
+
+		// GASTOS GRIFO
+	Route::get('reporte_gastos_anual','EgresoController@reporte_gastos_anual')
+			->name('egresos.reporte_gastos_anual');
+	Route::get('reporte_gastos_general','EgresoController@reporte_gastos_general')
+			->name('egresos.reporte_gastos_general');
+
+		//Reportes Unidades
 	Route::get('/reporte_diario_unidades',
 		'TransporteController@reporteDiario')->name('transporte.reporteDiario');
 	Route::get('/reporte_mensual_unidades',

@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Egreso extends Model
 {
     protected $table = 'egresos';
-    protected $fillable= ['monto_egreso','fecha_egreso','grifo_id','concepto_gasto_id'];
+    protected $fillable= ['monto_egreso','fecha_egreso','fecha_reporte','grifo_id','concepto_gasto_id'];
 
     public function conceptoGasto(){
         return $this->belongsTo(ConceptoGasto::class);
@@ -19,5 +19,10 @@ class Egreso extends Model
 
 	public function setFechaEgresoAttribute($value){ 
         $this->attributes['fecha_egreso'] = Carbon::createFromFormat('d/m/Y',$value);
+    }
+
+    public function setFechaReporteAttribute($value)
+    {
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
 }

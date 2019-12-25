@@ -61,7 +61,7 @@
           </div>        
         </div> <!-- end- row-->
         <div class="row">
-        	<div class="col-md-4">
+        	<div class="col-md-2">
             <div class="form-group @error('monto_egreso') has-error @enderror">
               <label for="monto_egreso">Monto gasto*</label>
               <input id="monto_egreso" type="number" class="form-control" name="monto_egreso" placeholder=" Ingrese el monto" step="any" min="0" max="999999" required>
@@ -72,7 +72,7 @@
               @enderror
             </div>
            </div>
-           <div class="col-md-4">
+           <div class="col-md-3">
             <div class="form-group @error('fecha_egreso') has-error @enderror">
               <label for="fecha_egreso">Fecha egreso</label>
               <input autocomplete="off" id="fecha_egreso" type="text" class="tuiker 
@@ -84,6 +84,18 @@
               @enderror
             </div>
         	</div> 
+          <div class="col-md-3">
+            <div class="form-group @error('fecha_reporte') has-error @enderror">
+              <label for="fecha_reporte">Fecha Reporte</label>
+              <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker 
+              form-control"  name="fecha_reporte" placeholder="Ingrese día" required="">
+              @error('fecha_reporte')
+                <span class="help-block" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+          </div> 
            <div class="col-md-4">
             <div class="form-group @error('grifo_id') has-error @enderror">
               <label for="grifo_id">Grifo</label>

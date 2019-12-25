@@ -26,6 +26,7 @@ class StoreEgresoRequest extends FormRequest
         return [
             'concepto_gasto_id' => 'required|numeric|gt: 0',
             'fecha_egreso'=>'date_format:"d/m/Y"',
+            'fecha_reporte'=>'date_format:"d/m/Y"',
             'monto_egreso' => 'required|numeric|gte: 0',
             'grifo_id'=> 'required|numeric|gt: 0',
 

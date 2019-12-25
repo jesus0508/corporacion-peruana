@@ -45,7 +45,7 @@ class PagoClienteController extends Controller
      */
     public function store(StorePagoRequest $request)
     {
-        //
+        //TRANSACTION
         $pago = PagoCliente::create($request->validated());
         $pedido_cliente = PedidoCliente::findOrFail($request->pedido_cliente_id);
         $pedido_cliente->saldo -= $request->monto_operacion;

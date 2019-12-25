@@ -21,7 +21,7 @@
           <tbody>
             @foreach( $ingresos as $ingreso )
               <tr>
-                <td>{{$ingreso->fecha_ingreso}}</td>
+                <td>{{date('d/m/Y', strtotime($ingreso->fecha_ingreso))}}</td>
                 
             {{-- Categoría a agrupar  --}}
                 <td>

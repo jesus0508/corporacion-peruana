@@ -26,6 +26,7 @@ class StorePagoBloqueRequest extends FormRequest
         return [
             'fecha_operacion'=>'required|date_format:"d/m/Y"',
             'codigo_operacion'=>'nullable',
+            'fecha_reporte'=>'required|date_format:"d/m/Y"', 
             'monto_operacion'=>'required|numeric|gt: 0',
             'banco'=>'required|max: 255',
         ];

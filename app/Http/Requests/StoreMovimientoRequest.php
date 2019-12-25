@@ -25,6 +25,7 @@ class StoreMovimientoRequest extends FormRequest
     {
         return [
             'fecha_operacion' => 'required|date_format:"d/m/Y"',
+            'fecha_reporte' => 'required|date_format:"d/m/Y"',
             'codigo_operacion' => 'required',
             'monto_operacion' => 'required|numeric|gt: 0',
             'banco' => 'required|max: 255',

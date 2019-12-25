@@ -165,16 +165,17 @@ function inicializarDataTable($table) {
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
     },
-    columnDefs: [
-      {
-        orderable: false,
-        targets: [-1]
-      },
-      {
-        searchable: false,
-        targets: [-1]
-      },
-    ],"dom": 'Bfrtip',
+    // columnDefs: [
+    //   {
+    //     orderable: false,
+    //     targets: [-1]
+    //   },
+    //   {
+    //     searchable: false,
+    //     targets: [-1]
+    //   },
+    // ],
+    "dom": 'Bfrtip',
       "buttons": [
       {
         'extend': 'excelHtml5',

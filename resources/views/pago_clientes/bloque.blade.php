@@ -39,15 +39,30 @@
                 <h3 class="box-title">Datos principales</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                <div class="form-group">
-                  <label for="fecha_operacion-pago_bloque">Fecha</label>
-                  <input autocomplete="off" id="fecha_operacion-pago_bloque" type="text" class="form-control"
-                          name="fecha_operacion" placeholder="Ingrese la fecha" required>
-                </div>
-                <div class="form-group">
-                  <label for="codigo_operacion-pago_bloque">Codigo de operacion</label>
-                  <input id="codigo_operacion-pago_bloque" type="text" class="form-control"
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_operacion-pago_bloque">Fecha</label>
+                      <input id="fecha_operacion-pago_bloque" type="text" class="form-control" autocomplete="off"
+                              name="fecha_operacion" placeholder="Ingrese la fecha" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_reporte">Fecha Reporte</label>
+                      <input id="fecha_reporte-pago_bloque" type="text" class="form-control" autocomplete="off"
+                              name="fecha_reporte" placeholder="Fecha reporte" >
+                    </div>                    
+                  </div>                  
+                </div> 
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="codigo_operacion-pago_bloque">Codigo de operacion</label>
+                      <input id="codigo_operacion-pago_bloque" type="text" class="form-control"
                           name="codigo_operacion" placeholder="Ingrese el codigo de la operacion" required>
+                    </div>
+                  </div> 
                 </div>
                 <div class="row">
                   <div class="col-md-6">
@@ -65,7 +80,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label for="banco-pago_bloque">Banco</label>
                   <select class="form-control" id="banco-pago_bloque" name="banco" placeholder="Seleccione el banco">

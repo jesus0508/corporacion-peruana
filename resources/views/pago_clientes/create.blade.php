@@ -5,7 +5,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Registrar Pago</h4>
+        <h4 class="modal-title">Registrar Pago - Amortización</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -16,15 +16,30 @@
                 <h3 class="box-title">Datos principales</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-                <div class="form-group">
-                  <label for="fecha_operacion">Fecha</label>
-                  <input id="fecha_operacion" type="text" class="form-control" autocomplete="off"
-                          name="fecha_operacion" placeholder="Ingrese la fecha" required>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_operacion">Fecha</label>
+                      <input id="fecha_operacion" type="text" class="form-control" autocomplete="off"
+                              name="fecha_operacion" placeholder="Ingrese la fecha" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_reporte">Fecha Reporte</label>
+                      <input id="fecha_reporte" type="text" class="form-control" autocomplete="off"
+                              name="fecha_reporte" placeholder="Fecha reporte" >
+                    </div>                    
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="codigo_operacion">Codigo de operacion</label>
-                  <input id="codigo_operacion" type="text" class="form-control"
-                          name="codigo_operacion" placeholder="Ingrese el codigo de la operacion">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="codigo_operacion">Codigo de operacion</label>
+                      <input id="codigo_operacion" type="text" class="form-control"
+                              name="codigo_operacion" placeholder="Ingrese el codigo de la operacion">
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">

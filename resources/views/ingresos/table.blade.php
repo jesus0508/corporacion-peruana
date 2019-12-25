@@ -34,7 +34,7 @@
             @foreach ($ingresoGrifos as $ingresoGrifo)
               <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$ingresoGrifo->fecha_reporte}}</td>
+                <td>{{date('d/m/Y', strtotime($ingresoGrifo->fecha_reporte))}}</td>
                 <td>{{$ingresoGrifo->fecha_ingreso}}</td>
                 <td>{{$ingresoGrifo->grifo->razon_social}}</td>
                 <td>{{$ingresoGrifo->lectura_inicial}}</td>

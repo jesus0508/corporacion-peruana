@@ -61,6 +61,7 @@ $(document).ready(function() {
       $('#subcategoria_gasto').val(''); 
   });
   $('#fecha_egreso').datepicker();
+  $('#fecha_reporte').datepicker();
   $(document.body).on("change","#concepto_name",function(){
       let opcion = $('input[name=opcion]:checked').val(); 
       if(opcion == 2){//cambio por concepto

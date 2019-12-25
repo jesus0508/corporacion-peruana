@@ -71,6 +71,8 @@ $(document).ready(function () {
   });
 
   $('#fecha_operacion-pago_bloque').datepicker();
+  $('#fecha_reporte-pago_bloque').datepicker();
+  
 });
 
 function getAllPedidosByCliente(id) {

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Ingresos')
+@section('title','Reporte General')
 @section('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
@@ -9,24 +9,23 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
+  <li><a href="#">Reportes</a></li>
   <li><a href="#">Ingresos</a></li>
-  <li><a href="#">Registro</a></li>
+  <li><a href="#">Diario</a></li>
+
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-   @include('ingresos_otros.top_button')
-  <form action="">
+  
+{{--   <form action="">
     @include('ingresos_otros.header')
     @include('ingresos_otros.create')
-  </form>
+  </form> --}}
   	
-  	@include('ingresos_otros.table')
+  	@include('reporte_general.ingresos.diario.table')
 
-	<!-- modales -->
-   @include('ingresos_otros.modal_categoria')
-   <!-- fin modales -->
 </section>
 @endsection
 
@@ -39,27 +38,6 @@
 
 <script>
 $(document).ready(function() {
-  $("#categoria_ingreso_id").prop("selectedIndex", -1);   
-
-  $("#categoria_ingreso_id").select2({
-    placeholder: "Seleccione la categoria",
-    allowClear: true
-  });
-
-  $("#banco").prop("selectedIndex", -1);
-  $("#banco").select2({
-    placeholder: "Seleccione el banco",
-    allowClear:true
-  });
- $('#fecha_reporte').datepicker({
-   //minDate: 0,
-  });
- $('#fecha_ingreso').datepicker({
-   //minDate: 0,
-  });
- $('#fecha_reporte2').datepicker({
-   //minDate: 0,
-  }); 
   var groupColumn = 1;
   $('#tabla-ingresos').DataTable({
     'language': {
@@ -87,9 +65,7 @@ $(document).ready(function() {
               columns:[0,1,2,3,4,5,6]
             }
           }],
-    //"bProcessing": true,
-		//'serverSide': true, Kga el filtrado u.u
-		'ajax': `../ingresos_otros_dt`,
+		'ajax': `./reporte_general_ingresos_diario_data`,
 		'columns': [
 		  {data: 'fecha_reporte'},
 		  {data: 'categoria'},
@@ -123,10 +99,8 @@ $(document).ready(function() {
                     "style": "font-weight:bold;"  ,                     
                     "text":"00.0"
                 })).prop('outerHTML'));
-              }
-                
+              }                
                 if ( last !== group ) {
-                  //  console.log(group);
                     $(rows).eq( i ).before(
                       $("<tr style='background-color: #ddd !important;'></tr>", { 
 
@@ -157,13 +131,18 @@ $(document).ready(function() {
                 elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
                 let subtotal            = parseFloat(elemento.innerHTML) 
                                             + parseFloat( val['monto_ingreso']);                  
-                elemento.innerHTML      = parseFloat(subtotal).toFixed(2); 
-              //$('#pruebita').val(total);
-                      
+                elemento.innerHTML      = parseFloat(subtotal).toFixed(2);                       
         });   
     }      
   });  
+  $('#fecha_reporte2').datepicker(); 
+  $('#btn_filter2').click(function() {
+    let fecha_reporte =$('#fecha_reporte2').val();
+    fecha_reporte = convertDateFormat(fecha_reporte);
+    RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_diario_data/${fecha_reporte}`);
 
+  });
+});
   function convertDateFormat(string) {
         var info = string.split('/').reverse().join('-');
         return info;
@@ -174,7 +153,6 @@ $(document).ready(function() {
     	table = $(tableId).dataTable();
    		oSettings = table.fnSettings();
     	table.fnClearTable(this);    
-    	//console.log(json.data);
     	for (var i=0; i<json.data.length; i++) {
       	table.oApi._fnAddData(oSettings, json.data[i]);      	
      	} 
@@ -184,50 +162,6 @@ $(document).ready(function() {
   	});
 	}
 
-	$('#btn_filter2').click(function() {
-		let fecha_reporte =$('#fecha_reporte2').val();
-    fecha_reporte = convertDateFormat(fecha_reporte);
-		RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
 
-	});
-
-  $('#btn_register').click(function(e){//store GASTO
-    e.preventDefault();
-    let categoria_ingreso_id = $('#categoria_ingreso_id').val();   
-    let monto_ingreso =$('#monto_ingreso').val();
-    let fecha_ingreso =$('#fecha_ingreso').val();
-    fecha_ingreso = convertDateFormat(fecha_ingreso);
-    let fecha_reporte =$('#fecha_reporte').val();
-    fecha_reporte = convertDateFormat(fecha_reporte);
-    let codigo_operacion =$('#codigo_operacion').val();  
-    let detalle =$('#detalle').val();
-    let token =$('#token').val();
-    let banco = $('#banco').val();
-    $.ajax({
-        url: `../ingresos_otros`,
-        headers: {'X-CSRF-TOKEN': token},
-        type: 'POST',
-        dataType: 'json',
-        data:{
-          monto_ingreso: monto_ingreso,
-          fecha_reporte: fecha_reporte,  
-          fecha_ingreso: fecha_ingreso,
-          categoria_ingreso_id: categoria_ingreso_id,
-          detalle: detalle,
-          codigo_operacion: codigo_operacion,
-          banco: banco
-        }
-
-    }).done(function (data){
-        $('#monto_ingreso').val('');
-        $('#detalle').val('');
-  			$('#codigo_operacion').val('');
-        $('#banco').val('').trigger('change');	
-      RefreshTable('#tabla-ingresos',`../ingresos_otros_dt/${fecha_reporte}`);
-      toastr.success(data.status, 'Ingreso registrado con éxito', { timeOut: 2000 });
-    });    
-  });
-
-});
 </script>
 @endsection

@@ -8,12 +8,16 @@ use Carbon\Carbon;
 class MovimientoGrifo extends Model
 {
     protected $table = 'movimiento_grifos';
-    protected $fillable = ['fecha_operacion', 'codigo_operacion', 'monto_operacion', 'estado'];
+    protected $fillable = ['fecha_operacion', 'fecha_reporte', 'codigo_operacion', 'monto_operacion', 'banco', 'estado'];
 
     public function setFechaOperacionAttribute($value)
     {
         $this->attributes['fecha_operacion'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
+     public function setFechaReporteAttribute($value)
+    {
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }   
 
     public function getEstado()
     {

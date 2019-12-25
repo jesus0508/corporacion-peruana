@@ -25,6 +25,8 @@
 
   let $tabla_movimiento_grifos = $('#tabla-movimiento-grifos');
   let $fecha_operacion = $('#fecha_operacion');
+  let $fecha_reporte = $('#fecha_reporte');
+  
   $tabla_movimiento_grifos.DataTable({
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
@@ -37,6 +39,7 @@
     ]
   });
   $fecha_operacion.datepicker();
+  $fecha_reporte.datepicker(); 
    validateDates();
 });
 

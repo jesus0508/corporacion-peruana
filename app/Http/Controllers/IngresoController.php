@@ -131,25 +131,55 @@ class IngresoController extends Controller
         }             
         $ingresos = Ingreso::join('categoria_ingresos','categoria_ingresos.id','=','ingresos.categoria_ingreso_id')
                         ->select('ingresos.*','categoria_ingresos.categoria')
-                        ->where('fecha_reporte',$date);
+                        ->where('fecha_reporte',$date)->get();
 
         $ingresos1 = Ingreso::join('categoria_ingresos','categoria_ingresos.id','=','ingresos.categoria_ingreso_id')
             ->select('ingresos.*','categoria_ingresos.categoria','ingresos.created_at as esIngreso');
             //->get();
-
+            //PAGOSS Depósitos Venta Directa a Clientes
         $ingresos2 = CategoriaIngreso::join('pago_clientes','categoria_ingresos.id','=','pago_clientes.categoria_ingreso_id')
             ->join('pago_cliente_pedido_cliente','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
             ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')
             ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
-            ->join 
-        //more joins to get the rzon_social del cliente
             ->select('pago_clientes.codigo_operacion', 'clientes.razon_social as detalle' ,'pago_clientes.monto_operacion as monto_ingreso','pago_clientes.banco','pago_clientes.fecha_operacion as fecha_ingreso',
                 'categoria_ingresos.categoria',
                 'pago_clientes.fecha_operacion as fecha_reporte')
-            ->groupBy('pago_clientes.codigo_operacion');
-            //->get(); 
+            ->groupBy('pago_clientes.codigo_operacion')
+            ->get(); 
+          //movimientos Depósitos Venta Directa a Clientes
+        $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
+            ->where('movimientos.estado','!=',3)
+            ->select('movimientos.codigo_operacion','movimientos.monto_operacion as monto_ingreso','movimientos.banco','movimientos.fecha_operacion as fecha_ingreso',
+                'movimientos.fecha_operacion as fecha_reporte',
+                'categoria_ingresos.categoria','categoria_ingresos.id as id_cat',
+                'categoria_ingresos.categoria as detalle'
+            )
+            ->get(); 
+            // Ingresos movimientos grifo -- ingreso extraordinario
+        // $ingresos4 = MovimientoGrifo::where('estado','!=',3)
+        //     ->select('id as esGrifo', 'codigo_operacion',
+        //         'monto_operacion as monto_ingreso',
+        //         'fecha_operacion as fecha_ingreso','fecha_operacion as fecha_reporte',
+        //         'banco','')
+        //     ->get();
 
+            //Ingresos por transportes, Unidades
+        $ingresos5 = IngresoTransporte::join('categoria_ingresos',
+                    'categoria_ingresos.id','=','ingreso_transportes.categoria_ingreso_id')
+            ->select('ingreso_transportes.id as ingresoBuses','ingreso_transportes.fecha_ingreso',
+                     'ingreso_transportes.fecha_ingreso as day', 'ingreso_transportes.fecha_reporte',
+                     DB::raw('sum(monto_ingreso) as monto_ingreso'),
+                        'ingreso_transportes.deleted_at as codigo_operacion',
+                        'ingreso_transportes.deleted_at as banco',
+                         'categoria_ingresos.categoria' ,'categoria_ingresos.categoria as detalle'   )
+            ->groupBy('day')
+            ->get();  
+            //
+        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 ,$ingresos5]);
+        $collapsed = $collection->collapse();
+        $ingresos =$collapsed->all(); 
 
+        return response()->json(['data' => $ingresos]);
 
         return datatables()->of($ingresos2)->make(true);
         return datatables()

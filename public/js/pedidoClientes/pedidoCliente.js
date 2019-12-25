@@ -118,6 +118,9 @@ $(document).ready(function () {
     $('#fecha_operacion').datepicker({
       // minDate:fecha_pedido,
     });
+    $('#fecha_reporte').datepicker({
+      // minDate:fecha_pedido,
+    });
   });
 
   $('#fecha_confirmacion-confirmar').datepicker({
