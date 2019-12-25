@@ -59,13 +59,17 @@ class ReporteGeneralIngresosController extends Controller
             )
             ->get(); 
             // Ingresos movimientos grifo -- ingreso extraordinario
-        // $ingresos4 = MovimientoGrifo::where('estado','!=',3)
-        //     ->select('id as esGrifo', 'codigo_operacion',
-        //         'monto_operacion as monto_ingreso',
-        //         'fecha_operacion as fecha_ingreso','fecha_reporte',
-        //         'banco')
-        //     ->get();
-
+        $ingresos4 = MovimientoGrifo::join('categoria_ingresos',
+                    'categoria_ingresos.id','=','movimiento_grifos.categoria_ingreso_id')
+            ->where('estado','!=',3)
+            ->where('movimiento_grifos.fecha_reporte',$date)
+            ->select('movimiento_grifos.codigo_operacion',
+                'movimiento_grifos.monto_operacion as monto_ingreso',
+                'movimiento_grifos.fecha_operacion as fecha_ingreso',
+                'movimiento_grifos.fecha_reporte',
+                'banco','categoria_ingresos.categoria','categoria_ingresos.categoria as detalle')
+            ->get();
+          //  return $ingresos4;
             //Ingresos por transportes, Unidades
         $ingresos5 = IngresoTransporte::join('categoria_ingresos',
                     'categoria_ingresos.id','=','ingreso_transportes.categoria_ingreso_id')
@@ -123,8 +127,8 @@ class ReporteGeneralIngresosController extends Controller
 
 
 
-        $collection = collect([$ingresos1, $ingresos2 , $ingresos3 ,$ingresos5,
-        	$ingreso_grifos_zonas]);
+        $collection = collect([$ingresos1, $ingresos2 , $ingresos3, $ingresos4,
+         $ingresos5,   	$ingreso_grifos_zonas]);
         $collapsed = $collection->collapse();
         $ingresos =$collapsed->all(); 
 

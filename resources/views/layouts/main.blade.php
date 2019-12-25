@@ -264,17 +264,70 @@ desired effect
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
               </a>
-           {{--  <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-th-list"></i> Reporte Diario</a></li> --}}
-           {{--                     <li><a href="{{route('salidas.index')}}"><i class="fa fa-th-list"></i> 
-                    Reporte Diario</a> --}}
-            {{--                     <li><a href="{{route('depositos.index')}}"><i class="fa fa-th-list"></i> 
-                    Reporte Diario</a> --}}
-              <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-arrow-up"></i> Ingresos</a></li>
-                  <li><a href="{{route('salidas.index')}}"><i class="fa fa-arrow-down"></i> Egresos </a></li>
-                  <li><a href="{{route('depositos.index')}}"><i class="glyphicon glyphicon-list-alt"></i> Depósitos </a></li>
-                  {{-- <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-listS-alt">G</i> General </a></li> --}}
+              <ul class="treeview-menu" style="display: none;">   
+                <li id="treeview-reporte-general-ingresos" class="treeview">
+                  <a href="#">
+                    <i class="fa fa-arrow-up"></i>
+                      <span>Ingresos </span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                    <ul class="treeview-menu" style="display: none;">               
+                      <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-listS-alt">D</i> 
+                        Diario</a>
+                      </li>
+                      <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-taSble">M</i> 
+                        Mensual</a>
+                      </li>
+    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Reporte Gastos Anual</a>
+                      </li> -->
 
+                    </ul>
+                </li>  
+                <li id="treeview-reporte-general-egresos" class="treeview">
+                  <a href="#">
+                    <i class="fa fa-arrow-down"></i>
+                      <span>Egresos </span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                    <ul class="treeview-menu" style="display: none;">               
+                      <li><a href="{{route('salidas.index')}}"><i class="fa fa-listS-alt">D</i> 
+                        Diario</a>
+                      </li>
+                      <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-taSble">M</i> 
+                        Mensual</a>
+                      </li>
+    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Reporte Gastos Anual</a>
+                      </li> -->
+
+                    </ul>
+                </li>
+                <li id="treeview-reporte-general-ingresos" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Depósitos </span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                    <ul class="treeview-menu" style="display: none;">               
+                      <li><a href="{{route('salidas.index')}}"><i class="fa fa-listS-alt">D</i> 
+                        Diario</a>
+                      </li>
+                      <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-taSble">M</i> 
+                        Mensual</a>
+                      </li>
+    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Reporte Gastos Anual</a>
+                      </li> -->
+
+                    </ul>
+                </li>
               </ul>
             </li>
             <li id="treeview-grifos-reporte" class="treeview">

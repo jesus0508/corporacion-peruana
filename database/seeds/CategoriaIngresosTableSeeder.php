@@ -22,8 +22,11 @@ class CategoriaIngresosTableSeeder extends Seeder
         
         DB::table('categoria_ingresos')->insert([
             'categoria' => 'INGRESO EN EFECTIVO POR ALQUILER DE UNIDADES',
-        ]);        
+        ]);  
 
+        DB::table('categoria_ingresos')->insert([
+            'categoria' => 'Ingresos Extraordinarios',
+        ]); 
                        
     }
 }
