@@ -149,7 +149,7 @@ $(document).ready(function() {
 
 
   $('#tabla-flete-pedidos').DataTable({ 
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
         {
           extend: 'excelHtml5',

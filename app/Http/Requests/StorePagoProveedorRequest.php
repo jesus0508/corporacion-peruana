@@ -27,7 +27,9 @@ class StorePagoProveedorRequest extends FormRequest
             'codigo_operacion'=>'required|max: 255|unique:pago_proveedors,codigo_operacion,'.$this->id,
             'banco'=>'required|max: 255',
             'monto_operacion'=>'required|numeric|gt: 0',
-            'fecha_operacion'=>'date_format:"d/m/Y"'
+            'fecha_operacion'=>'date_format:"d/m/Y"',
+            'fecha_reporte'=>'date_format:"d/m/Y"',
+
         ];
     }
 }

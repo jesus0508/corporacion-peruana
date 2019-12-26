@@ -10,7 +10,7 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Ingresos</a></li>
+  <li><a href="#">Egresos</a></li>
   <li><a href="#">Diario</a></li>
 
 </ol>
@@ -19,12 +19,7 @@
 @section('content')
 <section class="content">
   
-{{--   <form action="">
-    @include('ingresos_otros.header')
-    @include('ingresos_otros.create')
-  </form> --}}
-  	
-  	@include('reporte_general.ingresos.diario.table')
+  @include('reporte_general.egresos.diario.table')
 
 </section>
 @endsection
@@ -53,7 +48,7 @@ $(document).ready(function() {
           "buttons": [
           {
             'extend': 'excelHtml5',
-            'title': 'Lista Ingresos Diario',
+            'title': 'Lista Egresos Diario',
             'attr':  {
               title: 'Excel',
               id: 'excelButton'
@@ -65,15 +60,15 @@ $(document).ready(function() {
               columns:[0,1,2,3,4,5,6]
             }
           }],
-		'ajax': `./reporte_general_ingresos_diario_data`,
+		'ajax': `./reporte_general_egresos_diario_data`,
 		'columns': [
 		  {data: 'fecha_reporte'},
 		  {data: 'categoria'},
 			{data: 'detalle'},
-			{data: 'fecha_ingreso'},
+			{data: 'nro_cheque'},
 			{data: 'codigo_operacion'},
-      {data: 'banco'},
-			{data: 'monto_ingreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
+      {data: 'nro_cuenta'},
+			{data: 'monto_egreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
     }
 		],
     "drawCallback": function ( settings ) {
@@ -83,8 +78,6 @@ $(document).ready(function() {
  
             api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
               if( i == 0 ) {
-                console.log("una vez");
-                console.log(group);
                 $(rows).eq( i ).before(
                       $("<tr style='background-color: #5F9EA0 !important;'></tr>", { 
 
@@ -127,10 +120,10 @@ $(document).ready(function() {
                 let elemento            = document.getElementById("e"+val['categoria']);
                 let elementoTOTAL       = document.getElementById("A");
                 var total               = parseFloat(elementoTOTAL.innerHTML) + 
-                                            parseFloat( val['monto_ingreso']);
+                                            parseFloat( val['monto_egreso']);
                 elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
                 let subtotal            = parseFloat(elemento.innerHTML) 
-                                            + parseFloat( val['monto_ingreso']);                  
+                                            + parseFloat( val['monto_egreso']);                  
                 elemento.innerHTML      = parseFloat(subtotal).toFixed(2);                       
         });   
     }      
@@ -139,7 +132,7 @@ $(document).ready(function() {
   $('#btn_filter2').click(function() {
     let fecha_reporte =$('#fecha_reporte2').val();
     fecha_reporte = convertDateFormat(fecha_reporte);
-    RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_diario_data/${fecha_reporte}`);
+    RefreshTable('#tabla-ingresos',`./reporte_general_egresos_diario_data/${fecha_reporte}`);
 
   });
 });
@@ -147,7 +140,6 @@ $(document).ready(function() {
         var info = string.split('/').reverse().join('-');
         return info;
   }
-
 	function RefreshTable(tableId, urlData){
   	$.getJSON(urlData, null, function( json ){
     	table = $(tableId).dataTable();
@@ -161,7 +153,6 @@ $(document).ready(function() {
    
   	});
 	}
-
 
 </script>
 @endsection

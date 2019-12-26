@@ -20,6 +20,7 @@ class CreateMovimientosTable extends Migration
             $table->string('codigo_operacion');
             $table->float('monto_operacion');
             $table->string('banco');
+            $table->string('descripcion')->default('Pendiente');
             $table->integer('estado')->default(1);
             $table->unsignedBigInteger('categoria_ingreso_id')->default(1);
             $table->foreign('categoria_ingreso_id')

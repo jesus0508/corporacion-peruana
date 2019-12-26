@@ -33,7 +33,7 @@ $(document).ready(function() {
     $('#tabla-pagos_lista').DataTable({
         "order": [[ 0, "desc" ]],       
         "responsive": true,
-        "dom": 'Bfrtip',
+        "dom": 'Blfrtip',
         "buttons": [
         {
           extend: 'excelHtml5',

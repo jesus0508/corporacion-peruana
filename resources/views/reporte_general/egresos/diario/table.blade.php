@@ -4,7 +4,7 @@
       <div class="box-header with-border">
         <div class="row">
           <div class="col-md-6">
-            <h2 class="box-title">Reporte Ingresos Diario</h2>
+            <h2 class="box-title">Reporte Egresos Diario</h2>
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -24,9 +24,10 @@
               <th>FECHA REPORTE</th>
               <th>CATEGORIA</th>              
               <th>Detalles</th>
-              <th>FECHA Ingreso</th>
-              <th>Extra Info</th>
-              <th>Banco</th>
+              {{-- <th>FECHA Ingreso</th> --}}
+              <th>N° de cheque</th>
+              <th>N° de operacion</th>
+              <th>Cuenta</th>
               <th>Monto</th>
             </tr>
           </thead>

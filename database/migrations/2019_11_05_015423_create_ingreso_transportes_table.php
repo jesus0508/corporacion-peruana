@@ -18,6 +18,7 @@ class CreateIngresoTransportesTable extends Migration
             $table->date('fecha_reporte');
             $table->date('fecha_ingreso');
             $table->decimal('monto_ingreso',9,2);
+            $table->string('descripcion')->default('Ingreso por Buses');
             $table->unsignedBigInteger('transporte_id');
             $table->foreign('transporte_id')
             ->references('id')->on('transportes');

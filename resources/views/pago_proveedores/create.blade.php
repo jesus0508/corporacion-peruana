@@ -8,17 +8,35 @@
                 <h3 class="box-title">Datos principales Operación</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
-               <div class="form-group @error('fecha_operacion') has-error @enderror">
-                  <label for="fecha_operacion">Fecha factura</label>
-                  <input autocomplete="off" id="fecha_factura" type="text" class="tuiker form-control" value="{{ old('fecha_operacion') }}"
-                  name="fecha_operacion" placeholder="Ingrese la fecha de la operación"
-                  required="" >
-                  @error('fecha_operacion')
-                  <span class="help-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group @error('fecha_operacion') has-error @enderror">
+                    <label for="fecha_operacion">Fecha factura</label>
+                    <input autocomplete="off" id="fecha_factura" type="text" class="tuiker form-control" value="{{ old('fecha_operacion') }}"
+                    name="fecha_operacion" placeholder="Ingrese la fecha de la operación"
+                    required="" >
+                    @error('fecha_operacion')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                  </div>                  
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group @error('fecha_reporte') has-error @enderror">
+                    <label for="fecha_reporte">Fecha Reporte</label>
+                    <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control" value="{{ old('fecha_reporte') }}"
+                    name="fecha_reporte" placeholder="Fecha de reporte"
+                    required="" >
+                    @error('fecha_reporte')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                  </div>                  
+                </div> 
+              </div>
+
                 <div class="form-group @error('codigo_operacion') has-error @enderror">
                     <label for="codigo_operacion">Codigo de operacion</label>
                     <input id="codigo_operacion" type="text" class="form-control"

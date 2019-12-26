@@ -92,12 +92,21 @@
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="row">
+          @if(isset($pedidoCliente->facturaCliente))
             <div class="col-md-4">
               <div class="form-group">
                 <label for="nro_factura-detalles">Número de Factura</label>
                 <input id="nro_factura-detalles" type="text" class="form-control" value="{{$pedidoCliente->facturaCliente->nro_factura}}" readonly>
               </div>
             </div>
+          @else
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="nro_factura-detalles">Número de Factura</label>
+              <input id="nro_factura-detalles" type="text" class="form-control" value="Sin factura" readonly>
+            </div>
+          </div>
+          @endif
             <div class="col-md-4">
               <div class="form-group">
                 <label for="fecha_pedido-detalles">Fecha de Pedido</label>
@@ -206,7 +215,11 @@
                   <td>{{$loop->iteration}}</td>
                   <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
                   <td>{{$pago->codigo_operacion}}</td>
+                  @if(isset($pedidoCliente->facturaCliente))
                   <td>{{$pedidoCliente->facturaCliente->nro_factura}}</td>
+                  @else
+                  <td>Sin factura</td>
+                  @endif
                   <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                   <td>S/&nbsp;{{$pago->saldo}}</td>
                   <td>{{$pago->banco}}</td>

@@ -66,9 +66,9 @@ $(document).ready(function() {
  });
 });
 //$('#fecha_factura').val($.datepicker.formatDate('dd/mm/yy', new Date()));
-$('#fecha_factura').datepicker({
-   // minDate: 0,
-  });
+$('#fecha_factura').datepicker();
+$('#fecha_reporte').datepicker();
+
 </script>
 
 @endsection

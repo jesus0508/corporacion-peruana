@@ -119,7 +119,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/placas_transporte/{id}','EgresoTransporteController@placas_transporte')->name('egreso_transporte.placas_transporte');
 	Route::resource('/ingreso_neto_transporte','IngresoNetoTransporteController');
 		
-		// REPORTESSSSSS
+		/**----------REPORTESSSSSS-----------*/
 	//GENERAL
 	//INGRESOS
 	Route::get('reporte_general_ingresos_diario'
@@ -132,7 +132,17 @@ Route::middleware(['auth'])->group(function () {
 			->name('reporte_general.ingresos.mensual');
 	Route::get('reporte_general_ingresos_mensual_data/{date?}',
 		'ReporteGeneralIngresosController@reporteIngresosMensualData');
-
+	//EGRESOS
+	Route::get('reporte_general_egresos_diario'
+		,'ReporteGeneralEgresosController@reporteEgresosDiario')
+			->name('reporte_general.egresos.diario');
+	Route::get('reporte_general_egresos_diario_data/{date?}',
+		'ReporteGeneralEgresosController@reporteEgresosDiarioData');
+	Route::get('reporte_general_egresos_mensual'
+		,'ReporteGeneralEgresosController@reporteEgresosMensual')
+			->name('reporte_general.egresos.mensual');
+	Route::get('reporte_general_egresos_mensual_data/{date?}',
+		'ReporteGeneralEgresosController@reporteEgresosMensualData');
 
 
 		// GASTOS GRIFO

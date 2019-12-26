@@ -16,7 +16,7 @@ use DB;
 class ReporteGeneralIngresosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra reporte general diario de Ingresos
      *
      * @return \Illuminate\Http\Response
      */
@@ -26,18 +26,22 @@ class ReporteGeneralIngresosController extends Controller
         $today_date = strftime( '%d/%m/%Y',strtotime('now') );
         return view('reporte_general.ingresos.diario.index',compact('today_date'));
     }
-
+    /**
+     * Datos de Reporte general diario de ingresos consultados.
+     * @param  [date] $date [fecha de reporte]
+     * @return [json]       [formato para datatables]
+     */
     public function reporteIngresosDiarioData($date = null){
 
 	    if ( $date == null ) {
 	        $date = Carbon::now()->format('Y-m-d');
-	     }             
-	     //Ingresos registrados manualmente
+	    }             
+	    //Ingresos registrados manualmente
         $ingresos1 = Ingreso::join('categoria_ingresos','categoria_ingresos.id','=','ingresos.categoria_ingreso_id')
         	->where('ingresos.fecha_reporte',$date)
             ->select('ingresos.*','categoria_ingresos.categoria')
             ->get();
-            //PAGOSS Depósitos Venta Directa a Clientes
+        //PAGOSS Depósitos Venta Directa a Clientes
         $ingresos2 = CategoriaIngreso::join('pago_clientes','categoria_ingresos.id','=','pago_clientes.categoria_ingreso_id')
             ->join('pago_cliente_pedido_cliente','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
             ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')            
@@ -48,7 +52,7 @@ class ReporteGeneralIngresosController extends Controller
                 'pago_clientes.fecha_reporte')
             ->groupBy('pago_clientes.codigo_operacion')
             ->get(); 
-          //movimientos Depósitos Venta Directa a Clientes
+        //movimientos Depósitos Venta Directa a Clientes
         $ingresos3 = CategoriaIngreso::join('movimientos','categoria_ingresos.id','=','movimientos.categoria_ingreso_id')
             ->where('movimientos.estado','!=',3)
             ->where('movimientos.fecha_reporte',$date)
@@ -58,7 +62,7 @@ class ReporteGeneralIngresosController extends Controller
                 'categoria_ingresos.categoria as detalle'
             )
             ->get(); 
-            // Ingresos movimientos grifo -- ingreso extraordinario
+        // Ingresos movimientos grifo -- ingreso extraordinario
         $ingresos4 = MovimientoGrifo::join('categoria_ingresos',
                     'categoria_ingresos.id','=','movimiento_grifos.categoria_ingreso_id')
             ->where('estado','!=',3)
@@ -132,7 +136,7 @@ class ReporteGeneralIngresosController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     *  Muestra reporte general mensual de Ingresos
      *
      * @return \Illuminate\Http\Response
      */
@@ -146,6 +150,11 @@ class ReporteGeneralIngresosController extends Controller
         );
     }
 
+    /**
+     * Datos de Reporte general mensual de ingresos consultados.
+     * @param  [string] $date [fecha de reporte, solo mes y año]
+     * @return [json]       [formato para datatables]
+     */
     public function reporteIngresosMensualData($date=null)    
     {      
        

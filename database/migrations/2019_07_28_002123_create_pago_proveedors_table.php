@@ -16,6 +16,8 @@ class CreatePagoProveedorsTable extends Migration
         Schema::create('pago_proveedors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('fecha_operacion');
+            $table->date('fecha_reporte');
+            $table->string('descripcion')->default('Transferencia a ');
             $table->string('codigo_operacion');
             $table->float('monto_operacion',9, 2);
             $table->string('banco');
@@ -33,6 +35,10 @@ class CreatePagoProveedorsTable extends Migration
      */
     public function down()
     {
+        Schema::table('pago_proveedors', function (Blueprint $table) {
+            $table->dropForeign(['categoria_ingreso_id']);           
+        });
+
         Schema::dropIfExists('pago_proveedors');
     }
 }

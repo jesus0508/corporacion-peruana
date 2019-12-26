@@ -295,10 +295,10 @@ desired effect
                       </span>
                   </a>
                     <ul class="treeview-menu" style="display: none;">               
-                      <li><a href="{{route('salidas.index')}}"><i class="fa fa-listS-alt">D</i> 
+                      <li><a href="{{route('reporte_general.egresos.diario')}}"><i class="fa fa-listS-alt">D</i> 
                         Diario</a>
                       </li>
-                      <li><a href="{{route('reporte_general.ingresos.diario')}}"><i class="fa fa-taSble">M</i> 
+                      <li><a href="{{route('reporte_general.egresos.mensual')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
                       </li>
     <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 

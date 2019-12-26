@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class PagoProveedor extends Model
 {
     protected $table = 'pago_proveedors';
-    protected $fillable= ['fecha_operacion','codigo_operacion','monto_operacion','banco'];
+    protected $fillable= ['fecha_operacion','fecha_reporte','codigo_operacion','monto_operacion','banco'];
     
 
     public function pedidos(){
@@ -19,6 +19,9 @@ class PagoProveedor extends Model
         $this->attributes['fecha_operacion']=Carbon::createFromFormat('d/m/Y',$value);
     }
 
+    public function setFechaReporteAttribute($value){ 
+        $this->attributes['fecha_reporte']=Carbon::createFromFormat('d/m/Y',$value);
+    }
     // public function getFechaOperacionAttribute($value)
     // {
     //     return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
