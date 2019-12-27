@@ -156,7 +156,7 @@ class EgresoController extends Controller
                     ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
                     ->join('grifos','grifos.id','=','egresos.grifo_id')
                     ->select('egresos.monto_egreso','egresos.fecha_egreso',
-                            'egresos.id',
+                            'egresos.id','fecha_reporte',
                             'grifos.razon_social as grifo',
                             'categoria_gastos.categoria',
                             'sub_categoria_gastos.subcategoria',

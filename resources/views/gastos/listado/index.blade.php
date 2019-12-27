@@ -40,14 +40,14 @@ $(document).ready(function() {
             var api = this.api(), data;
  
              pageTotal = api
-                .column( 5, { page: 'current'} )
+                .column( 6, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
  
             // Update footer
-            $( api.column( 5 ).footer() ).html(
+            $( api.column( 6 ).footer() ).html(
                 'S/. '+pageTotal
                 // +' (S/.'+ total +' total)'
             );

@@ -6,7 +6,8 @@
           <thead>
             <tr>
              <!--  <th>#</th> -->
-              <th>Fecha</th>
+              <th>Fecha Egreso</th>
+              <th>Fecha Reporte</th>
               <th>Grifo</th>
               <th>Categoria</th>
               <th>Subcategoria</th>
@@ -20,6 +21,7 @@
               <tr>
                 <!-- <td>{{$loop->iteration}}</td> -->
                 <td>{{date('d/m/Y', strtotime($egreso->fecha_egreso))}}</td>
+                <td>{{date('d/m/Y', strtotime($egreso->fecha_reporte))}}</td>
                 <td>{{$egreso->grifo}}</td>                  
                 <td>{{$egreso->categoria}}</td>
                 <td>{{$egreso->subcategoria}}</td>
@@ -56,7 +58,7 @@
           </tbody>
             <tfoot>
             <tr>
-                <th colspan="5" style="text-align:right">Total:</th>
+                <th colspan="6" style="text-align:right">Total:</th>
                 <th ></th>
                 <th></th>
             </tr>
