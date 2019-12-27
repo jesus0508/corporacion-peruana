@@ -38,9 +38,6 @@
 
 $(document).ready(function() {
 
-
-  // $('#fecha_ingreso').datepicker();
-  // $('#fecha_reporte').datepicker();
   $select_categorias = $('#categoria_ingreso_id');
   $select_bancos = $('#banco');
   $('#modal-edit-ingresos').on('show.bs.modal',function(event){

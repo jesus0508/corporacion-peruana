@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Lista de depositos </h3>
+        <h3 class="box-title">Últimos 100 depósitos</h3>
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="tabla-depositos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
@@ -22,9 +22,7 @@
                 <td>{{$deposito->detalle}}</td>
                 <td>{{$deposito->codigo_operacion}}</td>
                 <td>{{$deposito->monto}}</td>
-                <td> {{$deposito->fecha_reporte}}                
-                  
-                </td>
+                <td> {{$deposito->fecha_reporte}}</td>
               </tr>
             @endforeach
           </tbody>

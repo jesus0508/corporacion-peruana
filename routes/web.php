@@ -83,8 +83,13 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/empresa','EmpresaController');
 	Route::resource('/bancos','BancoController');
 	Route::resource('/cuentas','CuentaController');
-	Route::resource('/depositos','DepositoController');
 	Route::resource('/stock','StockController');
+
+	/** DEPOSITOS-.... */
+	Route::resource('/depositos','DepositoController');
+	Route::get('/modify','DepositoController@modify')->name('depositos.modify');
+	Route::get('depositos_fecha_data/{date?}','DepositoController@getDepositosByDay');
+
 
 
 	/*  EGRESOS OTROS... */

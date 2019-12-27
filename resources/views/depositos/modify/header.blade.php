@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="pull-right">
-			<a href="{{route('depositos.modify')}}" class="btn btn-warning">
-          Modificar Depósitos&nbsp; <span class="fa fa-pencil"></span>
-      </a>&nbsp;
+			<a href="{{route('depositos.create')}}" class="btn btn-success">
+          Registrar Depósitos&nbsp; <span class="fa fa-plus"></span>
+      </a>
 			<button class="btn btn-primary">Reporte Diario</button>					
 		</div>		
 	</div>	

@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ config('app.nombres', 'Laravel') }} | @yield('title')</title>
+  <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" nombres="viewport">
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('iconoCorp.ico') }}">
@@ -539,7 +539,7 @@ desired effect
                   <ul class="treeview-menu" style="display: none;">
                     <li><a href="{{route('depositos.create')}}"><i class="fa fa-plus"></i> 
                     Registro </a></li>
-                    <li><a href="{{route('depositos.create')}}"><i class="fa fa-pencil"></i> 
+                    <li><a href="{{route('depositos.modify')}}"><i class="fa fa-pencil"></i> 
                     Modificar </a></li>
                     </li>
                   </ul>

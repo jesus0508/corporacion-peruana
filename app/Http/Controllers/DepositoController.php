@@ -47,12 +47,55 @@ class DepositoController extends Controller
     public function create()
     {
         $cuentas = Cuenta::with('banco')->get();
-        $depositos = Deposito::with('cuenta')->get();
+        $depositos = Deposito::with('cuenta')->take(100)->get();
        // return $cuentas;
 
         return view('depositos.index',compact('cuentas','depositos'));
     }
 
+    public function getDepositosByDay($fecha = null){
+        if ($fecha==null) {
+            $fecha = Carbon::now()->format('Y-m-d');
+        }
+
+        $depositos1 = Deposito::join('cuentas','cuentas.id','=','depositos.cuenta_id')
+            ->join('bancos','bancos.id','=','cuentas.banco_id')
+            ->where('depositos.fecha_reporte',$fecha)
+            ->select('depositos.*','cuentas.nro_cuenta');         
+        // $depositos2 = PagoCliente::join('pago_cliente_pedido_cliente','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
+        //     ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')
+        //     ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
+        //     ->select('pago_clientes.codigo_operacion','pago_clientes.monto_operacion as monto','pago_clientes.banco as nro_cuenta','pago_clientes.fecha_operacion as fecha_reporte',
+        //         'clientes.razon_social as detalle')
+        //     ->get();
+        return datatables()->of($depositos1)
+            ->addColumn('action', 'depositos.modify.actions')->make(true);
+            //->rawColumns(['actions'])
+            //->toJson();
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \CorporacionPeru\Ingreso  $ingreso
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $deposito = Deposito::where('id',$id)->first();
+        $cuentas = Cuenta::with('banco')->get();
+        return response()->json(['deposito' => $deposito ,                                
+                                'cuentas' => $cuentas ]);
+    }
+
+    /**
+     * Redirecciona a la vista modificar Depósitos
+     */
+    public function modify(){
+        $cuentas = Cuenta::with('banco')->get();
+        $today = Carbon::now()->format('d/m/Y');
+        return view('depositos.modify.index',compact('today'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -65,27 +108,6 @@ class DepositoController extends Controller
         return back()->with('alert-type', 'success')->with('status', 'Depósito Registrado con exito');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\Deposito  $deposito
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Deposito $deposito)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \CorporacionPeru\Deposito  $deposito
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Deposito $deposito)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -94,9 +116,11 @@ class DepositoController extends Controller
      * @param  \CorporacionPeru\Deposito  $deposito
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deposito $deposito)
+    public function update(StoreDepositoRequest $request)
     {
-        //
+        $id = $request->id;
+        Deposito::findOrFail($id)->update($request->validated());
+        return back()->with('alert-type', 'success')->with('status', 'Depósito Actualizado con exito');
     }
 
     /**
@@ -105,8 +129,10 @@ class DepositoController extends Controller
      * @param  \CorporacionPeru\Deposito  $deposito
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Deposito $deposito)
+    public function destroy($id)
     {
-        //
+        $deposito = Deposito::findOrFail($id);
+        $deposito->delete();
+        return  back()->with('alert-type', 'warning')->with('status', 'Depósito eliminado con exito');
     }
 }

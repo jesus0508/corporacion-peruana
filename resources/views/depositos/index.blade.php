@@ -9,9 +9,9 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Ingresos</a></li>
-  <li><a href="#">Egresos</a></li>
+  <li><a href="#">Ingresos && Egresos</a></li>
   <li><a href="#">Depositos</a></li>
+  <li><a href="#">Crear</a></li>
 </ol>
 @endsection
 
@@ -42,7 +42,8 @@ $(document).ready(function() {
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
-      "responsive": true,
+      "responsive": false,
+      "scrollX": true,
       "searching":true    
   });
   
