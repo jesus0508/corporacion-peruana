@@ -19,9 +19,9 @@ class CreateGrifosTable extends Migration
             $table->string('ruc')->nullable();
             $table->string('telefono')->nullable();
             $table->string('administrador');
-            $table->integer('stock');
-            $table->string('direccion');
-            $table->string('zona')->nullable();
+            $table->float('stock');
+            $table->string('direccion')->nullable();
+            $table->string('zona');
             $table->string('distrito')->nullable();
             $table->timestamps();
         });

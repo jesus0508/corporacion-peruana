@@ -11,8 +11,7 @@ class IngresoGrifo extends Model
     protected $table = 'ingreso_grifos';
     protected $fillable = [
         'lectura_inicial', 'lectura_final', 'calibracion','monto_ingreso',
-        'fecha_ingreso', 'fecha_reporte', 'precio_galon', 'grifo_id','categoria_ingreso_id',
-        'total_galones_factura','total_galones_boleta','facturacion'
+        'fecha_ingreso', 'fecha_reporte', 'precio_galon', 'grifo_id','categoria_ingreso_id'
     ];
 
     public function grifo()

@@ -8,14 +8,10 @@
               <i class="fa fa-plus"></i>
               Nuevo Ingreso
             </a>
-<!--             <a href="" class="btn btn-default">
-              <i class="fa  fa-file-excel-o"></i>
-              Exportar a Excel
-            </a> -->
           </div>
       </div><!-- /.box-header -->
       <div class="box-body">
-        @include('ingresos.opciones')
+        @include('ingreso_grifos.opciones')
         <table id="tabla-ingreso_grifos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>

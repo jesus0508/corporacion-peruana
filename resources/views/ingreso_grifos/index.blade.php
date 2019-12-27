@@ -16,8 +16,8 @@
 
 @section('content')
 <section class="content">
-  @include('ingresos.table')
-  @include('ingresos.create')
+  @include('ingreso_grifos.table')
+  @include('ingreso_grifos.create')
 </section>
 @endsection
 
@@ -175,7 +175,7 @@ function inicializarDataTable($table) {
     //     targets: [-1]
     //   },
     // ],
-    "dom": 'Bfrtip',
+    "dom": 'Blfrtip',
       "buttons": [
       {
         'extend': 'excelHtml5',

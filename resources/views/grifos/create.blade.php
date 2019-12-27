@@ -39,8 +39,8 @@
             <div class="col-md-6">
               <div class="form-group @error('telefono') has-error @enderror">
                 <label for="telefono">Teléfono</label>
-                <input id="telefono" type="tel" class="form-control" value="{{old('telefono')}}" required
-                        name="telefono" placeholder="Ingrese el numero de telefono" pattern="^[0-9]{9}">
+                <input id="telefono" type="text" class="form-control" value="{{old('telefono')}}"
+                      name="telefono" placeholder="Ingrese el numero de celular" pattern="^[0-9]{9}">
                 @error('telefono')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -51,8 +51,8 @@
             <div class="col-md-6">
               <div class="form-group @error('administrador') has-error @enderror">
                 <label for="administrador">Administrador</label>
-                <input id="administrador" type="text" class="form-control" value="{{old('administrador')}}"
-                      name="administrador" placeholder="Ingrese el nombre del administrador" required >
+                <input id="administrador" type="text" class="form-control" 
+                    value="{{old('administrador')}}"  name="administrador" placeholder="Ingrese el nombre del administrador" required >
                 @error('administrador')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -76,8 +76,8 @@
             <div class="col-md-6">
               <div class="form-group @error('stock') has-error @enderror">
                 <label for="stock">Stock</label>
-                <input id="stock" type="number" class="form-control" 
-                      name="stock" placeholder="Ingrese el stock">
+                <input id="stock" type="number" class="form-control" step="any" min="0" 
+                      name="stock"   value="{{old('stock')}}" placeholder="Ingrese el stock" required="">
                 @error('stock')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -89,7 +89,7 @@
               <div class="form-group @error('distrito') has-error @enderror">
                 <label for="distrito">Distrito</label>
                 <input id="distrito" type="text" class="form-control"
-                        name="distrito" placeholder="Ingrese la distrito" >
+                        name="distrito"  value="{{old('distrito')}}" placeholder="Ingrese la distrito" >
                 @error('distrito')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -103,7 +103,7 @@
               <div class="form-group @error('direccion') has-error @enderror">
                 <label for="direccion">Dirección</label>
                 <input id="direccion" type="text" class="form-control"
-                        name="direccion" placeholder="Ingrese la direccion" >
+                        name="direccion"   value="{{old('direccion')}}" placeholder="Ingrese la direccion" >
                 @error('direccion')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -127,7 +127,7 @@
     </div><!--/.col (right) -->
 
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group pull-right">
         <button type="submit" class="btn btn-lg btn-success">
           <i class="fa fa-save"> </i>
           Registrar nuevo Grifo

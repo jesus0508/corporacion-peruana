@@ -54,13 +54,17 @@
                   <label for="direccion-show">Dirección</label>
                   <input id="direccion-show" type="text" class="form-control" readonly>
                 </div>
+                <div class="form-group">
+                  <label for="zona-show">Zona</label>
+                  <input id="zona-show" type="text" class="form-control" readonly>
+                </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (right) -->
         </div> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary pull-rigth" data-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Aceptar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

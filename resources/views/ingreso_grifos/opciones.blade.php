@@ -6,7 +6,7 @@
         <select class="form-control" id="filter-grifo" name="grifo_id">
 
         </select>
-      </div><!-- /input-group -->
+      </div>
     </div> --}}
     <div class="col-md-6">
       <div class="row filtrado">

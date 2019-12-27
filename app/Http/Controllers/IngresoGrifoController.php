@@ -18,7 +18,7 @@ class IngresoGrifoController extends Controller
     {
         //
         $ingresoGrifos = IngresoGrifo::all();
-        return view('ingresos.index', compact('ingresoGrifos'));
+        return view('ingreso_grifos.index', compact('ingresoGrifos'));
     }
 
     /**

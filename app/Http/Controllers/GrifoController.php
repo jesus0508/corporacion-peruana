@@ -96,8 +96,8 @@ class GrifoController extends Controller
      */
     public function show(Grifo $grifo)
     {
-        //
-        return response()->json(['grifo' => $grifo]);
+       $zonas = config('constants.zonas');
+        return response()->json(['grifo' => $grifo, 'zonas' => $zonas]);       
     }
 
     /**
@@ -108,7 +108,6 @@ class GrifoController extends Controller
      */
     public function edit(Grifo $grifo)
     {
-        //
         return response()->json(['grifo' => $grifo]);
     }
 
