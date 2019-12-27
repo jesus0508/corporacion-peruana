@@ -330,7 +330,9 @@ desired effect
                 </li>
               </ul>
             </li>
-            <li id="treeview-grifos-reporte" class="treeview">
+
+
+       {{--      <li id="treeview-grifos-reporte" class="treeview">
               <a href="#">
                 <i class="fa fa fa-building-o"></i> <span>Grifos</span>
                 <span class="pull-right-container">
@@ -397,16 +399,12 @@ desired effect
                       <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
                       </li>
-{{--                       <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                        Anual</a>
-                      </li>
-                      <li><a href="{{route('egresos.reporte_gastos_general')}}"><i class="fa fa-caSlendar">G</i> 
-                        General</a>
-                      </li> --}}
                     </ul>
                 </li>               
               </ul>
-            </li>
+            </li> --}}
+
+
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>

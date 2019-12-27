@@ -33,6 +33,7 @@
   let $tabla_ingreso_grifos = $('#tabla-ingreso_grifos');
   let $modal_create_ingreso = $('#modal-create-ingreso');
   let $fecha_ingreso = $('#fecha_ingreso');
+  let $fecha_reporte = $('#fecha_reporte');    
   let $lecturas = $('#lecturas');
   let $lectura_inicial = $('#lectura_inicial');
   let $lectura_final = $('#lectura_final');
@@ -45,13 +46,8 @@
 
   inicializarDataTable($tabla_ingreso_grifos);
 
-  $fecha_ingreso.datepicker({
-    dateFormat: 'd-m-yy',
-    maxDate: 0,
-  });
-  $('#fecha_reporte').datepicker({
-    dateFormat: 'd-m-yy',
-  });
+  $fecha_ingreso.datepicker();
+  $fecha_reporte.datepicker();
 
   validateDates();
 
@@ -60,13 +56,14 @@
   });
 
   $modal_create_ingreso.on('show.bs.modal', function (event) {
-    hoy = $.datepicker.formatDate('d-m-yy', new Date());
+    hoy = $.datepicker.formatDate('yy-m-d', new Date());
     fillSelectGrifos(hoy);
   });
 
-  $fecha_ingreso.on('change', function (event) {
-    fecha_ingreso = $fecha_ingreso.val();
-    fillSelectGrifos(fecha_ingreso);
+  $fecha_reporte.on('change', function (event) {
+    fecha_reporte = $fecha_reporte.val();
+    fecha_reporte = convertDateFormat(fecha_reporte);
+    fillSelectGrifos(fecha_reporte);
   })
 
   $select_grifo.on('change', function (event) {
@@ -94,11 +91,11 @@
 
   $precio_galon.on('keyup', function (event) {
     let venta = parseFloat($venta.val());
-    let calibracion = parseFloat($calibracion.val());
-    let precio_galon = parseFloat($precio_galon.val());
-		let totalGalones = venta - calibracion;
-   	let precioTotal = (totalGalones * precio_galon).toFixed(2);
-		
+    //let calibracion = parseFloat($calibracion.val());
+    let precio_galon = $precio_galon.val();
+    precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
+		//let totalGalones = venta;
+   	let precioTotal = (venta * precio_galon).toFixed(2);
     $('#monto_ingreso').val(precioTotal);
   })
 
@@ -112,6 +109,11 @@
       .fail((error) => {
         toastr.error('Ocurrio un error en el servidor al guardar', 'Error Alert', { timeOut: 2000 });
       });
+  }
+
+  function convertDateFormat(string) {
+        var info = string.split('/').reverse().join('-');
+        return info;
   }
 
   function validateDates() {
@@ -136,7 +138,7 @@
       var sFin = $fecha_fin.val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);//filtro x reporte
+      var dia = $.datepicker.parseDate('d/m/yy', data[2]);//filtro x fecha ingreso
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }

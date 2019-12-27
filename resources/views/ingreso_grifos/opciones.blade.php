@@ -9,6 +9,7 @@
       </div>
     </div> --}}
     <div class="col-md-6">
+      <label for="">Filtro por fecha ingreso:</label>
       <div class="row filtrado">
         <div class="col-md-5">
           <div class="form-inline">

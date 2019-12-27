@@ -29,12 +29,12 @@ class IngresoGrifo extends Model
 
     public function setFechaIngresoAttribute($value)
     {
-        $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['fecha_ingreso'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
 
     public function setFechaReporteAttribute($value)
     {
-        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
 
     public function getFechaIngresoAttribute($value)

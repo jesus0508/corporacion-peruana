@@ -159,20 +159,30 @@ class GrifoController extends Controller
             }
 
     }
-
-    public function getGrifosSinIngreso($fecha = null)
+    /**
+     * [getGrifosSinIngreso description]
+     * @param  [type] $fecha [Fecha de reporte]
+     * @return [type]        [description]
+     */
+    public function getGrifosSinIngreso($fecha = null)//by Fecha reporte
     {
-        Log::info('Entro la peticion');
-        
-        if($fecha){
-            $fecha = Carbon::createFromFormat('d-m-Y', $fecha)->format('Y-m-d');
-            Log::info('Fecha de '.$fecha);
+        if ($fecha) {
+            $grifos = Grifo::join('ingreso_grifos','ingreso_grifos.grifo_id','=','grifos.id')
+                        ->whereDate('ingreso_grifos.fecha_reporte',$fecha)
+                        ->select('grifos.id')
+                        ->get();
+            $grifos_con_ingresos_id = [];
+            foreach ($grifos as $grifo) {
+                $grifos_con_ingresos_id[] = $grifo->id;
+            }
+            //return $grifos_con_ingresos_id;
+            $grifos = Grifo::select('id', 'razon_social as text')->whereNotIn('id',$grifos_con_ingresos_id)                   
+            ->get();
+            return response()->json(['grifos' => $grifos]);
         }else{
-            $fecha = Carbon::today();
+
+            $grifos =[];
+            return response()->json(['grifos' => $grifos]);
         }
-        $grifos = Grifo::select('id', 'razon_social as text')->whereHas('latestIngresoGrifos', function (Builder $query)  use ($fecha) {
-            $query->whereDate('ingreso_grifos.fecha_ingreso', '<', $fecha);
-        })->orWhereDoesntHave('ingresoGrifos')->get();
-        return response()->json(['grifos' => $grifos]);
     }
 }
