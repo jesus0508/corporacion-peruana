@@ -148,6 +148,12 @@ Route::middleware(['auth'])->group(function () {
 			->name('reporte_general.egresos.mensual');
 	Route::get('reporte_general_egresos_mensual_data/{date?}',
 		'ReporteGeneralEgresosController@reporteEgresosMensualData');
+	//DEPOSITOS
+	Route::get('reporte_general_depositos_diario'
+		,'ReporteGeneralDepositosController@reporteDepositosDiario')
+			->name('reporte_general.depositos.diario');
+	Route::get('reporte_general_depositos_diario_data/{date?}',
+		'ReporteGeneralDepositosController@reporteDepositosDiarioData');
 
 
 		// GASTOS GRIFO
@@ -161,7 +167,6 @@ Route::middleware(['auth'])->group(function () {
 		'TransporteController@reporteDiario')->name('transporte.reporteDiario');
 	Route::get('/reporte_mensual_unidades',
 		'TransporteController@reporteMensual')->name('transporte.reporteMensual');
-
 
 
 

@@ -48,7 +48,7 @@ $(document).ready(function() {
       "columnDefs": [
             { "visible": false, "targets": groupColumn }
       ],
-         "order": [[ groupColumn, 'asc' ]],
+         "order": [[ groupColumn, 'desc' ]],
         "scrollX": true,
           "buttons": [
           {

@@ -62,12 +62,6 @@ class DepositoController extends Controller
             ->join('bancos','bancos.id','=','cuentas.banco_id')
             ->where('depositos.fecha_reporte',$fecha)
             ->select('depositos.*','cuentas.nro_cuenta');         
-        // $depositos2 = PagoCliente::join('pago_cliente_pedido_cliente','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
-        //     ->join('pedido_clientes','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')
-        //     ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
-        //     ->select('pago_clientes.codigo_operacion','pago_clientes.monto_operacion as monto','pago_clientes.banco as nro_cuenta','pago_clientes.fecha_operacion as fecha_reporte',
-        //         'clientes.razon_social as detalle')
-        //     ->get();
         return datatables()->of($depositos1)
             ->addColumn('action', 'depositos.modify.actions')->make(true);
             //->rawColumns(['actions'])
