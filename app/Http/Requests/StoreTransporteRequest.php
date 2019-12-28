@@ -24,7 +24,7 @@ class StoreTransporteRequest extends FormRequest
     public function rules()
     {
         return [
-            'chofer'=>'string|max: 255',
+            
             'tipo' => 'required|numeric|gt:0',
             'placa' => 'required|min: 6|alpha-dash|unique:transportes,placa,'.$this->id,
         ];

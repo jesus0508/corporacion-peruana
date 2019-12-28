@@ -26,7 +26,7 @@
               <div class="form-group @error('placa') has-error @enderror">
                 <label for="placa">Placa</label>
                 <input id="placa" type="text" class="form-control" 
-                value="{{old('placa')}}"   pattern="[A-Za-z]{3}[-]\d{3}" 
+                value="{{old('placa')}}"   pattern="[A-Za-z0-9]{3}[-]\d{3}" 
                 title="Formato: ABC-123"     
                  name="placa"
                   placeholder="Ejemplo: ABC-123" required>
