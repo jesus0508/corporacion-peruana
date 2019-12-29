@@ -134,7 +134,7 @@
                 @enderror
               </div>
             </div>
-            <div class="col-md-2">
+            {{-- <div class="col-md-2">
               <div class="form-group @error('stock_grifo') has-error @enderror">
                 <label for="traspaso">Traspaso</label>
                 <input id="traspaso" class="form-control" name="traspaso" placeholder="Traspaso"
@@ -237,7 +237,7 @@
                   <option value="5">Prefactura</option>
                 </select>
               </div>
-            </div>              
+            </div>      --}}         
           </div> <!-- end.row -->
             <div class="row col-md-12">
               <div class="form-group">                

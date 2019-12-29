@@ -60,6 +60,8 @@ Route::middleware(['auth'])->group(function () {
 		/**	STOCK GRIFOS */
 		Route::resource('/stock_grifos','StockGrifoController');
 		Route::get('/stock_grifos/all/{fecha?}','StockGrifoController@getGrifosSinStockRegistrado');
+		Route::resource('/traslado_galones','TrasladoGalonesController');
+		
 
 		/* Ingresos */
 		Route::get('/ingreso_grifos/grifo/{id}', 'IngresoGrifoController@getLastIngreso')->name('pago_clientes.lastIngreso');
