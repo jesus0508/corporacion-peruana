@@ -593,7 +593,7 @@ desired effect
           <a href="{{route('stock_grifos.create')}}"><i class="fa fa-battery-half"></i>  Stock de Grifos</a>
         </li>
         <li>
-          <a href="{{route('traslado_galones.create')}}"><i class="fa fa-battery-half"></i>  Traslado</a>
+          <a href="{{route('traslado_galones.create')}}"><i class="fa fa-battery-half"></i>  Nueva Vista</a>
         </li>
         <li id="treeview-empresa" class="treeview">
           <a href="#">

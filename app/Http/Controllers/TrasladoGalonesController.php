@@ -4,6 +4,10 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\TrasladoGalones;
 use Illuminate\Http\Request;
+use CorporacionPeru\Proveedor;
+use CorporacionPeru\Stock;
+use CorporacionPeru\Http\Requests\StoreTrasladoGalonesRequest;
+
 
 class TrasladoGalonesController extends Controller
 {
@@ -24,7 +28,13 @@ class TrasladoGalonesController extends Controller
      */
     public function create()
     {
-        return view('traslado_galones.index');
+        $proveedores = Proveedor::all();
+        $stock = Stock::first();
+        $traslados=TrasladoGalones::with('proveedor')->get();
+        $stock = $stock->stock_general + $stock->stock_reserva;
+
+        return view('traslado_galones.index',
+            compact('proveedores','stock','traslados'));
     }
 
     /**
@@ -33,9 +43,11 @@ class TrasladoGalonesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTrasladoGalonesRequest $request)
     {
-        //
+        //return $request;
+        TrasladoGalones::create($request->validated());
+        return back()->with('alert-type', 'success')->with('status', 'Registrado con exito');
     }
 
     /**

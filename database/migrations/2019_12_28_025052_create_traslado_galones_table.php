@@ -15,18 +15,19 @@ class CreateTrasladoGalonesTable extends Migration
     {
         Schema::create('traslado_galones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float('stock')->nullable();
-            $table->float('nuevo_stock')->nullable();                                    
+            $table->integer('tipo');
+            $table->float('stock');
+            $table->float('nuevo_stock');                                
             $table->float('cantidad');
             $table->integer('horario');
-            $table->unsignedBigInteger('cliente_id')->nullable();
-            $table->foreign('cliente_id')
-                    ->references('id')->on('clientes');
-            $table->unsignedBigInteger('grifos_id')->nullable();
-            $table->foreign('grifos_id')
-                    ->references('id')->on('grifos');                 
-            $table->unsignedBigInteger('stock_grifo_id');
-            $table->foreign('stock_grifo_id')->references('id')->on('stock_grifos');
+            // $table->unsignedBigInteger('cliente_id')->nullable();
+            // $table->foreign('cliente_id')
+            //         ->references('id')->on('clientes');
+            // $table->unsignedBigInteger('grifos_id')->nullable();
+            // $table->foreign('grifos_id')
+            //         ->references('id')->on('grifos');                 
+            // $table->unsignedBigInteger('stock_grifo_id');
+            // $table->foreign('stock_grifo_id')->references('id')->on('stock_grifos');
             $table->unsignedBigInteger('proveedor_id');
             $table->foreign('proveedor_id')->references('id')->on('proveedores');
             $table->timestamps();
@@ -40,6 +41,9 @@ class CreateTrasladoGalonesTable extends Migration
      */
     public function down()
     {
+        Schema::table('traslado_galones', function (Blueprint $table) {
+            $table->dropForeign(['proveedor_id']);                     
+        });
         Schema::dropIfExists('traslado_galones');
     }
 }

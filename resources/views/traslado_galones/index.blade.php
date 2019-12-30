@@ -11,8 +11,7 @@
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="#">Grifos</a></li>
-  <li><a href="#">Registro Traspaso</a></li>
+  <li><a href="#">Registro </a></li>
 </ol>
 @endsection
 
@@ -20,6 +19,7 @@
 @section('content')
 <section class="content">
   @include('traslado_galones.create')
+  @include('traslado_galones.table')
 </section>
 @endsection
 
@@ -31,7 +31,16 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 <script>
 $(document).ready(function() {
+  let $input_user_edit = $('#input-user-edit');
 
+  $input_user_edit.on('keyup', function (event) {
+  console.log('aea');
+  let $cantidad = Number($('#cantidad').val());
+  let $stock = Number($('#stock').val());
+  let $stock_resultante=$stock+$cantidad;
+  $('#nuevo_stock').val($stock_resultante);
+
+  });
 	  $('#tabla-traslado-galones').DataTable({
       'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
