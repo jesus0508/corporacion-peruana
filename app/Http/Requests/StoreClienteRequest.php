@@ -25,10 +25,23 @@ class StoreClienteRequest extends FormRequest
     {
         return [
             'ruc' => 'required|min: 11|unique:clientes,ruc,' . $this->id,
-            'telefono' => 'nullable|regex:/^([9]{1})([0-9]{8})$/i',
             'razon_social' => 'required',
-            'direccion' => 'max: 255|min: 5',
-            'linea_credito' => 'required|numeric|gt:0',
+            'cargo'=>'max: 255',
+            'representante'=>'max: 255',
+            'dni'=>'nullable|size:8',
+            'correo_cliente'=>'nullable|email',
+            'actividad_economica'=>'max:255',
+            'precio_galon'=>'required|numeric|gt:0',
+            'linea_credito'=>'required|numeric|gt:0',
+            'distrito'=>'required|max:255',
+            'direccion'=>'required|min:5|max:255',
+            'forma_pago'=>'required|numeric|gt:0',
+            'persona_comision'=>'max:255',
+            'correo_representante'=>'nullable|email',
+            'nro_cuenta'=>'max:255',
+            'cuenta_detraccion'=> 'max:255',
+            'utilidades'=>'required|min:5|max:255',
+            'extraordinaria'=>'required|max:255'
         ];
     }
 }
