@@ -34,6 +34,7 @@ class StoreClienteRequest extends FormRequest
             'precio_galon'=>'required|numeric|gt:0',
             'linea_credito'=>'required|numeric|gt:0',
             'distrito'=>'required|max:255',
+            'telefono'=>'nullable|min:7|max:9',
             'direccion'=>'required|min:5|max:255',
             'forma_pago'=>'required|numeric|gt:0',
             'persona_comision'=>'max:255',

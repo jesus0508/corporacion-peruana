@@ -21,11 +21,6 @@
               <th>Stock según grifo</th> 
               <th>Stock según sistema</th>
               <th>Diferencia</th>
-              <th>Traspaso</th>
-              <th>Recepcion</th>
-              <th>PRIMAX</th>
-              <th>PECSA</th>
-              <th>PBF</th>
               <th>Nuevo Stock</th>             
             </tr>
           </thead>
@@ -43,11 +38,6 @@
                 <td>{{$stock_grifo->stock_grifo}}</td>
                 <td>{{$stock_grifo->stock_sistema}}</td>
                 <td>{{$stock_grifo->stock_grifo-$stock_grifo->stock}}</td>
-                <td>{{$stock_grifo->traspaso}}</td>
-                <td>{{$stock_grifo->recepcion}}</td>
-                <td>{{$stock_grifo->cantidad_primax}}</td>
-                <td>{{$stock_grifo->cantidad_pecsa}}</td>
-                <td>{{$stock_grifo->cantidad_pbf}}</td>
                 <td>{{$stock_grifo->getNewStock()}}</td>
               </tr>
             @endforeach

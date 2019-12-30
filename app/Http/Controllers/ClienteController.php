@@ -4,7 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\Cliente;
 use CorporacionPeru\PedidoCliente;
-use CorporacionPeru\Http\Requests;
+use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreClienteRequest;
 
 class ClienteController extends Controller

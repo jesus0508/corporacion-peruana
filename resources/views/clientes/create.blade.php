@@ -6,14 +6,14 @@
       <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
-          <h2 class="box-title">Registro Cliente</h3>
+          <h2 class="box-title">Registro Cliente</h2>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="row">
             <div class="col-md-4">
               <div class="form-group @error('ruc') has-error @enderror">
                 <label for="ruc">RUC*</label>
-                <input id="ruc" type="text" class="form-control" value="{{old("ruc")}}" pattern="[0-9]{11}" title="Formato: 11 dígitos"  name="ruc" placeholder="Ingrese su RUC" required>
+                <input id="ruc" type="text" class="form-control" value="{{old('ruc')}}" pattern="[0-9]{11}" title="Formato: 11 dígitos"  name="ruc" placeholder="Ingrese su RUC" required>
                 @error('ruc')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -25,7 +25,7 @@
               <div class="form-group @error('representante') has-error @enderror">
                 <label for="representante">Representante</label>
                 <input id="representante" type="text" class="form-control" value="{{old("representante")}}"
-                      name="representante" placeholder="Ingrese representante">
+                      name="representante" placeholder="Ingrese el nombre del representante">
                 @error('representante')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -55,7 +55,7 @@
               <div class="form-group @error('cargo') has-error @enderror">
                 <label for="cargo">Cargo</label>
                 <input id="cargo" type="text" class="form-control" value="{{old("cargo")}}"
-                        name="cargo" placeholder="Ingrese la cargo">
+                        name="cargo" placeholder="Ingrese el cargo">
                 @error('cargo')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
