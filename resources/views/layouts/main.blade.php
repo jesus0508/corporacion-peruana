@@ -22,7 +22,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-green.min.css') }}">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  {{--   jQuery UI - v1.12.1 --}}
+  <link rel="stylesheet" href="{{ asset('dist/css/jquery/jquery-ui.css') }}">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -33,11 +34,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
    <!-- DATATABLES -->
-  <link href="//cdn.datatables.net/responsive/2.1.1/css/dataTables.responsive.css"/>
-  <!-- Responsive tables-->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-  <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+  {{-- <link href="https://cdn.datatables.net/responsive/2.1.1/css/dataTables.responsive.css"/> --}}
+  <!-- Responsive datatables 2.1.1 -->
+  <link rel="stylesheet" href="{{ asset('dist/css/datatables/dataTables.bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('dist/css/datatables/responsive.dataTables.min.css') }}">
+   <!--  ToasTR 2.1.4 -->
+  <link rel="stylesheet" href="{{ asset('dist/css/toastr.min.css') }}">
+
   @yield('styles')
 </head>
 <!--
@@ -524,7 +527,6 @@ desired effect
                     Registro </a></li>
                     <li><a href="{{route('salidas.create')}}"><i class="fa fa-plus"></i> 
                     Modificar </a></li>
-                    </li>
                   </ul>
                 </li>
                 <li id="treeview-depositos" class="treeview">
@@ -539,10 +541,9 @@ desired effect
                     Registro </a></li>
                     <li><a href="{{route('depositos.modify')}}"><i class="fa fa-pencil"></i> 
                     Modificar </a></li>
-                    </li>
                   </ul>
                 </li>
-{{--                 <li id="treeview-comprobacion" class="treeview">
+                {{-- <li id="treeview-comprobacion" class="treeview">
                   <a href="#">
                     <i class="fa fa-check-square-o"></i> <span>Comprobación</span>
                     <span class="pull-right-container">
@@ -626,9 +627,9 @@ desired effect
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
-    <div class="pull-right hidden-xs">
+    {{-- <div class="pull-right hidden-xs">
       Anything you want
-    </div>
+    </div> --}}
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> All rights reserved.
   </footer>
@@ -644,19 +645,22 @@ desired effect
 
 <!-- jQuery 3 -->
 <script src="{{ asset('adminlte/jquery/jquery.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- toastr 2.1.4 -->
+<script src="{{ asset('dist/js/toastr.min.js') }}"></script>
+<!-- jqueri-ui 1.12.1 -->
+<script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 
+<!-- Datatables 1.10.19 -->
+<script src="{{ asset('dist/js/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dist/js/datatables/dataTables.bootstrap.min.js') }}"></script>
+<!-- Datatables  responsive 2.1.0 -->
+<script src="{{ asset('dist/js/datatables/dataTables.responsive.js') }}"></script>
+
 <!--  JS entidades -->
-
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
-
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
 <script>
  $.datepicker.regional['es'] = {
   closeText: 'Cerrar',
@@ -676,6 +680,35 @@ desired effect
   yearSuffix: ''
  };
  $.datepicker.setDefaults($.datepicker.regional['es']);
+
+ /* -- español dataTables--*/
+ $.extend( true, $.fn.dataTable.defaults, {
+    "language": {
+        "decimal": ",",
+        "thousands": ".",
+        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "infoPostFix": "",
+        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "loadingRecords": "Cargando...",
+        "lengthMenu": "Mostrar _MENU_ registros",
+        "paginate": {
+            "first": "Primero",
+            "last": "Último",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        },
+        "processing": "Procesando...",
+        "search": "Buscar:",
+        "searchPlaceholder": "Término de búsqueda",
+        "zeroRecords": "No se encontraron resultados",
+        "emptyTable": "Ningún dato disponible en esta tabla",
+        "aria": {
+            "sortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    }           
+} );
 </script>
 @yield('scripts')
 @include('partials.session-status')
