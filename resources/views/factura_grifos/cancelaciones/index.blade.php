@@ -2,9 +2,9 @@
 
 @section('title','Venta Facturada')
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+{{-- select2 4.0.8 --}}
+<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
 @endsection
 
 @section('breadcrumb')
@@ -25,15 +25,10 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script>
-	
-
 $(document).ready(function() {
   $('#tabla-cancelaciones').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "responsive": true,
       "searching":true,   
       "footerCallback": function ( row, data, start, end, display ) {
@@ -43,7 +38,6 @@ $(document).ready(function() {
       }
   });
 });
-
   function getSubtotal(api,column){
     pageTotal = api
                 .column( column, { page: 'current'} )
@@ -57,7 +51,6 @@ $(document).ready(function() {
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
-
   }
 $('#fecha').datepicker({
    // minDate: 0,
@@ -66,8 +59,6 @@ $('#fecha_deposito').datepicker({
    // minDate: 0,
   });
 $(document).ready(function() { 
-
-
   $("#grifo_id").prop("selectedIndex", -1);
 
   $("#grifo_id").select2({
@@ -87,9 +78,7 @@ $(document).ready(function() {
     }else{
       clearInputs();
       $('#register').attr("disabled", false);
-  
     }
-
   });
   $("#fecha").on('change',function(){
     let id=$("#grifo_id").val();
@@ -106,10 +95,6 @@ $(document).ready(function() {
 
   });
 });
-
-
-
-
 function convertDateFormat(string) {
   var info = string.split('/').reverse().join('-');
   return info;

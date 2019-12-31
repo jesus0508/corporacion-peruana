@@ -92,9 +92,3 @@ $(document).ready(function() {
   });
   } 
 );
-
-//Cambiar un archivo en general JS en el main
-$('.box').on('click',function(){
-  $('.box').removeClass('box-success');
-  $(this).addClass('box-success');
-})

@@ -23,8 +23,7 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script> 
+<script src="{{ asset('dist/js/datatables/dataTables.rowsGroup.js') }}"></script>
 <script>
 
 

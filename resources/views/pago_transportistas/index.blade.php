@@ -24,7 +24,7 @@
 @endsection
 
 @section('scripts')
-<script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script>
+<script src="{{ asset('dist/js/datatables/dataTables.rowsGroup.js') }}"></script>
 <script>
 
 $(document).ready(function(){

@@ -2,10 +2,11 @@
 
 @section('title','Transportistas')
 @section('styles')
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+{{-- select2 4.0.8 --}}
+<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 @endsection
+
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Transportistas</a></li>
@@ -26,7 +27,7 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/transportista.js') }}"></script> 
 @if( count($errors) > 0 )
   <script type="text/javascript">

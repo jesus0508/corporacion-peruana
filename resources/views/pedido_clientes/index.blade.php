@@ -3,9 +3,9 @@
 @section('title','Pedidos')
 
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+{{-- select2 4.0.8 --}}
+<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
 @endsection
 
 @section('breadcrumb')
@@ -28,7 +28,7 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script src="{{ asset('js/pedidoClientes/pedidoCliente.js') }}"></script> 
 <script src="{{ asset('js/pagoClientes/pagos.js') }}"></script> 
 @endsection

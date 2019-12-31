@@ -56,9 +56,6 @@ $(document).ready(function() {
   });
   /*--------  Table Cancelacion  --------------------*/
   $('#tabla-cancelaciones-modify').DataTable({
-    'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
     "order": [[ 3, "desc" ]],
     "responsive": true,
     "searching":true,

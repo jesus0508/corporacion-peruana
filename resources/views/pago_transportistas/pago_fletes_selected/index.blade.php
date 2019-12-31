@@ -1,8 +1,7 @@
 @extends('layouts.main')
 @section('title','Pagos')
 @section('styles')
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<link rel="stylesheet" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css">
+<link rel="stylesheet" href="{{asset('dist/css/datatables/dataTables.checkboxes.css')}}">
 @endsection
 
 @section('breadcrumb')
@@ -25,10 +24,8 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script> 
-<script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"> </script> 
-
+<script src="{{ asset('dist/js/datatables/dataTables.rowsGroup.js') }}"></script>
+<script src="{{ asset('dist/js/datatables/dataTables.checkboxes.min.js') }}"></script>
 <script> 
 $(document).ready(function(){
 	var montoFlete = 0;

@@ -2,7 +2,7 @@
 
 @section('title','Reportes')
 @section('styles')
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
+<link rel="stylesheet" href="{{asset('dist/css/datatables/buttons.dataTables.min.css')}}">
 @endsection
 
 @section('breadcrumb')
@@ -21,11 +21,7 @@
 
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+@include('reporte_excel.export_js')
 <script>
 $(document).ready(function() {
 	var groupColumn = 0;
@@ -34,7 +30,7 @@ $(document).ready(function() {
             { "visible": false, "targets": groupColumn }
         ],
     "order": [[ groupColumn, 'asc' ]],
-    "dom": 'Bfrtip',
+    "dom": 'Blfrtip',
     "buttons": [
         
         {
@@ -53,9 +49,6 @@ $(document).ready(function() {
 
          }
         ],
-    'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
 		"drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();

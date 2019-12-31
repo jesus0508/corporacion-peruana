@@ -3,10 +3,9 @@
 @section('title','Transporte')
 
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+{{-- select2 4.0.8 --}}
+<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
 @endsection
 
 @section('breadcrumb')
@@ -29,7 +28,7 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
 
@@ -41,9 +40,6 @@ $(document).ready(function() {
  // inicializarSelect2Modal($select_tipo_edit, 'Seleccione tipo', '','modal-edit-transporte')
   //inicializarSelect2(); 
    $('#tabla-transporte').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "responsive": true
     });
 	});

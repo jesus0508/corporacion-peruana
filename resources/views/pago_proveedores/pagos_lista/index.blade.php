@@ -1,10 +1,7 @@
 @extends('layouts.main')
 @section('title','Pagos')
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -22,20 +19,12 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-
+@include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {    
     $('#tabla-pagos_lista').DataTable({
-        "order": [[ 0, "desc" ]],       
-        "responsive": true,             
-        'language': {
-        'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'        
-      }, 
+      "order": [[ 0, "desc" ]],       
+      "responsive": true,             
       "dom": 'Blfrtip',
       "buttons": [
         {

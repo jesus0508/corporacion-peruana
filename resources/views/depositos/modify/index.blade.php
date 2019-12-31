@@ -2,7 +2,8 @@
 
 @section('title','Ingresos y Egresos')
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+{{-- select2 4.0.8 --}}
+<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
 @endsection
 
@@ -24,7 +25,7 @@
 </section>
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
 
@@ -59,9 +60,6 @@ $(document).ready(function() {
 
  $('#fecha_inicio').datepicker(); 
   $('#tabla-depositos').DataTable({
-    'language': {
-      'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
     'ajax': `./depositos_fecha_data`,
     'scrollX': 'true',
     'columns': [

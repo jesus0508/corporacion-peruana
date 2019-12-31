@@ -1,15 +1,9 @@
 @extends('layouts.main')
 
-@section('title','Venta')
+@section('title','Distribución')
 @section('styles')
-<link src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"></link> 
-<link src="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css"></link> 
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
-{{-- <style type="text/css">
-#excelButton{
-display: none;
-}
-</style> --}}
+{{--  datatables buttons 1.5.6 --}}
+<link rel="stylesheet" href="{{asset('dist/css/datatables/buttons.dataTables.min.css')}}">
 @endsection
 
 
@@ -30,10 +24,7 @@ display: none;
 @endsection
 
 @section('scripts')
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+@include('reporte_excel.export_js')
 <script>
 $(document).ready(function() {
 
@@ -44,9 +35,6 @@ $(document).ready(function() {
 
 
   $('#tabla-pedido-clientes-grifos-asignacion').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "responsive": false, 
       "searching": false,
       "paging": false,

@@ -662,6 +662,12 @@ desired effect
 
 <!--  JS entidades -->
 <script>
+
+  $('.box').on('click',function(){
+    $('.box').removeClass('box-success');
+    $(this).addClass('box-success');
+  })
+  
  $.datepicker.regional['es'] = {
   closeText: 'Cerrar',
   prevText: '< Ant',
