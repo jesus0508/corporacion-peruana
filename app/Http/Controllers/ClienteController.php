@@ -44,6 +44,7 @@ class ClienteController extends Controller
         return back()->with('alert-type', 'success')->with('status', 'Cliente Registrado con exito');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -113,6 +114,12 @@ class ClienteController extends Controller
     public function getAllClientes()
     {
         $clientes = Cliente::all();
+        return response()->json(['clientes' => $clientes]);
+    }
+
+    public function getAllClientesSelect()
+    {
+        $clientes = Cliente::select('id','razon_social as text')->get();
         return response()->json(['clientes' => $clientes]);
     }
 }

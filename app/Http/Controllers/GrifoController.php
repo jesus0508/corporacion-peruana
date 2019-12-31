@@ -34,6 +34,19 @@ class GrifoController extends Controller
     {
         //
     }
+
+        /**
+     * Show all clientes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllGrifos()
+    {
+        $grifos = Grifo::select('id', 'razon_social as text','stock')->get();
+        return response()->json(['grifos' => $grifos]);
+    }
+
+
     /**
      * Balancear galonaje grifos
      *

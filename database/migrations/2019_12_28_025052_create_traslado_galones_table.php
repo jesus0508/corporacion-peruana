@@ -19,13 +19,14 @@ class CreateTrasladoGalonesTable extends Migration
             $table->float('stock');
             $table->float('nuevo_stock');                                
             $table->float('cantidad');
-            $table->integer('horario');
-            // $table->unsignedBigInteger('cliente_id')->nullable();
-            // $table->foreign('cliente_id')
-            //         ->references('id')->on('clientes');
-            // $table->unsignedBigInteger('grifos_id')->nullable();
-            // $table->foreign('grifos_id')
-            //         ->references('id')->on('grifos');                 
+            $table->string('horario');
+            $table->date('fecha');
+            $table->unsignedBigInteger('cliente_id')->nullable();
+            $table->foreign('cliente_id')
+                    ->references('id')->on('clientes');
+            $table->unsignedBigInteger('grifo_id')->nullable();
+            $table->foreign('grifo_id')
+                    ->references('id')->on('grifos');                 
             // $table->unsignedBigInteger('stock_grifo_id');
             // $table->foreign('stock_grifo_id')->references('id')->on('stock_grifos');
             $table->unsignedBigInteger('proveedor_id');

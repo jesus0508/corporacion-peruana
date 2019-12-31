@@ -28,13 +28,10 @@ class TrasladoGalonesController extends Controller
      */
     public function create()
     {
-        $proveedores = Proveedor::all();
-        $stock = Stock::first();
-        $traslados=TrasladoGalones::with('proveedor')->get();
-        $stock = $stock->stock_general + $stock->stock_reserva;
-
+        $proveedores = Proveedor::orderBy('id', 'DESC')->get();
+        $traslados=TrasladoGalones::with('proveedor')->orderBy('id', 'DESC')->get();
         return view('traslado_galones.index',
-            compact('proveedores','stock','traslados'));
+            compact('proveedores','traslados'));
     }
 
     /**

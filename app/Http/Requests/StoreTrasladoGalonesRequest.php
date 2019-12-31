@@ -25,6 +25,9 @@ class StoreTrasladoGalonesRequest extends FormRequest
     {
         return [
             'tipo'=>'required|numeric|gt:0',
+            'grifo_id'=>'nullable|numeric|gt:0',
+            'cliente_id'=>'nullable|numeric|gt:0',
+            'fecha' => 'required|date_format:"d/m/Y"',
             'stock'=>'required|numeric|gte:0',
             'nuevo_stock'=>'required|numeric|gte:0',
             'cantidad'=>'required|numeric|gte:0',
