@@ -15,7 +15,10 @@ $(document).ready(function () {
     let deshabilitar = true;
     if (id) {
       getClienteById(id).done((data) => {
+        console.log(data);
         $('#ruc').val(data.cliente.ruc);
+        $('#precio_galon').val(data.cliente.precio_galon);
+        $('#precio_galon').prop('readonly', true);
         if (data.total_consumido >= data.cliente.linea_credito) {
           toastr.info('El cliente ha excedido la linea de credito', 'Info Alert', { timeOut: 3000 });
         }

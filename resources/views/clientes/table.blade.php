@@ -12,6 +12,7 @@
               <th>Razón Social</th>
               <th>Teléfono</th>
               <th>Dirección</th>
+              <th>Correo</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -22,6 +23,7 @@
                 <td>{{$cliente->razon_social}}</td>
                 <td>{{$cliente->telefono}}</td>
                 <td>{{$cliente->direccion}}</td>
+                <th>{{$cliente->correo_cliente}}</th>
                 <td>
                   <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-cliente"
                             data-id="{{$cliente->id}}">
