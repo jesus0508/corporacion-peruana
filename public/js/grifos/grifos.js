@@ -9,6 +9,7 @@ $('#modal-edit-grifo').on('show.bs.modal', function (event) {
       id : $(`#id`).val(),
     },
     success: (data)=>{
+      console.log(data);
       $(event.currentTarget).find('#ruc-edit').val(data.grifo.ruc);
       $(event.currentTarget).find('#razon_social-edit').val(data.grifo.razon_social);
       $(event.currentTarget).find('#telefono-edit').val(data.grifo.telefono);
@@ -17,16 +18,18 @@ $('#modal-edit-grifo').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#distrito-edit').val(data.grifo.distrito);
       $(event.currentTarget).find('#direccion-edit').val(data.grifo.direccion);
       $(event.currentTarget).find('#id-edit').val(data.grifo.id);
+      $(event.currentTarget).find('#precio_galon-edit').val(data.grifo.precio_galon);
+      $(event.currentTarget).find('#correo-edit').val(data.grifo.correo);
       $(event.currentTarget).find('#zona-edit').val(data.grifo.zona);
-
         let zona = data.grifo.zona;        
         let lista_zonas = '';
         data.zonas.forEach((zona) => {
           lista_zonas += `<option value="${zona.zona}">${zona.zona}</option>`;
         });
         $select_zonas.html(lista_zonas);
-        inicializarSelect2($select_zonas, 'Seleccione la zona');
-        $select_zonas.val(zona).trigger('change');
+        $select_zonas.val(zona);
+        //inicializarSelect2($select_zonas, 'Seleccione la zona');
+        //$select_zonas.val(zona).trigger('change');
 
     },
     error: (error)=>{
@@ -53,6 +56,8 @@ $('#modal-show-grifo').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#stock-show').val(data.grifo.stock);
       $(event.currentTarget).find('#distrito-show').val(data.grifo.distrito);
       $(event.currentTarget).find('#direccion-show').val(data.grifo.direccion);
+      $(event.currentTarget).find('#precio_galon-show').val(data.grifo.precio_galon);
+      $(event.currentTarget).find('#correo-show').val(data.grifo.correo);
       $(event.currentTarget).find('#zona-show').val(data.grifo.zona);   
     },
     error: (error)=>{

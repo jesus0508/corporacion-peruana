@@ -50,7 +50,8 @@
 
   $modal_create_ingreso.on('show.bs.modal', function (event) {
     hoy = $.datepicker.formatDate('yy-m-d', new Date());
-    fillSelectGrifos(hoy);
+    fillSelectGrifos(hoy);  
+
   });
 
   $fecha_reporte.on('change', function (event) {
@@ -58,16 +59,23 @@
     fecha_reporte = convertDateFormat(fecha_reporte);
     fillSelectGrifos(fecha_reporte);
   })
-
   $select_grifo.on('change', function (event) {
     let idGrifo = $select_grifo.val();
-    getIngresoByGrifo(idGrifo).done((data) => {
-      $lectura_inicial.val(data.ingresoGrifo.lectura_inicial);
-      //Cambiar a otra promesa
-      $lecturas.trigger('keyup');
-    }).fail((error) => {
-      toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
-    });
+
+    if (idGrifo) {
+        getIngresoByGrifo(idGrifo).done((data) => {
+          console.log(data);
+        $lectura_inicial.val(data.ingresoGrifo.lectura_inicial);
+        $precio_galon.val(data.grifo.precio_galon);
+        //Cambiar a otra promesa
+        $lecturas.trigger('keyup');
+      }).fail((error) => {
+        toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
+      });
+    }else{
+      $precio_galon.val('');
+    }
+
   });
 
   $lecturas.on('keyup', function (event) {
@@ -95,9 +103,15 @@
   function fillSelectGrifos(fecha = '') {
     getAllGrifos(fecha)
       .done((data) => {
-
         $select_grifo.html('');
         inicializarSelect2($select_grifo, 'Seleccione el grifo', data.grifos);
+        let selected_grifo_id = $select_grifo.val();
+        console.log(selected_grifo_id);
+        getIngresoByGrifo(selected_grifo_id).done((data) => {
+          $precio_galon.val(data.grifo.precio_galon);
+        }).fail((error) => {
+          toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
+        });
       })
       .fail((error) => {
         toastr.error('Ocurrio un error en el servidor al guardar', 'Error Alert', { timeOut: 2000 });

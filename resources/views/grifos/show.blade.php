@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-show-grifo" style="display: none;">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -21,8 +21,14 @@
                   <input id="ruc-show" type="text" class="form-control" readonly>
                 </div>
                 <div class="form-group">
+                  <label for="precio_galon-show">Precio Galón</label>
+                  <input id="precio_galon-show" type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
                   <label for="razon_social-show">Razón Social</label>
-                  <input id="razon_social-show" type="text" class="form-control" readonly>
+                  <textarea id="razon_social-show" 
+                  cols="30" rows="2" class="form-control" readonly="" 
+                  ></textarea> 
                 </div>
                 <div class="form-group">
                   <label for="telefono-show">Teléfono</label>
@@ -46,6 +52,10 @@
                   <label for="stock-show">Stock</label>
                   <input id="stock-show" type="number" class="form-control" readonly>
                 </div>
+              <div class="form-group">
+                <label for="correo">Correo</label>
+                <input id="correo-show" type="email" class="form-control" readonly="">
+              </div>
                 <div class="form-group">
                   <label for="distrito-show">Distrito</label>
                   <input id="distrito-show" type="text" class="form-control" readonly>

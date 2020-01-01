@@ -20,6 +20,8 @@ class CreateGrifosTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('administrador');
             $table->float('stock');
+            $table->string('correo')->nullable();
+            $table->decimal('precio_galon', 9, 5);
             $table->string('direccion')->nullable();
             $table->string('zona');
             $table->string('distrito')->nullable();

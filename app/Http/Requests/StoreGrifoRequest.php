@@ -28,6 +28,8 @@ class StoreGrifoRequest extends FormRequest
             'razon_social' => 'required',
             'telefono' => 'nullable|regex:/^([9]{1})([0-9]{8})$/i',
             'ruc' => 'nullable|min: 11',
+            'correo'=>'nullable|email',
+            'precio_galon'=>'required|numeric|gt:0',
             'administrador' => 'required|max: 255',
             'direccion' => 'nullable|max: 255|min: 5',
             'distrito' => 'nullable|max: 255',

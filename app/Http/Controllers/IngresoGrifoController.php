@@ -2,6 +2,7 @@
 
 namespace CorporacionPeru\Http\Controllers;
 
+use CorporacionPeru\Grifo;
 use CorporacionPeru\IngresoGrifo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreIngresoGrifoRequest;
@@ -94,10 +95,16 @@ class IngresoGrifoController extends Controller
     {
         //
     }
-
+    /**
+     * Ultimo ingreso grifo, lectura inicial
+        GRifo datos
+     */
     public function getLastIngreso($id)
     {
+        $grifo = Grifo::findOrFail($id);
         $ingresoGrifos = IngresoGrifo::where('grifo_id', $id)->latest();
-        return response()->json(['ingresoGrifo' => $ingresoGrifos]);
+        return response()->json(['ingresoGrifo' => $ingresoGrifos,
+                        'grifo'=>$grifo]);
+
     }
 }

@@ -94,7 +94,7 @@
                       <div class="form-group">
                         <label for="precio_galon">Precio x Galones</label>
                         <input id="precio_galon" type="number" step="any" class="form-control" 
-                                name="precio_galon" placeholder="Ingrese el precio por galon" required min="0">
+                                name="precio_galon" placeholder="Ingrese el precio por galon" required min="0" readonly="">
                       </div>
                     </div>
                   </div>

@@ -21,18 +21,34 @@
                 </span>
                 @enderror
               </div>
-            </div>
+            </div>          
             <div class="col-md-6">
-              <div class="form-group @error('razon_social') has-error @enderror">
-                <label for="razon_social">Razón Social</label>
-                <input id="razon_social" type="text" class="form-control" value="{{old('razon_social')}}"
-                        name="razon_social" placeholder="Ingrese la Razon Social" required>
-                @error('razon_social')
+              <div class="form-group @error('precio_galon') has-error @enderror">
+                <label for="precio_galon">Precio Galón*</label>
+                <input id="precio_galon" type="text" class="form-control" value="{{old('precio_galon')}}"
+                        name="precio_galon" placeholder="Precio de galón" required>
+                @error('precio_galon')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
                 @enderror
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group @error('razon_social') has-error @enderror">
+                <label for="razon_social">Razón Social*</label>
+                <textarea id="razon_social" 
+                cols="30" rows="2" class="form-control" 
+                name="razon_social" placeholder="Ingrese la razon social"
+                  >{{old("razon_social")}}</textarea>             
+                @error('razon_social')
+                <span class="help-block" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div> 
             </div>
           </div>
           <div class="row">
@@ -50,7 +66,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group @error('administrador') has-error @enderror">
-                <label for="administrador">Administrador</label>
+                <label for="administrador">Administrador*</label>
                 <input id="administrador" type="text" class="form-control" 
                     value="{{old('administrador')}}"  name="administrador" placeholder="Ingrese el nombre del administrador" required >
                 @error('administrador')
@@ -75,7 +91,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group @error('stock') has-error @enderror">
-                <label for="stock">Stock</label>
+                <label for="stock">Stock*</label>
                 <input id="stock" type="number" class="form-control" step="any" min="0" 
                       name="stock"   value="{{old('stock')}}" placeholder="Ingrese el stock" required="">
                 @error('stock')
@@ -100,11 +116,11 @@
           </div>
           <div class="row">
             <div class="col-md-8">
-              <div class="form-group @error('direccion') has-error @enderror">
-                <label for="direccion">Dirección</label>
-                <input id="direccion" type="text" class="form-control"
-                        name="direccion"   value="{{old('direccion')}}" placeholder="Ingrese la direccion" >
-                @error('direccion')
+              <div class="form-group @error('correo') has-error @enderror">
+                <label for="correo">Correo</label>
+                <input id="correo" type="email" class="form-control"
+                        name="correo"   value="{{old('correo')}}" placeholder="Ingrese correo electrónico de contacto" >
+                @error('correo')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -113,7 +129,7 @@
             </div>
             <div class="col-md-4"> 
               <div class="form-group">
-                <label for="zona">Zona</label>
+                <label for="zona">Zona*</label>
                 <select class="form-control" id="zona" name="zona" placeholder="Seleccione la zona" required>
                     <option value="NORTE">NORTE</option>
                     <option value="SUR">SUR</option>
@@ -121,6 +137,20 @@
                 </select>
               </div>            
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group @error('direccion') has-error @enderror">
+                <label for="direccion">Dirección</label>
+                <textarea name="direccion" placeholder="Ingrese la direccion" minlength="5"cols="30" class="form-control" rows="2">{{old("direccion")}}</textarea>
+
+                @error('direccion')
+                <span class="help-block" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>           
+            </div>            
           </div>
         </div><!-- /.box-body -->
       </div><!-- /.box -->

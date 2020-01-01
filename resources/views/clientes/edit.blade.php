@@ -173,18 +173,6 @@
                     @enderror
                   </div>
                 </div>
-                {{-- <div class="col-md-6">
-                  <div class="form-group @error('periocidad') has-error @enderror">
-                    <label for="tipo">Periocidad</label>
-                    <input id="periocidad" type="number" class="form-control" value="{{old("periocidad")}}"
-                          name="periocidad" placeholder="Ingrese la periocidad" required min="0">
-                    @error('periocidad')
-                    <span class="help-block" role="alert">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-                </div> --}}
               </div>
               <div class="row">
                 <div class="col-md-12">
