@@ -7,9 +7,6 @@ $(document).ready(function () {
   validateDates();
 
   $tabla_pagos.DataTable({
-    language: {
-       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-    }, 
   });
 
   $modal_create_pago_bloque.on('show.bs.modal', function (event) {

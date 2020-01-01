@@ -28,10 +28,7 @@ $(document).ready(function() {
  
 
   $('#tabla-vehiculos').DataTable({
-    'language': {
-             'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-        },
-              "order": [[ 0, "desc" ]]
+    "order": [[ 0, "desc" ]]
   });
 } );
 

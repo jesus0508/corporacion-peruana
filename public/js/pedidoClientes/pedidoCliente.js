@@ -3,9 +3,6 @@ $(document).ready(function () {
   let $tabla_pedido_clientes = $('#tabla-pedido_clientes');
 
   $tabla_pedido_clientes.DataTable({
-    language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-    },
     columnDefs: [
       {
         orderable: false,

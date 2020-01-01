@@ -76,9 +76,6 @@ $('#modal-show-cliente').on('show.bs.modal', function (event) {
 
 $(document).ready(function() {
   $('#tabla-clientes').DataTable({
-    language: {
-       url : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-    }, 
     columnDefs: [ 
     { 
       orderable: false, 

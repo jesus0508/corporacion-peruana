@@ -42,10 +42,8 @@ $(document).ready(function() {
   
     $('#tabla-proveedores').DataTable({
         "order": [[ 0, "desc" ]],       
-          "responsive": true,             
-        'language': {
-        'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-      }, columnDefs: [ 
+          "responsive": true,            
+       columnDefs: [ 
     { 
       orderable: false, 
       targets: [ -1 ] 
