@@ -572,7 +572,7 @@ desired effect
             <li><a href="{{route('transporte.index')}}"><i class="fa fa-pencil"></i> Gestión</a></li>
             <li><a href="{{route('ingreso_transporte.create')}}"><i class="fa fa-list"></i>Ingreso</a></li>
             <li><a href="{{route('egreso_transporte.create')}}"><i class="fa fa-file-text-o"></i>Egreso</a></li>
-            <li id="treeview-reporte-transporte" class="treeview">
+      {{--       <li id="treeview-reporte-transporte" class="treeview">
                   <a href="#">
                     <i class="fa fa-list"></i> <span>Reporte</span>
                     <span class="pull-right-container">
@@ -586,7 +586,7 @@ desired effect
                     Reporte General</a>
                     </li>
                   </ul>
-            </li>
+            </li> --}}
 
           </ul>
         </li>        

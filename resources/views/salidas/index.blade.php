@@ -19,7 +19,7 @@
     @include('salidas.header')
     @include('salidas.create')
   </form>  	
-  @include('salidas.table')
+ {{--  @include('salidas.table') --}}
 	<!-- modales -->
   @include('salidas.modal_categoria')
   <!-- fin modales -->

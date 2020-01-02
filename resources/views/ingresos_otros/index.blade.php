@@ -19,8 +19,8 @@
     @include('ingresos_otros.create')
   </form>
   	
-  	@include('ingresos_otros.table')
-
+{{--   	@include('ingresos_otros.table')
+ --}}
 	<!-- modales -->
    @include('ingresos_otros.modal_categoria')
    <!-- fin modales -->
