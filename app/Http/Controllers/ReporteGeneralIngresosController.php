@@ -78,11 +78,11 @@ class ReporteGeneralIngresosController extends Controller
             //Ingresos por transportes, Unidades
         $ingresos5 = IngresoTransporte::join('categoria_ingresos',
                     'categoria_ingresos.id','=','ingreso_transportes.categoria_ingreso_id')
-            ->where('ingreso_transportes.fecha_ingreso',$date)
+            ->where('ingreso_transportes.fecha_reporte',$date)
             ->select('ingreso_transportes.id as ingresoBuses',
-                    'ingreso_transportes.fecha_ingreso',
-                    'ingreso_transportes.fecha_reporte as day', 
-                    'ingreso_transportes.fecha_reporte',
+                    'ingreso_transportes.fecha_ingreso as day',
+                    'ingreso_transportes.fecha_ingreso as fecha_reporte', 
+                    'ingreso_transportes.fecha_reporte as fecha_ingreso',
                      DB::raw('sum(monto_ingreso) as monto_ingreso'),
                         'ingreso_transportes.deleted_at as codigo_operacion',
                         'ingreso_transportes.deleted_at as banco',
