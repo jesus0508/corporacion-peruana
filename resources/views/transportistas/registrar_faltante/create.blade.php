@@ -62,7 +62,7 @@
                   <div class="form-group">
                     <label for="costo_galon-edit">Costo Galon</label>
                     <input id="costo_galon-edit" type="text" class="form-control"
-                          name="costo_galon"  readonly="">
+                          name="costo_galon" >
                   </div>
                 </div>
                 <div class="col-md-6">

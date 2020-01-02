@@ -27,6 +27,7 @@ class StoreTransporteRequest extends FormRequest
             
             'tipo' => 'required|numeric|gt:0',
             'placa' => 'required|min: 6|alpha-dash|unique:transportes,placa,'.$this->id,
+            'chofer'=> 'max:255'
         ];
     }
 }

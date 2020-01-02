@@ -16,7 +16,7 @@
         <div class="form-inline">
             <label for="fecha_inicio">FECHA: </label>
             <input autocomplete="off" id="fecha_inicio" type="text" class="tuiker form-control"
-              name="fecha_inicio" placeholder="Fecha reporte">
+              name="fecha_inicio" placeholder="Fecha egreso">
           </div>
       </div>
       <div class="col-md-6 pull-right" >

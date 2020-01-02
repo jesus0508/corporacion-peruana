@@ -35,9 +35,9 @@
           </div>
           <div class="col-md-6">
                 <div class="form-group @error('fecha_reporte') has-error @enderror">
-                  <label for="fecha_reporte">Fecha para reporte</label>
+                  <label for="fecha_reporte">Fecha reporte</label>
                   <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control" required="" 
-                  name="fecha_reporte" placeholder="Ingrese la fecha de reporte">
+                  name="fecha_reporte" placeholder="Ingrese fecha reporte">
                   @error('fecha_reporte')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

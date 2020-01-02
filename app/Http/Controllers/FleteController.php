@@ -4,6 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use Illuminate\Http\Request;
 use CorporacionPeru\Pedido;
+use CorporacionPeru\Grifo;
 use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoProveedorGrifo;
@@ -181,12 +182,16 @@ class FleteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePedidoProveedorClienteRequest $request, $id)
-    {
+    {   
+        //TRANSACTION
         $id = $request->id;//id_pivote     
         if( $request->pedido_cliente_id){//PEDIDO A CLEINTE            
             $pivote = PedidoProveedorCliente::findOrFail($id);            
         }else{//PEDIDO A GRIFO
-            $pivote = PedidoProveedorGrifo::findOrFail($id);           
+            $pivote = PedidoProveedorGrifo::findOrFail($id); 
+            $grifo = Grifo::findOrFail($id);
+            $grifo->stock-=$request->faltante;
+            $grifo->save();        
         }
         $pivote->timestamps  = false;
         $pivote->update( $request->validated() );

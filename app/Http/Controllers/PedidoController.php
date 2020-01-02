@@ -294,6 +294,7 @@ class PedidoController extends Controller
                     PedidoCliente::join('pedido_proveedor_clientes', 
                         'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
                     ->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')
+                    ->select('pedido_clientes.*')
                     ->where('pedido_id', $request->id_pedido_pr)->get();
 
                 $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
@@ -438,7 +439,7 @@ class PedidoController extends Controller
             $stock->stock_general += $gls_nuevo;
             $stock->save();  
             DB::commit();
-            return  back()->with('alert-type', 'warning')->with('status', 'Pedido borrado con exito');
+            return  back()->with('alert-type', 'success')->with('status', 'Pedido editado con exito');
         } catch (Exception $e) {          
             DB::rollback();
             return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');

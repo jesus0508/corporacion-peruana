@@ -16,14 +16,14 @@
               <th>N° comprobante</th>
               <th>Descripción</th>
               <th>Monto</th>  
-              
+            
             </tr>
           </thead>
           <tbody>
             @foreach ($egresos as $egreso)
               <tr>
-                <td>{{$egreso->fecha_reporte}}</td>
-                <td>{{$egreso->fecha_egreso}}</td>
+                <td>{{ date('d/m/Y', strtotime($egreso->fecha_reporte)) }}</td>
+                <td>{{ date('d/m/Y', strtotime($egreso->fecha_egreso)) }}</td>
                 <td>{{$egreso->transporte->placa}}</td>
                 <td>{{$egreso->getTipoComprobante()}}</td>
                 <td>{{$egreso->nro_comprobante}}</td>
