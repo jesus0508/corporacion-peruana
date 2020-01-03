@@ -191,7 +191,19 @@
                 @enderror
               </div>
             </div>
-            <div class="col-md-6"> 
+            <div class="col-md-6">
+              <div class="form-group @error('forma_pago') has-error @enderror">
+                <label for="forma_pago">Forma de pago*</label>
+                <input id="forma_pago" type="text" class="form-control" value="{{old("forma_pago")}}"
+                        name="forma_pago" placeholder="Ingrese forma de pago">
+                @error('forma_pago')
+                <span class="help-block" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+            {{--<div class="col-md-6"> 
               <div class="form-group">
                 <label for="forma_pago">Forma de pago*</label>
                 <select class="form-control" id="forma_pago" name="forma_pago" placeholder="Seleccione la forma de pago" required>
@@ -201,7 +213,7 @@
                     <option value="4">Mensual</option>
                 </select>
               </div>            
-            </div>         
+            </div>--}}         
           </div>
           <div class="row">            
             <div class="col-md-6">
