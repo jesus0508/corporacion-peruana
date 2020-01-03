@@ -53,6 +53,7 @@ $(document).ready(function () {
   $('#btn-pago-bloque').on('click', function () {
     let pagoData = {
       fecha: $('#fecha_operacion-pago_bloque').val(),
+      fecha_reporte: $('#fecha_reporte-pago_bloque').val(),      
       codigo: $('#codigo_operacion-pago_bloque').val(),
       monto: $('#monto_operacion-pago_bloque').val(),
       banco: $('#banco-pago_bloque').val(),
@@ -96,6 +97,7 @@ function pagarEnBloque(datos) {
     dataType: 'json',
     data: {
       'fecha_operacion': datos.fecha,
+      'fecha_reporte'  : datos.fecha_reporte,
       'codigo_operacion': datos.codigo,
       'monto_operacion': datos.monto,
       'banco': datos.banco
