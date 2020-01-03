@@ -23,7 +23,7 @@
             <div class="col-md-6">
               <div class="form-group @error('placa') has-error @enderror">
                 <label for="placa">PLACA*</label>
-                <input id="placa" type="text" class="form-control" name="placa" placeholder="Ingrese la placa de la cisterna" value="{{ old('placa') }}" pattern="[A-Za-z]{3}[-]\d{3}" title="Formato: ABC-123" required>
+                <input id="placa" type="text" class="form-control" name="placa" placeholder="Ingrese la placa de la cisterna" value="{{ old('placa') }}" pattern="[A-Za-z0-9]{3}[-]\d{3}" title="Formato: ABC-123" required>
                 @error('placa')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

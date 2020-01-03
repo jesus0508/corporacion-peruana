@@ -8,14 +8,13 @@
         <table id="tabla-grifos-balance" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>RUC</th>
-              <th>Razón Social</th>
-              <th>Teléfono</th>
-              <th>Administrador</th>
-              <th>Stock</th>
-              <th>Distrito</th>
-              <th>Zona</th>
-              <th>Series</th>
+              <th>Fecha</th>
+              <th>Grifo Sale</th>
+              <th>Stock(restado)</th>
+              <th>traspaso</th>
+              <th>Grifo Entra</th>
+              <th>stock(sumado)</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -27,21 +26,7 @@
                 <td>{{$grifo->administrador}}</td>
                 <td>{{$grifo->stock}}</td>
                 <td>{{$grifo->distrito}}</td>
-                <td>{{$grifo->zona}}</td>
-                <td>
-                  @if(count($grifo->series)>0)
-                    <label for="series"class="label label-default">                    
-                      Serie:&nbsp;                  
-                      @foreach($grifo->series as $serie)
-                        {{$serie->nro}}&nbsp;
-                      @endforeach
-                    </label>
-                  @else
-                    <label for="series" class="label label-default">
-                      No tiene  
-                    </label>                  
-                  @endif                
-                </td>
+                
               </tr>
             @endforeach
           </tbody>
