@@ -8,8 +8,9 @@ class Grifo extends Model
 {
     //
     protected $table = 'grifos';
-    protected $fillable = ['ruc', 'razon_social','correo', 'precio_galon' ,
-        'telefono', 'administrador', 'stock', 'direccion', 'distrito','zona'];
+    protected $fillable = ['ruc', 'razon_social','correo_grifo', 'precio_galon' ,
+        'telefono', 'administrador', 'stock', 'direccion', 'distrito','zona','dni',
+    'forma_pago','persona_comision','correo_representante' , 'nro_cuenta','cuenta_detraccion','utilidades','extraordinaria'];
 
     public function ingresoGrifos()
     {

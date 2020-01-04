@@ -188,14 +188,14 @@
                   </div>
                 </div>
                 <div class="col-md-6"> 
-                  <div class="form-group">
+                  <div class="form-group @error('forma_pago') has-error @enderror">
                     <label for="forma_pago-edit">Forma de pago*</label>
-                    <select class="form-control" id="forma_pago-edit" name="forma_pago" placeholder="Seleccione la forma de pago" required>
-                        <option value="1">Diario</option>
-                        <option value="2">Semanal</option>
-                        <option value="3">Quincenal</option>
-                        <option value="4">Mensual</option>
-                    </select>
+                    <input type="text" id="forma_pago-edit" name="forma_pago" placeholder="Escriba la forma de pago" required="">
+                    @error('forma_pago')
+                    <span class="help-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                   </div>            
                 </div>         
               </div>

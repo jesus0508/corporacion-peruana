@@ -95,7 +95,7 @@
               <div class="form-group @error('administrador') has-error @enderror">
                 <label for="administrador">Representante*</label>
                 <input id="administrador" type="text" class="form-control" 
-                    value="{{old('administrador')}}"  name="administrador" placeholder="Ingrese el nombre del administrador" required >
+                    value="{{old('administrador')}}"  name="administrador" placeholder="Ingrese el nombre del representante" required >
                 @error('administrador')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -125,11 +125,11 @@
 
           <div class="row">
             <div class="col-md-7">
-              <div class="form-group @error('correo') has-error @enderror">
-                <label for="correo">Correo</label>
-                <input id="correo" type="email" class="form-control"
-                        name="correo"   value="{{old('correo')}}" placeholder="Ingrese correo electrónico de contacto" >
-                @error('correo')
+              <div class="form-group @error('correo_grifo') has-error @enderror">
+                <label for="correo_grifo">Correo</label>
+                <input id="correo_grifo" type="email" class="form-control"
+                        name="correo_grifo"   value="{{old('correo_grifo')}}" placeholder="Ingrese el correo del grifo " >
+                @error('correo_grifo')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -140,7 +140,7 @@
               <div class="form-group @error('distrito') has-error @enderror">
                 <label for="distrito">Distrito</label>
                 <input id="distrito" type="text" class="form-control"
-                        name="distrito"  value="{{old('distrito')}}" placeholder="Ingrese la distrito" >
+                        name="distrito"  value="{{old('distrito')}}" placeholder="Ingrese el distrito" >
                 @error('distrito')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -270,7 +270,7 @@
 
           <div class="col-md-4"> 
               <div class="form-group">
-                <label for="zona">Zona*</label>
+                <label for="zona">Zona Grifo*</label>
                 <select class="form-control" id="zona" name="zona" placeholder="Seleccione la zona" required>
                     <option value="NORTE">NORTE</option>
                     <option value="SUR">SUR</option>

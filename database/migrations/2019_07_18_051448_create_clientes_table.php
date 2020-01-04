@@ -27,7 +27,7 @@ class CreateClientesTable extends Migration
             $table->string('actividad_economica')->nullable();
             $table->string('telefono')->nullable();
             $table->string('direccion');
-            $table->integer('forma_pago');
+            $table->string('forma_pago');
             $table->string('persona_comision')->nullable();
             $table->string('correo_representante')->nullable();
             $table->string('nro_cuenta')->nullable();

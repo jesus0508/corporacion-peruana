@@ -122,13 +122,9 @@
                 </div>
                 <div class="col-md-6"> 
                   <div class="form-group">
-                    <label for="forma_pago-show">Forma de pago*</label>
-                    <select class="form-control" id="forma_pago-show" name="forma_pago" disabled="" placeholder="Seleccione la forma de pago">
-                        <option value="1">Diario</option>
-                        <option value="2">Semanal</option>
-                        <option value="3">Quincenal</option>
-                        <option value="4">Mensual</option>
-                    </select>
+                    <label for="forma_pago-show">Forma de pago*</label>                    
+                    <input type="text" id="forma_pago-edit" readonly=""
+                      class="form-control">
                   </div>            
                 </div>         
               </div>
@@ -146,9 +142,7 @@
                   </div>
                 </div>
               </div>
-
-              <div class="row">
-                
+              <div class="row">                
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="nro_cuenta-show">Numero de Cuenta</label>

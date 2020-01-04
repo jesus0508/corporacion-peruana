@@ -19,12 +19,20 @@ class CreateGrifosTable extends Migration
             $table->string('ruc')->nullable();
             $table->string('telefono')->nullable();
             $table->string('administrador');
+            $table->string('dni')->nullable();           
             $table->float('stock');
-            $table->string('correo')->nullable();
+            $table->string('correo_grifo')->nullable();
             $table->decimal('precio_galon', 9, 5);
             $table->string('direccion')->nullable();
             $table->string('zona');
             $table->string('distrito')->nullable();
+            $table->integer('forma_pago');
+            $table->string('persona_comision')->nullable();
+            $table->string('correo_representante')->nullable();
+            $table->string('nro_cuenta')->nullable();
+            $table->string('cuenta_detraccion')->nullable();
+            $table->string('utilidades');
+            $table->string('extraordinaria');  
             $table->timestamps();
         });
     }

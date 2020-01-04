@@ -116,18 +116,6 @@
                 @enderror
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group @error('precio_galon') has-error @enderror">
-                  <label for="precio_galon">Precio por galon*</label>
-                  <input id="precio_galon" type="number" step="any" min="1" class="form-control" value="{{old("precio_galon")}}"
-                        name="precio_galon" placeholder="Ingrese precio por galon" required>
-                  @error('precio_galon')
-                  <span class="help-block" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-              </div>
-            </div>
           </div>   
         </div><!-- /.box-body -->
       </div><!-- /.box -->
@@ -156,7 +144,7 @@
             <div class="col-md-6">
               <div class="form-group @error('distrito') has-error @enderror">
                 <label for="distrito">Distrito*</label>
-                <input id="distrito" type="text" step="any" class="form-control" value="{{old("distrito")}}"
+                <input id="distrito" type="text" class="form-control" value="{{old("distrito")}}"
                       name="distrito" placeholder="Ingrese Distrito" required>
                 @error('distrito')
                 <span class="help-block" role="alert">
@@ -189,6 +177,18 @@
                   <strong>{{ $message }}</strong>
                 </span>
                 @enderror
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group @error('precio_galon') has-error @enderror">
+                  <label for="precio_galon">Precio por galon*</label>
+                  <input id="precio_galon" type="number" step="any" min="1" class="form-control" value="{{old("precio_galon")}}"
+                        name="precio_galon" placeholder="Ingrese precio por galon" required>
+                  @error('precio_galon')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
               </div>
             </div>
             <div class="col-md-6">
