@@ -12,8 +12,8 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label for="grifo_a_quitar">Elije el grifo</label>
-                <select name="grifo_a_quitar" id="grifo_a_quitar"
+                <label for="grifo_id_sender">Elije el grifo</label>
+                <select name="grifo_id_sender" id="grifo_a_quitar"
                         required="" class="form-control">                     
                   @foreach($grifos as $grifo)
                     <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
@@ -28,7 +28,7 @@
               <div class="form-group">
                 <label for="stock_nuevo">Stock nuevo</label>
                 <input type="text" class="form-control" placeholder="Nuevo Stock"
-                  id="stock_nuevo1"  readonly="">
+                  id="stock_nuevo1" name="grifo_sender_stock_nuevo"  readonly="">
               </div>
             </div>
           </div>
@@ -39,12 +39,15 @@
       <br>
       <br>
       <br>   
-      <br>
-      <br>
       <div class="form-group">
-        <center>  <label  for="galones">Cantidad galones</label> </center>       
+        <center>  <label  for="fecha">Fecha</label> </center>       
+        <input type="date" id="fecha" class="form-control" placeholder="Fecha"
+         name="fecha" required=""> 
+      </div>
+      <div class="form-group">
+        <center>  <label  for="cantidad">Cantidad galones</label> </center>       
         <input type="number" id="galones" step="any" min="1" class="form-control" placeholder="Galones"
-         name="galones" required=""> 
+         name="cantidad" required=""> 
       </div>
     </div>
     <div class="col-md-5">
@@ -57,8 +60,8 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label for="grifo_a_dar">Elije el grifo</label>
-                <select name="grifo_a_dar" id="grifo_a_dar"
+                <label for="grifo_id_receiver">Elije el grifo</label>
+                <select name="grifo_id_receiver" id="grifo_a_dar"
                         required="" class="form-control">                     
                   @foreach($grifos as $grifo)
                     <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
@@ -73,7 +76,7 @@
               <div class="form-group">
                 <label for="stock_nuevo">Stock nuevo</label>
                 <input type="text" class="form-control" placeholder="Nuevo Stock"
-                  id="stock_nuevo2"  readonly="">
+                  id="stock_nuevo2"  name="grifo_receiver_stock_nuevo" readonly="">
               </div>
             </div>
           </div>

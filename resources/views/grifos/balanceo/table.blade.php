@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Lista de Grifos</h3>
+        <h3 class="box-title">Historial de balanceos</h3>
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="tabla-grifos-balance" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
@@ -13,20 +13,18 @@
               <th>Stock(restado)</th>
               <th>traspaso</th>
               <th>Grifo Entra</th>
-              <th>stock(sumado)</th>
-              
+              <th>stock(sumado)</th>  
             </tr>
           </thead>
           <tbody>
-            @foreach ($grifos as $grifo)
+            @foreach ($balanceos as $balanceo)
               <tr>
-                <td>{{$grifo->ruc}}</td>
-                <td>{{$grifo->razon_social}}</td>
-                <td>{{$grifo->telefono}}</td>
-                <td>{{$grifo->administrador}}</td>
-                <td>{{$grifo->stock}}</td>
-                <td>{{$grifo->distrito}}</td>
-                
+                <td>{{$balanceo->fecha}}</td>
+                <td>{{$balanceo->grifo_id_sender}}</td>
+                <td>{{$balanceo->grifo_sender_stock_nuevo}}</td>
+                <td>{{$balanceo->cantidad}}</td>
+                <td>{{$balanceo->grifo_id_receiver}}</td>
+                <td>{{$balanceo->grifo_receiver_stock_nuevo}}</td>
               </tr>
             @endforeach
           </tbody>

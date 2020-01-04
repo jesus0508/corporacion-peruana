@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTraspasosTable extends Migration
+class CreateBalanceosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateTraspasosTable extends Migration
      */
     public function up()
     {
-        Schema::create('traspasos', function (Blueprint $table) {
+        Schema::create('balanceos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('fecha_traspaso');
+            $table->date('fecha');
+            $table->float('cantidad');
+            $table->float('grifo_sender_stock_nuevo');
+            $table->float('grifo_receiver_stock_nuevo');
             $table->unsignedBigInteger('grifo_id_sender');
             $table->foreign('grifo_id_sender')->references('id')->on('grifos');
             $table->unsignedBigInteger('grifo_id_receiver');
             $table->foreign('grifo_id_receiver')->references('id')->on('grifos');
-
             $table->timestamps();
         });
     }
@@ -31,11 +33,11 @@ class CreateTraspasosTable extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::table('facturacion_grifos', function (Blueprint $table) {
+    {        
+        Schema::table('balanceos', function (Blueprint $table) {
             $table->dropForeign(['grifo_id_sender']);
             $table->dropForeign(['grifo_id_receiver']);
          });
-        Schema::dropIfExists('traspasos');
+        Schema::dropIfExists('balanceos');
     }
 }

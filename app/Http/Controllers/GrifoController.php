@@ -5,11 +5,13 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\Grifo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreGrifoRequest;
+use CorporacionPeru\Http\Requests\StoreBalanceoRequest;
 use CorporacionPeru\IngresoGrifo;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Log;
 use CorporacionPeru\Stock;
+use CorporacionPeru\Balanceo;
 
 class GrifoController extends Controller
 {
@@ -52,25 +54,29 @@ class GrifoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function balancear(Request $request)
+    public function balancear(StoreBalanceoRequest $request)
     {
         //return $request;
-        $grifo1_id = $request->grifo_a_quitar;
-        $grifo2_id = $request->grifo_a_dar;
+        $grifo1_id = $request->grifo_id_sender;
+        $grifo2_id = $request->grifo_id_receiver;
         if ($grifo1_id==$grifo2_id) {      
             return back()->with(['alert-type' => 'warning', 'status' => 'Escoja grifos diferentes']);
         }else{
+            //START TRANSACTION
             $grifo1 = Grifo::findOrFail($grifo1_id);
             $grifo2 = Grifo::findOrFail($grifo2_id);
-            $grifo1->stock -= $request->galones;
-            $grifo2->stock += $request->galones;
+            $grifo1->stock -= $request->cantidad;
+            $grifo2->stock += $request->cantidad;
             $grifo1->save();
             $grifo2->save();
+            //REGISTRAR BALANCEO
+            Balanceo::create( $request->validated() );
+            
             return back()->with(['alert-type' => 'success', 'status' => 'Balanceo realizado con exito']);
         }
-//
         $grifos = Grifo::all();
-        return view('grifos.balanceo.index',compact('grifos'));
+        $balanceos = Balanceo::orderBy('id','desc')->get();
+        return view('grifos.balanceo.index',compact('balanceos','grifos'));
     }
 
     /**
@@ -80,10 +86,11 @@ class GrifoController extends Controller
      */
     public function balanceo()
     {
-
         $grifos = Grifo::all();
-     //   return $grifos;
-        return view('grifos.balanceo.index',compact('grifos'));
+        $balanceos = Balanceo::orderBy('id','desc')->get();
+
+       // return $balanceos;
+        return view('grifos.balanceo.index',compact('balanceos','grifos'));
     }
     /**
      * Store a newly created resource in storage.
