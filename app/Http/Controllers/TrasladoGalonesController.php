@@ -18,7 +18,9 @@ class TrasladoGalonesController extends Controller
      */
     public function index()
     {
-        //
+        $traslados=TrasladoGalones::with('proveedor')->orderBy('id', 'DESC')->get();
+        return view('traslado_galones.reportes.proveedores.index',
+            compact('traslados'));
     }
 
     /**

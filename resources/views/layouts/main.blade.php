@@ -605,7 +605,7 @@ desired effect
               <a href="{{route('traslado_galones.create')}}"><i class="fa fa-pencil"></i> Registro</a>
             </li>
             <li>
-              <a href="{{route('traslado_galones.create')}}"><i class="fa fa-pencil"></i> Reporte Proveedores</a>
+              <a href="{{route('traslado_galones.index')}}"><i class="fa fa-list"></i> Reporte Proveedores</a>
             </li>
           </ul>
         </li> 
