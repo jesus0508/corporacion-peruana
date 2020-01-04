@@ -593,9 +593,22 @@ desired effect
         <li>
           <a href="{{route('stock_grifos.create')}}"><i class="fa fa-battery-half"></i>  Stock de Grifos</a>
         </li>
-        <li>
-          <a href="{{route('traslado_galones.create')}}"><i class="fa fa-battery-half"></i>  Nueva Vista</a>
-        </li>
+        <li id="treeview-empresa" class="treeview">
+          <a href="#">
+            <i class="fa fa-square"></i> <span>Programación pedidos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: none;">
+            <li>
+              <a href="{{route('traslado_galones.create')}}"><i class="fa fa-pencil"></i> Registro</a>
+            </li>
+            <li>
+              <a href="{{route('traslado_galones.create')}}"><i class="fa fa-pencil"></i> Reporte Proveedores</a>
+            </li>
+          </ul>
+        </li> 
         <li id="treeview-empresa" class="treeview">
           <a href="#">
             <i class="glyphicon glyphicon-menu-hamburger"></i> <span>Empresa</span>
@@ -606,8 +619,7 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{ route('empresa.index') }}"><i class="fa fa-pencil"></i> Gestión</a></li>
           </ul>
-        </li>       
-
+        </li>    
       </ul>
       <!-- /.sidebar-menu -->
     </section>

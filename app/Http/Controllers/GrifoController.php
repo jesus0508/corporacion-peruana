@@ -87,9 +87,12 @@ class GrifoController extends Controller
     public function balanceo()
     {
         $grifos = Grifo::all();
-        $balanceos = Balanceo::orderBy('id','desc')->get();
-
-       // return $balanceos;
+        $balanceos = Balanceo::join('grifos',
+                'balanceos.grifo_id_sender','=','grifos.id')
+            ->join('grifos as g','balanceos.grifo_id_receiver','g.id')
+            ->select('grifos.razon_social as grifo_sender','balanceos.*','g.razon_social as grifo_receiver')
+            ->orderBy('balanceos.fecha','desc')
+            ->get();
         return view('grifos.balanceo.index',compact('balanceos','grifos'));
     }
     /**

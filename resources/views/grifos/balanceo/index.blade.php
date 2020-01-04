@@ -32,7 +32,8 @@
 $(document).ready(function() {
 
 	$('#tabla-grifos-balance').DataTable({
-      "responsive": true
+      "responsive": true,
+        "aaSorting": [],
 	});
 });
 

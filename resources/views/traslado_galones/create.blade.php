@@ -5,7 +5,7 @@
 		      <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
-          <h2 class="box-title">Registrar trapaso:</h2>
+          <h2 class="box-title">Registrar programación pedidos:</h2>
         </div><!-- /.box-header -->
         <div class="box-body" >
           <div class="row"  id="input-user-edit">

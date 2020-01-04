@@ -4,7 +4,7 @@
 			<div class="box-header with-border">
         <div class="row">
           <div class="col-md-3">
-            <h2 class="box-title">Lista </h2>
+            <h2 class="box-title">Lista</h2>
           </div>
           <div class="col-md-3">
             <div class="form-group">

@@ -20,10 +20,10 @@
             @foreach ($balanceos as $balanceo)
               <tr>
                 <td>{{$balanceo->fecha}}</td>
-                <td>{{$balanceo->grifo_id_sender}}</td>
+                <td>{{$balanceo->grifo_sender}}</td>
                 <td>{{$balanceo->grifo_sender_stock_nuevo}}</td>
                 <td>{{$balanceo->cantidad}}</td>
-                <td>{{$balanceo->grifo_id_receiver}}</td>
+                <td>{{$balanceo->grifo_receiver}}</td>
                 <td>{{$balanceo->grifo_receiver_stock_nuevo}}</td>
               </tr>
             @endforeach
