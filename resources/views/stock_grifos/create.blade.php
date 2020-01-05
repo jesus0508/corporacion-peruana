@@ -29,7 +29,19 @@
                 </select>             
               </div>
             </div>
-            <div class="col-md-3">
+             <div class="col-md-2">
+              <div class="form-group @error('stock_sistema') has-error @enderror">
+                <label for="stock_sistema">Stock sistema</label>
+                <input id="stock_sistema" style="background-color: #C1E74A;"  class="form-control" name="stock_sistema" placeholder="Stock sistema" 
+                  required="" readonly="">
+                @error('stock_sistema')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group  @error('lectura_inicial') has-error @enderror">
                 <label for="lectura_inicial">Lectura Inicial</label>
                 <input id="lectura_inicial" type="text" class="form-control" 
@@ -42,7 +54,7 @@
                 @enderror
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group @error('lectura_final') has-error @enderror">
                 <label for="lectura_final">Lectura Final</label>
                 <input id="lectura_final" name="lectura_final" type="text" class="form-control" 
@@ -99,11 +111,11 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group @error('stock_sistema') has-error @enderror">
-                <label for="stock_sistema">Stock sistema</label>
-                <input id="stock_sistema" style="background-color: #C1E74A;"  class="form-control" name="stock_sistema" placeholder="Stock sistema" 
+              <div class="form-group @error('nuevo_stock') has-error @enderror">
+                <label for="nuevo_stock">Nuevo Stock</label>
+                <input id="nuevo_stock" style="background-color: #C1E74A;"  class="form-control" name="nuevo_stock" placeholder="Nuevo Stock" 
                   required="" readonly="">
-                @error('stock_sistema')
+                @error('nuevo_stock')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
