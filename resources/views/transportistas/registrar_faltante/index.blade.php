@@ -78,7 +78,7 @@ $(document).ready(function() {
           console.log(data);
           $(event.currentTarget).find('#transportista').val(data.nombre_transportista);
           $(event.currentTarget).find('#tipo').val('GRIFO ');
-          $(event.currentTarget).find('#fecha_descarga').val('sin acordar');//
+          $(event.currentTarget).find('#fecha_descarga').val(data.fecha_descarga);//
           $(event.currentTarget).find('#razon_social').val(data.razon_social);
           $(event.currentTarget).find('#costo_galon-edit').val(data.costo_galon);
           $(event.currentTarget).find('#descripcion').val(data.descripcion);

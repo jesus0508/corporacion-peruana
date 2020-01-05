@@ -79,7 +79,7 @@ class PagoTransportistaController extends Controller
 
         $id = $request->transportista_id;
         $transportista = Transportista::findOrFail($id);
-        $transportista->descuento_pendiente = $request->pendiente_dejado;
+        $transportista->descuento_pendiente += $request->pendiente_dejado;
         $transportista->save();
         //1ero PAGO A SUS PEDIDOS CLIENTE
         $pedidos_cliente
@@ -89,7 +89,7 @@ class PagoTransportistaController extends Controller
                     ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->whereIn('pedidos.id',$array_selected)
-                    ->where('pedidos.estado_flete','=',1)
+                    //->where('pedidos.estado_flete','=',1)
                     ->where('transportistas.id','=',$id)                    
                     ->select('pedido_proveedor_clientes.id','pedidos.id as pedido_id')
                     ->get();
@@ -111,7 +111,8 @@ class PagoTransportistaController extends Controller
                     ->join('pedido_grifos','pedido_grifos.pedido_id','=','pedidos.id')
                     ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')              
                     ->whereNotNull('pedidos.vehiculo_id')
-                    ->where('pedidos.estado_flete','=',1)
+                    ->whereIn('pedidos.id',$array_selected)
+                    //->where('pedidos.estado_flete','=',1)
                     ->where('transportistas.id','=',$id)                      
                     ->select('pedido_grifos.id','pedidos.id as pedido_id')
                     ->get();
@@ -140,20 +141,20 @@ class PagoTransportistaController extends Controller
     public function show($id)
     {
         $pedidos_cliente
-                     = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
-                    ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
-                    ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
-                    ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
-                    ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
-                    ->join('plantas','plantas.id','=','pedidos.planta_id')
-                    ->where('pedido_proveedor_clientes.pago_transportista_id','=',$id)                
-                    ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
+            = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
+                ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
+                ->join('pedido_clientes','pedido_clientes.id','=','pedido_proveedor_clientes.pedido_cliente_id')
+                ->join('clientes','clientes.id','=','pedido_clientes.cliente_id')
+                ->join('plantas','plantas.id','=','pedidos.planta_id')
+                ->where('pedido_proveedor_clientes.pago_transportista_id','=',$id)                
+                ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
                             'pedido_clientes.galones','pedidos.costo_flete',
                             'pedidos.scop','pedidos.nro_pedido',
                             'plantas.planta', 'pedido_proveedor_clientes.id',
                             'transportistas.id as transportista_id',
                             'transportistas.nombre_transportista')
-                    ->get();
+                ->get();
 
         $pedidos_grifo = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                     ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
@@ -169,10 +170,12 @@ class PagoTransportistaController extends Controller
                             'plantas.planta','pedido_grifos.id',
                             'transportistas.nombre_transportista')
                     ->get();
-        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
-        $collapsed = $collection->collapse();
-        $pedidos =$collapsed->all();
 
+        $merged = $pedidos_cliente->merge($pedidos_grifo);
+        $pedidos = $merged->all();   
+        // $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+        // $collapsed = $collection->collapse();
+        // $pedidos =$collapsed->all();
         $subtotal = 0;
         foreach ($pedidos as $pedido) {
             $subtotal += $pedido->costo_flete;
@@ -196,6 +199,7 @@ class PagoTransportistaController extends Controller
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista','pedido_clientes.observacion','pedidos.costo_galon',
                             'pedido_proveedor_clientes.faltante',
+                            'pedido_proveedor_clientes.precio_galon_faltante as costo_galon',
                             'pedido_proveedor_clientes.grifero',
                             'pedido_proveedor_clientes.descripcion')
                     ->get();
@@ -208,11 +212,12 @@ class PagoTransportistaController extends Controller
                     ->where('pedido_grifos.pago_transportista_id','=',$id)
                     ->whereNotNull('pedido_grifos.faltante')
                     ->select('grifos.razon_social',
-                            'pedido_grifos.asignacion as galones','pedidos.costo_galon',                            
+                            'pedido_grifos.asignacion as galones',                            
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista',
                             'pedido_grifos.faltante',
+                            'pedido_grifos.precio_galon_faltante as costo_galon',
                             'pedido_grifos.grifero',
                             'pedido_grifos.descripcion')
                     ->get();
@@ -228,7 +233,7 @@ class PagoTransportistaController extends Controller
                                     $faltante->faltante * $faltante->costo_galon, 2, '.', '');
          }
  
-        //return $lista_descuento1;
+       // return $lista_descuento2;
         return view('pago_transportistas.resumen.index',
             compact('pedidos','subtotal','lista_descuento', 'transportista',
                 'pago_transportista','desc'));

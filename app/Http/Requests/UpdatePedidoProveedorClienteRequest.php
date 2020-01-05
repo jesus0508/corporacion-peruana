@@ -26,7 +26,9 @@ class UpdatePedidoProveedorClienteRequest extends FormRequest
         return [
             'grifero'=>'nullable|max: 255',
             'faltante' => 'required|numeric|gt:0',
-            'descripcion'=>'nullable|max: 255'       
+            'descripcion'=>'nullable|max: 255' ,
+            'precio_galon_faltante'=>'required|numeric|gt:0'
+
             ];
     }
 }

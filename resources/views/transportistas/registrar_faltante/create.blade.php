@@ -50,36 +50,32 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="row">
-                <div class="col-md-6">
-
-                 <div class="form-group">
-                    <label for="">GRIFO</label>
-                    <input id="razon_social" type="text" class="form-control"
-                            readonly="">
+                  <div class="col-md-6">
+                   <div class="form-group">
+                      <label for="">GRIFO</label>
+                      <input id="razon_social" type="text" class="form-control"
+                              readonly="">
+                    </div>
+                    <div class="form-group">
+                      <label for="costo_galon-edit">Costo Galon</label>
+                      <input id="costo_galon-edit" type="text" class="form-control"
+                            name="precio_galon_faltante" >
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="costo_galon-edit">Costo Galon</label>
-                    <input id="costo_galon-edit" type="text" class="form-control"
-                          name="costo_galon" >
-                  </div>
-                </div>
-                <div class="col-md-6">
-
-                  <div class="form-group">
-                    <label for="fecha_descarga">Fecha Descarga</label>
-                    <input id="fecha_descarga" type="text" class="form-control"
-                           readonly="">
-                  </div>  
-                  <div class="form-group">
-                    <label for="monto_descuento">Monto Descuento</label>
-                    <input id="monto_descuento" type="text" class="form-control" 
-                          name="monto_descuento" readonly="">
-                  </div>
-                </div>                          
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fecha_descarga">Fecha Descarga</label>
+                      <input id="fecha_descarga" type="text" class="form-control"
+                             readonly="">
+                    </div>  
+                    <div class="form-group">
+                      <label for="monto_descuento">Monto Descuento</label>
+                      <input id="monto_descuento" type="text" class="form-control" 
+                            name="monto_descuento" readonly="">
+                    </div>
+                  </div>                          
                 </div> <!--End - row -->
-
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </div><!--/.col (left) -->

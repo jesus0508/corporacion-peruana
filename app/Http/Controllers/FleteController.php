@@ -78,6 +78,7 @@ class FleteController extends Controller
                     ->join('grifos','pedido_grifos.grifo_id','=','grifos.id')                  
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->whereNull('pedido_grifos.faltante')
+                    ->whereNull('pedido_grifos.pago_transportista_id')
                     ->where('pedidos.estado_flete','=',1)
                     ->select('grifos.razon_social',
                             'pedido_grifos.asignacion as galones',                            
@@ -85,10 +86,12 @@ class FleteController extends Controller
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista',
                             'pedido_grifos.faltante',
+
                             'pedido_grifos.grifero',
                             'pedido_grifos.id as id_pivote',
                             'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
                     ->get();
+
         $pedidos_cliente = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                     ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
                     ->join('pedido_proveedor_clientes','pedido_proveedor_clientes.pedido_id','=','pedidos.id')
@@ -97,6 +100,7 @@ class FleteController extends Controller
                     ->join('plantas','plantas.id','=','pedidos.planta_id')
                     ->whereNotNull('pedidos.vehiculo_id')
                     ->whereNull('pedido_proveedor_clientes.faltante')
+                    ->whereNull('pedido_proveedor_clientes.pago_transportista_id')                                       
                     ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
                             'pedido_clientes.galones','pedido_clientes.horario_descarga',
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
@@ -144,6 +148,7 @@ class FleteController extends Controller
                     ->where('pedido_grifos.id',$id)
                     ->select('pedido_grifos.id as id_pivote',
                             'pedido_grifos.descripcion',
+                            'pedido_grifos.fecha_descarga',
                             'pedidos.costo_galon','transportistas.nombre_transportista',
                             'grifos.razon_social')
                     ->first();   

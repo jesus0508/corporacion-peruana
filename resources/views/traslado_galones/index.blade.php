@@ -68,7 +68,7 @@ $(document).ready(function() {
             '<option value="50">50</option>'+
             '<option value="-1">All</option>'+
             '</select> records'
-        }
+        },
       "responsive": true, 
      // "scrollX": true,
        "dom": 'Bfrtip',

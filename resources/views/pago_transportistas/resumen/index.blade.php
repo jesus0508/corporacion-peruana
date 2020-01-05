@@ -32,8 +32,12 @@ $(document).ready(function(){
   let descuento_pendiente_anterior =$('#descuento_pendiente_anterior').val();//pendiente anterior
   let total_faltante =$('#total_faltante').val();
   let monto_pendiente = total_faltante - monto_descuento;
+  console.log('descuento_pendiente_anterior',descuento_pendiente_anterior);
+  console.log('monto_descuento',monto_descuento);
+  
   let total_pago = $('#subtotal').val() - monto_descuento - descuento_pendiente_anterior;    
   total_pago = parseFloat(total_pago).toFixed(2);
+  console.log('total_pago',total_pago);
   monto_pendiente =parseFloat(monto_pendiente).toFixed(2);
   monto_descuento = parseFloat(monto_descuento);
   total_faltante = parseFloat(total_faltante);

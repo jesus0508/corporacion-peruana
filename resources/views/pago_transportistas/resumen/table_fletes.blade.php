@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-8">
-            <h2 class="box-title" align="center">Pago de Flete Sr <label class="label label-primary">@TRANSPORTISTA</label> &nbsp; <span>{{date('d/m/Y', strtotime($pago_transportista->fecha_pago))}}</span></h2>  
+            <h2 class="box-title" align="center">Pago de Flete Sr <label class="label label-primary">{{$transportista->nombre_transportista}}</label> &nbsp; <span>{{date('d/m/Y', strtotime($pago_transportista->fecha_pago))}}</span></h2>  
           </div>          
         </div>    
       </div><!-- /.box-header -->

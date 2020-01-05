@@ -294,7 +294,7 @@ class PedidoController extends Controller
                     PedidoCliente::join('pedido_proveedor_clientes', 
                         'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
                     ->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')
-                    ->select('pedido_clientes.*')
+                    ->select('pedido_clientes.*','pedido_proveedor_clientes.asignacion')
                     ->where('pedido_id', $request->id_pedido_pr)->get();
 
                 $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')

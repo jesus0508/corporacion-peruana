@@ -34,7 +34,8 @@ class FaltanteController extends Controller
                             'pedido_clientes.galones','pedido_clientes.horario_descarga',
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
-                            'transportistas.nombre_transportista','pedido_clientes.observacion','pedidos.costo_galon',
+                            'transportistas.nombre_transportista','pedido_clientes.observacion',
+                            'pedido_proveedor_clientes.precio_galon_faltante as costo_galon',
                             'pedido_proveedor_clientes.faltante',
                             'pedido_proveedor_clientes.grifero',
                             'pedido_proveedor_clientes.descripcion')
@@ -49,7 +50,8 @@ class FaltanteController extends Controller
                     ->whereNotNull('pedido_grifos.faltante')
                     //->where('pedidos.estado_flete',2)
                     ->select('grifos.razon_social',
-                            'pedido_grifos.asignacion as galones','pedidos.costo_galon',                            
+                            'pedido_grifos.asignacion as galones',
+                            'pedido_grifos.precio_galon_faltante as costo_galon',                            
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista',

@@ -26,7 +26,7 @@
               </div><!-- /.numero-pedido -->
               <div class="col-md-4">
                 <div class="form-group @error('monto_descuento') has-error @enderror">
-                  <label for="monto_descuento">Monto a Descontado</label>
+                  <label for="monto_descuento">Monto Descontado (S/.)</label>
                   <input id="monto_descuento" type="number" class="form-control" 
                           name="monto_descuento" value="{{$desc - $pago_transportista->pendiente_dejado}}" placeholder="Ingrese monto a descontar" readonly="">
                   @error('monto_descuento')
@@ -39,7 +39,7 @@
 
               <div class="col-md-4">
                 <div class="form-group @error('total_faltante') has-error @enderror">
-                  <label for="total_faltante"> Total Faltantes </label>
+                  <label for="total_faltante"> Total Faltantes (S/.)</label>
                   <input id="total_faltante" type="text" class="form-control" 
                           value="{{number_format((float)
                         $desc, 2, '.', '')}}" readonly="">
@@ -88,11 +88,11 @@
           <div class="box-body">  
             <div class="row">
               <div class="col-lg-6">
-                <label for="costo_galon">Pendiente por descontar(anterior)</label>
+                <label for="costo_galon">Pendiente Descuento S/. &nbsp;(anterior)</label>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <input id="descuento_pendiente_anterior" value="{{$transportista->descuento_pendiente}}" type="text" class="form-control" readonly>
+                  <input id="descuento_pendiente_anterior" value="{{$transportista->descuento_pendiente-$pago_transportista->pendiente_dejado}}" type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <label for="planta_AR">Descuento por faltantes actuales</label>
+                <label for="planta_AR">Descuento por faltantes actuales (-)</label>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">

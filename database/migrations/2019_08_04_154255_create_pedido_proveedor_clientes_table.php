@@ -26,7 +26,7 @@ class CreatePedidoProveedorClientesTable extends Migration
             $table->unsignedBigInteger('pago_transportista_id')->nullable();
             $table->foreign('pago_transportista_id')
                     ->references('id')->on('pago_transportistas');
-
+            $table->decimal('precio_galon_faltante', 9, 5)->nullable(); 
             $table->integer('asignacion');
             $table->integer('faltante')->nullable();
             $table->string('grifero')->nullable();
