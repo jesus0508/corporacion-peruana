@@ -11,6 +11,14 @@ use CorporacionPeru\Http\Requests\StoreTrasladoGalonesRequest;
 
 class TrasladoGalonesController extends Controller
 {
+
+
+    public function reporteGrifosClientes(){
+
+        $traslados=TrasladoGalones::with('proveedor')->orderBy('id', 'DESC')->get();
+        return view('traslado_galones.reportes.grifos.index',
+            compact('traslados'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +27,9 @@ class TrasladoGalonesController extends Controller
     public function index()
     {
         $traslados=TrasladoGalones::with('proveedor')->orderBy('id', 'DESC')->get();
-        return view('traslado_galones.reportes.proveedores.index',
-            compact('traslados'));
+        $proveedores = Proveedor::orderBy('id', 'DESC')->get();
+        return view('traslado_galones.reportes.proveedores.diario.index',
+            compact('traslados','proveedores'));
     }
 
     /**

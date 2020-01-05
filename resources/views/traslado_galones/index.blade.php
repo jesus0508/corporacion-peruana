@@ -59,6 +59,16 @@ $(document).ready(function() {
 
   });
 	  $('#tabla-traslado-galones').DataTable({
+        "language": {
+          "lengthMenu": 'Display <select>'+
+            '<option value="10">10</option>'+
+            '<option value="20">20</option>'+
+            '<option value="30">30</option>'+
+            '<option value="40">40</option>'+
+            '<option value="50">50</option>'+
+            '<option value="-1">All</option>'+
+            '</select> records'
+        }
       "responsive": true, 
      // "scrollX": true,
        "dom": 'Bfrtip',
@@ -82,7 +92,7 @@ $(document).ready(function() {
   function fillSelectGrifos() {
     getAllGrifos()
       .done((data) => {
-        console.log(data);
+      //  console.log(data);
         $clienteOrGrifo.html('');
         inicializarSelect2($clienteOrGrifo, 'Seleccione el grifo', data.grifos);
         //llenado de series
@@ -145,7 +155,7 @@ function getGrifoById(idGrifo) {
     });
   }
 function validateDates() {
-  console.log('entro a validate');
+ 
   let $tabla_traslado_galones = $('#tabla-traslado-galones');
   $('#fecha_inicio').datepicker();
   $.fn.dataTable.ext.search.push(

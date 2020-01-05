@@ -607,6 +607,9 @@ desired effect
             <li>
               <a href="{{route('traslado_galones.index')}}"><i class="fa fa-list"></i> Reporte Proveedores</a>
             </li>
+            <li>
+              <a href="{{route('traslado_galones.reporteGrifosClientes')}}"><i class="fa fa-list"></i> Reporte Clientes&Grifos</a>
+            </li>
           </ul>
         </li> 
         <li id="treeview-empresa" class="treeview">
