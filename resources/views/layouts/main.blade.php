@@ -603,12 +603,12 @@ desired effect
           <ul class="treeview-menu" style="display: none;">
             <li>
               <a href="{{route('traslado_galones.create')}}"><i class="fa fa-pencil"></i> Registro</a>
+            </li>            
+            <li>
+              <a href="{{route('traslado_galones.reporteGrifosClientesDiario')}}"><i class="fa fa-list"></i> Reporte Totales Diario</a>
             </li>
             <li>
-              <a href="{{route('traslado_galones.index')}}"><i class="fa fa-list"></i> Reporte Proveedores</a>
-            </li>
-            <li>
-              <a href="{{route('traslado_galones.reporteGrifosClientes')}}"><i class="fa fa-list"></i> Reporte Clientes&Grifos</a>
+              <a href="{{route('traslado_galones.reporteGrifosClientesMensual')}}"><i class="fa fa-list"></i> Reporte Totales Mensual</a>
             </li>
           </ul>
         </li> 

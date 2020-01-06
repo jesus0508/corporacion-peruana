@@ -60,7 +60,14 @@ Route::middleware(['auth'])->group(function () {
 		/**	STOCK GRIFOS */
 		Route::resource('/stock_grifos','StockGrifoController');
 		Route::get('/stock_grifos/all/{fecha?}','StockGrifoController@getGrifosSinStockRegistrado');
-		Route::get('/traslado_galones/reporte_clientes_grifos','TrasladoGalonesController@reporteGrifosClientes')->name('traslado_galones.reporteGrifosClientes');
+
+		Route::get('/traslado_galones/reporte_clientes_grifos','TrasladoGalonesController@reporteGrifosClientesDiario')
+			->name('traslado_galones.reporteGrifosClientesDiario');
+		Route::get('/traslado_galones_reporte_diario/{fecha?}','TrasladoGalonesController@reporteGrifosClientesDiarioData');
+
+		Route::get('/reporte_clientes_grifos/mensual','TrasladoGalonesController@reporteGrifosClientesMensual')->name('traslado_galones.reporteGrifosClientesMensual');
+		Route::get('/reporte_clientes_grifos_mensual/{fecha?}','TrasladoGalonesController@reporteGrifosClientesMensualData');
+
 		Route::resource('/traslado_galones','TrasladoGalonesController');
 
 
