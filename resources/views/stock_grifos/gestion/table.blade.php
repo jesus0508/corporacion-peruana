@@ -38,7 +38,7 @@
                 <td>{{$stock_grifo->stock_grifo}}</td>
                 <td>{{$stock_grifo->stock_sistema}}</td>
                 <td>{{$stock_grifo->stock_grifo-$stock_grifo->stock}}</td>
-                <td>{{$stock_grifo->getNewStock()}}</td>
+                <td>{{$stock_grifo->stock_sistema -$stock_grifo->getGalones()}}</td>
               </tr>
             @endforeach
           </tbody>
