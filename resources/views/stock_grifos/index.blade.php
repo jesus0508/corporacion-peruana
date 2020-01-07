@@ -159,6 +159,9 @@ $(document).ready(function() {
     let monto_total   = parseFloat(total_galones * precio_galon).toFixed(2);
     $venta_soles.val(monto_total);
 
+    let nuevo_stock = monto_total
+    $new_stock.val();
+
     
   /* --------------------- Obtener Diferencia  ----------------------*/
     let stock_sistema = $stock_sistema.val();
@@ -170,19 +173,20 @@ $(document).ready(function() {
     (diferencia<0)?   
     $diferencia.css('background-color', '#D17A69'):$diferencia.css('background-color', '#A3D58B');
     /* --------------------- Obtener nuevo stock sistema ----------------------*/
-    let traspaso        = $traspaso.val();
-    let recepcion       =  $recepcion.val();
-    let cantidad_primax = $cantidad_primax.val();
-    let cantidad_pecsa  = $cantidad_pecsa.val();
-    let cantidad_pbf    = $cantidad_pbf.val();
-                        //en caso no ingrese nada, se asignará 0.00
-    cantidad_primax     = (cantidad_primax)? parseFloat( cantidad_primax ): 0.00;
-    cantidad_pecsa      = (cantidad_pecsa)? parseFloat( cantidad_pecsa ): 0.00;
-    cantidad_pbf        = (cantidad_pbf)? parseFloat( cantidad_pbf ): 0.00;
+    // let traspaso        = $traspaso.val();
+    // let recepcion       =  $recepcion.val();
+    // let cantidad_primax = $cantidad_primax.val();
+    // let cantidad_pecsa  = $cantidad_pecsa.val();
+    // let cantidad_pbf    = $cantidad_pbf.val();
+    //                     //en caso no ingrese nada, se asignará 0.00
+    // cantidad_primax     = (cantidad_primax)? parseFloat( cantidad_primax ): 0.00;
+    // cantidad_pecsa      = (cantidad_pecsa)? parseFloat( cantidad_pecsa ): 0.00;
+    // cantidad_pbf        = (cantidad_pbf)? parseFloat( cantidad_pbf ): 0.00;
 
-    let new_stock = parseFloat(Number(stock_sistema)-Number(traspaso)
-                              +Number(recepcion)+Number(cantidad_primax)
-                              +Number(cantidad_pecsa) + Number(cantidad_pbf)).toFixed(2);
+    let new_stock = parseFloat(Number(stock_sistema)-Number(total_galones)).toFixed(2);
+    //                           +Number(recepcion)+Number(cantidad_primax)
+    //                           +Number(cantidad_pecsa) + Number(cantidad_pbf)).toFixed(2);
+    console.log('New stock',new_stock);
     $new_stock.val(new_stock);
 
     if (monto_total<0.00) {

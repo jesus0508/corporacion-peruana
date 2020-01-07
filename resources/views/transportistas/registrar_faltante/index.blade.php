@@ -84,6 +84,8 @@ $(document).ready(function() {
           $(event.currentTarget).find('#descripcion').val(data.descripcion);
           $(event.currentTarget).find('#id_pivote').val(data.id_pivote);
           $(event.currentTarget).find('#pedido_cliente_id').val(null);
+          $(event.currentTarget).find('#grifo_id').val(data.grifo_id);
+
         },
         error: (error) => {
           toastr.error('Ocurrio un Error!', 'Error Alert', { timeOut: 2000 });

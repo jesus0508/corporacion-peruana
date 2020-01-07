@@ -113,7 +113,7 @@
             <div class="col-md-3">
               <div class="form-group @error('nuevo_stock') has-error @enderror">
                 <label for="nuevo_stock">Nuevo Stock</label>
-                <input id="nuevo_stock" style="background-color: #C1E74A;"  class="form-control" name="nuevo_stock" placeholder="Nuevo Stock" 
+                <input id="new_stock" style="background-color: #C1E74A;"  class="form-control" name="nuevo_stock" placeholder="Nuevo Stock" 
                   required="" readonly="">
                 @error('nuevo_stock')
                   <span class="help-block" role="alert">

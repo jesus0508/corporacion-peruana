@@ -57,6 +57,7 @@
                       <input id="razon_social" type="text" class="form-control"
                               readonly="">
                     </div>
+                    <input type="hidden" name="grifo_id" id="grifo_id">
                     <div class="form-group">
                       <label for="costo_galon-edit">Costo Galon</label>
                       <input id="costo_galon-edit" type="text" class="form-control"

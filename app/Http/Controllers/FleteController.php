@@ -150,7 +150,7 @@ class FleteController extends Controller
                             'pedido_grifos.descripcion',
                             'pedido_grifos.fecha_descarga',
                             'pedidos.costo_galon','transportistas.nombre_transportista',
-                            'grifos.razon_social')
+                            'grifos.razon_social','grifos.id as grifo_id')
                     ->first();   
        return $pedido;       
     }
@@ -188,13 +188,14 @@ class FleteController extends Controller
      */
     public function update(UpdatePedidoProveedorClienteRequest $request, $id)
     {   
+        //return $request;
         //TRANSACTION
         $id = $request->id;//id_pivote     
         if( $request->pedido_cliente_id){//PEDIDO A CLEINTE            
             $pivote = PedidoProveedorCliente::findOrFail($id);            
         }else{//PEDIDO A GRIFO
             $pivote = PedidoProveedorGrifo::findOrFail($id); 
-            $grifo = Grifo::findOrFail($id);
+            $grifo = Grifo::findOrFail($request->grifo_id);
             $grifo->stock-=$request->faltante;
             $grifo->save();        
         }
