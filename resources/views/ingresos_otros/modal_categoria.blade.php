@@ -17,8 +17,6 @@
             <div class="box box-success">
               <div class="box-body">
                 <div class="row">
-       <!--            <div> <button class="btn btn-info pull-right">Ver todas las categorias</button>
-                  </div> -->
                   <div class="col-md-12">
                     <div class="form-group @error('categoria') has-error @enderror">
                       <label for="categoria-add">CATEGORÍA Ingreso</label>

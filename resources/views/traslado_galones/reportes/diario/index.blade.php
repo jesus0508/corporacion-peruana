@@ -32,13 +32,9 @@ $(document).ready(function() {
       'ajax': `../traslado_galones_reporte_diario`,
         'columns': [
           {data: 'fecha', 
-            render: function (data, type, row) {
-              let porciones = data;
-              porciones = porciones.split('-');
-              let mes = porciones[0];
-              let year = porciones[1];
-              mes = meses[Number(mes)-1];    
-              return mes + ' ' + year;
+            "render": function(data, type, full, meta) {
+               let fecha = convertDateFormat2(data);
+              return fecha;
             } 
           },
           {data: 'razon_social'},

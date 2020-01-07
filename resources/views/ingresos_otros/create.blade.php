@@ -11,7 +11,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="categoria_ingreso">Categoría Ingreso</label>
-                <select class="form-control" name="categoria_ingreso_id" id="categoria_ingreso_id">
+                <select class="form-control" name="categoria_ingreso_id" 
+                  id="categoria_ingreso_id" required="">
                   @foreach( $categorias as $cat )
                     <option value="{{$cat->id}}">{{$cat->categoria}}</option>
                   @endforeach           
@@ -19,10 +20,15 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="form-group @error('fecha_ingreso') has-error @enderror">
                 <label for="fecha_ingreso">Fecha de Ingreso* </label>
-                <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control"
-                        name="fecha_ingreso" placeholder="Fecha de Ingreso" required=""/>
+                <input autocomplete="off" id="fecha_ingreso" type="text" class="tuiker form-control" name="fecha_ingreso" 
+                placeholder="Fecha de Ingreso" required=""/>
+                @error('fecha_ingreso')
+                <span class="help-block" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
               </div>               
             </div>       
             <div class="col-md-2">
@@ -42,7 +48,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group @error('detalle') has-error @enderror">
-                <label for="detalle">Detalle</label>
+                <label for="detalle">Detalle*</label>
                 <input id="detalle" type="text" class="form-control" value="{{old('detalle')}}"
                         name="detalle" placeholder="Ingrese el detalle del ingreso" required />
                 @error('detalle')
@@ -78,7 +84,7 @@
               </div>
             </div>
             <div class="col-md-12">
-              <div class="form-group @error('banco') has-error @enderror">
+              <div class="form-group">
                 <div class="form-group">
                   <label for="banco">Banco</label>
                   <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco" >
@@ -87,20 +93,14 @@
                     <option value="SCOTIABANK">SCOTIABANK</option>
                   </select>
                 </div>
-                @error('banco')
-                <span class="help-block" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
               </div>
             </div> 
           </div>
         </div><!-- /.box-body -->
       </div><!-- /.box -->
     </div><!--/.col (right) -->
-    <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group pull-right">
         <button type="submit" id="btn_register" class="btn btn-lg btn-success">
           <i class="fa fa-save"> </i>
           Registrar nuevo INGRESO
