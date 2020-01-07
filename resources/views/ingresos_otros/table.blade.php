@@ -2,29 +2,30 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Últimos 100 depósitos</h3>
+        <h3 class="box-title">Últimos 100 ingresos registrados</h3>
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-depositos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-ingresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>FECHA REPORTE</th>
               <th>Fecha Ingreso</th>
-              <th>NUMERO DE CUENTA</th>
-              <th>DETALLES</th>
+              <th>Detalle</th>
+              <th>Banco</th>
               <th>CODIGO OPERACION</th>
               <th>MONTO</th>
 
             </tr>
           </thead>
           <tbody>
-            @foreach ($depositos as $deposito)
+            @foreach ($ingresos as $ingreso)
               <tr>
-                <td>{{$deposito->cuenta->nro_cuenta}}</td>
-                <td>{{$deposito->detalle}}</td>
-                <td>{{$deposito->codigo_operacion}}</td>
-                <td>{{$deposito->monto}}</td>
-                <td> {{$deposito->fecha_reporte}}</td>
+                <td> {{$ingreso->fecha_reporte}}          </td>
+                <td> {{$ingreso->fecha_ingreso}}          </td>
+                <td> {{$ingreso->detalle}}     </td>
+                <td> {{$ingreso->banco}}                </td>
+                <td> {{$ingreso->codigo_operacion}}       </td>
+                <td> {{$ingreso->monto}}                  </td>
               </tr>
             @endforeach
           </tbody>

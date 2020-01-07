@@ -34,7 +34,8 @@ class IngresoController extends Controller
     public function create(){
           
         $categorias = CategoriaIngreso::all();
-        return view('ingresos_otros.index', compact('categorias'));
+        $ingresos = Ingreso::orderBy('id','desc')->get();
+        return view('ingresos_otros.index', compact('categorias','ingresos'));
     }
 
      /**

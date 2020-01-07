@@ -72,7 +72,7 @@
               <div class="form-group @error('precio_galon') has-error @enderror">
                 <label for="precio_galon">Precio galón</label>
                 <input id="precio_galon" type="number" step="any" min="0" class="form-control" 
-                        placeholder="Precio galón"  name="precio_galon" readonly="" required="">
+                        placeholder="Precio galón"  name="precio_galon" readonly="" required="" >
                 @error('precio_galon')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

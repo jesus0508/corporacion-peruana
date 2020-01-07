@@ -218,7 +218,7 @@ $(document).ready(function() {
       desactiveReadOnly('lectura_inicial');
       desactiveReadOnly('lectura_final');
       desactiveReadOnly('calibracion');
-      desactiveReadOnly('precio_galon');
+      //desactiveReadOnly('precio_galon');
       desactiveReadOnly('stock_grifo');
       desactiveReadOnly('traspaso');
       desactiveReadOnly('recepcion');
@@ -259,8 +259,8 @@ $(document).ready(function() {
   }
 
   function fillGrifo(idGrifo){
-    getGrifoById(idGrifo).done((data) => {     
-    //$series.val(data.series_grifo);
+    getGrifoById(idGrifo).done((data) => { 
+    $precio_galon.val(data.grifo.precio_galon); 
     $stock_sistema.val(data.grifo.stock);
     evaluateSeries();
     console.log();
