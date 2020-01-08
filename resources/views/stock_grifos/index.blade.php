@@ -168,7 +168,7 @@ $(document).ready(function() {
     let new_stock = parseFloat(Number(stock_sistema)-Number(total_galones)).toFixed(2);
     console.log('New stock',new_stock);
 
-    let diferencia = parseFloat(new_stock-stock_sistema).toFixed(2);
+    let diferencia = parseFloat(new_stock-stock_grifo).toFixed(2);
     $diferencia.val(diferencia);
     (diferencia<0)?   
     $diferencia.css('background-color', '#D17A69'):$diferencia.css('background-color', '#A3D58B');
