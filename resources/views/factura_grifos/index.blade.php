@@ -65,8 +65,6 @@ $(document).ready(function() {
       url:`./${id}/edit`,
       dataType : 'json',
       success: (data)=>{        
-        console.log(data);
-
         let fecha_facturacion = convertDateFormat2(data.facturacion.fecha_facturacion);
         let venta_factura = data.facturacion.venta_factura;
         let venta_boleta =  data.facturacion.venta_boleta;
@@ -86,12 +84,9 @@ $(document).ready(function() {
         precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
         let total_galones = parseFloat(venta_factura+venta_boleta).toFixed(2);
         let monto_total = parseFloat(total_galones * precio_galon).toFixed(2);
-
         $(event.currentTarget).find('#total_galones-edit').val(total_galones);
         $(event.currentTarget).find('#monto_total-edit').val(monto_total);
-
         $(event.currentTarget).find('#id-edit').val(data.facturacion.id);
-
       },
       error: (error)=>{
         toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
@@ -195,7 +190,7 @@ $(document).ready(function() {
   });  
 
   $fecha_ingreso.on('change', function (event) { 
-    console.log("cambio fecha ingreso");   
+    //console.log("cambio fecha ingreso");   
     let fecha_ingreso = $fecha_ingreso.val();
     fecha_ingreso = convertDateFormat(fecha_ingreso);
     fillSelectGrifos(fecha_ingreso); 
@@ -204,7 +199,7 @@ $(document).ready(function() {
   $select_grifo.on('change', function (event) {
     let id = $select_grifo.val();
       id = (id)?id:-1; 
-      console.log(id);  
+     // console.log(id);  
     fillSeries(id);       
   });
 
@@ -244,7 +239,7 @@ $(document).ready(function() {
       desactiveReadOnly('facturacion');
       desactiveReadOnly('venta_factura');
       desactiveReadOnly('venta_boleta');
-      desactiveReadOnly('precio_galon');
+     // desactiveReadOnly('precio_galon');
       $total_galones.val('');
       $monto_total.val(''); 
     }
@@ -263,6 +258,10 @@ $(document).ready(function() {
   function fillSeries(idGrifo){
     getIngresoByGrifo(idGrifo).done((data) => {     
     $series.val(data.series);   
+    $precio_galon.val(data.precio_galon);
+    $venta_boleta.val(data.precio_galon);
+    console.log(data);
+    console.log('cambió de valor ');
     evaluateSeries();
     }).fail((error) => {
       toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });

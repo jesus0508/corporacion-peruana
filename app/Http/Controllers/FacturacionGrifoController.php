@@ -49,14 +49,16 @@ class FacturacionGrifoController extends Controller
      */
     public function series_grifo($id = -1){
         $series = '';
+        $precio_galon = '';
         if ($id!=-1) {
-            $grifo = Grifo::findOrFail($id)->with('series')->first();
+            $grifo = Grifo::findOrFail($id);
+            $precio_galon = $grifo->precio_galon;
             foreach ($grifo->series as $serie ) {                
                        $series = $series.' '.$serie->serie;
                    }       
-            return response()->json(['series' => $series]);
+            return response()->json(['series' => $series,'precio_galon'=> $precio_galon]);
         }else{
-            return response()->json(['series' => $series]);
+            return response()->json(['series' => $series,'precio_galon'=> $precio_galon]);
         }
             
     }

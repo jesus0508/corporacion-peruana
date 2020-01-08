@@ -70,9 +70,8 @@
             <div class="col-md-2">
               <div class="form-group">
                 <label for="precio_galon">Precio Galon*</label>
-                <input id="precio_galon" name="precio_venta" type="number"
-                  step="any" min="1" class="form-control" placeholder="Precio galon" 
-                  required="" readonly="">
+                <input id="precio_galon" name="precio_venta" type="text"
+                   class="form-control" required="" readonly="">
               </div>
             </div>
             <div class="col-md-2">
