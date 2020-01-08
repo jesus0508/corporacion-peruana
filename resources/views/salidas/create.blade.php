@@ -11,7 +11,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="categoria_ingreso">Categoría Egreso</label>
-                <select class="form-control" name="categoria_egreso_id" id="categoria_egreso_id" required="">
+                <select class="form-control" value="{{old('categoria_egreso_id')}}"  name="categoria_egreso_id" id="categoria_egreso_id" required="">
                   @foreach( $categorias as $cat )
                     <option value="{{$cat->id}}">{{$cat->categoria}}</option>
                   @endforeach           
@@ -19,17 +19,16 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
+              <div class="form-group @error('fecha_egreso') has-error @enderror">
                 <label for="fecha_egreso">Fecha de Egreso* </label>
-                <input autocomplete="off" id="fecha_egreso" type="text" class="tuiker form-control"
+                <input autocomplete="off" id="fecha_egreso" type="text" class="tuiker form-control"  value="{{old('fecha_egreso')}}"
                         name="fecha_egreso" placeholder="Fecha Egreso" required="">
-              </div>   
-              <div>
-                
-              </div>
-              <div>
-                
-              </div>            
+                  @error('fecha_egreso')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+              </div>               
             </div>       
             <div class="col-md-3">
               <div class="form-group @error('monto_egreso') has-error @enderror">
@@ -95,12 +94,17 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="form-group @error('nro_cheque') has-error @enderror">
                 <label for="nro_cheque">
                   N° Cheque
                 </label>
                 <input id="nro_cheque" type="text" step="any" class="form-control" value="{{old('nro_cheque')}}"
-                      name="nro_cheque" placeholder="N° de cheque ">    
+                      name="nro_cheque" placeholder="N° de cheque "> 
+                  @error('nro_cheque')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror       
               </div>
             </div>
             <div class="col-md-8">
@@ -108,9 +112,11 @@
                 <label for="cuenta_id">
                    Banco - Número de Cuenta *
                 </label>
-                <select name="cuenta_id" id="cuenta_id" class="form-control">
+                <select name="cuenta_id" id="cuenta_id" 
+                    value="{{old('cuenta_id')}}" 
+                    class="form-control">
                   @foreach($cuentas as $cuenta)
-                  <option value="{{$cuenta->id}}">{{$cuenta->nro_cuenta}}</option>
+                    <option value="{{$cuenta->id}}">{{$cuenta->nro_cuenta}}</option>
                   @endforeach             
                 </select>     
               </div>
@@ -119,7 +125,6 @@
         </div><!-- /.box-body -->
       </div><!-- /.box -->
     </div><!--/.col (right) -->
-    <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
     <div class="col-md-12">
       <div class="form-group pull-right">
         <button type="submit" id="btn_register" class="btn btn-lg btn-success">

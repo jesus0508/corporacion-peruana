@@ -259,9 +259,6 @@ $(document).ready(function() {
     getIngresoByGrifo(idGrifo).done((data) => {     
     $series.val(data.series);   
     $precio_galon.val(data.precio_galon);
-    $venta_boleta.val(data.precio_galon);
-    console.log(data);
-    console.log('cambió de valor ');
     evaluateSeries();
     }).fail((error) => {
       toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });

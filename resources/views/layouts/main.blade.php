@@ -525,7 +525,7 @@ desired effect
                   <ul class="treeview-menu" style="display: none;">
                     <li><a href="{{route('salidas.create')}}"><i class="fa fa-plus"></i> 
                     Registro </a></li>
-                    <li><a href="{{route('salidas.create')}}"><i class="fa fa-plus"></i> 
+                    <li><a href="{{route('salidas.index')}}"><i class="fa fa-plus"></i> 
                     Modificar </a></li>
                   </ul>
                 </li>

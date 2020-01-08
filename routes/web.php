@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/ingreso_grifos', 'IngresoGrifoController');
 		Route::resource('/ingresos_otros', 'IngresoController');
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
-		Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
+		//Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
 		Route::get('ingresos_fecha_data/{date?}','IngresoController@getIngresoByDay');
 
 		/* Venta Facturada*/
@@ -109,7 +109,9 @@ Route::middleware(['auth'])->group(function () {
 	/*  EGRESOS OTROS... */
 	Route::resource('/salidas','SalidaController');
 	Route::resource('/categoria_egresos', 'CategoriaEgresoController');
-	Route::get('/egresos_dt/{date?}','SalidaController@egresosDT');
+	//Route::get('/egresos_dt/{date?}','SalidaController@egresosDT');
+	Route::get('salidas_fecha_data/{date?}','SalidaController@getSalidasByDay');
+
 
 	/*   COMPROBACIONES  */
 	Route::resource('/comprobaciones','ComprobacionController');

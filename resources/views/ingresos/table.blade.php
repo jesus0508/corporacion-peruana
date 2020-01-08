@@ -5,7 +5,7 @@
         <h3 class="box-title">Últimos 100 ingresos registrados</h3>
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-ingresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-egresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>FECHA REPORTE</th>

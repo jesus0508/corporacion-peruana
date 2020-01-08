@@ -126,12 +126,12 @@
                   <br>
                   <div class="row">
                     <div class="col-md-6">
-                      <button type="submit" class="btn btn-lg btn-success pull-left">
+                      <button type="submit" class="btn btn-success pull-left">
                         <span class="fa fa-save"></span> &nbsp;
                       Guardar cambios</button>                              
                     </div>
                     <div class="col-md-6">
-                      <button type="" class="btn btn-lg btn-default pull-right" data-dismiss="modal">Cancelar</button>
+                      <button type="" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
                     </div>                    
                   </div>
                 </div><!-- /.box-body -->

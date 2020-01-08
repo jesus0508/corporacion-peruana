@@ -4,10 +4,10 @@
 		<h3>Reportes x día </h3> 			
 		</div>
 		<div class="col-md-3">
-			<div class="form-group">
-				<label for="">Fecha: </label>
-				<input autocomplete="off" id="fecha_inicio" type="text" class="tuiker form-control" name="fecha_inicio" placeholder="Fecha reporte" required="">
-			</div>						
+      <div class="form-group">
+            <label for="">Fecha: </label>
+            <input autocomplete="off" id="fecha_inicio" type="text" class="tuiker form-control" name="fecha_inicio" placeholder="Fecha reporte" value="{{$today}}" required="">
+      </div>				
 		</div>
     <div class="col-md-5">
       <div class="row filtrado">
@@ -21,10 +21,13 @@
             Limpiar
       		</button>
         </div>
+    	</div>
     </div>
+    <div class="col-md-2">
+    	<!-- <input type="text" id="pruebita" value="0"> -->
     </div>	
 		<div class="col-md-2">			
-			<a href="{{route('salidas.create')}}" class="btn btn-success pull-right"> <span class="fa fa-plus"></span>&nbsp;&nbsp; Nuevo Egreso  </a>		
+			<a href="{{route('salidas.create')}}" class="btn btn-success pull-right"> <span class="fa fa-plus"></span>&nbsp;&nbsp; Nuevo Egreso  </a>	
 		</div>		
 	</div>
 </div>

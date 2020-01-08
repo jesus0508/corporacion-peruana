@@ -19,10 +19,18 @@ class Salida extends Model
     } 
 
     public function setFechaEgresoAttribute($value){
-        $this->attributes['fecha_egreso'] = Carbon::createFromFormat('Y-m-d',$value);
+        $this->attributes['fecha_egreso'] = Carbon::createFromFormat('d/m/Y',$value);
     } 
 
     public function setFechaReporteAttribute($value){
-        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('Y-m-d',$value);
+        $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y',$value);
     } 
+
+    public function getFechaEgresoAttribute($value){
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
+
+    public function getFechaReporteAttribute($value){
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
 }
