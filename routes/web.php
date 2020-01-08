@@ -80,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/ingresos_otros', 'IngresoController');
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
 		Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
+		Route::get('ingresos_fecha_data/{date?}','IngresoController@getIngresoByDay');
 
 		/* Venta Facturada*/
 		Route::resource('/cancelacion','CancelacionController');

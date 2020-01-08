@@ -13,15 +13,15 @@
 
 @section('content')
 <section class="content">
-   @include('ingresos_otros.top_button')
+   @include('ingresos.top_button')
   <form action="{{route('ingresos_otros.store')}}" method="post">
     @csrf
-    @include('ingresos_otros.header')
-    @include('ingresos_otros.create')
+    @include('ingresos.header')
+    @include('ingresos.create')
   </form>
-    @include('ingresos_otros.table')
+    @include('ingresos.table')
 	<!-- modales -->
-   @include('ingresos_otros.modal_categoria')
+   @include('ingresos.modal_categoria')
    <!-- fin modales -->
 </section>
 @endsection

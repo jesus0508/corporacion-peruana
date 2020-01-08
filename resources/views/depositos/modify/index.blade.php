@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
   });
 
- $('#fecha_inicio').datepicker(); 
+ $('#fecha_inicio').datepicker();  
   $('#tabla-depositos').DataTable({
     'ajax': `./depositos_fecha_data`,
     'scrollX': 'true',

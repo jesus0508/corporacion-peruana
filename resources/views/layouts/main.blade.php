@@ -512,7 +512,7 @@ desired effect
                   </a>
                   <ul class="treeview-menu" style="display: none;">
                     <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-plus"></i> Registro</a></li>
-                    <li><a href="{{route('ingresos_otros.create')}}"><i class="fa fa-pencil"></i> Modificar</a></li>
+                    <li><a href="{{route('ingresos_otros.index')}}"><i class="fa fa-pencil"></i> Modificar</a></li>
                   </ul>
                 </li> 
                 <li id="treeview-gastos" class="treeview">

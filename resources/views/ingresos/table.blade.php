@@ -25,7 +25,7 @@
                 <td> {{$ingreso->detalle}}     </td>
                 <td> {{$ingreso->banco}}                </td>
                 <td> {{$ingreso->codigo_operacion}}       </td>
-                <td> {{$ingreso->monto}}                  </td>
+                <td> {{$ingreso->monto_ingreso}}                  </td>
               </tr>
             @endforeach
           </tbody>

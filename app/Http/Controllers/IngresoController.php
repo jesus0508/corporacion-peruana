@@ -16,6 +16,26 @@ use CorporacionPeru\Http\Requests\StoreIngresoRequest;
 
 class IngresoController extends Controller
 {
+    
+    /**
+     * 
+     */
+    public function getIngresoByDay($fecha = null){
+        if ($fecha==null) {
+            //$fecha = Carbon::now()->format('Y-m-d');
+         $ingresos = Ingreso::select('ingresos.*');  
+
+        return datatables()->of($ingresos)
+            ->addColumn('action', 'ingresos.edit.actions')->make(true);
+
+        }
+
+        $ingresos = Ingreso::where('ingresos.fecha_ingreso',$fecha);  
+
+        return datatables()->of($ingresos)
+            ->addColumn('action', 'ingresos.edit.actions')->make(true);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +43,8 @@ class IngresoController extends Controller
      */
     public function index()
     {
-
+        $today = Carbon::now()->format('d/m/Y');
+        return view('ingresos.edit.index', compact('today'));
     }
 
     /**
@@ -34,8 +55,8 @@ class IngresoController extends Controller
     public function create(){
           
         $categorias = CategoriaIngreso::all();
-        $ingresos = Ingreso::orderBy('id','desc')->get();
-        return view('ingresos_otros.index', compact('categorias','ingresos'));
+        $ingresos = Ingreso::orderBy('id','desc')->take(100)->get();
+        return view('ingresos.index', compact('categorias','ingresos'));
     }
 
      /**
@@ -51,7 +72,6 @@ class IngresoController extends Controller
         return back()->with('alert-type','success')->with('status','Ingreso registrado con exito');      
         
     }
-
     /**
      * Display the specified resource.
      *
@@ -62,7 +82,6 @@ class IngresoController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,12 +103,11 @@ class IngresoController extends Controller
      * @param  \CorporacionPeru\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(StoreIngresoRequest $request,  $id)
     {
-       // return $request;
+
         $id = $request->id;       
-       // $request->fecha_ingreso = date('Y-m-d', strtotime($request->fecha_ingreso));
-        Ingreso::findOrFail($id)->update($request->all());
+        Ingreso::findOrFail($id)->update($request->validated());
         return 
         back()->with('alert-type','success')->with('status','Ingreso actualizado con exito');  
     }
@@ -100,8 +118,10 @@ class IngresoController extends Controller
      * @param  \CorporacionPeru\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ingreso $ingreso)
+    public function destroy($id)
     {
-        //
+        Ingreso::findOrFail($id)->delete();
+        return 
+         back()->with('alert-type','success')->with('status','Ingreso eliminado con exito');
     }
 }

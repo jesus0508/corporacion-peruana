@@ -12,8 +12,8 @@
 
 @section('content')
 <section class="content">
-  @include('ingresos_otros.categorias.header') 
-  @include('ingresos_otros.categorias.table')
+  @include('ingresos.categorias.header') 
+  @include('ingresos.categorias.table')
 
 </section>
 @endsection

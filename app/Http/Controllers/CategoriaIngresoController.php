@@ -15,7 +15,7 @@ class CategoriaIngresoController extends Controller
     public function index()
     {
         $categorias = CategoriaIngreso::with('ingresos')->with('pagoClientes')->with('ingresoGrifos')->get();
-        return  view('ingresos_otros.categorias.index', compact('categorias'));
+        return  view('ingresos.categorias.index', compact('categorias'));
 
     }
 
