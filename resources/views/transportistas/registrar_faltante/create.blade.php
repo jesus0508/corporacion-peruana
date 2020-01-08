@@ -11,7 +11,7 @@
         <h4 class="modal-title">Registrar Faltante | TIPO: <input class="" type="text" id="tipo" disabled=""></h4>
       </div>
         <div class="modal-body">
-        <div class="row">
+        <div class="row" id="input_user">
           <!-- left column -->
           <div class="col-md-12">
             <!-- general form elements -->

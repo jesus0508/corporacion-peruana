@@ -31,8 +31,8 @@
 $(document).ready(function() {
   
     $('#tabla-flete-faltantes').DataTable({  
-        "ordering": false,    
-        "responsive": true            
+        "ordering": true,    
+        "scrollX": true,          
     });
 });
 </script>

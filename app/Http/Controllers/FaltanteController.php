@@ -59,8 +59,10 @@ class FaltanteController extends Controller
                             'pedido_grifos.grifero',
                             'pedido_grifos.descripcion','pedido_grifos.fecha_descarga')
                     ->get();
-        $merged = $pedidos_cliente->merge($pedidos_grifo);
-        $pedidos = $merged->all();  
+        
+        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+        $collapsed = $collection->collapse();
+        $pedidos =$collapsed->all(); 
        return view('transportistas.lista_faltantes.index',compact('pedidos'));
     }
 

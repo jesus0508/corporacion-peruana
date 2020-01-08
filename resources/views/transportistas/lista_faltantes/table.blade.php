@@ -10,6 +10,7 @@
         <table id="tabla-flete-faltantes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
+              <th>SCOP</th>
               <th>Descripcion</th>
               <th>Fecha Descarga</th>
               <th>GRIFO</th>
@@ -25,6 +26,7 @@
           <tbody>
             @foreach ($pedidos as $pedido_cliente)
               <tr>
+                <td>{{$pedido_cliente->scop}}</td>
                 <td>{{$pedido_cliente->descripcion}}</td>
                 <td>  
                   @if( $pedido_cliente->fecha_descarga )

@@ -33,13 +33,26 @@
 <script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
-  $("#faltante").on('change',function(){
+
+  let $input_user = $('#input_user');
+
+  $input_user .on('keyup',function(){
     let faltante    =$("#faltante").val();
     let costo_galon =$("#costo_galon-edit").val();
     let monto = faltante * costo_galon;
     monto = parseFloat(monto).toFixed(2);
     $("#monto_descuento").val(monto);
   });
+
+  // $("#faltante").on('change',function(){
+  //   let faltante    =$("#faltante").val();
+  //   let costo_galon =$("#costo_galon-edit").val();
+  //   let monto = faltante * costo_galon;
+  //   monto = parseFloat(monto).toFixed(2);
+  //   $("#monto_descuento").val(monto);
+  // });
+
+
   
     $('#tabla-flete-pedidos-sin-pagar').DataTable({      
           "responsive": true         
