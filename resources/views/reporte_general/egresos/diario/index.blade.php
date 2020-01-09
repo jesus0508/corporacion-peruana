@@ -65,6 +65,8 @@ $(document).ready(function() {
 		  {data: 'fecha_reporte'},
 		  {data: 'categoria'},
 			{data: 'detalle'},
+      {data: 'fecha_egreso'},
+      {data: 'nro_comprobante'},                      
 			{data: 'nro_cheque'},
 			{data: 'codigo_operacion'},
       {data: 'nro_cuenta'},
@@ -83,7 +85,7 @@ $(document).ready(function() {
 
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 7, 
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
@@ -101,7 +103,7 @@ $(document).ready(function() {
                     "class": "group",
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 7, 
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {

@@ -78,15 +78,15 @@ $(document).ready(function() {
 
   $('#tabla-reporte-salidas').DataTable({
     'ajax': `./salidas_fecha_data/${fecha_inicio}`,
-    'scrollX': 'false',
+    'scrollX': true,
     'responsive': true,
 
     columnDefs: [
       { orderable: false, targets: -1},
       { searchable: false, targets: [-1]},
-      { responsivePriority: 2, targets: [0,2] },         
-      { responsivePriority: 10002, targets: [3,4,5] },
-      { responsivePriority: 1, targets: [1,-1,2] }
+      { responsivePriority: 2, targets: [3,4,5] },         
+      { responsivePriority: 10002, targets: [2] },
+      { responsivePriority: 1, targets: [0,1,-2,-1] }
     ],
     'columns': [
       {data: 'fecha_reporte'},
@@ -94,7 +94,7 @@ $(document).ready(function() {
       {data: 'detalle'},
       {data: 'nro_cheque'}, 
       {data: 'nro_comprobante'},
-      {data: 'cuenta_id'},       
+      {data: 'nro_cuenta'},       
       {data: 'monto_egreso' },  
       {data: 'action'}
     ]      

@@ -11,9 +11,9 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group @error('fecha_operacion') has-error @enderror">
-                    <label for="fecha_operacion">Fecha factura</label>
+                    <label for="fecha_operacion">Fecha reporte</label>
                     <input autocomplete="off" id="fecha_factura" type="text" class="tuiker form-control" value="{{ old('fecha_operacion') }}"
-                    name="fecha_operacion" placeholder="Ingrese la fecha de la operación"
+                    name="fecha_operacion" placeholder="Fecha reporte"
                     required="" >
                     @error('fecha_operacion')
                     <span class="help-block" role="alert">
@@ -24,9 +24,9 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group @error('fecha_reporte') has-error @enderror">
-                    <label for="fecha_reporte">Fecha Reporte</label>
+                    <label for="fecha_reporte">Fecha Egreso</label>
                     <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control" value="{{ old('fecha_reporte') }}"
-                    name="fecha_reporte" placeholder="Fecha de reporte"
+                    name="fecha_reporte" placeholder="Fecha de egreso"
                     required="" >
                     @error('fecha_reporte')
                     <span class="help-block" role="alert">

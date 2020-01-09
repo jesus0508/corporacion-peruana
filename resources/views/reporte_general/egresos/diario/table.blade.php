@@ -24,7 +24,8 @@
               <th>FECHA REPORTE</th>
               <th>CATEGORIA</th>              
               <th>Detalles</th>
-              {{-- <th>FECHA Ingreso</th> --}}
+              <th>FECHA Egreso</th>
+              <th>N° de comprobante</th>
               <th>N° de cheque</th>
               <th>N° de operacion</th>
               <th>Cuenta</th>

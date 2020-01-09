@@ -1,7 +1,7 @@
 <div class="">
 	<div class="row">
 		<div class="col-md-2">
-		<h3>Reportes x día </h3> 			
+		<h3>Egresos </h3> 			
 		</div>
 		<div class="col-md-3">
       <div class="form-group">

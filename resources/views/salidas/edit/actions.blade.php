@@ -8,7 +8,7 @@
 <form style="display:inline" method="POST" action="{{ route('salidas.destroy',$id)}}">
   @csrf
   @method('DELETE')
-  <button class="btn btn-danger btn-xs">
+  {{-- <button class="btn btn-danger btn-xs">
   	<span class="glyphicon glyphicon-trash"></span>
-  </button>
+  </button> --}}
 </form>

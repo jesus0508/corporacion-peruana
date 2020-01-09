@@ -34,7 +34,7 @@ class ReporteGeneralEgresosController extends Controller
 	    //Egresos registrados manualmente
         $egresos1 = Salida::join('categoria_egresos','categoria_egresos.id','=','salidas.categoria_egreso_id')
         	->leftJoin('cuentas','cuentas.id','=','salidas.cuenta_id')
-        	->where('salidas.fecha_reporte',$date)
+        	->where('salidas.fecha_egreso',$date)
             ->select('salidas.*','categoria_egresos.categoria','cuentas.nro_cuenta')
             ->get();
 
@@ -45,15 +45,20 @@ class ReporteGeneralEgresosController extends Controller
           	->join('pedidos','pago_pedido_proveedors.pedido_id','=','pedidos.id')
           	->join('plantas','pedidos.planta_id','=','plantas.id')
           	->join('proveedores','proveedores.id','=','plantas.proveedor_id')
+            ->where('pago_proveedors.fecha_reporte',$date)
             ->select('pago_proveedors.codigo_operacion',
                 'pago_proveedors.monto_operacion as monto_egreso',
-                'pago_proveedors.fecha_operacion as fecha_egreso',
-                'pago_proveedors.fecha_reporte',
+                'pago_proveedors.fecha_operacion as fecha_reporte',
+                'pago_proveedors.fecha_operacion as day',
+                'pago_proveedors.fecha_reporte as fecha_egreso',
                  DB::raw('CONCAT("Transferencia a",proveedores.razon_social) as detalle'),
                 'proveedores.created_at as nro_cuenta',
                 'proveedores.created_at as nro_cheque',
+                'proveedores.created_at as nro_comprobante',                
                 'categoria_egresos.categoria')
+            //->groupBy('day')
             ->get(); 
+
         $collection = collect([$egresos1, $egresos2]);
         $collapsed = $collection->collapse();
         $egresos =$collapsed->all(); 

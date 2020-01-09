@@ -30,13 +30,15 @@ class SalidaController extends Controller
      */
     public function getSalidasByDay( $date = null ){
           if ($date==null) {
-         $salidas = Salida::select('salidas.*');  
-
+         $salidas = Salida::join('cuentas','cuentas.id','=','salidas.cuenta_id')
+                ->select('salidas.*','cuentas.nro_cuenta');  
         return datatables()->of($salidas)
             ->addColumn('action', 'salidas.edit.actions')->make(true);
         }
 
-        $salidas = Salida::where('salidas.fecha_egreso',$date);  
+        $salidas = Salida::join('cuentas','cuentas.id','=','salidas.cuenta_id')
+                ->where('salidas.fecha_egreso',$date)
+                ->select('salidas.*','cuentas.nro_cuenta');
         return datatables()->of($salidas)
             ->addColumn('action', 'salidas.edit.actions')->make(true);
     }
@@ -52,7 +54,6 @@ class SalidaController extends Controller
         $salidas = Salida::orderBy('id','desc')->take(100)->get();
         $categorias = CategoriaEgreso::all();
 
-       // return $salidas;
         return view('salidas.index', compact('salidas','categorias','cuentas'));
     }
 
