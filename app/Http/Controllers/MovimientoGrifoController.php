@@ -6,6 +6,7 @@ use CorporacionPeru\MovimientoGrifo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreMovimientoGrifoRequest;
 use CorporacionPeru\Cancelacion;
+use CorporacionPeru\Grifo;
 
 class MovimientoGrifoController extends Controller
 {
@@ -18,7 +19,8 @@ class MovimientoGrifoController extends Controller
     {
         
         $movimientos = MovimientoGrifo::orderBy('estado', 'asc')->get();
-        return view('factura_grifos.movimientos.index', compact('movimientos'));
+        $grifos = Grifo::all();
+        return view('factura_grifos.movimientos.index', compact('movimientos','grifos'));
     }
 
     /**

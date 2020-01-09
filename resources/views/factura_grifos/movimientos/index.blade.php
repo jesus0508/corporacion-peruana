@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title','Movimientos Grifos')
 @section('styles')
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -20,13 +20,18 @@
 @endsection
 
 @section('scripts')
+@include('reporte_excel.excel_select2_js')
 <script>
+
 	$(document).ready(function () {
+
+  $('#grifo_id').select2({
+        dropdownParent: $('#modal-create-movimiento')
+    });
 
   let $tabla_movimiento_grifos = $('#tabla-movimiento-grifos');
   let $fecha_operacion = $('#fecha_operacion');
   let $fecha_reporte = $('#fecha_reporte');
-  
   $tabla_movimiento_grifos.DataTable();
   $fecha_operacion.datepicker();
   $fecha_reporte.datepicker(); 
@@ -58,7 +63,7 @@
       var $sFin = $('#fecha_fin');
       var inicio = $.datepicker.parseDate('d/m/yy', $sInicio.val());
       var fin = $.datepicker.parseDate('d/m/yy', $sFin.val());
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[2]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }

@@ -1,5 +1,5 @@
-<div class="modal fade" id="modal-create-movimiento" style="display: none;">
-  <div class="modal-dialog">
+<div class="modal fade" id="modal-create-movimiento" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <form action="{{route('movimiento_grifos.store')}}" method="post" class="modal-content movimiento">
       @csrf
       <div class="modal-header">
@@ -28,16 +28,26 @@
                     <div class="form-group">
                       <label for="fecha_reporte">Fecha Ingreso</label>
                       <input id="fecha_reporte" type="text" class="form-control" autocomplete="off"
-                              name="fecha_reporte" placeholder="Fecha reporte" >
+                              name="fecha_reporte" placeholder="Fecha ingreso" >
                     </div>                    
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label for="codigo_operacion">Codigo de operacion</label>
                       <input id="codigo_operacion" type="text" class="form-control"
                               name="codigo_operacion" placeholder="Ingrese el codigo de la operacion">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="grifo_id">Grifo </label>
+                      <select class="form-control" id="grifo_id" name="grifo_id" placeholder="Seleccione el grifo" required style="width: 100%;">
+                        @foreach($grifos as $grifo)
+                          <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
+                        @endforeach                        
+                      </select> 
                     </div>
                   </div>
                 </div>

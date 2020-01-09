@@ -8,7 +8,11 @@ use Carbon\Carbon;
 class MovimientoGrifo extends Model
 {
     protected $table = 'movimiento_grifos';
-    protected $fillable = ['fecha_operacion', 'fecha_reporte', 'codigo_operacion', 'monto_operacion', 'banco', 'estado'];
+    protected $fillable = ['fecha_operacion', 'fecha_reporte', 'grifo_id', 'codigo_operacion', 'monto_operacion', 'banco', 'estado'];
+
+    public function grifo(){
+        return $this->belongsTo(Grifo::class);
+    }
 
     public function setFechaOperacionAttribute($value)
     {

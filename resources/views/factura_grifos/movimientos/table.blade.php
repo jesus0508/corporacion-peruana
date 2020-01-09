@@ -20,7 +20,9 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Fecha Operacion</th>
+              <th>Fecha Reporte</th>
+              <th>Fecha Ingreso</th>
+              <th>Grifo</th>
               <th>Codigo Operacion</th>
               <th>Abono</th>
               <!-- <th>Banco</th> -->
@@ -32,6 +34,8 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>{{date('d/m/Y', strtotime($movimiento->fecha_operacion))}}</td>
+              <td>{{date('d/m/Y', strtotime($movimiento->fecha_reporte))}}</td>
+              <td>{{$movimiento->grifo->razon_social}}</td>
               <td>{{$movimiento->codigo_operacion}}</td>
               <td>S/&nbsp;{{$movimiento->monto_operacion}}</td>
              <!--  <td>{{$movimiento->banco}}</td> -->
