@@ -31,7 +31,7 @@ class StoreTrasladoGalonesRequest extends FormRequest
             'stock'=>'required|numeric|gte:0',
             'nuevo_stock'=>'required|numeric|gte:0',
             'cantidad'=>'required|numeric|gte:0',
-            'horario'=>'required|max:20',
+            'horario'=>'nullable|max:20',
             'proveedor_id'=>'required|numeric|gt:0'
         ];
     }

@@ -19,7 +19,7 @@ class CreateTrasladoGalonesTable extends Migration
             $table->float('stock');
             $table->float('nuevo_stock');                                
             $table->float('cantidad');
-            $table->string('horario');
+            $table->string('horario')->nullable();
             $table->date('fecha');
             $table->unsignedBigInteger('cliente_id')->nullable();
             $table->foreign('cliente_id')

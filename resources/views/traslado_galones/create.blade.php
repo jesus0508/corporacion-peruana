@@ -57,9 +57,9 @@
             </div>
             <div class="col-md-2">
               <div class="form-group @error('horario') has-error @enderror">
-                  <label for="horario">Horario*</label>
+                  <label for="horario">Horario</label>
                   <input autocomplete="off" id="horario" type="text" class="form-control" placeholder="horario " 
-                  name="horario"   required="" >
+                  name="horario" >
                   @error('horario')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

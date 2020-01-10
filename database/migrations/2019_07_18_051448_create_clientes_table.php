@@ -32,8 +32,8 @@ class CreateClientesTable extends Migration
             $table->string('correo_representante')->nullable();
             $table->string('nro_cuenta')->nullable();
             $table->string('cuenta_detraccion')->nullable();
-            $table->string('utilidades');
-            $table->string('extraordinaria');                        
+            $table->string('utilidades')->nullable();
+            $table->string('extraordinaria')->nullable();                        
             $table->timestamps();
             $table->softDeletes();
         });

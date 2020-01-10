@@ -41,8 +41,8 @@ class StoreClienteRequest extends FormRequest
             'correo_representante'=>'nullable|email',
             'nro_cuenta'=>'max:255',
             'cuenta_detraccion'=> 'max:255',
-            'utilidades'=>'required|min:5|max:255',
-            'extraordinaria'=>'required|max:255'
+            'utilidades'=>'nullable|max:255',
+            'extraordinaria'=>'nullable|max:255'
         ];
     }
 }
