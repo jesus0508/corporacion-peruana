@@ -333,9 +333,7 @@ desired effect
                 </li>
               </ul>
             </li>
-
-
-       {{--      <li id="treeview-grifos-reporte" class="treeview">
+            <li id="treeview-grifos-reporte" class="treeview">
               <a href="#">
                 <i class="fa fa fa-building-o"></i> <span>Grifos</span>
                 <span class="pull-right-container">
@@ -343,7 +341,11 @@ desired effect
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i>Ingreso detallado</a></li>           
+                <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i>Ingreso detallado</a></li>   
+                <li><a href="{{route('grifos.reporte_comparacion')}}">
+                  <i class="fa fa-list-alt"></i> 
+                Reporte Comparacion</a>
+                </li>       
 
                 <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
                   <a href="#">
@@ -387,7 +389,7 @@ desired effect
 
                     </ul>
                 </li> 
-                <li id="treeview-reporte-gastos-grifo" class="treeview">
+{{--                 <li id="treeview-reporte-gastos-grifo" class="treeview">
                   <a href="#">
                     <i class="glyphicon glyphicon-list-alt"></i>
                       <span>Gastos Grifos</span>
@@ -403,9 +405,9 @@ desired effect
                         Mensual</a>
                       </li>
                     </ul>
-                </li>               
+                </li>    --}}            
               </ul>
-            </li> --}}
+            </li>
 
 
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">

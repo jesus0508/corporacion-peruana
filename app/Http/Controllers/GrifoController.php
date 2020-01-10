@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreGrifoRequest;
 use CorporacionPeru\Http\Requests\StoreBalanceoRequest;
 use CorporacionPeru\IngresoGrifo;
+use CorporacionPeru\Egreso;
+use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Log;
 use CorporacionPeru\Stock;
 use CorporacionPeru\Balanceo;
+use CorporacionPeru\MovimientoGrifo;
 
 class GrifoController extends Controller
 {
@@ -28,6 +31,123 @@ class GrifoController extends Controller
     }
 
     /**
+     * Comparación entre movimientos grifo y movimientos
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reporteComparacion()
+    {
+        $today = strftime( '%d/%m/%Y',strtotime('now') );
+        return view('grifos.reporte_comparacion.index',compact('today'));
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reporteComparacionData($date = null)
+    {
+        if ( $date == null ) {
+            $date = Carbon::now()->format('Y-m-d');
+        }
+
+        $ingresos = IngresoGrifo::rightJoin('grifos','grifos.id','=','ingreso_grifos.grifo_id')
+                    ->select('ingreso_grifos.fecha_ingreso as fecha',
+                                'grifos.razon_social as grifo',
+                     DB::raw('(sum(monto_ingreso)) as monto') ,'grifo_id')
+                    ->where('fecha_ingreso',$date)
+                    ->groupBy('grifo_id')->get();
+
+        $egresos = Egreso::rightJoin('grifos','grifos.id','=','egresos.grifo_id')
+                ->select('egresos.fecha_egreso as fecha','fecha_reporte', 'grifo_id',
+                    'grifos.razon_social as grifo', DB::raw('(sum(monto_egreso)) as monto'))
+                ->where('fecha_egreso',$date)
+                ->groupBy('egresos.grifo_id')->get();
+
+       
+        $grifos = Grifo::all();
+        //Creamos el array de grifos sin montos para el reporte
+        $netos = collect([]);  
+        foreach ( $grifos as $grifo ) {
+            $neto =[    
+                'fecha_ingreso' => $date,
+                'grifo'         => $grifo->razon_social,
+                'ingreso'       => 0,
+                'egreso'        => 0,
+                'consolidado'   => 0 
+            ];  
+            $neto = (object)$neto;                  
+            $netos->push($neto); 
+        }       
+        //Agregamos ingreso de grifos al neto 
+        foreach ($netos as $neto) {
+            foreach ($ingresos as $ingreso) {
+                if ( $ingreso->grifo==$neto->grifo ) 
+                {
+                    $neto->ingreso     = $ingreso->monto; 
+                    $neto->consolidado = $ingreso->monto;               
+                }          
+            }
+        }
+        //Agreagamos egresos 
+        foreach ($egresos as $egreso) {
+            foreach ($netos as $neto) {
+                if ( $egreso->grifo==$neto->grifo  ) 
+                {
+                    $neto->egreso      = $egreso->monto;
+                    $consolidado       = $neto->ingreso - $egreso->monto;
+                    $neto->consolidado = $consolidado;
+                }          
+            }
+        }  
+
+        $movimientos = MovimientoGrifo::rightJoin('grifos','grifos.id','=','movimiento_grifos.grifo_id')
+                ->select('movimiento_grifos.fecha_reporte as fecha', 'grifo_id',
+                    'grifos.razon_social as grifo', DB::raw('(sum(monto_operacion)) as monto'))
+                ->where('fecha_reporte',$date)
+                ->groupBy('movimiento_grifos.grifo_id')->get();
+        //Creamos array de Comparaciones
+        $comparaciones = collect([]);
+        $date = Carbon::createFromFormat('Y-m-d', $date)->format('d/m/Y');
+        foreach ( $grifos as $grifo ) {
+            $comparacion =[    
+                'fecha_ingreso'            => $date,
+                'grifo'                    => $grifo->razon_social,
+                'ingreso_neto'             => 0,
+                'ingreso_movimiento_total' => 0,
+                'diferencia'               => 0 
+            ];  
+            $comparacion = (object)$comparacion;                  
+            $comparaciones->push($comparacion); 
+        } 
+
+        //Agregamos ingreso netos de grifos al reporte 
+  
+        foreach ($comparaciones as $comparacion) {
+            foreach ($netos as $neto) {
+                if ( $neto->grifo==$comparacion->grifo ) 
+                {
+                    $comparacion->ingreso_neto = $neto->consolidado; 
+                    $comparacion->diferencia   = $neto->consolidado;               
+                }          
+            }
+        }
+
+        //Agreagamos movimientos grifos a comparar 
+        foreach ($comparaciones as $comparacion) {
+            foreach ($movimientos as $movimiento) {
+                if ( $movimiento->grifo==$comparacion->grifo  ) 
+                {
+                    $comparacion->ingreso_movimiento_total = $movimiento->monto;
+                    $diferencia = $comparacion->ingreso_neto - $movimiento->monto;
+                    $comparacion->diferencia               = $diferencia;
+                }          
+            }
+        } 
+        return response()->json(['data' => $comparaciones]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -35,7 +155,7 @@ class GrifoController extends Controller
     public function create()
     {
         //
-    }
+    }  
 
         /**
      * Show all clientes.

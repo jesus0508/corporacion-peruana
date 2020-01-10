@@ -18,7 +18,7 @@ class Egreso extends Model
 	}
 
 	public function setFechaEgresoAttribute($value){ 
-        $this->attributes['fecha_egreso'] = Carbon::createFromFormat('d/m/Y',$value);
+        $this->attributes['fecha_egreso'] = Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
     }
 
     public function setFechaReporteAttribute($value)
