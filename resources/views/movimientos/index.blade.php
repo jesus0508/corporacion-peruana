@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title','Movimientos')
 @section('styles')
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -12,13 +12,19 @@
 @endsection
 
 @section('content')
+
 <section class="content">
   @include('movimientos.table')
 </section>
-@include('movimientos.create')
+
+{{--  modales  --}}
+	@include('movimientos.create')
+	@include('movimientos.modal_edit')
+ {{-- end modal --}}
+
 @endsection
 
 @section('scripts')
-
+@include('reporte_excel.excel_select2_js')
 <script src="{{ asset('js/movimientos/movimientos.js') }}"></script>
 @endsection

@@ -30,7 +30,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/pedido_clientes/excel', 'PedidoClienteController@exportToExcel')->name('pedido_clientes.exportToExcel');
 		Route::resource('/pedido_clientes', 'PedidoClienteController');
 		/*Movimientos */
+		
 		Route::get('/movimientos/validar', 'MovimientoController@validarSinRegistrar')->name('movimientos.validar');
+		Route::get('/movimientos_data_between/{fechaInicio?}/{fechaFin?}', 'MovimientoController@movimientosDataBetween')->name('movimientos.movimientosDataBetween');
 		Route::get('/movimientos/excel', 'MovimientoController@exportToExcel')->name('movimientos.exportToExcel');
 		Route::resource('/movimientos', 'MovimientoController');
 

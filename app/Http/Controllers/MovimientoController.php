@@ -7,6 +7,7 @@ use CorporacionPeru\Movimiento;
 use CorporacionPeru\PagoCliente;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreMovimientoRequest;
+use Carbon\Carbon;
 
 class MovimientoController extends Controller
 {
@@ -17,19 +18,46 @@ class MovimientoController extends Controller
      */
     public function index()
     {
-        //
-        $movimientos = Movimiento::orderBy('estado', 'asc')->get();
-        return view('movimientos.index', compact('movimientos'));
+        
+        $today = strftime( '%d/%m/%Y',strtotime('now') );
+        return view('movimientos.index', compact('today'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Datos Movimientos entre fechas..
+     * @param  [date] $dateInicio [fecha de inico]
+     * @param  [date] $dateFin [fecha de  final]
+     * @return [json]       [formato para datatables]
      */
-    public function create()
-    {
-        //
+    public function movimientosDataBetween($dateInicio = null,$dateFin=null){
+
+        if ( $dateInicio == null ) {
+            $dateInicio = Carbon::now()->format('Y-m-d');
+        }
+        if ( $dateFin == null ) {
+            $dateFin = Carbon::now()->format('Y-m-d');
+        }
+
+        $movimientos = Movimiento::whereBetween('fecha_reporte',[$dateInicio,$dateFin])
+                ->select('movimientos.*','fecha_reporte as fecha_ingreso')
+                ->get(); 
+        return datatables()->of($movimientos)
+            ->addColumn('action', 'movimientos.action')->make(true);
+    }
+
+   
+    /**
+     * Datos Movimientos para ..
+     * @param  [date] $date [fecha]
+     * @return [json]       [formato para datatables]
+     */
+    public function movimientosModifyData($date=null){
+
+        if ( $date == null ) {
+            $date = Carbon::now()->format('Y-m-d');
+        }
+        $movimientos = Movimiento::where('fecha_reporte',$date)->get();
+        return response()->json(['data' => $movimientos]);
     }
 
     /**
@@ -47,27 +75,15 @@ class MovimientoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\Movimiento  $movimiento
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Movimiento $movimiento)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \CorporacionPeru\Movimiento  $movimiento
+     * @param  \CorporacionPeru\MovimientoGrifo  $movimientoGrifo
      * @return \Illuminate\Http\Response
      */
     public function edit(Movimiento $movimiento)
     {
-        //
+        return response()->json(['movimiento'=>$movimiento]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -75,9 +91,12 @@ class MovimientoController extends Controller
      * @param  \CorporacionPeru\Movimiento  $movimiento
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreMovimientoRequest $request, Movimiento $movimiento)
+    public function update(StoreMovimientoRequest $request)
     {
-        //
+        $id = $request->id;       
+        Movimiento::findOrFail($id)->update($request->validated());
+        return 
+        back()->with('alert-type','success')->with('status','Movimiento actualizado con exito');  
     }
 
     /**
