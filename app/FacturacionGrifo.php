@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class FacturacionGrifo extends Model
 {
     protected $table = 'facturacion_grifos';
-    protected $fillable = ['venta_factura','fecha_facturacion','venta_boleta','precio_venta','numero_factura','grifo_id','series'];
+    protected $fillable = ['venta_factura','fecha_facturacion','venta_boleta','precio_venta','numero_factura','grifo_id','serie_id'];
     protected $dates = ['deleted_at'];
 
     public function cancelaciones(){

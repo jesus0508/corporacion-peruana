@@ -18,7 +18,7 @@ class CreateSalidasTable extends Migration
             $table->float('monto_egreso');
             $table->string('detalle')->nullable();
             $table->string('codigo_operacion')->nullable();
-            $table->date('fecha_egreso')->nullable();
+            $table->date('fecha_egreso');
             $table->date('fecha_reporte'); 
             $table->string('nro_cheque')->nullable();
             $table->string('nro_comprobante')->nullable();           

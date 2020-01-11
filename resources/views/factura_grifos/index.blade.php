@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     let venta_factura_edit = $venta_factura_edit.val();
     let venta_boleta_edit =  $venta_boleta_edit.val();
-    console.log(venta_factura_edit);
+    //console.log(venta_factura_edit);
     //en caso no ingrese nada, se asignará 0.00
     venta_factura_edit  = (venta_factura_edit)? parseFloat( venta_factura_edit ): 0.00;
     venta_boleta_edit   = (venta_boleta_edit)? parseFloat( venta_boleta_edit ): 0.00;
@@ -198,9 +198,10 @@ $(document).ready(function() {
 
   $select_grifo.on('change', function (event) {
     let id = $select_grifo.val();
-      id = (id)?id:-1; 
-     // console.log(id);  
-    fillSeries(id);       
+    let fecha_ingreso = $fecha_ingreso.val();
+    fecha_ingreso = convertDateFormat(fecha_ingreso);
+    id = (id)?id:-1;  
+    fillSeries(id,fecha_ingreso);       
   });
 
 
@@ -255,9 +256,11 @@ $(document).ready(function() {
     $('#' + IdInput).prop('readonly', false);
   }
 
-  function fillSeries(idGrifo){
-    getIngresoByGrifo(idGrifo).done((data) => {     
-    $series.val(data.series);   
+  function fillSeries(idGrifo,fecha){
+    getIngresoByGrifo(idGrifo,fecha).done((data) => {     
+        //lenar selectr
+    $series.html('');
+    inicializarSelect2($series, 'Seleccione la serie', data.series);
     $precio_galon.val(data.precio_galon);
     evaluateSeries();
     }).fail((error) => {
@@ -283,8 +286,10 @@ $(document).ready(function() {
         inicializarSelect2($select_grifo, 'Seleccione el grifo', data.grifos);
         //llenado de series
         let id = $select_grifo.val();
-        id = (id)?id:-1;   
-        fillSeries(id);
+        let fecha_ingreso = $fecha_ingreso.val();
+        fecha_ingreso = convertDateFormat(fecha_ingreso);
+        id = (id)?id:-1;  
+        fillSeries(id,fecha_ingreso);
         evaluateSeries();//evalua valor series         
       })
       .fail((error) => {
@@ -303,10 +308,11 @@ $(document).ready(function() {
     });
   }
 
-  function getIngresoByGrifo(idGrifo) {
+//Obtener series sin facturar
+  function getIngresoByGrifo(idGrifo, fecha) {
     return $.ajax({
       type: 'GET',
-      url: `../series_grifo/${idGrifo}`,
+      url: `../series_grifo/${idGrifo}/${fecha}`,
       dataType: 'json',
     });
   }

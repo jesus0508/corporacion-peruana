@@ -24,9 +24,9 @@ class StoreFacturacionGrifoRequest extends FormRequest
     public function rules()
     {
         return [
-            'grifo_id' => 'required',
+            'grifo_id' => 'required|numeric|gt:0',
             'fecha_facturacion' => 'required|date_format:"d/m/Y"',
-            'series'=> 'required|max:255',
+            'serie_id' => 'required|numeric|gt:0',
             'numero_factura'=> 'nullable|max:255',
             'venta_factura'=> 'nullable|numeric|gt: 0',
             'venta_boleta'=> 'nullable|numeric|gt: 0',

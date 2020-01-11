@@ -38,11 +38,11 @@
             @foreach($salidas as $salida)
               <tr>
                 <td>{{$salida->fecha_reporte}}</td>
-                <td>{{$salida->fecha_reporte}}</td>
+                <td>{{$salida->fecha_egreso}}</td>
                 <td>{{$salida->detalle}}</td>
                 <td>{{$salida->nro_cheque}}</td>
                 <td>{{$salida->codigo_operacion}}</td>
-                <td>{{$salida->cuenta['nro_cuenta']}}</td>
+                <td>{{$salida->cuenta->nro_cuenta}}</td>
                 <td>{{$salida->monto_egreso}}</td>
               </tr>
               @endforeach

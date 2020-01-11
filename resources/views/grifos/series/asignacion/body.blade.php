@@ -4,20 +4,23 @@
 	  <div class="box box-success">
 	    <div class="box-body">
 	      <div class="row">
-	        <div class="col-md-3">
+	        <div class="col-md-6">
 			      <div class="form-group">
 			        <label for="">Grifo</label>
-			        <input type="text" class="form-control" name="razon_social" value="{{$grifo->razon_social}}" readonly="">
+			        <textarea  class="form-control" name="razon_social" cols="30" rows="2"
+			        	readonly="">
+			        	{{$grifo->razon_social}}	
+			        </textarea>			        
 			      </div>
 			    </div>
-			    <div class="col-md-3">
+			    <div class="col-md-2">
 			    	<div class="form-group">
 			        <label for="">Zona</label>
 			        <input type="text" class="form-control" name="zona" value="{{$grifo->zona}}" readonly="">
 			      </div>
 			    </div>
 	        @if($hasSerie)
-	        <div class="col-md-6">
+	        <div class="col-md-4">
 	        	<label for="">Series </label> <br/>
 	        	@foreach( $grifo->series as $serie)
 	        		<a class="btn btn-sm btn-danger" href="{{route('eliminar_asignacion',$serie->id)}}"><span>x</span>&nbsp;

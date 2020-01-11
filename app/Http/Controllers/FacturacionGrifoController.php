@@ -5,6 +5,7 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\FacturacionGrifo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Grifo;
+USE CorporacionPeru\Serie;
 use CorporacionPeru\Http\Requests\StoreFacturacionGrifoRequest;
 
 
@@ -47,40 +48,61 @@ class FacturacionGrifoController extends Controller
      * @param  [type] $id [id del grifo]
      * @return [type] [description]
      */
-    public function series_grifo($id = -1){
-        $series = '';
-        $precio_galon = '';
-        if ($id!=-1) {
+    public function series_grifo($id = null,$fecha = null){
+
+               
+        if ( $id!=-1 AND $fecha ) {
             $grifo = Grifo::findOrFail($id);
             $precio_galon = $grifo->precio_galon;
-            foreach ($grifo->series as $serie ) {                
-                       $series = $series.' '.$serie->serie;
-                   }       
+            //series facturadas
+            $series = Serie::join('facturacion_grifos','facturacion_grifos.serie_id','=','series.id')
+                ->whereDate('facturacion_grifos.fecha_facturacion',$fecha)
+                ->select('series.id')
+                ->get();
+
+            $series_facturadas_id = [];
+            foreach ($series as $serie) {
+                $series_facturadas_id[] = $serie->id;
+            }
+
+            $series = Serie::join('grifos','grifos.id','=','series.grifo_id')
+                ->where('grifos.id',$id)
+                ->whereNotIn('series.id',$series_facturadas_id) 
+                ->select('series.id', 'series.serie as text')
+                ->get();
+
             return response()->json(['series' => $series,'precio_galon'=> $precio_galon]);
         }else{
+            $precio_galon = '';
+            $series =[];
             return response()->json(['series' => $series,'precio_galon'=> $precio_galon]);
         }
             
     }
+
+
     /**
-     * Obtener los grifos que no tienen factura, en la fecha $fecha
+     * Obtener los grifos que no tienen series facturadas, en la fecha $fecha
      * @param  [type] $fecha [fecha ingresada]
      * @return [type]        [description]
      */
     public function getGrifosSinFacturacion( $fecha  = null){
                
         if ($fecha) {
-            $grifos = Grifo::join('facturacion_grifos','facturacion_grifos.grifo_id','=','grifos.id')
-                        ->whereDate('facturacion_grifos.fecha_facturacion',$fecha)
-                        ->select('grifos.id')
-                        ->get();
-            $grifos_facturados_id = [];
-            foreach ($grifos as $grifo) {
-                $grifos_facturados_id[] = $grifo->id;
+            //series facturadas
+            $series = Serie::join('facturacion_grifos','facturacion_grifos.serie_id','=','series.id')
+                ->whereDate('facturacion_grifos.fecha_facturacion',$fecha)
+                ->select('series.id')
+                ->get();
+            $series_facturadas_id = [];
+            foreach ($series as $serie) {
+                $series_facturadas_id[] = $serie->id;
             }
-            //return $grifos_facturados_id;
-            $grifos = Grifo::select('id', 'razon_social as text')->whereNotIn('id',$grifos_facturados_id)                   
-            ->get();
+            $grifos = Grifo::join('series','series.grifo_id','=','grifos.id')
+                ->whereNotIn('series.id',$series_facturadas_id)
+                ->groupBy('grifos.id')
+                ->select('grifos.id', 'grifos.razon_social as text')                   
+                ->get();
             return response()->json(['grifos' => $grifos]);
         }else{
 

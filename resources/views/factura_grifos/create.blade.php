@@ -32,8 +32,10 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="nro_serie">Número(s) de serie</label>
-                <input id="nro_serie" type="text" class="form-control" 
-                        readonly="" name="series">
+                <select name="serie_id" id="nro_serie" class="form-control" required="">
+                </select>
+{{--                 <input id="nro_serie" type="text" class="form-control" 
+                        readonly="" name="series"> --}}
               </div>
             </div>
             {{--<div class="col-md-3">

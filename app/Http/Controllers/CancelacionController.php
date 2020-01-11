@@ -31,7 +31,10 @@ class CancelacionController extends Controller
      */
     public function cancelacion_search( $id, $fecha ){//id: id del grifo
 
-        $ingreso_grifo=FacturacionGrifo::with('cancelaciones')->where('grifo_id','=',$id)->where('fecha_facturacion',$fecha)->first();       
+        $ingreso_grifo ='';
+        if ($id AND $fecha) {
+            $ingreso_grifo=FacturacionGrifo::with('cancelaciones')->where('grifo_id','=',$id)->where('fecha_facturacion',$fecha)->first();   
+        }            
          
          return $ingreso_grifo;
     }

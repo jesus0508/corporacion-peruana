@@ -20,7 +20,9 @@ class CreateFacturacionGrifosTable extends Migration
             $table->decimal('precio_venta',9,2);  
             $table->string('numero_factura')->nullable();
             $table->date('fecha_facturacion');
-            $table->string('series');
+            $table->unsignedBigInteger('serie_id');
+            $table->foreign('serie_id')
+            ->references('id')->on('series');           
             $table->unsignedBigInteger('grifo_id');
             $table->foreign('grifo_id')
             ->references('id')->on('grifos');
