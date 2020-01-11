@@ -222,9 +222,9 @@
                             
                 <div class="col-md-6">
                   <div class="form-group @error('utilidades') has-error @enderror">
-                    <label for="utilidades-edit">Utilidad*</label>
+                    <label for="utilidades-edit">Utilidad</label>
                     <input id="utilidades-edit" type="text" class="form-control" value="{{old("utilidades")}}"
-                            name="utilidades" placeholder="Forma de pago de las utilidades" required minlength="5">
+                            name="utilidades" placeholder="Forma de pago de las utilidades" >
                     @error('utilidades')
                     <span class="help-block" role="alert">
                       <strong>{{ $message }}</strong>
@@ -236,9 +236,9 @@
                 
                 <div class="col-md-6">
                 <div class="form-group @error('extraordinaria') has-error @enderror">
-                    <label for="extraordinaria-edit">Extraordinaria*</label>
+                    <label for="extraordinaria-edit">Extraordinaria</label>
                     <input id="extraordinaria-edit" type="text" class="form-control" value="{{old("extraordinaria")}}"
-                          name="extraordinaria" placeholder="Ingrese extraordinaria" required min="0">
+                          name="extraordinaria" placeholder="Ingrese extraordinaria">
                     @error('extraordinaria')
                     <span class="help-block" role="alert">
                       <strong>{{ $message }}</strong>

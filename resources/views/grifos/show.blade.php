@@ -136,14 +136,14 @@
                 <div class="row">           
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="utilidades-show">Utilidad*</label>
+                      <label for="utilidades-show">Utilidad</label>
                       <input id="utilidades-show" type="text" class="form-control"
                             readonly="" >
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="extraordinaria-show">Extraordinaria*</label>
+                      <label for="extraordinaria-show">Extraordinaria</label>
                       <input id="extraordinaria-show" type="text" class="form-control" readonly="">
                     </div>
                   </div> 
