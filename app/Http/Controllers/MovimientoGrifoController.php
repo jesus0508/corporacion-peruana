@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreMovimientoGrifoRequest;
 use CorporacionPeru\Cancelacion;
 use CorporacionPeru\Grifo;
+use Carbon\Carbon;
 
 class MovimientoGrifoController extends Controller
 {
@@ -18,20 +19,13 @@ class MovimientoGrifoController extends Controller
     public function index()
     {
         
-        $movimientos = MovimientoGrifo::orderBy('estado', 'asc')->get();
+        $today = strftime( '%d/%m/%Y',strtotime('now') );       
         $grifos = Grifo::all();
-        return view('factura_grifos.movimientos.index', compact('movimientos','grifos'));
+
+        return view('factura_grifos.movimientos.index', compact('today','grifos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -46,15 +40,28 @@ class MovimientoGrifoController extends Controller
         return back()->with(['alert-type' => $mensaje['type'], 'status' => $mensaje['status']]);
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\MovimientoGrifo  $movimientoGrifo
-     * @return \Illuminate\Http\Response
+     * Datos Movimientos Grifos entre fechas..
+     * @param  [date] $dateInicio [fecha de inico]
+     * @param  [date] $dateFin [fecha de  final]
+     * @return [json]       [formato para datatables]
      */
-    public function show(MovimientoGrifo $movimientoGrifo)
-    {
-        //
+    public function movimientosDataBetween($dateInicio = null,$dateFin=null){
+
+        if ( $dateInicio == null ) {
+            $dateInicio = Carbon::now()->format('Y-m-d');
+        }
+        if ( $dateFin == null ) {
+            $dateFin = Carbon::now()->format('Y-m-d');
+        }
+
+        $movimientos = MovimientoGrifo::join('grifos','grifos.id','=','movimiento_grifos.grifo_id')
+                ->whereBetween('fecha_reporte',[$dateInicio,$dateFin])
+                ->select('movimiento_grifos.*','fecha_reporte as fecha_ingreso','grifos.razon_social as grifo')
+                ->get(); 
+        return datatables()->of($movimientos)
+            ->addColumn('action', 'factura_grifos.movimientos.action')->make(true);
     }
 
     /**
@@ -65,7 +72,8 @@ class MovimientoGrifoController extends Controller
      */
     public function edit(MovimientoGrifo $movimientoGrifo)
     {
-        //
+        $grifos = Grifo::all();
+        return response()->json(['movimientoGrifo'=>$movimientoGrifo,'grifos'=>$grifos]);
     }
 
     /**
@@ -117,9 +125,12 @@ class MovimientoGrifoController extends Controller
      * @param  \CorporacionPeru\MovimientoGrifo  $movimientoGrifo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MovimientoGrifo $movimientoGrifo)
+    public function update(StoreMovimientoGrifoRequest $request)
     {
-        //
+        $id = $request->id;       
+        MovimientoGrifo::findOrFail($id)->update($request->validated());
+        return 
+        back()->with('alert-type','success')->with('status','Movimiento actualizado con exito');  
     }
 
     /**

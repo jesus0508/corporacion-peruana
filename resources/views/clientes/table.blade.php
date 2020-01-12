@@ -34,7 +34,7 @@
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
                   @if($cliente->pedidoClientes->isEmpty())
-                    <form style="display:inline" method="POST" action="{{ route('clientes.destroy', $cliente->id) }}">
+                    <form style="display:inline" method="POST"  onsubmit="return confirmar()" action="{{ route('clientes.destroy', $cliente->id) }}">
                       @csrf
                       @method('DELETE')
                       <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>

@@ -1,13 +1,13 @@
 <div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
 	  <div class="box box-success">
 	    <div class="box-body">
 	      <div class="row">
 	        <div class="col-md-6">
 			      <div class="form-group">
 			        <label for="">Grifo</label>
-			        <textarea  class="form-control" name="razon_social" cols="30" rows="2"
+			        <textarea  class="form-control" name="razon_social" cols="30" rows="4"
 			        	readonly="">
 			        	{{$grifo->razon_social}}	
 			        </textarea>			        
@@ -66,9 +66,6 @@
 
 
 	        </div>				
-				</div>	<!-- 	end.box -->	
-	</div><!-- end.col-md-8 -->
-	<div class="col-md-8">
-		
-	</div>
+			</div>	<!-- 	end.box -->	
+		</div><!-- end.col-md-8 -->
 </div>

@@ -21,8 +21,17 @@ class MovimientoGrifo extends Model
      public function setFechaReporteAttribute($value)
     {
         $this->attributes['fecha_reporte'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
-    }   
+    }  
+ 
+    public function getFechaOperacionAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
 
+    public function getFechaReporteAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
     public function getEstado()
     {
         $result = "";

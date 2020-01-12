@@ -95,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/grifos_facturacion/all/{fecha?}','FacturacionGrifoController@getGrifosSinFacturacion')->name('factura_grifos.sinFactura');
 		Route::get('/series_grifo/{id?}/{fecha?}','FacturacionGrifoController@series_grifo')->name('factura_grifos.series_grifo');
 		Route::resource('/movimiento_grifos','MovimientoGrifoController');
+		Route::get('/movimientos_grifos_data_between/{fechaInicio?}/{fechaFin?}', 'MovimientoGrifoController@movimientosDataBetween');
 		Route::get('/movimiento_grifos_verificar', 'MovimientoGrifoController@verificarSinRegistrar')->name('movimiento_grifos.verificar');
 	});
 

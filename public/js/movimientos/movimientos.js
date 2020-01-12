@@ -101,7 +101,7 @@ $('#modal-edit-movimientos').on('show.bs.modal',function(event){
   function getEstado(estado)
     {
         let result = "";
-        switch (estado) {
+        switch (Number(estado)) {
             case 3:
                 result = "<span class='label label-success'>Conforme</span>";
                 break;

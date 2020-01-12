@@ -56,10 +56,10 @@
                             data-id="{{$grifo->id}}">
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
-                  <form style="display:inline" method="POST" action="{{ route('grifos.destroy', $grifo->id) }}">
+                  <form style="display:inline" method="POST" onsubmit="return confirmar()" action="{{ route('grifos.destroy', $grifo->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></button>
                   </form>
                 </td>
               </tr>

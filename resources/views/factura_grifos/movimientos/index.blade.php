@@ -1,3 +1,4 @@
+
 @extends('layouts.main')
 @section('title','Movimientos Grifos')
 @section('styles')
@@ -16,6 +17,7 @@
   @include('factura_grifos.movimientos.table')
 </section>
   @include('factura_grifos.movimientos.create')
+  @include('factura_grifos.movimientos.modal_edit')
   
 @endsection
 
@@ -23,8 +25,7 @@
 @include('reporte_excel.excel_select2_js')
 <script>
 
-	$(document).ready(function () {
-
+$(document).ready(function () {
   $('#grifo_id').select2({
         dropdownParent: $('#modal-create-movimiento')
     });
@@ -32,17 +33,79 @@
   let $tabla_movimiento_grifos = $('#tabla-movimiento-grifos');
   let $fecha_operacion = $('#fecha_operacion');
   let $fecha_reporte = $('#fecha_reporte');
-  $tabla_movimiento_grifos.DataTable();
   $fecha_operacion.datepicker();
   $fecha_reporte.datepicker(); 
-   validateDates();
-});
+
+  let $fecha_operacion_edit = $('#fecha_operacion-edit');
+  let $fecha_reporte_edit = $('#fecha_reporte-edit');  
+  $fecha_operacion_edit.datepicker();
+  $fecha_reporte_edit.datepicker();
+  $select_grifos_edit = $('#grifo_id-edit');
+$('#modal-edit-movimientos-grifos').on('show.bs.modal',function(event){
+    var id= $(event.relatedTarget).data('id');
+    $.ajax({
+      type: 'GET',
+      url:`./movimiento_grifos/${id}/edit`,
+      dataType : 'json',
+      success: (data)=>{  
+        console.log(data);
+        let grifos = '';
+        data.grifos.forEach((grifo) => {
+          grifos += `<option value="${grifo.id}">${grifo.razon_social}</option>`;
+        });
+        $select_grifos_edit.html(grifos);
+        inicializarSelect2($select_grifos_edit, 'Seleccione el grifo');
+        $select_grifos_edit.val(data.movimientoGrifo.grifo_id).trigger('change'); 
+
+        $(event.currentTarget).find('#monto_operacion-edit').val(data.movimientoGrifo.monto_operacion);    
+        $(event.currentTarget).find('#fecha_operacion-edit').val(data.movimientoGrifo.fecha_operacion);
+        $(event.currentTarget).find('#fecha_reporte-edit').val(data.movimientoGrifo.fecha_reporte);
+        $(event.currentTarget).find('#codigo_operacion-edit').val(data.movimientoGrifo.codigo_operacion);
+        $(event.currentTarget).find('#banco-edit').val(data.movimientoGrifo.banco);
+        $(event.currentTarget).find('#id-edit').val(data.movimientoGrifo.id);
+      },
+      error: (error)=>{
+        toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+      }
+    });
+  });
+
+  $tabla_movimiento_grifos.DataTable({
+      "responsive": false,
+      "scrollX": true,
+      "dom": 'Blfrtip',
+
+      'ajax': `./movimientos_grifos_data_between/`,
+        'columns': [
+          {data: 'fecha_ingreso'},
+          {data: 'fecha_operacion'},
+          {data: 'grifo'},
+          {data: 'codigo_operacion'},
+          {data: 'monto_operacion'},
+          {data: 'banco'},          
+          {data: 'estado', 'render': function(data){
+            return getEstado(data);
+          }},
+          {data: 'action'}
+        ],
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Movimiento Grifos',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        'exportOptions':
+        {
+          columns:[0,1,2,3,4,5,6]
+        }
+      }]
+  });
 
 
-
-  function validateDates() {
-
-  let $tabla_movimiento_grifos = $('#tabla-movimiento-grifos');
 
   $('#fecha_inicio').datepicker({
     numberOfMonths: 2,
@@ -57,30 +120,58 @@
     }
   });
   
-  $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      var $sInicio = $('#fecha_inicio');
-      var $sFin = $('#fecha_fin');
-      var inicio = $.datepicker.parseDate('d/m/yy', $sInicio.val());
-      var fin = $.datepicker.parseDate('d/m/yy', $sFin.val());
-      var dia = $.datepicker.parseDate('d/m/yy', data[2]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
-      }
-      return false;
+  $('#filtrar-fecha').click(function() {
+    let fechaInicio =$('#fecha_inicio').val();
+    fechaInicio = convertDateFormat(fechaInicio);
+    let fechaFin =$('#fecha_fin').val();
+    fechaFin = convertDateFormat(fechaFin);
+    RefreshTable('#tabla-movimiento-grifos',`./movimientos_grifos_data_between/${fechaInicio}/${fechaFin}`);
+  });
+});
+
+  function convertDateFormat(string) {
+        var info = string.split('/').reverse().join('-');
+        return info;
+  }
+  function convertDateFormat2(string) {
+        var info = string.split('-').reverse().join('/');
+        return info;
+  }
+  function inicializarSelect2($select, text, data) {
+    $select.select2({
+      placeholder: text,
+      data: data
+    });
+  }
+  function RefreshTable(tableId, urlData){
+    $.getJSON(urlData, null, function( json ){
+      table = $(tableId).dataTable();
+      oSettings = table.fnSettings();
+      table.fnClearTable(this);    
+      console.log(json.data);
+      for (var i=0; i<json.data.length; i++) {
+        table.oApi._fnAddData(oSettings, json.data[i]);       
+      } 
+      oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();      
+      table.fnDraw();
+   
+    });
+  }
+  function getEstado(estado)
+    {
+        let result = "";
+        switch (Number(estado)) {
+            case 3:
+                result = "<span class='label label-success'>Conforme</span>";
+                break;
+            case 2:
+                result = "<span class='label label-warning'>Sin registrar</span>";
+                break;
+            default:
+                result = "<span class='label label-info'>Sin Verificar</span>";                break;
+        }
+        return result;
     }
-  );
-
-  $('#filtrar-fecha').on('click', function () {
-    $tabla_movimiento_grifos.DataTable().draw();
-  });
-
-  $('#clear-fecha').on('click', function () {
-    $('#fecha_inicio').val("");
-    $('#fecha_fin').val("");
-    $tabla_movimiento_grifos.DataTable().draw();
-  });
-}
 
 </script>
 @endsection

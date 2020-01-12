@@ -20,7 +20,7 @@
         <div class="col-md-2">
           <button id="filtrar-fecha" class="btn btn-info">
             <i class="fa fa-search"></i>
-            Filtrar
+            Buscar
           </button>
         </div>
       </div>

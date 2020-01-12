@@ -89,3 +89,10 @@ $(document).ready(function() {
   });
   } 
 );
+  function confirmar()
+{
+  if(confirm('¿Estas seguro de eliminar el cliente?'))
+    return true;
+  else
+    return false;
+}

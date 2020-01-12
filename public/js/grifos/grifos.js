@@ -91,16 +91,19 @@ $('#modal-show-grifo').on('show.bs.modal', function (event) {
   }
 $(document).ready(function() {
   $('#tabla-grifos').DataTable({
+    responsive: false,
+    scrollX: true,
     columnDefs: [ 
-    { 
-      orderable: false, 
-      targets: [ -1 ] 
-    },
-    { 
-      searchable: false, 
-      targets: [-1] 
-    },
-    ] 
+    { orderable: false, targets: [ -1 ] },
+    { searchable: false, targets: [-1] },
+  ] 
   });
   } 
 );
+  function confirmar()
+{
+  if(confirm('¿Estas seguro de eliminar el Grifo?'))
+    return true;
+  else
+    return false;
+}

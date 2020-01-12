@@ -30,5 +30,5 @@
 
 @section('scripts')
 <script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
-<script src="{{ asset('js/grifos/grifos.js') }}"></script>    
+<script src="{{ asset('js/grifos/grifos.js') }}"></script>   
 @endsection
