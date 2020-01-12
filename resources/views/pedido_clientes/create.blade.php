@@ -30,7 +30,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group @error('cliente_id') has-error @enderror">
-                  <label for="cliente">Cliente</label>
+                  <label for="cliente">Cliente*</label>
                   <select class="form-control" id="cliente" name="cliente_id">
                     @foreach ( $clientes as $cliente)
                       <option value="{{$cliente->id}}">{{$cliente->razon_social}}</option>
@@ -105,7 +105,7 @@
             <div id="producto" class="row">
               <div class="col-md-6">
                 <div class="form-group @error('galones') has-error @enderror">
-                  <label for="galones">Galones</label>
+                  <label for="galones">Galones*</label>
                   <input id="galones" type="number" class="form-control" 
                           name="galones" placeholder="Ingrese el numero galones" min="0">
                   @error('galones')

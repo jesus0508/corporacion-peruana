@@ -82,7 +82,7 @@ class PedidoClienteController extends Controller
              }]);
             return view('pedido_clientes.detalles', compact('pedidoCliente'));
         }
-        return back()->with('alert-type', 'error')->with('status', 'Ocurrio un erro al ver detalles');
+        return back()->with('alert-type', 'error')->with('status', 'Ocurrio un error al ver detalles, el pedido no ha sido distribuido completamente.');
     }
 
     /**

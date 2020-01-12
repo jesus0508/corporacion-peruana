@@ -25,7 +25,7 @@ class CreatePivotGrifoPedidoTable extends Migration
             $table->integer('asignacion');
             $table->string('hora_descarga')->nullable();  
             $table->date('fecha_descarga')->nullable();            
-            $table->integer('faltante')->nullable();
+            $table->decimal('faltante')->nullable();
             $table->decimal('precio_galon_faltante', 9, 5)->nullable();            
             $table->string('grifero')->nullable();
             $table->string('descripcion')->default('Faltante en grifo');

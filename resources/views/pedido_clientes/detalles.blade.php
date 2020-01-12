@@ -189,10 +189,10 @@
         <div class="box-header with-border">
           <h2 class="box-title">Lista de pagos del cliente</h2>
           <div class="pull-right">
-            <a href="{{route('pedido_clientes.pagosToExcel',$pedidoCliente->id)}}" class="btn btn-default">
+           {{--  <a href="{{route('pedido_clientes.pagosToExcel',$pedidoCliente->id)}}" class="btn btn-default">
               <i class="fa  fa-file-excel-o"></i>
               Exportar a Excel
-            </a>
+            </a> --}}
           </div>
         </div><!-- /.box-header -->
         <div class="box-body">

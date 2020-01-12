@@ -28,7 +28,7 @@ class CreatePedidoProveedorClientesTable extends Migration
                     ->references('id')->on('pago_transportistas');
             $table->decimal('precio_galon_faltante', 9, 5)->nullable(); 
             $table->integer('asignacion');
-            $table->integer('faltante')->nullable();
+            $table->decimal('faltante')->nullable();
             $table->string('grifero')->nullable();
             $table->string('descripcion')->default('Faltante en grifo');
         });

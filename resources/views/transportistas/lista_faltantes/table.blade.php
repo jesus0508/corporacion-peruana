@@ -3,7 +3,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-header with-border">
-            <h2 class="box-title">Lista de Pedidos - Flete</h2>     
+            <h2 class="box-title">Lista de Faltantes - Flete</h2>     
       </div><!-- /.box-header -->
 
       <div class="box-body">

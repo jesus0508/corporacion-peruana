@@ -28,7 +28,7 @@ class UpdatePedidoProveedorClienteRequest extends FormRequest
             'faltante' => 'required|numeric|gt:0',
             'descripcion'=>'nullable|max: 255' ,
             'precio_galon_faltante'=>'required|numeric|gt:0',
-            'grifo_id' => 'numeric|gt:0'
+            'grifo_id' => 'nullable|numeric|gt:0'
             ];
     }
 }

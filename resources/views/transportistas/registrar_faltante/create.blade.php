@@ -1,8 +1,7 @@
 <div class="modal fade" id="modal-registrar-faltante" style="display: none;">
   <div class="modal-dialog">
-    <form action="{{route('flete.update',0)}}" method="post" class="modal-content">
+    <form action="{{route('flete.store')}}" method="post" class="modal-content">
       @csrf
-      @method('PUT')
       <input id="id_pivote" type="hidden" name="id">
       <input type="hidden" id="pedido_cliente_id" name="pedido_cliente_id">
       <div class="modal-header">
@@ -25,7 +24,7 @@
                     <div class="form-group @error('faltante') has-error @enderror">
                       <label for="faltante"> Faltante*</label>
                       <input id="faltante" type="number" class="form-control"
-                          name="faltante" min="1" max="9999" placeholder="Ingrese los galones faltantes.." autocomplete="off">
+                          name="faltante" min="0.001" step="any" max="9999" placeholder="Ingrese los galones faltantes.." required="">
                       @error('faltante')
                         <span class="help-block" role="alert">
                           <strong>{{ $message }}</strong>
@@ -59,9 +58,9 @@
                     </div>
                     <input type="hidden" name="grifo_id" id="grifo_id">
                     <div class="form-group">
-                      <label for="costo_galon-edit">Costo Galon</label>
+                      <label for="costo_galon-edit">Costo Galon*</label>
                       <input id="costo_galon-edit" type="text" class="form-control"
-                            name="precio_galon_faltante" >
+                            name="precio_galon_faltante" required="">
                     </div>
                   </div>
                   <div class="col-md-6">

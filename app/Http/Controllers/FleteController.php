@@ -128,9 +128,23 @@ class FleteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UpdatePedidoProveedorClienteRequest $request)
     {
-        //
+        //TRANSACTION
+        $id = $request->id;//id_pivote     
+        if( $request->pedido_cliente_id){//PEDIDO A CLEINTE            
+            $pivote = PedidoProveedorCliente::findOrFail($id);            
+        }else{//PEDIDO A GRIFO
+            $pivote = PedidoProveedorGrifo::findOrFail($id); 
+            $grifo = Grifo::findOrFail($request->grifo_id);
+            $grifo->stock-=$request->faltante;
+            $grifo->save();        
+        }
+        $pivote->timestamps  = false;
+        $pivote->update( $request->validated() );
+
+        return  back()->with('alert-type', 'success')->with('status', 'Faltante registrado con exito');
+
     }
 
     /**
@@ -186,9 +200,9 @@ class FleteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePedidoProveedorClienteRequest $request, $id)
+    public function update(Request $request, $id)
     {   
-        //return $request;
+        return $request;
         //TRANSACTION
         $id = $request->id;//id_pivote     
         if( $request->pedido_cliente_id){//PEDIDO A CLEINTE            
