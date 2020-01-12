@@ -3,9 +3,7 @@
 @section('title','Grifos')
 
 @section('styles')
-{{-- select2 4.0.8 --}}
-<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
+  @include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -26,25 +24,42 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
+@include('reporte_excel.excel_select2_js')
 <script>
 
 $(document).ready(function() {
 
 	$('#tabla-grifos-balance').DataTable({
-      "responsive": true,
+      "responsive": false,
+      "scrollY": true,
         "aaSorting": [],
+      "dom": 'Blfrtip',
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Historial balanceos',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        'exportOptions':
+        {
+          columns:[0,1,2,3,4,5]
+        }
+      }],
 	});
 });
 
-	let $select_grifo1        = $('#grifo_a_quitar');
-	let $select_grifo2        = $('#grifo_a_dar'); 
+	let $select_grifo1 = $('#grifo_a_quitar');
+	let $select_grifo2 = $('#grifo_a_dar'); 
 	let $stock_actual1 = $('#stock_actual1');
 	let $stock_actual2 = $('#stock_actual2');
 	let $stock_nuevo1  = $('#stock_nuevo1');
 	let $stock_nuevo2  = $('#stock_nuevo2');
 	let $galones       = $('#galones');
-	let $input_user 	 = $('#input_user');
+	let $input_user    = $('#input_user');
 
 $(document).ready(function() {
 
@@ -103,7 +118,51 @@ $(document).ready(function() {
 		}
 	});
 
+ validateDates();
 });
+
+	function validateDates(){
+
+	let $tabla_historial_balance = $('#tabla-grifos-balance');
+ 
+		$('#fecha_inicio').datepicker({
+	    numberOfMonths: 2,
+	    onSelect: function (selected) {
+	      $('#fecha_fin').datepicker('option', 'minDate', selected)
+	    }
+	  });
+	  $('#fecha_fin').datepicker({
+	    numberOfMonths: 2,
+	    onSelect: function (selected) {
+	      $('#fecha_inicio').datepicker('option', 'maxDate', selected)
+	    }
+	  });
+
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      var sInicio = $('#fecha_inicio').val();
+      var sFin = $('#fecha_fin').val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+      var fin = $.datepicker.parseDate('d/m/yy', sFin);
+      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
+      if (!inicio || !dia || fin >= dia && inicio <= dia) {
+        return true;
+      }
+      return false;
+    }
+  );
+
+  $('#filtrar-fecha').click(function() {
+    $tabla_historial_balance.DataTable().draw();
+  });
+
+  $('#clear-fecha').on('click', function () {
+    $('#fecha_inicio').val("");
+    $('#fecha_fin').val("");
+    $tabla_historial_balance.DataTable().draw();
+  });
+
+}
 
   function fillGrifo(idGrifo,tipo){
     getGrifoById(idGrifo).done((data) => {  

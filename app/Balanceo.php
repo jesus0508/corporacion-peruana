@@ -3,6 +3,7 @@
 namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Balanceo extends Model
 {
@@ -19,4 +20,10 @@ class Balanceo extends Model
     public function grifoSender(){
     	$this->belongsTo(Grifo::class,'grifo_id_sender');
     } 
+
+    public function getFechaAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
+
 }
