@@ -39,7 +39,7 @@ $(document).ready(function() {
       type: 'GET',
       url:`../cancelacion/${id}/edit`,
       dataType : 'json',
-      success: (data)=>{        
+      success: (data)=>{   
         let fecha = convertDateFormat2(data.cancelacion.fecha);
         let monto = data.cancelacion.monto;
         let nro_operacion = data.cancelacion.nro_operacion;

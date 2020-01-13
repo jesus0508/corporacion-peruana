@@ -14,6 +14,11 @@ class FacturacionGrifo extends Model
     public function cancelaciones(){
         return $this->hasMany(Cancelacion::class);
     }
+
+    public function serie(){
+        return $this->belongsTo(Serie::class);
+    }
+
     public function getGalones(){
         return $this->venta_boleta+ $this->venta_factura;
     }

@@ -54,6 +54,7 @@
             <tr>
               <th>Fecha</th>
               <th>Grifo</th>
+              <th>Serie</th>
               <th>Venta factura</th>
               <th>Venta boleta</th>
               <th>Total Galones</th>
@@ -70,6 +71,7 @@
               <tr>                
                 <td>{{date('d/m/Y', strtotime($factura_grifo->fecha_facturacion))}}</td>
                 <td>{{$factura_grifo->grifo->razon_social}}</td>
+                <td>{{$factura_grifo->serie->serie}}</td>
                 <td>{{$factura_grifo->venta_factura}}</td>
                 <td>{{$factura_grifo->venta_boleta}}</td>
                 <td>{{$factura_grifo->getGalones() }}</td>
@@ -78,19 +80,20 @@
                 <td>{{ ucfirst(strftime("%B %Y",strtotime($factura_grifo->fecha_facturacion) ) )}}</td>
                 <td>{{round($factura_grifo->getSaldo(),2)}}</td>
                 <td>
-                  <btn class="btn btn-xs btn-warning btn-block" 
+                  <btn class="btn btn-xs btn-warning" 
                       href="#modal-edit-facturacion"  
                       data-toggle="modal" data-target=" #modal-edit-facturacion"
                       data-id="{{$factura_grifo->id}}">
                       <span class="glyphicon glyphicon-edit"></span>                     
-                  </btn> 
+                  </btn>
+
                 </td>
               </tr>
             @endforeach
           </tbody>
           <tfoot>
             <tr>
-                <th colspan="2">Total Factura</th>
+                <th colspan="3">Total Factura</th>
                 <th></th> <!-- total factura -->
                 <th>Total Galones</th>
                 <th></th> <!-- total galones -->

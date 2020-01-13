@@ -11,12 +11,10 @@
           data-id="{{$pedido->id}}" data-nro_pedido="{{$pedido->nro_pedido}}" 
           data-scop="{{$pedido->scop}}" data-galones="{{$pedido->galones}}"
           data-costo_galon="{{$pedido->costo_galon}}" data-estado="{{$pedido->estado}}"
-          data-planta="{{$pedido->planta_id}}"> <span class="glyphicon glyphicon-edit"></span>
-        EDITAR</btn>        
+          data-planta="{{$pedido->planta_id}}"> <span class="glyphicon glyphicon-edit"></span>EDITAR</btn>        
       </li>
-      <li>
-              <!-- Eliminar -->   
-
+      <li> 
+       <!-- Eliminar -->  
         <form style="display:inline" method="POST" action="{{ route('pedidos.destroy', $pedido->id) }}">
         @csrf
         @method('DELETE')

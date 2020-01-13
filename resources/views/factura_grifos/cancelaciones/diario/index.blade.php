@@ -33,7 +33,7 @@ $(document).ready(function() {
       "responsive": false, 
       "columnDefs": [
         {"className": "dt-center", "targets":  [0,1,2,3,4,5,6,7,8]  },
-        {"targets": [ 11 ],   "visible": false }
+        {"targets": [ 12 ],   "visible": false }
                       ],
       'rowsGroup':[0,1,2,3,4,5,6,7,8],
       "scrollX": true,
@@ -59,14 +59,14 @@ $(document).ready(function() {
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5,6,7,8,9,10]
+          columns:[0,1,2,3,4,5,6,7,8,9,10,11]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
-            getSubtotal(api,10);
+            getSubtotal(api,11);
       }
   });
 });
@@ -125,7 +125,7 @@ $(document).ready(function() {
       function (settings, data, dataIndex) {
         var sInicio = $('#fecha_inicio_month').val();
         var sFin = $('#fecha_inicio_month').val();
-        let cell = data[7];
+        let cell = data[11];
         if (sInicio) {
           return sInicio === cell;
         }
@@ -181,11 +181,11 @@ $(document).ready(function() {
     validateDates();
     let $filter_proveedor = $('#filter-grifo');
     let $tabla_pedido_proveedores = $('#tabla-cancelaciones-total');
-    inicializarSelect2($filter_proveedor, 'Ingrese el grifo', '');
+    inicializarSelect2($filter_proveedor, 'Seleccione el grifo', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[1];
+      let cell = data[2];
       if (grifo) {
         return grifo === cell;
       }

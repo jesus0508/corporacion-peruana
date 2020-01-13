@@ -1,11 +1,5 @@
 <div class="row">
   <div class="col-md-5">
-    <div class="alert alert-info alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <p> 
-        <label for="" class="label label-default">Solo mostrará las facturaciones grifo que tienen cancelaciones.</label> 
-      </p>
-    </div>
   </div>
   <div class="col-md-7">
     <div class="pull-right">

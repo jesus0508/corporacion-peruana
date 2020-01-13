@@ -116,7 +116,8 @@ class PedidoController extends Controller
             ->join('plantas','pedidos.planta_id','=','plantas.id')
             ->select(
                 'pedidos.*','plantas.planta as planta','factura_proveedors.monto_factura as monto_factura', 'factura_proveedors.fecha_factura_proveedor',
-                    DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc')
+                    DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc'),
+                    'factura_proveedors.nro_factura_proveedor'
             )
             ->orderBy('id','DESC')
             ->get();

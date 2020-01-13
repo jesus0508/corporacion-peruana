@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/iCheck/square/blue.css')}}">
-
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,7 +26,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="hold-transition login-page">
+  <body class="hold-transition login-page" style="background-color: #d5f5e3;">
     <div class="login-box">
       <div class="login-logo">
         <a href="#">{{ config('app.name', 'Laravel') }}</a>
@@ -55,13 +55,14 @@
           </div>
          
           <div class="row">
-            <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Sign In') }}</button>
-              @if (Route::has('password.request'))
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-sm btn-success btn-block ">
+              Ingresar</button>
+{{--               @if (Route::has('password.request'))
                 <a class="btn btn-link" href="{{ route('password.request') }}">
                     {{ __('Olvidaste tu contraseña?') }}
                 </a>
-              @endif
+              @endif --}}
             </div><!-- /.col -->
           </div>
         </form>

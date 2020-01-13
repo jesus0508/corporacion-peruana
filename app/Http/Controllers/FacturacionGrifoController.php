@@ -144,7 +144,7 @@ class FacturacionGrifoController extends Controller
      */
     public function edit($id)
     {
-        $facturacion = FacturacionGrifo::findOrFail($id)->with('grifo')->first();
+        $facturacion = FacturacionGrifo::findOrFail($id)->with('serie')->with('grifo')->first();
         return response()->json(['facturacion' => $facturacion ]);
     }
 
@@ -157,7 +157,6 @@ class FacturacionGrifoController extends Controller
      */
     public function update(StoreFacturacionGrifoRequest $request, $id)
     {  
-
         $id = $request->id;       
         FacturacionGrifo::findOrFail($id)->update($request->validated());
 

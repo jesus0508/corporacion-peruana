@@ -32,19 +32,10 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="nro_serie">Número(s) de serie</label>
-                <select name="serie_id" id="nro_serie" class="form-control" required="">
-                </select>
-{{--                 <input id="nro_serie" type="text" class="form-control" 
-                        readonly="" name="series"> --}}
+                <input id="nro_serie" type="text" class="form-control" 
+                        readonly="">
               </div>
             </div>
-            {{--<div class="col-md-3">
-              <div class="form-group">
-                <label for="facturacion">Número(s) factura</label>
-                <input id="facturacion" name="numero_factura" type="text" class="form-control" 
-                        placeholder="Ingrese Números de facturas" readonly="" >
-              </div>
-            </div>--}}
           </div>                    
 
           <div class="row" id="input_user">

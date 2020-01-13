@@ -3,7 +3,7 @@
     <div class="box box-success">
       <div class="box-header">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-5">
             <div class="input-group">
               <span class="input-group-addon">Grifo</span>
               <select class="form-control" id="filter-grifo" name="planta_id">
@@ -13,7 +13,6 @@
               </select>
             </div><!-- /input-group -->
           </div>
-          <div class="col-md-2"></div>
           <div class="col-md-2">            
             <div class="form-group">
               <label for="fecha_inicio">Mes: </label>
@@ -49,6 +48,7 @@
           <thead>
             <tr>
               <th>Fecha Facturación</th>
+              <th>N° de serie</th>
               <th>Grifo</th>
               <th>Venta Factura</th>
               <th>Venta Boleta</th>              
@@ -67,6 +67,7 @@
             @foreach( $facturacion_grifos as $facturacion_grifo )
               <tr>                
                 <td>{{date('d/m/Y', strtotime($facturacion_grifo->fecha_facturacion))}}</td>
+                <td>{{$facturacion_grifo->serie->serie}}</td>
                 <td>{{$facturacion_grifo->grifo->razon_social}}</td>
                 <td>{{$facturacion_grifo->venta_factura}}</td>
                 <td>{{$facturacion_grifo->venta_boleta}}</td>
@@ -89,6 +90,7 @@
           </tbody>
             <tfoot>
             <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th> <!-- total factura -->

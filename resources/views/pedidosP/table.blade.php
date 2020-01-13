@@ -25,14 +25,15 @@
           <table id="proveedores" class="table table-bordered table-striped responsive  " style="width:100%" cellspacing="0">
             <thead>
               <tr>
-                <th>Nro pedido</th>
+                <th>N° de Factura</th>
+                <th>N° de pedido</th>
                 <th>SCOP</th>
                 <th>Planta</th>
                 <!-- <th>Fecha pedido</th> -->
                 <th>GLS</th>
-      <!-- 4 --><th>Precio galon/u</th> 
+      <!-- 4 --><th>Precio galón/u</th> 
                 <th>Monto</th>
-   <!-- 6-->    <th>M.Facturado</th>
+   <!-- 6-->    <th>Monto Facturado</th>
 <!--  7 -->     <th>Fecha Factura</th>
                 <th>Saldo</th>
                 <th>Estado</th>
@@ -43,6 +44,11 @@
               @foreach ($pedidos as $pedido)
 
                 <tr>
+                  <td>
+                    @if($pedido->factura_proveedor_id)
+                      {{$pedido->nro_factura_proveedor}}
+                    @endif
+                  </td>
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->scop}}</td>                  
                   <td>{{$pedido->planta}}</td>

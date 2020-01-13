@@ -64,20 +64,21 @@ $(document).ready(function() {
       type: 'GET',
       url:`./${id}/edit`,
       dataType : 'json',
-      success: (data)=>{        
+      success: (data)=>{       
         let fecha_facturacion = convertDateFormat2(data.facturacion.fecha_facturacion);
         let venta_factura = data.facturacion.venta_factura;
         let venta_boleta =  data.facturacion.venta_boleta;
         let precio_galon = data.facturacion.precio_venta;
 
-        $(event.currentTarget).find('#grifo_id-edit').val(data.facturacion.grifo.id); 
+        $(event.currentTarget).find('#grifo_id-edit').val(data.facturacion.grifo.id);
+        $(event.currentTarget).find('#serie_id-edit').val(data.facturacion.serie.id);
         $(event.currentTarget).find('#grifo_name-edit').val(data.facturacion.grifo.razon_social); 
         $(event.currentTarget).find('#venta_boleta-edit').val(venta_boleta); 
         $(event.currentTarget).find('#venta_factura-edit').val(venta_factura);   
         $(event.currentTarget).find('#fecha_facturacion-edit').val(fecha_facturacion);
         $(event.currentTarget).find('#numero_factura-edit').val(data.facturacion.numero_factura);
         $(event.currentTarget).find('#precio_venta-edit').val(precio_galon);
-        $(event.currentTarget).find('#nro_serie-edit').val(data.facturacion.series);
+        $(event.currentTarget).find('#nro_serie-edit').val(data.facturacion.serie.serie);
         //en caso no ingrese nada, se asignará 0.00
         venta_factura  = (venta_factura)? parseFloat( venta_factura ): 0.00;
         venta_boleta   = (venta_boleta)? parseFloat( venta_boleta ): 0.00;    
@@ -97,12 +98,12 @@ $(document).ready(function() {
 
   $('#tabla-factura-grifos').DataTable({
       "columnDefs": [{
-                "targets": [ 7 ],
+                "targets": [ 8 ],
                 "visible": false
             },
             { orderable: false, targets: -1},
             { searchable: false, targets: [-1]},
-
+            { responsivePriority: 1, targets: [1,2,3,-1] }
             ],
       "responsive": true,
       "searching":true,
@@ -124,13 +125,13 @@ $(document).ready(function() {
               let nRows = clR.length;
               //let total = $('c[r=F'+nRows+'] t', sheet).text();              
               $('row:last c t', sheet).text( '' );
-              showExcelSubtotal(sheet,nRows,'B','Total Factura');
-              showExcelSubtotal(sheet,nRows,'D','Galones');
-              showExcelSubtotal(sheet,nRows,'F','Total');                                     
+              showExcelSubtotal(sheet,nRows,'C','Total Factura');
+              showExcelSubtotal(sheet,nRows,'E','Galones');
+              showExcelSubtotal(sheet,nRows,'G','Total');                                     
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5,6,8]
+          columns:[0,1,2,3,4,5,6,7,9]
         },
         footer: true
       }], 
@@ -138,10 +139,10 @@ $(document).ready(function() {
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
             // Total over this page
-            getSubtotal(api,2);
-            getSubtotal(api,4);
-            getSubtotal(api,6);
-            getSubtotal(api,8);
+            getSubtotal(api,3);
+            getSubtotal(api,5);
+            getSubtotal(api,7);
+            getSubtotal(api,9);
       }
   });
 });
@@ -346,7 +347,7 @@ function validateDates() {
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
       var sFin = $('#fecha_inicio').val();
-      let cell = data[7];
+      let cell = data[8];
       if (sInicio) {
         return sInicio === cell;
       }

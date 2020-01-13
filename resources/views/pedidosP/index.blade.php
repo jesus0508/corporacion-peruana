@@ -110,8 +110,6 @@ $(document).ready(function(){
         data.forEach(function(val) {
           var keys = Object.keys(val);
           var prueba = 'futuro valor para saber si hay deuda con el proveedor';
-         // console.log(val);
-        //  console.log(band);
           if( val != null ){ 
             html +='<div class="row">';
             html +=  '<div class="col-md-2"></div>';
@@ -156,10 +154,10 @@ function validateDates() {
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
      // console.log(data[7]);
-      if (data[7]=='') {
+      if (data[8]=='') {
       var dia = "06/06/1966";//fecha random que nunca hará match 
       }else{
-        var dia = $.datepicker.parseDate('d/m/yy', data[7]);
+        var dia = $.datepicker.parseDate('d/m/yy', data[8]);
       }
       
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
@@ -199,7 +197,7 @@ $(document).ready(function() {
           className: 'btn btn-default',
           exportOptions:
             {
-              columns:[0,1,2,3,4,5,6,7,8]
+              columns:[0,1,2,3,4,5,6,7,8,9]
             }
          }
         ],
@@ -208,29 +206,30 @@ $(document).ready(function() {
           { orderable: false, targets: -1},
           { searchable: false, targets: [-1]},
           { responsivePriority: 2, targets: [0,2] },         
-          { responsivePriority: 10002, targets: [3,4,5] },
+          { responsivePriority: 10002, targets: [4,5,6] },
           { responsivePriority: 1, targets: [1,-1,-2] }
         ],
          "aaSorting": [],
 
       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
         //inicializar 
-        $('td:eq(8)', nRow).html( 'S./ '+aData[8] );   
-        $('td:eq(6)', nRow).html( 'S./ '+aData[6] ); 
-        if(aData[4] > 0){
-          $('td:eq(4)', nRow).html( 'S./ '+aData[4] );
+        $('td:eq(9)', nRow).html( 'S./ '+aData[9] );   
+        $('td:eq(7)', nRow).html( 'S./ '+aData[7] ); 
+        if(aData[5] > 0){
+          $('td:eq(5)', nRow).html( 'S./ '+aData[5] );
         } 
-        if( aData[6] === '0.00' ){
+        if( aData[7] === '0.00' ){
           $('td', nRow).css('background-color', '#D8D8D8');//GRIS
-          $('td:eq(6)', nRow).html( 'Sin factura' );
+          $('td:eq(0)', nRow).html( 'Sin factura' );
+          $('td:eq(7)', nRow).html( 'Sin factura' );
           $('td:eq(8)', nRow).html( 'Sin factura' );
-          }else if( parseFloat(aData[6]) < parseFloat(aData[5])  ){
+          }else if( parseFloat(aData[7]) < parseFloat(aData[6])  ){
             $('td', nRow).css('background-color', '#A9F5D0');//verde
-            $('td:eq(6)', nRow).html( 'S./ '+aData[6] );
-          }else if(parseFloat(aData[6]) > parseFloat(aData[5])  ){
+            $('td:eq(7)', nRow).html( 'S./ '+aData[7] );
+          }else if(parseFloat(aData[7]) > parseFloat(aData[6])  ){
             $('td', nRow).css('background-color', '#ffcdd2');//ROJO
-            $('td:eq(6)', nRow).html( 'S./ '+aData[6] );            
-            $('td:eq(6)', nRow).addClass("label-danger");
+            $('td:eq(7)', nRow).html( 'S./ '+aData[7] );            
+            $('td:eq(7)', nRow).addClass("label-danger");
         }         
       }
   });

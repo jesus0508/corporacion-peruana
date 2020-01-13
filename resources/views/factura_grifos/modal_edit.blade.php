@@ -5,6 +5,7 @@
       @method('PUT')
       <input type="hidden" id="id-edit" name="id">
       <input type="hidden" id="grifo_id-edit" name="grifo_id">
+      <input type="hidden" id="serie_id-edit" name="serie_id">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
@@ -39,32 +40,35 @@
             </div>
             <div class="col-md-5">
               <div class="form-group">
-                <label for="nro_serie">Número(s) de serie</label>
+                <label for="nro_serie">Número de serie</label>
                 <input id="nro_serie-edit" type="text" class="form-control" 
-                        readonly="" name="series">
+                        readonly="">
               </div>
             </div>
-  {{--           <div class="col-md-3">
-              <div class="form-group">
-                <label for="facturacion">Número(s) factura</label>
-                <input id="numero_factura-edit" name="numero_factura" type="text" class="form-control" 
-                        placeholder="Ingrese Números de facturas" >
-              </div>
-            </div> --}}
           </div>                  
             <div class="row" id="input_user-edit">
               <div class="col-md-2">
-                <div class="form-group">
+                <div class="form-group @error('venta_factura') has-error @enderror">
                   <label for="venta_factura">Venta Factura </label>
                   <input id="venta_factura-edit" type="number" step="any" min="0" class="form-control" 
                           placeholder="Venta factura"  name="venta_factura" >
+                  @error('venta_factura')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror 
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="form-group">
+                <div class="form-group @error('venta_boleta') has-error @enderror">
                   <label for="venta_boleta">Venta Boleta</label>
                   <input id="venta_boleta-edit" type="number" step="any" min="0" class="form-control" 
                           placeholder="Venta boleta" name="venta_boleta" >
+                  @error('venta_boleta')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror 
                 </div>
               </div>
               <div class="col-md-3">
@@ -75,11 +79,16 @@
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="form-group">
-                  <label for="precio_galon">Precio Galon*</label>
+                <div class="form-group @error('precio_venta') has-error @enderror">
+                  <label for="precio_galon">Precio Galón*</label>
                   <input id="precio_venta-edit" name="precio_venta" type="number"
-                    step="any" min="1" class="form-control" placeholder="Precio galon" 
+                    step="any" min="1" class="form-control" placeholder="Precio galón" 
                     required="" >
+                  @error('precio_venta')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror 
                 </div>
               </div>
               <div class="col-md-3">
