@@ -289,7 +289,9 @@ class PedidoController extends Controller
             if ( $galonaje_stock == $asignacion ) {
                 $grifo->stock += $asignacion;
                 $pedido->galones_distribuidos += $asignacion;
-                $pedido->estado = 3;
+                if ($pedido->estado < 4) {
+                    $pedido->estado = 3;
+                }
                 $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga , 'hora_descarga'=> $hora_descarga ]);
                 $pedido->save();
                 $grifo->save();
@@ -353,7 +355,9 @@ class PedidoController extends Controller
             $pedido->galones_distribuidos += $galonaje_stock;
             $asignacion = $galonaje_stock;
             $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
-            $pedido->estado = 3;
+            if ($pedido->estado < 4) {
+                $pedido->estado = 3;
+                }
             $stock = Stock::first();
             $stock->stock_general -= $asignacion;
             $stock->save();  
@@ -365,7 +369,9 @@ class PedidoController extends Controller
             $pedido_cl->galones_asignados += $restanteXasignar;
             $pedido->galones_distribuidos += $restanteXasignar;
             $pedido_cl->estado = 3;
-            $pedido->estado = 3;
+            if ($pedido->estado < 4) {
+                $pedido->estado = 3;
+                }
             $asignacion = $restanteXasignar;
             $pedido->pedidosCliente()->attach($pedido_cl->id,['asignacion'=> $asignacion]);
             $stock = Stock::first();

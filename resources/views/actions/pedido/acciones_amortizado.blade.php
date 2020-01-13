@@ -18,8 +18,16 @@
             <span class="fa fa-money"></span>&nbsp;Detalles PAGO
           </a>
     	</li>
-    	<li> 
-       	  <a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-sm bg-aqua"><i class="fa fa-th"> &nbsp; </i>Ver Distribución</a> 
-    	</li>
+    	@if($pedido->galones_distribuidos==0)
+        <li>
+          <a class="btn btn-block btn-sm bg-orange" href="{{ route('pedidos.distribuir', $pedido->id) }}">
+            <i class="fa fa-th"> &nbsp; </i>DISTRIBUIR
+          </a>        
+        </li>
+      @else
+        <li> 
+          <a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-sm bg-aqua"><i class="fa fa-th"> &nbsp; </i>Ver Distribución</a> 
+        </li>
+      @endif
     </ul>
   </div>               
