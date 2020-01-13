@@ -15,9 +15,9 @@
     IR PEDIDOS &nbsp; <span class="fa fa-list"></span>
     </button>
   </a>
-   <a href="#">
+{{--    <a href="#">
     <button class="btn btn-default">
     Exportar Excel&nbsp; <span class="fa fa-file-excel-o"></span>
     </button>
-  </a>
+  </a> --}}
 </div>

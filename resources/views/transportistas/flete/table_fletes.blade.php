@@ -22,8 +22,7 @@
             <!--   <th>Importante</th>
  -->          <th>Estado</th>
               <th>Faltante</th>
-
-             <!--  <th>Accion</th> -->
+            {{--   <th>Accion</th> --}}
             </tr>
           </thead>
           <tbody>
@@ -33,8 +32,6 @@
                 <td>
                   @if( $pedido_cliente->fecha_descarga )
                   {{date('d/m/Y', strtotime($pedido_cliente->fecha_descarga))}}
-                  @else
-                  19/12/2019
                   @endif
                 </td>
                 <td>{{$pedido_cliente->razon_social}}</td>
@@ -46,7 +43,7 @@
                     No acordado
                   @endif
                 </td>
-                <td>        
+                <td style="text-align: center;">        
                   <a href="{{route('pedidos.ver_distribucion', $pedido_cliente->id)}}"> {{$pedido_cliente->scop}}
                   </a>                  
                 </td>
@@ -58,6 +55,7 @@
                 @includeWhen($pedido_cliente->estado_flete == 1, 'actions.flete.acciones_confirmado') 
                 @includeWhen($pedido_cliente->estado_flete == 2, 'actions.flete.acciones_pagado') 
                 <td>{{$pedido_cliente->faltante}}</td>
+                {{-- <td><button class="btn btn-warning btn-xs">Editar</button></td> --}}
               </tr>
             @endforeach
           </tbody> 

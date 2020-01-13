@@ -253,7 +253,7 @@ class PedidoController extends Controller
 
         $pedido = Pedido::findOrFail($id);
         $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
-            ->select('pedido_clientes.*')
+            ->select('pedido_clientes.*','pedido_proveedor_clientes.asignacion')
             ->where('pedido_id', $id)->get();
          $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')          
             ->where('pedido_id', $pedido->id)

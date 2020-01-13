@@ -2,6 +2,8 @@
 
 @section('title','Distribucion')
 
+@section('styles')
+@endsection
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Ventas</a></li>
@@ -21,7 +23,10 @@
 <script>
 $(document).ready(function() {
   $('#tabla-pedido_clientes_dist').DataTable({
-  "ordering": false
+  "ordering": false,
+  responsive: false,
+  scrollX: true,
+
   });
 } );
 </script>

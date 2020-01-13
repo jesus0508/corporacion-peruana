@@ -3,7 +3,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-header with-border">
-            <h2 class="box-title">Lista de Faltantes - Flete</h2>     
+                
       </div><!-- /.box-header -->
 
       <div class="box-body">
@@ -20,6 +20,7 @@
               <th>Faltante gls</th>
               <th>Precio</th>
               <th>Monto Desc</th>
+              <th>Accion</th>
  
             </tr>
           </thead>
@@ -46,6 +47,27 @@
                     S/&nbsp;    {{number_format((float)
                         $pedido_cliente->faltante * $pedido_cliente->costo_galon, 2, '.', '') }}                 
                   </label>                           
+                </td>
+                <td>
+                  @if($pedido_cliente->estado_flete==1)
+                    @if($pedido_cliente->id_a_eliminar_cliente)                    
+                      <form style="display:inline" method="POST"  onsubmit="return confirmar()" action="{{ route('faltante.destroy', $pedido_cliente->id_a_eliminar_cliente) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span>&nbsp;Eliminar</button>
+                      </form>
+                    @else
+                      <form style="display:inline" method="POST" 
+                       onsubmit="return confirmar()" 
+                       action="{{ route('flete.destroyGrifoFaltante',
+                       ['id' => $pedido_cliente->id_a_eliminar_grifo, 
+                       'id_grifo'=>$pedido_cliente->id_grifo]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span>&nbsp;Eliminar</button>
+                      </form>                  
+                    @endif
+                  @endif
                 </td>
               </tr>
             @endforeach

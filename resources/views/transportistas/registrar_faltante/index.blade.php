@@ -55,7 +55,8 @@ $(document).ready(function() {
 
   
     $('#tabla-flete-pedidos-sin-pagar').DataTable({      
-          "responsive": true         
+      'responsive': false,   
+      "scrollX": true,          
     });
 
 });

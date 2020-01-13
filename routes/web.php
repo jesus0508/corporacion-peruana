@@ -203,6 +203,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('transportista', 'TransportistaController');
 		Route::resource('vehiculo', 'VehiculoController');
 		Route::resource('flete','FleteController');
+		Route::delete('/flete_grifo/{id}/{id_grifo}','FaltanteController@destroyGrifoFaltante')->name('flete.destroyGrifoFaltante');		
 		Route::resource('faltante','FaltanteController');
 		Route::resource('pago_transportistas','PagoTransportistaController');
 	

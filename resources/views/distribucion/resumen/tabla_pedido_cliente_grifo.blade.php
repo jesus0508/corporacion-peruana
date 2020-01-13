@@ -6,7 +6,8 @@
         
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-pedido-clientes-grifos-asignacion" class="table table-bordered table-striped display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-pedido-clientes-grifos-asignacion" class="table table-bordered table-striped display nowrap"
+         style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>RUC</th>
@@ -54,7 +55,12 @@
                 <tr>
                   <td> {{$pedidos_grifo->ruc}}</td>
                   <td>{{$pedidos_grifo->razon_social}}</td>
-                  <td>{{date('d/m/Y', strtotime($pedidos_grifo->fecha_descarga))}}</td>
+
+                  <td>
+                    @if($pedidos_grifo->fecha_descarga)
+                    {{date('d/m/Y', strtotime($pedidos_grifo->fecha_descarga))}}                  
+                    @endif
+                  </td>
                   <td>{{$pedidos_grifo->hora_descarga}}</td>
                   <td>{{$pedidos_grifo->zona}}</td>
                   <td>{{$pedidos_grifo->stock-$pedidos_grifo->asignacion}}&nbsp;galones</td>

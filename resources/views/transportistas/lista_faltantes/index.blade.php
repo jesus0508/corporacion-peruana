@@ -29,9 +29,9 @@
 <script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
-  
     $('#tabla-flete-faltantes').DataTable({  
-        "ordering": true,    
+        "ordering": true, 
+        'responsive': false,   
         "scrollX": true,          
     });
 });

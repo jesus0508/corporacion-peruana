@@ -11,6 +11,8 @@ use CorporacionPeru\PedidoProveedorGrifo;
 use CorporacionPeru\PedidoProveedorCliente;
 use CorporacionPeru\PagoTransportista;
 use Carbon\Carbon;
+use CorporacionPeru\Grifo;
+
 class FaltanteController extends Controller
 {
     /**
@@ -35,6 +37,7 @@ class FaltanteController extends Controller
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista','pedido_clientes.observacion',
+                            'pedido_proveedor_clientes.id as id_a_eliminar_cliente',
                             'pedido_proveedor_clientes.precio_galon_faltante as costo_galon',
                             'pedido_proveedor_clientes.faltante',
                             'pedido_proveedor_clientes.grifero',
@@ -53,6 +56,8 @@ class FaltanteController extends Controller
                             'pedido_grifos.asignacion as galones',
                             'pedido_grifos.precio_galon_faltante as costo_galon',                            
                             'pedidos.scop','pedidos.nro_pedido','pedidos.id',
+                            'pedido_grifos.id as id_a_eliminar_grifo',
+                            'grifos.id as id_grifo',
                             'plantas.planta', 'pedidos.estado_flete',
                             'transportistas.nombre_transportista',
                             'pedido_grifos.faltante',
@@ -279,13 +284,40 @@ class FaltanteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * ELIMINA fALTANTE DE Flete a Grifo.
      *
      * @param  \CorporacionPeru\Faltante  $faltante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Faltante $faltante)
+    public function destroyGrifoFaltante($id,$id_grifo)
     {
-        //
+        //TRANSACTION
+        $grifo = Grifo::findOrFail($id_grifo);
+        $pedido_proveedor_grifo = PedidoProveedorGrifo::findOrFail($id);
+        $faltante = $pedido_proveedor_grifo->faltante;
+        $pedido_proveedor_grifo->faltante = null;
+        $pedido_proveedor_grifo->timestamps = false; 
+        $pedido_proveedor_grifo->save();
+        $grifo->stock += $faltante;
+        $grifo->save();
+               
+        return back()->with('alert-type', 'success')->with('status', 'Faltante eliminado con éxito');
     }
+
+    /**
+     * ELIMINA fALTANTE DE Flete a Grifo.
+     *
+     * @param  \CorporacionPeru\Faltante  $faltante
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $pedido_proveedor_cliente = PedidoProveedorCliente::findOrFail($id);
+        return 
+        $pedido_proveedor_cliente->faltante = null;
+        $pedido_proveedor_cliente->save();
+         return back()->with('alert-type', 'success')->with('status', 'Faltante eliminado con éxito');
+    }
+
+
 }
