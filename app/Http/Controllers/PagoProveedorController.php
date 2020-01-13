@@ -17,7 +17,7 @@ class PagoProveedorController extends Controller
     public function resumen_pago($idPago){
 
         $pedidos = Pedido::join('pago_pedido_proveedors', 'pedidos.id', '=', 'pago_pedido_proveedors.pedido_id')->join('pago_proveedors', 'pago_proveedors.id', '=', 'pago_pedido_proveedors.pago_proveedor_id')->where('pago_proveedor_id',$idPago)->get();
-        //return 
+         
         $pedido1 = $pedidos->first();
         $planta = Planta::findOrFail($pedido1->planta_id);
         $pago_proveedor = PagoProveedor::findOrFail($idPago);

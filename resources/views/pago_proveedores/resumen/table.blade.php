@@ -1,50 +1,58 @@
 <section class="content">
   <h3>LISTA DE PEDIDOS PAGADOS </h3>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12">
       <div class="box box-success">
         <div class="box-header">
           <h3 class="box-title">Lista de COMPRAS a &nbsp; &nbsp; &nbsp;<span class="label label-primary">{{$proveedor->razon_social}}</span></h3>           
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="proveedores" class="table table-bordered table-striped">
+          <table id="table-pago_proveedor-resumen" class="table table-striped
+            table-bordered display nowrap">
             <thead>
               <tr>
+              {{-- //pago proveedor --}}
+                <th>Fecha Operacion</th>
+                <th>Fecha Egreso</th>
+                <th>Número de operación</th>
+                <th>Monto pago</th>
+                <th>Banco</th>
+
                 <th>Nro pedido</th>
                 <th>Planta</th>
                 <th>SCOP</th>
-           <!--     <th>Fecha pedido</th>-->
                 <th>Cantidad GLS</th>
-            <!--    <th>Precio galon/u</th> -->
-
-                <th>Monto Factura</th>
-                <th>M. Asignado</th>
+                <th>Precio galon/u</th>
+                <th>Monto</th>
+                <th>Monto Facturado</th>
+                <th>Monto Pagado(S/.)</th> {{-- 12 --}}
                 <th>Saldo Actual</th>
                 <th>Estado</th>
-
-
-
-
-
+                <th>Factura - Estado</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($pedidos as $pedido)
                 @if( $pedido != null )
-
-
                 <tr>
+                  {{-- //pago proveedor --}}
+                  <td>{{date('d/m/Y', strtotime($pago_proveedor->fecha_operacion))}}</td>
+                  <td>{{date('d/m/Y', strtotime($pago_proveedor->fecha_reporte))}}</td>
+                  <td>{{$pago_proveedor->codigo_operacion}}</td>
+                  <td>{{$pago_proveedor->monto_operacion}}</td>
+                  <td>{{$pago_proveedor->banco}}</td>
+
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->planta->planta}}</td>
                   <td>{{$pedido->scop}}</td>
-            <!--      <td>{{date('d/m/Y', strtotime($pedido->fecha_despacho))}}</td> -->
                   <td>{{$pedido->galones}}</td>
-             <!--     <td>S/&nbsp;{{$pedido->costo_galon}}</td> -->
+                  <td>S/&nbsp;{{$pedido->costo_galon}}</td>
+                  <td>{{$pedido->getMonto()}}</td>
                   <td>
                     S/&nbsp;{{$pedido->facturaProveedor->monto_factura}}                  
                   </td>
-                   <td>S/&nbsp;{{$pedido->asignacion }}</td>
+                   <td>{{$pedido->asignacion }}</td>
                   <td>
                     S/&nbsp;{{$pedido->saldo  }}
                   
@@ -58,12 +66,21 @@
                    }
                    ?>
                   </td>
-      
-
+                  <td>Factura {{$pedido->facturaProveedor->nro_factura_proveedor}}&nbsp; - &nbsp;@if($pedido->saldo == 0) CANCELADO @else AMORTIZADO @endif
+                  </td>     
                 </tr>
                @endif
               @endforeach
             </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="12" style="text-align: right;">
+                  MONTO TOTAL
+                </th>
+                <th></th>
+                <th colspan="3"></th>                
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div> <!-- end box -->
