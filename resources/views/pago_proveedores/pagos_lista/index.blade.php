@@ -38,9 +38,8 @@ $(document).ready(function() {
           className: 'btn btn-default',
           exportOptions:
             {
-              columns:[1,2,3,4,5]
+              columns:[1,2,3,4,5,6]
             }
-
          }
         ],
 
@@ -54,7 +53,7 @@ $(document).ready(function() {
       targets: [-1] 
     },
               
-      { responsivePriority: 1, targets: [1,-1] }
+      { responsivePriority: 1, targets: [1,-1,-2] }
     ] 
    
     });

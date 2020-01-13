@@ -26,14 +26,13 @@
           <table id="tabla-pagos_lista" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
-
                 <th>#</th>
-                <th>Proveedor  Pagado</th>
+                <th>Proveedor  Pagado</th>                
                 <th>Fecha de Operacion</th>
+                <th>Fecha Egreso</th>                                
                 <th>Número de Operacion</th>
                 <th>Monto de Operacion</th>
                 <th>Banco</th> 
-             <!--    <th>Fecha registro al sistema</th> -->
                 <th>Acciones</th>
 
               </tr>
@@ -43,12 +42,12 @@
 
                 <tr>
                   <td>{{$loop->iteration}}</td>
-                  <td>{{$pago->razon_social}}</td>
-                  <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>         
+                  <td>{{$pago->razon_social}}</td>                  
+                  <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td> 
+                  <td>{{date('d/m/Y', strtotime($pago->fecha_reporte))}}</td>
                   <td>{{$pago->codigo_operacion}}</td>
                   <td>{{$pago->monto_operacion}}</td>
                   <td>{{$pago->banco}}</td>
-                <!--   <td>{{$pago->created_at}}</td>  -->
                   <td><a href="{{ route('pago_proveedors.resumen_pago', $pago->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i>&nbsp;&nbsp;Detalles</a></td>      
                 </tr>
               @endforeach

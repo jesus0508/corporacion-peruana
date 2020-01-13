@@ -19,7 +19,6 @@ class CreateProveedoresTable extends Migration
             $table->string('ruc');
             $table->float('linea_credito',9, 2)->nullable();
             $table->float('sobregiro',9, 2)->nullable();
-            $table->string('deuda')->default(0);
             $table->string('email')->unique()->nullable();
             $table->string('representante')->nullable();
 

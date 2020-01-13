@@ -3,7 +3,8 @@
     <div class="col-md-12">  
 
         <h3 class="box-title">PEDIDOS CONFIRMADOS SIN PAGAR O PAGO PARCIAL &nbsp; &nbsp; &nbsp;
-        </h3>     
+        </h3>  
+{{--         <h4 class="box-title">El pago se realizará en este orden:</h4>    --}}
         <div class="pull-right">
           <a href="{{route('pedidos.index')}}">
             <button class="btn bg-olive">

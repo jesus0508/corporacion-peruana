@@ -3,6 +3,11 @@
       <span class="fa fa-wrench"></span> Acciones <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
+      @if( $pedido->factura_proveedor_id == null )
+        <li>
+          <a class="btn btn-block btn-sm bg-purple" href="{{route('pedidos.edit',$pedido->id)}}"><i class="fa fa-pencil"> &nbsp; </i>FACTURA</a>
+        </li>              
+      @endif
     	<li>
     	  <a class="btn bg-navy btn-sm" href="{{route('pedidos.show', $pedido->id)}}">
             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Detalles pedido

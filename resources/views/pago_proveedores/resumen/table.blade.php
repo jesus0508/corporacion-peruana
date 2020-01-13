@@ -49,24 +49,39 @@
                   <td>{{$pedido->galones}}</td>
                   <td>S/&nbsp;{{$pedido->costo_galon}}</td>
                   <td>{{$pedido->getMonto()}}</td>
-                  <td>
+                  <td>@if($pedido->factura_proveedor_id)
                     S/&nbsp;{{$pedido->facturaProveedor->monto_factura}}                  
+                    @endif      
                   </td>
                    <td>{{$pedido->asignacion }}</td>
                   <td>
                     S/&nbsp;{{$pedido->saldo  }}
-                  
                   </td>
                   <td>
-                   <?php 
-                   if( $pedido->saldo != $pedido->facturaProveedor->monto_factura ){
-                       echo '<div class = "progress-bar progress-bar-success progress-bar-stripped active" role = "progressbar" aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:' .($pedido->facturaProveedor->monto_factura-$pedido->saldo)*100/$pedido->facturaProveedor->monto_factura . '%;">'.'<label style="font-size: 11px!important; color:black!important" class = "" >'.number_format((float)($pedido->facturaProveedor->monto_factura-$pedido->saldo)*100/$pedido->facturaProveedor->monto_factura,0,'.', '').' % </label>';
-                   } else{
-                    echo '<label class="label label-default">'.($pedido->facturaProveedor->monto_factura-$pedido->saldo).'/'.$pedido->facturaProveedor->monto_factura.' SOLES </label>';
-                   }
+                   <?php
+                    if($pedido->factura_proveedor_id){
+                     if( $pedido->saldo != $pedido->facturaProveedor->monto_factura ){
+                         
+                        echo '<div class = "progress-bar progress-bar-success progress-bar-stripped active" role = "progressbar" aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:' .($pedido->facturaProveedor->monto_factura-$pedido->saldo)*100/$pedido->facturaProveedor->monto_factura . '%;">'.'<label style="font-size: 11px!important; color:black!important" class = "" >'.number_format((float)($pedido->facturaProveedor->monto_factura-$pedido->saldo)*100/$pedido->facturaProveedor->monto_factura,0,'.', '').' % </label>';
+                      } else{
+                        echo '<label class="label label-default">'.($pedido->facturaProveedor->monto_factura-$pedido->saldo).'/'.$pedido->facturaProveedor->monto_factura.' SOLES </label>';
+                     }
+                    } else {
+                      if( $pedido->saldo != $pedido->getMonto() ){
+                         
+                        echo '<div class = "progress-bar progress-bar-success progress-bar-stripped active" role = "progressbar" aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:' .($pedido->getMonto()-$pedido->saldo)*100/$pedido->getMonto() . '%;">'.'<label style="font-size: 11px!important; color:black!important" class = "" >'.number_format((float)($pedido->asignacion)*100/$pedido->getMonto(),0,'.', '').' % </label>';
+                      } else{
+                        echo '<label class="label label-default">'.($pedido->asignacion).'/'.$pedido->getMonto().' SOLES </label>';
+                     }
+                    }
                    ?>
-                  </td>
-                  <td>Factura {{$pedido->facturaProveedor->nro_factura_proveedor}}&nbsp; - &nbsp;@if($pedido->saldo == 0) CANCELADO @else AMORTIZADO @endif
+                  </td> 
+                  <td>
+                    @if($pedido->factura_proveedor_id)
+                    Factura {{$pedido->facturaProveedor->nro_factura_proveedor}}&nbsp; - &nbsp;@if($pedido->saldo == 0) CANCELADO @else AMORTIZADO @endif
+                    @else
+                    Sin factura
+                    @endif
                   </td>     
                 </tr>
                @endif

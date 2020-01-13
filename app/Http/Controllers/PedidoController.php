@@ -150,6 +150,8 @@ class PedidoController extends Controller
         DB::beginTransaction();
         try {
             $pedido=Pedido::create( $request->validated() );
+            $pedido->saldo = $pedido->getMonto();
+            $pedido->save();
             $stock = Stock::first();
             $stock->stock_general += $pedido->galones;
             $stock->save();
@@ -164,7 +166,7 @@ class PedidoController extends Controller
                 ->select( DB::raw('sum(pedidos.saldo) as deuda_total') )
                 ->first(); 
         //deuda total (solo facturados) + monto potencial a ser deuda(pedido actual)
-            $monto_pedido_actual = round($pedido->galones*$pedido->costo_galon,2);
+            $monto_pedido_actual = $pedido->getMonto();
             $deuda_total_nueva = $deuda_proveedor->deuda_total +  $monto_pedido_actual; 
 
             if ($deuda_total_nueva >= $proveedor->linea_credito) {
@@ -435,7 +437,8 @@ class PedidoController extends Controller
             $pedido=Pedido::findOrFail($id);
             Pedido::findOrFail($id)->update($request->validated());
             $gls_nuevo = $pedido->galones; 
-
+            $pedido->saldo = round($request->costo_galon*$request->galones,2);//new saldo
+            $pedido->save();
             $stock = Stock::first();       
             $stock->stock_general -= $gls_anterior;
             $stock->stock_general += $gls_nuevo;

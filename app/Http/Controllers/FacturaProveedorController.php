@@ -46,7 +46,6 @@ class FacturaProveedorController extends Controller
 
         DB::beginTransaction();
         try {       
-
             $id_pedido = $request->id_pedido;
             $pedido = Pedido::find($id_pedido);
             if ($pedido == null) {
@@ -54,7 +53,15 @@ class FacturaProveedorController extends Controller
             }
             $factura =FacturaProveedor::create( $request->validated() );   
             $pedido->factura_proveedor_id = $factura->id;
-            $pedido->saldo = $request->monto_factura;            
+            $diferencia = $request->monto_factura -$pedido->getMonto();
+            if ($pedido->saldo == $pedido->getMonto()) {//Sin pagar aún.
+                $pedido->saldo = $request->monto_factura;
+             }else{ //Ya pagado
+                //si se ha pagado Total y el monto facturado es menor saldría saldo negativo
+                $saldo = $pedido->saldo;        //0                
+                $saldo += $diferencia; //new saldo = 0-200
+                $pedido->saldo = $saldo;//-200
+                }
             $pedido->save();
             DB::commit();
         return redirect()->action('PedidoController@index')->with('alert-type','success')->with('status','Factura asignada con exito');

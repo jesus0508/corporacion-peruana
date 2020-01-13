@@ -56,15 +56,15 @@ class PagoProveedorController extends Controller
     
     public function create()
     {
-        
         $proveedores = Proveedor::
             join('plantas','plantas.proveedor_id','=','proveedores.id')
             ->join('pedidos','pedidos.planta_id','=','plantas.id')
+            ->where('pedidos.estado','>',1)//confirmado
             ->where('saldo','>',0)         
             ->groupBy('proveedores.id')
             ->select(
-                'proveedores.*'
-                ,DB::raw('sum(pedidos.saldo) as calc, saldo')                 
+                'proveedores.*',
+                DB::raw("ifnull(sum(pedidos.saldo),0) as calc")                 
             )            
             ->get(); 
 
@@ -84,18 +84,23 @@ class PagoProveedorController extends Controller
 
             $pago_proveedor =PagoProveedor::create( $request->validated() );
         	$proveedor = Proveedor::with('plantas')->where('id', '=' , $request->proveedor_id)->first();
-        	$pedidos = array();
-        	foreach ($proveedor->plantas as $planta) {//para obtener tods los pedidos del proveedor X
+            $pedidos = [];
+            foreach ($proveedor->plantas as $planta) {
                 $planta_id = $planta->id;
-                $pedidos[] = Pedido::where('planta_id','=',$planta_id)->whereNotNull('factura_proveedor_id')->where('estado','!=',1)->where('estado','!=',5)->with('planta')->with('facturaProveedor')->get();
+                $pedidos[] = Pedido::where('planta_id','=',$planta_id)
+                    ->where('estado','!=',5)
+                    ->where('saldo','>',0)
+                    ->with('planta')->get();
                 $pedidos = collect($pedidos);//volver coleccion
-        	}            
-        	$pedidos = $pedidos->collapse();
+
+            }
+            $pedidos = $pedidos->collapse();
+            $pedidos = $pedidos->sortBy('id');
         	$cantDistribuir = $request->monto_operacion;
         	$dinero_stock = $cantDistribuir;
         	foreach ($pedidos as $pedido) {
         		if( $pedido != null ){
-        			$pedido = Pedido::find($pedido->id);
+        			$pedido = Pedido::findOrFail($pedido->id);
             		$restanteXasignar = $pedido->saldo;
             		if( $dinero_stock == 0 ){//si ya no hay para repartir
             		    break; //sale del foreach
@@ -150,12 +155,16 @@ class PagoProveedorController extends Controller
         $pedidos = array();
         foreach ($proveedor->plantas as $planta) {
         	$planta_id = $planta->id;
-        	$pedidos[] = Pedido::where('planta_id','=',$planta_id)->whereNotNull('factura_proveedor_id')->where('estado','!=',5)->with('planta')->with('facturaProveedor')->get();
+        	$pedidos[] = Pedido::where('planta_id','=',$planta_id)
+                ->where('estado','!=',5)
+                ->where('saldo','>',0)
+                ->with('planta')->get();
         	$pedidos = collect($pedidos);//volver coleccion
 
         }
         //en pedidos se almacenara los pedidos de  todas las plantas del proveedor selected
         $pedidos = $pedidos->collapse();
+        $pedidos = $pedidos->sortBy('id');
         return view('pago_proveedores.index',compact('pedidos','proveedor'));
     }
 
