@@ -38,7 +38,7 @@ $(document).ready(function() {
           className: 'btn btn-default',
           exportOptions:
             {
-              columns:[1,2,3,4,5,6]
+              columns:[0,1,2,3,4,5]
             }
          }
         ],
@@ -53,7 +53,7 @@ $(document).ready(function() {
       targets: [-1] 
     },
               
-      { responsivePriority: 1, targets: [1,-1,-2] }
+      { responsivePriority: 1, targets: [0,-1,-2] }
     ] 
    
     });
@@ -67,6 +67,15 @@ function inicializarSelect2($select, text, data) {
     data: data
     });
   }
+
+  function confirmar()
+{
+  if(confirm('¿Estas seguro de eliminar el Pago Proveedor?'))
+    return true;
+  else
+    return false;
+}
+
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-pagos_lista');
  
@@ -89,7 +98,7 @@ function validateDates() {
       var sFin = $('#fecha_fin').val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[2]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[2]);//pfecha egreso
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
@@ -117,7 +126,7 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let proveedor = $filter_proveedor.find('option:selected').text();
-      let cell = data[1];
+      let cell = data[0];
       if (proveedor) {
         return proveedor === cell;
       }

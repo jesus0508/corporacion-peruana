@@ -26,7 +26,6 @@
           <table id="tabla-pagos_lista" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
-                <th>#</th>
                 <th>Proveedor  Pagado</th>                
                 <th>Fecha de Operacion</th>
                 <th>Fecha Egreso</th>                                
@@ -34,21 +33,26 @@
                 <th>Monto de Operacion</th>
                 <th>Banco</th> 
                 <th>Acciones</th>
-
               </tr>
             </thead>
             <tbody>
               @foreach ($pagos as $pago)
-
                 <tr>
-                  <td>{{$loop->iteration}}</td>
                   <td>{{$pago->razon_social}}</td>                  
                   <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td> 
                   <td>{{date('d/m/Y', strtotime($pago->fecha_reporte))}}</td>
                   <td>{{$pago->codigo_operacion}}</td>
                   <td>{{$pago->monto_operacion}}</td>
                   <td>{{$pago->banco}}</td>
-                  <td><a href="{{ route('pago_proveedors.resumen_pago', $pago->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i>&nbsp;&nbsp;Detalles</a></td>      
+                  <td><a href="{{ route('pago_proveedors.resumen_pago', $pago->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i>&nbsp;&nbsp;Detalles</a>
+                    <form style="display:inline" method="POST"  onsubmit="return confirmar()" action="{{route('pago_proveedors.reverse', $pago->id)}}">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn bg-maroon btn-xs"><span class="fa fa-undo"></span>
+                      Deshacer
+                      </button>
+                    </form>
+                  </td>      
                 </tr>
               @endforeach
             </tbody>

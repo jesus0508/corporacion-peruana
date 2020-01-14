@@ -217,6 +217,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/pago_proveedors', 'PagoProveedorController');
 		Route::get('resumen_pago/{id}','PagoProveedorController@resumen_pago')
 				->name('pago_proveedors.resumen_pago');
+		Route::delete('/pago_proveedors_reverse/{id}','PagoProveedorController@reverse')
+				->name('pago_proveedors.reverse');
+						
 	
 		/* Distribucion Pedido a clientess */	
 		Route::get('distribuir/{id}', 'PedidoController@distribuir')

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StorePagoProveedorRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use CorporacionPeru\PagoPedidoProveedor;
 
 class PagoProveedorController extends Controller
 {
@@ -189,6 +190,44 @@ class PagoProveedorController extends Controller
         return view('pedidosP.show_pagos.index',compact('pedido','proveedor','pagos'));
     }
 
+
+
+    /**
+     * Elimina Pago Proveedor y vuelve a estado anterior a los pedidos..
+     *
+     * @param  \CorporacionPeru\PagoProveedor  $id pago proveedor
+     * @return \Illuminate\Http\Response
+     */
+    public function reverse($id)
+    {
+        $pago_proveedor = PagoProveedor::findOrFail($id);
+        $pivote_pedido_pago = PagoProveedor::
+                join('pago_pedido_proveedors','pago_pedido_proveedors.pago_proveedor_id',
+                    '=', 'pago_proveedors.id')
+                ->where('pago_proveedors.id',$id)
+                ->select('pago_pedido_proveedors.*')    
+                ->get();
+      //  return $pivote_pedido_pago;
+        foreach ($pivote_pedido_pago as $pivote){ 
+            # cambiar estado pedido y saldo con asignacion de pivote
+            #  elmiinar pivote
+            $asignacion = $pivote->asignacion;//400
+            $pedido_id = $pivote->pedido_id;
+            $pedido = Pedido::findOrFail($pedido_id);
+            $pedido->saldo += $asignacion;//100.12+400
+            if ( $pedido->galones_distribuidos == 0 ) {//si no ha sido distribuido
+                $pedido->estado = 2;
+            }else {//si ha sido distribuido
+                $pedido->estado = 3;  
+            }
+            $pedido->save();
+            PagoPedidoProveedor::findOrFail($pivote->id)->delete();
+        }
+        $pago_proveedor->delete();
+
+        return back()->with('alert-type','success')->with('status','Pago eliminado con exito');
+        
+    }
     /**
      * Update the specified resource in storage.
      *

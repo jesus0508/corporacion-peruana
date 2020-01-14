@@ -16,7 +16,7 @@
     	<li>
     	  <a class="btn bg-maroon btn-sm" href="{{route('pago_proveedors.edit', $pedido->id)}}">
             <span class="fa fa-money"></span>&nbsp;Detalles PAGO
-          </a>
+        </a>
     	</li>
     	@if($pedido->galones_distribuidos==0)
         <li>

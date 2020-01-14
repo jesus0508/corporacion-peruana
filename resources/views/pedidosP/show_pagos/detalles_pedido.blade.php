@@ -38,6 +38,7 @@
 
   </div>
   <div class="col-md-4">
+  @if($pedido->factura_proveedor_id)
   	<div class="box box-success">
       <div class="box-header with-border">
         <h3 class="box-title">Datos Factura</h3>
@@ -53,6 +54,7 @@
         </div>  	
       </div> 	
   	</div>
+  @endif
   </div>
 </div>
 
