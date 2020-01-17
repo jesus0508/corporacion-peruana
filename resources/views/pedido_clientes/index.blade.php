@@ -3,9 +3,7 @@
 @section('title','Pedidos')
 
 @section('styles')
-{{-- select2 4.0.8 --}}
-<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -28,7 +26,8 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
+@include('reporte_excel.excel_select2_js')
 <script src="{{ asset('js/pedidoClientes/pedidoCliente.js') }}"></script> 
 <script src="{{ asset('js/pagoClientes/pagos.js') }}"></script> 
+
 @endsection

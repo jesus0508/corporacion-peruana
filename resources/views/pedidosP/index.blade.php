@@ -94,14 +94,13 @@
 <script>
 $(document).ready(function(){
   function hasFactura(id){
-      //console.log(id);
   return 
     $.ajax({
       type: 'GET',
       url:`./show_pedido_completo/${id}`,
       dataType : 'json'      
     }); 
-    }
+  }
 
   $("#modal-pagar-proveedor").on("show.bs.modal", function(event) {      
     $.get('pago_proveedors/create', function( data ) {
@@ -178,13 +177,26 @@ function validateDates() {
   });
 
 }
-
+  function confirmarDeleteDistribucion()
+{
+  if(confirm('¿Estás seguro de deshacer la distribución?'))
+    return true;
+  else
+    return false;
+}
+  function confirmarDeletePedido()
+{
+  if(confirm('¿Estás seguro de eliminar pedido?'))
+    return true;
+  else
+    return false;
+}
 $(document).ready(function() {
   validateDates();
   $('#proveedores').DataTable({
       //"scrollX": true,
       "responsive": true,
-            "dom": 'Blfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
         {
           extend: 'excelHtml5',

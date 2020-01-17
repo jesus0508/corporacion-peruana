@@ -50,7 +50,7 @@ function fechaActual() {
 
 function validateDates() {
   $('#fecha_descarga').datepicker({
-    minDate: 0,
+    //minDate: 0,
   });
 }
 

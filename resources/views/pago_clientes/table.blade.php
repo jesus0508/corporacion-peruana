@@ -3,42 +3,40 @@
     <div class="box box-success">
       <div class="box-header with-border">
         <h2 class="box-title">Lista de pagos de cliente</h2>
-        <div class="pull-right">
-          <a href="{{route('pago_clientes.exportToExcel')}}" class="btn btn-default">
-            <i class="fa  fa-file-excel-o"></i>
-            Exportar a Excel
-          </a>
-        </div>
       </div><!-- /.box-header -->
       <div class="box-body">
         @include('pago_clientes.opciones')
-        <table id="tabla-pagos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-pagos" class="table table-bordered table-striped responsive display " style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>#</th>
               <th>Fecha Operacion</th>
               <th>Codigo Operacion</th>
               <th>Nro Factura</th>
+              <th>Banco</th>
               <th>Cliente</th>
               <th>Abono</th>
-              <th>Saldo</th>
-              <th>Banco</th>
+              <th>Saldo Pedido Cliente</th>
+
             </tr>
           </thead>
           <tbody>
             @foreach ($pagos as $pago)
-              @foreach ($pago->pedidoClientes as $pedidoCliente)
-              <tr>
-                <td>{{$loop->parent->iteration}}</td>
+              <tr> 
+                <td>{{$loop->iteration}}</td>             
                 <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
                 <td>{{$pago->codigo_operacion}}</td>
-                <td>{{$pedidoCliente->facturaCliente->nro_factura}}</td>
-                <td>{{$pedidoCliente->cliente->razon_social}}</td>
+                @if($pago->factura_cliente_id!=null)
+                  <td>{{$pago->nro_factura}}</td>
+                @else
+                  <td>Sin factura</td>
+                @endif
+                <td>{{$pago->banco}}</td>
+                <td>{{$pago->razon_social}}</td>
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
                 <td>S/&nbsp;{{$pago->saldo}}</td>
-                <td>{{$pago->banco}}</td>
+               
               </tr>
-              @endforeach
             @endforeach
           </tbody>
         </table>

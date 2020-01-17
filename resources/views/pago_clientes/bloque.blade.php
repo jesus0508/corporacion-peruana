@@ -42,14 +42,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="fecha_operacion-pago_bloque">Fecha</label>
+                      <label for="fecha_operacion-pago_bloque">Fecha operación</label>
                       <input id="fecha_operacion-pago_bloque" type="text" class="form-control" autocomplete="off"
                               name="fecha_operacion" placeholder="Ingrese la fecha" required>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="fecha_reporte">Fecha Reporte</label>
+                      <label for="fecha_reporte">Fecha Ingreso</label>
                       <input id="fecha_reporte-pago_bloque" type="text" class="form-control" autocomplete="off"
                               name="fecha_reporte" placeholder="Fecha reporte" >
                     </div>                    

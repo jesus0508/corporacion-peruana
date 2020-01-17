@@ -10,6 +10,7 @@ use CorporacionPeru\Http\Requests\StoreFacturaClienteRequest;
 use CorporacionPeru\Cliente;
 use CorporacionPeru\FacturaCliente;
 use CorporacionPeru\Exports\PedidoClienteExport;
+use CorporacionPeru\PagoCliente;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Log;
@@ -24,7 +25,7 @@ class PedidoClienteController extends Controller
     public function index()
     {
         //
-        $pedido_clientes = PedidoCliente::with('cliente')->get();
+        $pedido_clientes = PedidoCliente::with('cliente')->orderBy('fecha_descarga','desc')->get();
         $clientes = Cliente::all();
         return view('pedido_clientes.index', compact('pedido_clientes', 'clientes'));
     }
@@ -80,7 +81,11 @@ class PedidoClienteController extends Controller
             $pedidoCliente->load(['pedidos' => function($query){
                  $query->select('pedido_proveedor_clientes.*','pedidos.*');
              }]);
-            return view('pedido_clientes.detalles', compact('pedidoCliente'));
+            
+        $pagos = PagoCliente::join('pago_cliente_pedido_cliente','pago_clientes.id','=','pago_cliente_pedido_cliente.pago_cliente_id')
+                ->where('pedido_cliente_id',$id)
+                ->get();
+            return view('pedido_clientes.detalles', compact('pedidoCliente','pagos'));
         }
         return back()->with('alert-type', 'error')->with('status', 'Ocurrio un error al ver detalles, el pedido no ha sido distribuido completamente.');
     }

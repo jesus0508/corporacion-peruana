@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-edit-pedido_cliente" style="display: none;">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <form action="{{route('pedido_clientes.update',0)}}" method="post" class="modal-content">
       @csrf
       @method('PUT')
@@ -21,7 +21,7 @@
                 <div class="form-group">
                   <label for="nro_factura-edit">Número de Factura</label>
                   <input id="nro_factura-edit" type="text" class="form-control" 
-                          name="nro_factura" placeholder="Ingrese el numero de pedido">
+                          name="nro_factura" placeholder="Ingrese el numero de pedido" readonly="">
                 </div>
                 <div class="form-group">
                   <label for="fecha_descarga-edit">Fecha para descarga</label>

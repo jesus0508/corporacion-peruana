@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-8">
     <div class="input-group">
       <span class="input-group-addon">Cliente</span>
       <select class="form-control" id="filter-cliente" name="cliente_id">

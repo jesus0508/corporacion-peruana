@@ -3,23 +3,39 @@ $(document).ready(function () {
   let $tabla_pedido_clientes = $('#tabla-pedido_clientes');
 
   $tabla_pedido_clientes.DataTable({
-    columnDefs: [
-      {
-        orderable: false,
-        targets: [-1]
-      },
-      {
-        searchable: false,
-        targets: [-1]
-      },
-    ]
+      columnDefs: [
+         { visible: false, targets: [3,4,8] },
+          { orderable: false, targets: -1},
+          { searchable: false, targets: [-1]},
+          { responsivePriority: 2, targets: [1,-2] },
+          { responsivePriority: 1, targets: [0,2,-1] }
+        ],
+      "aaSorting": [],
+      "dom": 'Blfrtip',
+      "buttons": [
+        {
+          extend: 'excelHtml5',
+          title: 'Pedidos Clientes',
+          attr:  {
+                title: 'Excel',
+                id: 'excelButton'
+            },
+          text:     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+          className: 'btn btn-default',
+          exportOptions:
+            {
+              columns:[0,1,2,3,4,5,6,7,8,9]
+            }
+         }
+        ],
+
   });
 
   inicializarSelect2($filter_cliente, 'Ingrese la razon social', '');
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let cliente = $filter_cliente.find('option:selected').text();
-      let cell = data[1];
+      let cell = data[2];
       if (cliente) {
         return cliente === cell;
       }
@@ -46,7 +62,9 @@ $(document).ready(function () {
       url: `./pedido_clientes/${id}/edit`,
       dataType: 'json',
       success: (data) => {
-        $(event.currentTarget).find('#nro_factura-edit').val(data.pedidoCliente.factura_cliente.nro_factura);
+        let factura_cliente = data.pedidoCliente.factura_cliente;
+        let nro_factura = (factura_cliente)? factura_cliente.nro_factura : "Sin Factura";
+        $(event.currentTarget).find('#nro_factura-edit').val(nro_factura);
         $(event.currentTarget).find('#galones-edit').val(data.pedidoCliente.galones);
         $(event.currentTarget).find('#precio_galon-edit').val(data.pedidoCliente.precio_galon);
         $(event.currentTarget).find('#fecha_descarga-edit').val(data.pedidoCliente.fecha_descarga);
@@ -59,7 +77,7 @@ $(document).ready(function () {
       }
     });
     $('#fecha_descarga-edit').datepicker({
-      minDate: 0,
+      //minDate: 0,
     });
   });
 
@@ -70,7 +88,7 @@ $(document).ready(function () {
       url: `./pedido_clientes/${id}`,
       dataType: 'json',
       success: (data) => {
-        console.log(data.pedidoCliente);
+        //console.log(data.pedidoCliente);
         $(event.currentTarget).find('#cliente-show').val(data.pedidoCliente.cliente.razon_social);
         $(event.currentTarget).find('#ruc-show').val(data.pedidoCliente.cliente.ruc);
         $(event.currentTarget).find('#numero-show').val(data.pedidoCliente.cliente.telefono);
@@ -106,7 +124,11 @@ $(document).ready(function () {
         'id': $('#id').val(),
       },
       success: (data) => {
-        $(event.currentTarget).find('#nro_factura-pago').val(data.pedidoCliente.factura_cliente.nro_factura);
+        console.log(data);
+        
+        let factura_cliente = data.pedidoCliente.factura_cliente;
+        let nro_factura = (factura_cliente)? factura_cliente.nro_factura : "Sin Factura";
+        $(event.currentTarget).find('#nro_factura-pago').val(nro_factura);
         $(event.currentTarget).find('#pedido_cliente_id-pago').val(data.pedidoCliente.id);
         $(event.currentTarget).find('#saldo-pago').val(data.pedidoCliente.saldo);
         // fecha_pedido=$.datepicker.parseDate('d/m/yy',data.pedidoCliente.created_at);
@@ -138,23 +160,34 @@ $(document).ready(function () {
 
 });
 
+  function confirmarDeletePedido()
+{
+  if(confirm('¿Estás seguro de eliminar pedido?'))
+    return true;
+  else
+    return false;
+}
+
 function deletePedido(id) {
-  $.ajax({
-    type: 'DELETE',
-    url: `./pedido_clientes/${id}`,
-    dataType: 'json',
-    data: {
-      '_token': $('input[name="_token"]').val(),
-    },
-    success: (data) => {
-      console.log(data);
-      document.location.reload();
-      toastr.success(data.status, 'Success Alert', { timeOut: 2000 });
-    },
-    error: (error) => {
-      toastr.error('Ocurrio un Error!', 'Error Alert', { timeOut: 2000 });
-    }
-  });
+  let rpta = confirmarDeletePedido();
+  if(rpta){
+    $.ajax({
+      type: 'DELETE',
+      url: `./pedido_clientes/${id}`,
+      dataType: 'json',
+      data: {
+        '_token': $('input[name="_token"]').val(),
+      },
+      success: (data) => {
+        document.location.reload();
+        toastr.success(data.status, 'Success Alert', { timeOut: 2000 });
+      },
+      error: (error) => {
+        toastr.error('Ocurrio un Error!', 'Error Alert', { timeOut: 2000 });
+      }
+    });
+  }
+
 }
 
 function inicializarSelect2($select, text, data) {

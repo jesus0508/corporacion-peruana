@@ -29,7 +29,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="numero-show">Numero</label>
+                      <label for="numero-show">Teléfono</label>
                       <input id="numero-show" type="text" class="form-control" readonly>
                     </div>
                   </div>

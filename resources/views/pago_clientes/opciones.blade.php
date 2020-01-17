@@ -1,5 +1,8 @@
 <div class="content-header">
   <div class="row">
+    <div class="col-md-4">
+      
+    </div>
     <div class="col-md-6">
       <div class="row filtrado">
         <div class="col-md-5">

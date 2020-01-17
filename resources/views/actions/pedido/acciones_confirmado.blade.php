@@ -17,7 +17,7 @@
       </li>
       <li> 
        <!-- Eliminar -->  
-        <form style="display:inline" method="POST" action="{{ route('pedidos.destroy', $pedido->id) }}">
+        <form style="display:inline" method="POST" onsubmit="return confirmarDeletePedido()" action="{{ route('pedidos.destroy', $pedido->id) }}">
         @csrf
         @method('DELETE')
         <button class="btn btn-xs btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> ELIMINAR</button>

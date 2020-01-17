@@ -22,8 +22,15 @@ class PagoClienteController extends Controller
     public function index()
     {
         //
-        $pagos = PagoCliente::with('pedidoClientes')->get();
-        //dd($pagos);
+        $pagos = PagoCliente::join('pago_cliente_pedido_cliente','pago_clientes.id','=','pago_cliente_pedido_cliente.pago_cliente_id')  
+            ->join('pedido_clientes','pago_cliente_pedido_cliente.pedido_cliente_id','=','pedido_clientes.id')
+            ->join('clientes','pedido_clientes.cliente_id','=','clientes.id')
+            ->leftJoin('factura_clientes','pedido_clientes.factura_cliente_id','=','factura_clientes.id')
+            ->groupBy('pago_clientes.id')
+            ->select('pago_clientes.*','clientes.razon_social',
+                'pedido_clientes.factura_cliente_id','factura_clientes.nro_factura')
+            ->get();
+
         return view('pago_clientes.index', compact('pagos'));
     }
 

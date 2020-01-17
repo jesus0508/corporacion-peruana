@@ -3,11 +3,7 @@ $(document).ready(function () {
   let $select_cliente = $('#seletc-clientes');
   let $datos_pago = $('#datos-pago :input').prop('disabled', true);
   let $filter_cliente = $('#filter-cliente');
-  let $tabla_pagos = $('#tabla-pagos');
   validateDates();
-
-  $tabla_pagos.DataTable({
-  });
 
   $modal_create_pago_bloque.on('show.bs.modal', function (event) {
     let id = $filter_cliente.val(); //Obtengo la razon social del cliente

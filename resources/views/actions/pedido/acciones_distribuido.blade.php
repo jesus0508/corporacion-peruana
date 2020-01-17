@@ -24,7 +24,7 @@
       	<a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-sm bg-aqua"><i class="fa fa-th"> &nbsp; </i>Ver Distribución</a>      	
       </li>
       <li> {{-- onsubmit="return confirmar()" --}}
-        <form style="display:inline" method="POST" action="{{route('pedidos.reverse', $pedido->id)}}">
+        <form style="display:inline" method="POST" onsubmit="return confirmarDeleteDistribucion()" action="{{route('pedidos.reverse', $pedido->id)}}">
           @csrf
           @method('DELETE')
           <button class="btn btn-sm btn-danger btn-block"><span class="fa fa-undo"></span>&nbsp;Deshacer Distribución</button>

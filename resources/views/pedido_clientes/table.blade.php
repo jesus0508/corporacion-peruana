@@ -4,38 +4,56 @@
       <div class="box-header with-border">
         <h2 class="box-title">Lista de Pedidos</h2>
         <div class="pull-right">
-          <a href="{{route('pedido_clientes.create')}}" class="btn btn-primary">
+          <a href="{{route('pedido_clientes.create')}}" class="btn btn-success">
             <i class="fa fa-plus"></i>
             Nuevo pedido
-          </a>
-          <a href="{{route('pedido_clientes.exportToExcel')}}" class="btn btn-default">
-            <i class="fa  fa-file-excel-o"></i>
-            Exportar a Excel
           </a>
         </div>
       </div><!-- /.box-header -->
       <div class="box-body">
         @include('pedido_clientes.partials.opciones')
-        <table id="tabla-pedido_clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-pedido_clientes" class="table table-bordered table-striped responsive display " style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Fecha de Pedido</th>
+              <th>Fecha Descarga</th>
+              <th>N° de Factura</th>
               <th>Cliente</th>
-              <th>Cantidad GLS</th>
-              <th>Monto Total</th>
-              <th>Saldo</th>
+              <th>Hora Descarga</th>
+              <th>Fecha Factura</th>
+              <th>Cantidad Galones</th>
+              <th>Monto Total (S/.)</th>              
+              <th>Saldo (S/.)</th>      
+              <th>Observación</th>       
               <th>Estado</th>
               <th>Acciones</th>
+
+
             </tr>
           </thead>
            <tbody>
             @foreach ($pedido_clientes as $pedido_cliente)
               <tr>
-                <td>{{date('d/m/Y', strtotime($pedido_cliente->created_at))}}</td>
+                <td>{{$pedido_cliente->fecha_descarga}}</td>
+                <td>
+                  @if($pedido_cliente->factura_cliente_id)
+                    {{$pedido_cliente->facturaCliente->nro_factura}}
+                  @else
+                  Sin Factura
+                  @endif
+                </td>
                 <td>{{$pedido_cliente->cliente->razon_social}}</td>
+                <td>{{$pedido_cliente->horario_descarga}}</td>
+                <td>
+                  @if($pedido_cliente->factura_cliente_id)
+                    {{$pedido_cliente->facturaCliente->fecha_factura}}
+                  @else
+                  Sin Factura
+                  @endif
+                </td>
                 <td>{{$pedido_cliente->galones}}</td>
-                <td>S/&nbsp;{{$pedido_cliente->getPrecioTotal()}}</td>
-                <td>S/&nbsp;{{$pedido_cliente->saldo}}</td>
+                <td>{{$pedido_cliente->getPrecioTotal()}}</td>
+                <td>{{$pedido_cliente->saldo}}</td>
+                <td>{{$pedido_cliente->observacion}}</td>
                 @includeWhen($pedido_cliente->isUnconfirmed(), 'pedido_clientes.partials.acciones_sin_confirmar')
                 @includeWhen($pedido_cliente->isConfirmed(), 'pedido_clientes.partials.acciones_confirmado')
                 @includeWhen($pedido_cliente->isDistributed(), 'pedido_clientes.partials.acciones_distribuido')

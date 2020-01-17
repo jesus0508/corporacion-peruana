@@ -2,7 +2,9 @@
 <td>
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="fa fa-wrench"></span> <span class="caret"></span>
+        <span class="fa fa-wrench"></span>
+        Acciones
+        <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li>

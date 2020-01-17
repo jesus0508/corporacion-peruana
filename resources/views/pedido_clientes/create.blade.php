@@ -140,7 +140,7 @@
           <div class="box-body">
             <div class="row">
               <div class="col-lg-4">
-                <label for="fecha_pedido">Fecha de Pedido</label>
+                <label for="fecha_pedido">Fecha de registro de Pedido</label>
               </div>
               <div class="col-lg-8">
                 <div class="form-group">

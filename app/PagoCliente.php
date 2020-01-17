@@ -13,10 +13,16 @@ class PagoCliente extends Model
     public function pedidoClientes(){
         return $this->belongsToMany(PedidoCliente::class);
     }
-    
+
+    public function pivote()
+    {
+        return $this->hasMany(PagoPedidoCliente::class);
+    }
+
     public function setFechaOperacionAttribute($value){ 
         $this->attributes['fecha_operacion']=Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
     }
+
      public function setFechaReporteAttribute($value){ 
         $this->attributes['fecha_reporte']=Carbon::createFromFormat('d/m/Y',$value)->format('Y-m-d');
     }  
