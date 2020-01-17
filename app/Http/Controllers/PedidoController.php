@@ -13,6 +13,8 @@ use CorporacionPeru\Grifo;
 use CorporacionPeru\Vehiculo;
 use CorporacionPeru\Transportista;
 use CorporacionPeru\PedidoCliente;
+use CorporacionPeru\PedidoProveedorCliente;
+use CorporacionPeru\PedidoProveedorGrifo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
@@ -80,7 +82,11 @@ class PedidoController extends Controller
        
         return view('programacion.index',compact('pedidos'));
     }
-
+    /**
+     * confirmación Pedido
+     * @param  [type] $id [id del pedido]
+     * @return [type]     [description]
+     */
     public function confirmarPedido($id)
     {
         $pedido = Pedido::findOrFail($id);
@@ -89,6 +95,66 @@ class PedidoController extends Controller
         $pedido->save();
         return  back()->with('alert-type', 'success')->with('status', 'Pedido confirmado con exito');
     }
+
+    /**
+     *  Deshace Distribución
+     * @param  [type] $id [id del pedido]
+     * @return [type]     [description]
+     */
+    public function reverse($id)
+    {
+        DB::beginTransaction();
+        try {
+            $pedido = Pedido::findOrFail($id);
+            //Sí el transportista ha sido pagado no se puede eliminar la distribución.
+            if ( $pedido->estado_flete == 2 ) {
+                return  back()->with('alert-type', 'error')->with('status', 'No se puede deshacer un pedido que ya ha sido pagado al transportista.');
+            }
+            $pedido_proveedor_clientes = PedidoProveedorCliente::where('pedido_id',$id)->get();
+            $pedido_proveedor_grifos   = PedidoProveedorGrifo::where('pedido_id',$id)->get();
+            
+            //grifos
+            foreach ($pedido_proveedor_grifos as $pivote_grifos) {
+                $asignacion = $pivote_grifos->asignacion;
+                $id_grifo = $pivote_grifos->grifo_id;
+                $grifo = Grifo::findOrFail($id_grifo);
+                $grifo->stock -= $asignacion;
+                $grifo->save();
+                PedidoProveedorGrifo::findOrFail($pivote_grifos->id)->delete();
+            }
+            //pedido clientes
+            foreach ($pedido_proveedor_clientes as $pivote_clientes) {
+                $asignacion        = $pivote_clientes->asignacion;
+                $pedido_cliente_id = $pivote_clientes->pedido_cliente_id;
+                $pedido_cliente    = PedidoCliente::findOrFail($pedido_cliente_id);
+
+                if ( $pedido_cliente->estado == 3 ) {// ha sido distribuido
+                    $pedido_cliente->estado = 2;
+                }
+                $pedido_cliente->galones_asignados-=$asignacion;            
+                $pedido_cliente->save();
+                PedidoProveedorCliente::findOrFail($pivote_clientes->id)->delete();
+            } 
+            //pedido proveedor
+            if ($pedido->estado == 3) {//distribuido
+                $pedido->estado = 2;
+            }            
+            $pedido->galones_distribuidos = 0;
+            $pedido->costo_flete = null;
+            $pedido->chofer = null;
+            $pedido->brevete_chofer = null;
+            $pedido->vehiculo_id = null;
+            $pedido->save();
+        DB::commit();
+        return  back()->with('alert-type', 'success')->with('status', 'Distribución eliminada con éxito'); 
+
+        } catch (\Exception  $e) {          
+            DB::rollback();
+            return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
+        } 
+
+    }
+
     /**
      * [Obtener 1 pedido, a partir del id_proveedor]
      * @param  [int] $id_proveedor [description]

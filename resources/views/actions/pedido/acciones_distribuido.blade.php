@@ -12,8 +12,7 @@
           <a class="btn bg-navy btn-sm" href="{{route('pedidos.show', $pedido->id)}}">
             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Detalles pedido
           </a>
-        </li>
-          
+        </li>      
       	@else
  	  	  <li>
 	  	    <a class="btn bg-teal btn-sm" href="{{route('pedidos.show', $pedido->id)}}">
@@ -21,12 +20,15 @@
   		    </a>
 	  	  </li>   		
   		@endif
-
       <li>
       	<a href="{{route('pedidos.ver_distribucion', $pedido->id)}}" class="btn btn-sm bg-aqua"><i class="fa fa-th"> &nbsp; </i>Ver Distribución</a>      	
       </li>
-
-
-
-	</ul> 
+      <li> {{-- onsubmit="return confirmar()" --}}
+        <form style="display:inline" method="POST" action="{{route('pedidos.reverse', $pedido->id)}}">
+          @csrf
+          @method('DELETE')
+          <button class="btn btn-sm btn-danger btn-block"><span class="fa fa-undo"></span>&nbsp;Deshacer Distribución</button>
+        </form>        
+      </li>
+	  </ul> 
   </div>         

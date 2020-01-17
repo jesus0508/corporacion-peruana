@@ -217,7 +217,7 @@
           </div>
           <div class="row">            
             <div class="col-md-6">
-              <div class="form-group @error('IGV') has-error @enderror">
+              <div class="form-group @error('persona_comision') has-error @enderror">
                 <label for="persona_comision">Persona a tratar comision</label>
                 <input id="persona_comision" type="text" class="form-control" value="{{old("persona_comision")}}"
                         name="persona_comision" placeholder="Ingrese nombre de la persona">

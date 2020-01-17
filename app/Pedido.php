@@ -31,6 +31,14 @@ class Pedido extends Model
         return $this->belongsTo(Vehiculo::class);
     }
 
+    public function pedidoProveedorClientes(){
+        return $this->hasMany(PedidoProveedorCliente::class);
+    }
+
+    public function pedidoProveedorGrifos(){
+        return $this->hasMany(PedidoProveedorGrifo::class);
+    }
+
     public function pedidosCliente(){
         return $this->belongsToMany(PedidoCliente::class,'pedido_proveedor_clientes')->with('pedidos');
     }

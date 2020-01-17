@@ -220,7 +220,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/pago_proveedors_reverse/{id}','PagoProveedorController@reverse')
 				->name('pago_proveedors.reverse');
 						
-	
+		//Eliminar Distribucion 
+		Route::delete('/pedido_distribucion_reverse/{id}','PedidoController@reverse')
+				->name('pedidos.reverse');
 		/* Distribucion Pedido a clientess */	
 		Route::get('distribuir/{id}', 'PedidoController@distribuir')
 				->name('pedidos.distribuir');//mostrar interfaz distribución
@@ -230,7 +232,7 @@ Route::middleware(['auth'])->group(function () {
 				->name('pedidos.ver_distribucion');//ver resumen distribucion
 		Route::get('showVehiTrans/{id}','TransportistaController@showVehiTrans');
 	
-		/* Distribucion Pedido a clientess */
+		/* Distribucion Pedido a grifos */
 		Route::post('asignar_gls', 'PedidoController@asignar_grifo')
 				->name('asignar_gls');//asignar gls de pedido a grifos(algoritmo)
 		Route::post('asignar_individual', 'PedidoController@asignar_individual')
@@ -239,8 +241,6 @@ Route::middleware(['auth'])->group(function () {
 				->name('pedidos.distribuir_grifo');
 				//mostrar interfaz distribucion a grifos
 	});
-
-
 
 
 });

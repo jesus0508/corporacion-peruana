@@ -123,7 +123,7 @@
                 <div class="col-md-6"> 
                   <div class="form-group">
                     <label for="forma_pago-show">Forma de pago*</label>                    
-                    <input type="text" id="forma_pago-edit" readonly=""
+                    <input type="text" id="forma_pago-show" readonly=""
                       class="form-control">
                   </div>            
                 </div>         

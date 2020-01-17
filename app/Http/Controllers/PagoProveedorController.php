@@ -200,6 +200,8 @@ class PagoProveedorController extends Controller
      */
     public function reverse($id)
     {
+        
+        //transaction
         $pago_proveedor = PagoProveedor::findOrFail($id);
         $pivote_pedido_pago = PagoProveedor::
                 join('pago_pedido_proveedors','pago_pedido_proveedors.pago_proveedor_id',
