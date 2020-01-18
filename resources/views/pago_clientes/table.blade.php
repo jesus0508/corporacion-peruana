@@ -11,12 +11,13 @@
             <tr>
               <th>#</th>
               <th>Fecha Operacion</th>
+              <th>Fcha Ingreso</th>
               <th>Codigo Operacion</th>
-              <th>Nro Factura</th>
+            {{--   <th>Nro Factura</th> --}}
               <th>Banco</th>
               <th>Cliente</th>
               <th>Abono</th>
-              <th>Saldo Pedido Cliente</th>
+              <th>Acción</th>
 
             </tr>
           </thead>
@@ -25,17 +26,19 @@
               <tr> 
                 <td>{{$loop->iteration}}</td>             
                 <td>{{date('d/m/Y', strtotime($pago->fecha_operacion))}}</td>
+                <td>{{date('d/m/Y', strtotime($pago->fecha_reporte))}}</td>
                 <td>{{$pago->codigo_operacion}}</td>
-                @if($pago->factura_cliente_id!=null)
+          {{--  @if($pago->factura_cliente_id!=null)
                   <td>{{$pago->nro_factura}}</td>
                 @else
                   <td>Sin factura</td>
-                @endif
+                @endif --}}
                 <td>{{$pago->banco}}</td>
                 <td>{{$pago->razon_social}}</td>
                 <td>S/&nbsp;{{$pago->monto_operacion}}</td>
-                <td>S/&nbsp;{{$pago->saldo}}</td>
-               
+                <td>
+                  <a href="{{ route('pago_clientes.show', $pago->id)}}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i>&nbsp;&nbsp;Detalles</a>
+                </td>
               </tr>
             @endforeach
           </tbody>

@@ -25,10 +25,9 @@ class PagoClienteController extends Controller
         $pagos = PagoCliente::join('pago_cliente_pedido_cliente','pago_clientes.id','=','pago_cliente_pedido_cliente.pago_cliente_id')  
             ->join('pedido_clientes','pago_cliente_pedido_cliente.pedido_cliente_id','=','pedido_clientes.id')
             ->join('clientes','pedido_clientes.cliente_id','=','clientes.id')
-            ->leftJoin('factura_clientes','pedido_clientes.factura_cliente_id','=','factura_clientes.id')
             ->groupBy('pago_clientes.id')
             ->select('pago_clientes.*','clientes.razon_social',
-                'pedido_clientes.factura_cliente_id','factura_clientes.nro_factura')
+                'pedido_clientes.factura_cliente_id')
             ->get();
 
         return view('pago_clientes.index', compact('pagos'));
@@ -118,7 +117,16 @@ class PagoClienteController extends Controller
      */
     public function show(PagoCliente $pagoCliente)
     {
-        //
+        $pedidos = PedidoCliente::join('pago_cliente_pedido_cliente','pedido_clientes.id','=','pago_cliente_pedido_cliente.pedido_cliente_id')  
+            ->join('pago_clientes','pago_cliente_pedido_cliente.pago_cliente_id','=','pago_clientes.id')
+            ->join('clientes','pedido_clientes.cliente_id','=','clientes.id')
+            ->leftJoin('factura_clientes','pedido_clientes.factura_cliente_id','=','factura_clientes.id')
+            ->where('pago_clientes.id',$pagoCliente->id)
+            ->select('pedido_clientes.*','clientes.razon_social','pago_cliente_pedido_cliente.monto_asignado',
+                'pedido_clientes.factura_cliente_id','factura_clientes.nro_factura')
+            ->get();
+        $cliente = $pedidos[0]->razon_social;//nombre de cliente q realizo el pago
+        return view('pago_clientes.resumen.index',compact('pagoCliente','cliente','pedidos'));
     }
 
     /**

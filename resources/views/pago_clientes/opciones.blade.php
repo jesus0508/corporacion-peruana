@@ -1,7 +1,7 @@
 <div class="content-header">
   <div class="row">
     <div class="col-md-4">
-      
+      <label for="" class="label label-default">Filtrado por Fecha Ingreso:</label>
     </div>
     <div class="col-md-6">
       <div class="row filtrado">
