@@ -14,9 +14,13 @@
 @endsection
 
 @section('content')
+  @include('pago_proveedores.header')
 <section class="content">
-  @include('pago_proveedores.create')
-  @include('pago_proveedores.table')
+  <form class="" action="{{route('pago_proveedors.store')}}" method="post">
+    @csrf
+    @include('pago_proveedores.create')
+    @include('pago_proveedores.table')
+  </form>
 </section>
 @endsection
 
@@ -24,27 +28,50 @@
 <script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
-  $('#pago_proveedores_lista').DataTable({
-      "responsive": true,
-      "dom": 'Bfrtip',
-      "buttons": [
-        {
-          extend: 'excelHtml5',
-          title: 'Lista Pagos Transportista',
-          attr:  {
-                title: 'Excel',
-                id: 'excelButton'
-            },
-          text:     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
-          className: 'btn btn-default',
-          exportOptions:
-            {
-              columns:[0,1,2,3,4,5,6,7]
-            }
 
-         }
-        ],
+
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index) {
+        $(this).width($originals.eq(index).width())
     });
+    return $helper;
+},
+    updateIndex = function(e, ui) {
+        $('td.index', ui.item.parent()).each(function (i) {
+            $(this).html(i + 1);
+        });
+    };
+
+$("#pago_proveedores_lista tbody").sortable({
+    helper: fixHelperModified,
+    stop: updateIndex
+}).disableSelection();
+
+
+
+  // $('#pago_proveedores_lista').DataTable({
+  //     "responsive": true,
+  //     "dom": 'Bfrtip',
+  //     "buttons": [
+  //       {
+  //         extend: 'excelHtml5',
+  //         title: 'Lista Pagos Transportista',
+  //         attr:  {
+  //               title: 'Excel',
+  //               id: 'excelButton'
+  //           },
+  //         text:     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+  //         className: 'btn btn-default',
+  //         exportOptions:
+  //           {
+  //             columns:[0,1,2,3,4,5,6,7]
+  //           }
+
+  //        }
+  //       ],
+  //   });
 
 	$('#banco').prop('selectedIndex', -1);
     $('#banco').select2({

@@ -11,6 +11,7 @@ class Pedido extends Model
     protected $fillable= ['id','nro_pedido','scop', 
     							'galones', 'costo_galon','estado' , 'saldo' ,
                                 'chofer', 'costo_flete', 'brevete_chofer', 
+                                'fecha_pedido','pedido_extraordinario',
     							'factura_proveedor_id','vehiculo_id','planta_id'];
 
 
@@ -43,6 +44,15 @@ class Pedido extends Model
         return $this->belongsToMany(PedidoCliente::class,'pedido_proveedor_clientes')->with('pedidos');
     }
 
+    public function setFechaPedidoAttribute($value)
+    {
+        $this->attributes['fecha_pedido'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    public function getFechaPedidoAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
     public function grifos(){
         return $this->belongsToMany(Grifo::class,'pedido_grifos');
     }
@@ -51,6 +61,11 @@ class Pedido extends Model
         return $this->belongsToMany(PagoProveedor::class,'pago_pedido_proveedors');
     }
     
+    public function pagoPedidoExtraordinario(){
+        return $this->belongsToMany(Pedido::class,
+            'pago_proveedor_extraordinario' ,'pedido_id' ,'pedido_extraordinario_id');
+    }
+
     public function getGalonesStock(){
         return $this->galones-$this->galones_distribuidos;
     }

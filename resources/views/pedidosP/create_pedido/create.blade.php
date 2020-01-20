@@ -1,8 +1,9 @@
+
 <form action="{{route('pedidos.store')}}" method="post">
   @csrf
   <div class="row">
     <!-- left column -->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
@@ -44,42 +45,63 @@
     </div>
     <!--/.col (left) -->
   
-    <div class="col-md-6">
+    <div class="col-md-8">
       <!-- general form elements -->
       <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title"><b> DIESEL B5 (S50) UV</b> </h3>
         </div><!-- /.box-header -->
         <!-- form start -->
-        {{-- <form role="form"> --}}
           <div class="box-body">
-            <div class="form-group @error('galones') has-error @enderror">
-                <label for="galones">Cantidad de galones del pedido*</label>
-               <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" max="99999" value="{{ old('galones') }}"
-                 required>
-              @error('galones')
-              <span class="help-block" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-           
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group @error('galones') has-error @enderror">
+                  <label for="galones">Cantidad de galones del pedido*</label>
+                  <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" max="99999" value="{{ old('galones') }}"
+                   required>
+                  @error('galones')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div> 
+              </div>
+              <div class="col-md-6">
+                <div class="form-group @error('costo_galon') has-error @enderror">
+                  <label for="costo_galon">Precio del galón*</label>
+                  <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" value="{{ old('costo_galon') }}"
+                  pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
+                  @error('costo_galon')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>               
+              </div>
             </div>
-            <div class="form-group @error('costo_galon') has-error @enderror">
-              <label for="costo_galon">Precio del galón*</label>
-              <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" value="{{ old('costo_galon') }}"
-              pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
-              @error('costo_galon')
-              <span class="help-block" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group @error('fecha_pedido') has-error @enderror">
+                  <label for="fecha_pedido">Fecha de pedido*</label>
+                  <input id="fecha_pedido" autocomplete="off" type="text" class="form-control" name="fecha_pedido" placeholder="Ingrese la fecha" value="{{ old('fecha_pedido') }}" required>
+                  @error('fecha_pedido')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>  
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="monto_total">Monto pedido total*</label>
+                  <input id="monto_total" type="text" class="form-control" readonly="">
+                </div> 
+              </div>
             </div>
-
             <div class="form-group">
               <label for="proveedor">Proveedor</label>
               <input id="proveedor" type="text" class="form-control" name="proveedor" placeholder="Proveedor" disabled>
             </div>            
-
         
 
           </div><!-- /.box-body -->

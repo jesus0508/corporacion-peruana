@@ -83,6 +83,16 @@
                   @enderror
                 </div>
 
+                 <div class="form-group @error('fecha_pedido') has-error @enderror">
+                  <label for="fecha_pedido-edit">Fecha Pedido  </label>
+                  <input id="fecha_pedido-edit" type="text" class="form-control" name="fecha_pedido" placeholder="Ingrese la fecha de pedido" required>
+                  @error('fecha_pedido')
+                  <span class="help-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+
                 <div class="form-group">
                   <label for="monto_total"> Monto Total </label>
                   <input id="monto_total" type="text" class="form-control" name="monto_total" placeholder="Ingrese el precio del galón" disabled>

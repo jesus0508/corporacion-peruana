@@ -29,6 +29,7 @@ class StorePedidoRequest extends FormRequest
             'planta_id' => 'required|numeric',         
             'galones'=>'required|numeric|gt:0',
             'costo_galon'=>'required|numeric|gt:0',
+            'fecha_pedido'=>'required|date_format:"d/m/Y"'
         ];
     }
 }

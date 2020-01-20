@@ -1,6 +1,4 @@
 <div class="row">
-  <form class="" action="{{route('pago_proveedors.store')}}" method="post">
-    @csrf
           <!-- left column -->
           <div class="col-md-6">
             <div class="box box-success">
@@ -11,7 +9,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group @error('fecha_operacion') has-error @enderror">
-                    <label for="fecha_operacion">Fecha reporte</label>
+                    <label for="fecha_operacion">Fecha operación</label>
                     <input autocomplete="off" id="fecha_factura" type="text" class="tuiker form-control" value="{{ old('fecha_operacion') }}"
                     name="fecha_operacion" placeholder="Fecha reporte"
                     required="" >
@@ -102,5 +100,4 @@
           </div>
         @endif
       </div>
-  </form>
 </div> <!-- /.row-top -->

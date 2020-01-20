@@ -3,7 +3,7 @@
 		<H3>SELECCIONE LOS FLETES QUE DESEA PAGAR:
 			 <button type="submit" href="{{route('faltante.store')}}"
       class="btn btn-primary btn-lg pull-right" > <span class="fa  fa-arrow-right"></span> &nbsp;Continuar </button>	
-			<input type="hidden" value={{$id_transportista}} name="id_transportista">
+			<input type="hidden" value="{{$id_transportista}}" name="id_transportista">
 		</H3>
 		
 	</div>

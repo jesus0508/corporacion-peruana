@@ -3,13 +3,14 @@ $(document).ready(function() {
 
     $('#modal-edit-pedido-proveedor').on('show.bs.modal',function(event){
    // $("#planta-edit").val(-1);
-  var nro_pedido= $(event.relatedTarget).data('nro_pedido');
-  var scop= $(event.relatedTarget).data('scop');
-  var galones= $(event.relatedTarget).data('galones');
-  var planta= $(event.relatedTarget).data('planta');
-  var costo_galon= $(event.relatedTarget).data('costo_galon');
-  var id= $(event.relatedTarget).data('id');
-  var total = costo_galon*galones;
+  var nro_pedido   = $(event.relatedTarget).data('nro_pedido');
+  var scop         = $(event.relatedTarget).data('scop');
+  var galones      = $(event.relatedTarget).data('galones');
+  var planta       = $(event.relatedTarget).data('planta');
+  var costo_galon  = $(event.relatedTarget).data('costo_galon');
+  var fecha_pedido = $(event.relatedTarget).data('fecha_pedido');
+  var id           = $(event.relatedTarget).data('id');
+  var total        = costo_galon*galones;
      // Math.round(diferencia*100)/100;
   total = parseFloat(total).toFixed(2);
   $(event.currentTarget).find('#nro_pedido-edit').val(nro_pedido);
@@ -18,6 +19,7 @@ $(document).ready(function() {
   $(event.currentTarget).find('#planta-edit').val(planta).trigger('change.select2');
   $(event.currentTarget).find('#costo_galon-edit').val(costo_galon);
   $(event.currentTarget).find('#monto_total').val(total);
+  $(event.currentTarget).find('#fecha_pedido-edit').val(fecha_pedido);  
   $(event.currentTarget).find('#id_pedido').val(id);
   });
 });
@@ -36,6 +38,9 @@ function inicializarSelect2($select, text, data) {
 
 $(document).ready(function() {
   let $filter_planta = $('#filter-planta');
+  $('#fecha_pedido').datepicker();
+  $('#fecha_pedido-edit').datepicker();
+
   let $tabla_pedido_proveedores = $('#proveedores');
   inicializarSelect2($filter_planta, 'Ingrese la planta', '');
   $.fn.dataTable.ext.search.push(

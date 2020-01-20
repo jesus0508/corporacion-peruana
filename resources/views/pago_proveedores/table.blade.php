@@ -9,7 +9,9 @@
           <table id="pago_proveedores_lista" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
             <thead>
               <tr>
-                <th>Nro pedido</th>
+                <th>Orden</th>
+                <th>Fecha Pedido</th>
+                <th >Nro pedido</th>
                 <th>Planta</th>
                 <th>SCOP</th>
                 <th>Cantidad GLS</th>
@@ -24,6 +26,9 @@
               @foreach ($pedidos as $pedido)
                 @if( $pedido != null )
                 <tr>
+                  <input type="hidden" id="" name="pedidos[]" value="{{$pedido->id}}">
+                  <td class="index">{{$loop->iteration}}</td>
+                  <td>{{$pedido->fecha_pedido}}</td>
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->planta->planta}}</td>
                   <td>{{$pedido->scop}}</td>

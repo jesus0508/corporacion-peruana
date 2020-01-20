@@ -24,8 +24,12 @@ class CreatePedidosTable extends Migration
             $table->integer('estado_flete')->default(1);            
             $table->decimal('saldo',9,2)->nullable();
             $table->decimal('costo_flete')->nullable()->default(0);
+            $table->decimal('monto_extraordinario')->default(0);                      
+            $table->date('fecha_pedido');                       
             $table->string('chofer')->nullable();
             $table->string('brevete_chofer')->nullable();
+            $table->unsignedBigInteger('pedido_extraordinario')->nullable();
+            $table->foreign('pedido_extraordinario')->references('id')->on('pedidos');
             $table->unsignedBigInteger('factura_proveedor_id')->nullable();
             $table->foreign('factura_proveedor_id')->references('id')->on('factura_proveedors');
             $table->unsignedBigInteger('vehiculo_id')->nullable();

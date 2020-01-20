@@ -16,14 +16,7 @@
 @endsection
 
 @section('content')
-<section class="content-header">
-    <a href="{{route('pedidos.index')}}">
-      <button class="btn bg-olive pull-right">
-      IR PEDIDOS &nbsp; <span class="fa fa-list"></span>
-      </button>
-    </a>    
-    <p><br></p>
-</section>
+ @include('pedidosP.create_pedido.header')
 <section class="content">
  @include('pedidosP.create_pedido.create')
 </section>

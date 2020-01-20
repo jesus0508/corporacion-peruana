@@ -57,10 +57,17 @@ class FacturaProveedorController extends Controller
             if ($pedido->saldo == $pedido->getMonto()) {//Sin pagar aún.
                 $pedido->saldo = $request->monto_factura;
              }else{ //Ya pagado
-                //si se ha pagado Total y el monto facturado es menor saldría saldo negativo
-                $saldo = $pedido->saldo;        //0                
-                $saldo += $diferencia; //new saldo = 0-200
-                $pedido->saldo = $saldo;//-200
+                //si se ha pagado Total
+                $saldo = $pedido->saldo;//112.35                       
+                $saldo += $diferencia; //112.35 + -212.35
+                if ($saldo<0) {//-100
+                    $pedido->monto_extraordinario = -$saldo;
+                    $pedido->estado=5;//pagado
+                    $saldo=0;
+                }elseif ($saldo>0) {
+                    $pedido->estado=4;//amortizado
+                }
+                $pedido->saldo = $saldo;
                 }
             $pedido->save();
             DB::commit();

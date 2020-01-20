@@ -73,6 +73,87 @@ class PagoProveedorController extends Controller
     }
 
     /**
+     * ´Pago de pedidos con el monto del pedido extraordinario.
+     * Pedido extraordinario = Cuando se pagó un pedido antes de facturar, y cuando se
+     * factura el monto facturado es menor, obteniendose un monto disponible para amortizar
+     * en el siguiente pago.
+     * @param  [type] $pedidos [description]
+     * @return [type]          [description]
+     */
+    public function pagoBloquePedidoExtraordinario($pedidos,$proveedor_id){
+
+        $plantas = Planta::where( 'proveedor_id' , $proveedor_id )->get();
+        $plantas_id = [];
+        foreach ($plantas as $planta) {
+            $plantas_id[] = $planta->id;//plantas del proveedor_id
+        }
+        $pedidos_extraordinarios = Pedido::where('monto_extraordinario','>',0)
+            ->whereIn('planta_id',$plantas_id)
+            ->get();   
+        if (count($pedidos_extraordinarios)>0) {
+            foreach ($pedidos_extraordinarios as $pedido_extraordinario) {
+                $monto = $pedido_extraordinario->monto_extraordinario;                
+                $this->pagoBloque( $monto , $pedidos , $pedido_extraordinario , 1 );//1 es pago de tipo Extraordinario
+            }
+        }     
+    }   
+
+    /**
+     * Pago en bloque a pedidos proveedor.
+     * @param  [float]   $monto   [Monto del pago  a distribuirse en los pedidos]
+     * @param  [Array]   $pedidos [Array de Id de Pedidos a distribuir, ordenados]
+     * @param  [Integer] $tipo [Si es pago con Monto Extraordinario = 1]
+     */
+    public function pagoBloque( $monto , $pedidos , $pago_proveedor , $tipo = null ){
+
+        $cantDistribuir = $monto;//10000
+        $dinero_stock = $cantDistribuir;//10000
+        foreach ($pedidos as $pedido_id) {
+            $pedido = Pedido::findOrFail($pedido_id);
+            $restanteXasignar = $pedido->saldo;//11135.80
+            if( $dinero_stock == 0 ){//si ya no hay para repartir
+                    break; //sale del foreach
+            }
+                //dinero x asignar >=Dinero en stock 
+            if( $restanteXasignar >= $dinero_stock ){
+                $pedido->saldo -=  $dinero_stock;
+                $asignacion = $dinero_stock;
+                $pedido->estado = 4;//amortizado
+                if ($restanteXasignar==$dinero_stock) {
+                    $pedido->estado=5;//pagado
+                }                     
+                $dinero_stock = 0;
+                    //se le asigna el pedido proveedor al  pago
+                if ($tipo == 1) {
+                    $pedido->pagoPedidoExtraordinario()->attach($pago_proveedor->id,
+                            ['asignacion'=> $asignacion]);
+                }else{
+                    $pedido->pagosProveedor()->attach($pago_proveedor->id,['asignacion'=> $asignacion]);
+                }
+  
+                $pedido->save();
+                break; 
+
+                } else{//si el stockDinero es mayor a lo q se va distribuir
+                    if ($pedido->saldo>0) {
+                        $dinero_stock -= $pedido->saldo;
+                        $asignacion = $pedido->saldo;
+                        $pedido->saldo = 0;
+                        $pedido->estado = 5;//isPaid
+                            //se le asigna el pedido proveedor al  pago
+                        if ($tipo == 1) {
+                            $pedido->pagoPedidoExtraordinario()->attach($pago_proveedor->id,
+                                    ['asignacion'=> $asignacion]);
+                        }else{
+                            $pedido->pagosProveedor()->attach($pago_proveedor->id,['asignacion'=> $asignacion]);
+                        }
+                        $pedido->save();
+                    }                         
+                }
+        }
+    } 
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -80,60 +161,21 @@ class PagoProveedorController extends Controller
      */
     public function store(StorePagoProveedorRequest $request)
     {
+
         DB::beginTransaction();
      	try {
-
+            $pedidos = $request->pedidos;//pedidos a  Pagar
+            //Primero verificar si existe pedido extraordinario, para pagar monto de ese Pedido
+            $this->pagoBloquePedidoExtraordinario($pedidos , $request->proveedor_id);
             $pago_proveedor =PagoProveedor::create( $request->validated() );
-        	$proveedor = Proveedor::with('plantas')->where('id', '=' , $request->proveedor_id)->first();
-            $pedidos = [];
-            foreach ($proveedor->plantas as $planta) {
-                $planta_id = $planta->id;
-                $pedidos[] = Pedido::where('planta_id','=',$planta_id)
-                    ->where('estado','!=',5)
-                    ->where('saldo','>',0)
-                    ->with('planta')->get();
-                $pedidos = collect($pedidos);//volver coleccion
-
-            }
-            $pedidos = $pedidos->collapse();
-            $pedidos = $pedidos->sortBy('id');
-        	$cantDistribuir = $request->monto_operacion;
-        	$dinero_stock = $cantDistribuir;
-        	foreach ($pedidos as $pedido) {
-        		if( $pedido != null ){
-        			$pedido = Pedido::findOrFail($pedido->id);
-            		$restanteXasignar = $pedido->saldo;
-            		if( $dinero_stock == 0 ){//si ya no hay para repartir
-            		    break; //sale del foreach
-            		}
-            		//Dinero en stock <= dinero x asignar
-           			if( $restanteXasignar >= $dinero_stock ){
-           				$pedido->saldo -=  $dinero_stock;
-                        $asignacion = $dinero_stock;
-                        $pedido->estado = 4;
-                    	$dinero_stock = 0;
-                    	//se le asigna el pedido proveedor al  pago
-                    	$pedido->pagosProveedor()->attach($pago_proveedor->id,['asignacion'=> $asignacion]);
-                    	$pedido->save();
-                    	break; 
-
-            		} else{//si el stockDinero es mayor a lo q se va distribuir
-
-                     	$dinero_stock -= $pedido->saldo;
-                        $asignacion = $pedido->saldo;
-                    	$pedido->saldo = 0;
-                    	$pedido->estado = 5;//isPaid
-                    ///se le asigna el pedido proveedor al  pago
-                    	$pedido->pagosProveedor()->attach($pago_proveedor->id,['asignacion'=> $asignacion ]);
-                    	$pedido->save();
-  
-            		}
-        		}
-        	}
+        	$proveedor = Proveedor::with('plantas')
+                ->where('id', '=' , $request->proveedor_id)
+                ->first();
+            $this->pagoBloque($request->monto_operacion,$pedidos,$pago_proveedor);//pago en BLoque
         	DB::commit();
             Session::flash('alert-type', 'info');
             Session::flash('status', 'Pago realizado con exito');
-        	 $pedidos = Pedido::join('pago_pedido_proveedors', 'pedidos.id', '=', 'pago_pedido_proveedors.pedido_id')->join('pago_proveedors', 'pago_proveedors.id', '=', 'pago_pedido_proveedors.pago_proveedor_id')->where('pago_proveedor_id',$pago_proveedor->id)->get();
+        	$pedidos = Pedido::join('pago_pedido_proveedors', 'pedidos.id', '=', 'pago_pedido_proveedors.pedido_id')->join('pago_proveedors', 'pago_proveedors.id', '=', 'pago_pedido_proveedors.pago_proveedor_id')->where('pago_proveedor_id',$pago_proveedor->id)->get();
         return view('pago_proveedores.resumen.index',compact('pedidos','proveedor','pago_proveedor'))->with('alert-type','success')->with('status','Pago registrado con exito');
 
         } catch (Exception $e) {
@@ -159,13 +201,13 @@ class PagoProveedorController extends Controller
         	$pedidos[] = Pedido::where('planta_id','=',$planta_id)
                 ->where('estado','!=',5)
                 ->where('saldo','>',0)
-                ->with('planta')->get();
+                ->with('planta')
+                ->orderBy('fecha_pedido','ASC')
+                ->get();
         	$pedidos = collect($pedidos);//volver coleccion
 
         }
-        //en pedidos se almacenara los pedidos de  todas las plantas del proveedor selected
         $pedidos = $pedidos->collapse();
-        $pedidos = $pedidos->sortBy('id');
         return view('pago_proveedores.index',compact('pedidos','proveedor'));
     }
 
@@ -186,8 +228,36 @@ class PagoProveedorController extends Controller
                 ->select('pago_proveedors.*' , 'pago_pedido_proveedors.asignacion')
                 ->where('pedidos.id',$idPedido)
                 ->get();
-      //  return $pagos;
-        return view('pedidosP.show_pagos.index',compact('pedido','proveedor','pagos'));
+        $extra = 0;
+        $total_pagado=0;
+        foreach ($pagos as $pago) {
+            $total_pagado += $pago->asignacion;
+        }
+        if ($pedido->factura_proveedor_id) {
+            $extra = $total_pagado - $pedido->facturaProveedor->monto_factura;
+        } else{
+            $extra = $total_pagado - $pedido->getMonto();
+        }
+        
+
+        $existe_extraordinario =false;
+        // si tiene monto extraordinario
+        $extraordinario_pagos =  Pedido::join('pago_proveedor_extraordinario',
+            'pago_proveedor_extraordinario.pedido_extraordinario_id','pedidos.id')
+            ->where('pago_proveedor_extraordinario.pedido_extraordinario_id',$idPedido)
+            ->select('pago_proveedor_extraordinario.*')
+            ->get();
+        $existe_extraordinario =(count($extraordinario_pagos)>0)? true : false;
+
+        $extraordinario_pedidos = Pedido::join('pago_proveedor_extraordinario',
+            'pago_proveedor_extraordinario.pedido_extraordinario_id','pedidos.id')
+            ->where('pago_proveedor_extraordinario.pedido_id',$idPedido)->get();
+        //return $pedidos_extraordinarios;
+        return view('pedidosP.show_pagos.index',compact('pedido','proveedor','pagos','extra',
+           'extraordinario_pedidos','existe_extraordinario','extraordinario_pagos'
+        ));
+
+        
     }
 
 

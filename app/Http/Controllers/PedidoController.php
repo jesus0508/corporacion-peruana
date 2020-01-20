@@ -185,7 +185,7 @@ class PedidoController extends Controller
                     DB::raw('ROUND(pedidos.costo_galon*pedidos.galones,2) as calc'),
                     'factura_proveedors.nro_factura_proveedor'
             )
-            ->orderBy('id','DESC')
+            ->orderBy('fecha_pedido','DESC')
             ->get();
         $stock = Stock::first();
         return view('pedidosP.index',compact('pedidos','plantas','stock'));
