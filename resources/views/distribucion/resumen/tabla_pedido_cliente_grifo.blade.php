@@ -32,10 +32,15 @@
                 <td>{{$pedido_cliente->precio_galon}}</td>
                 <td>{{$pedido_cliente->galones}}</td>
                 <td>{{$pedido_cliente->asignacion}}</td>
-                <td><a class="btn btn-primary btn-sm" 
+                <td>
+             {{--    @if($pedido->estado >2) --}}
+                  <a class="btn btn-primary btn-sm" 
                   href="{{route('pedido_clientes.detalles',$pedido_cliente->id)}}">
                     <span class="glyphicon glyphicon-eye-open">                      
-                    </span></a></td>
+                    </span>
+                  </a>
+                {{-- @endif --}}
+                </td>
 
               </tr>
             @endforeach

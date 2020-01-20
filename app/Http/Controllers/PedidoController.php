@@ -361,22 +361,11 @@ class PedidoController extends Controller
                 $pedido->grifos()->attach($grifo->id,['asignacion'=> $asignacion,'fecha_descarga'=> $fecha_descarga , 'hora_descarga'=> $hora_descarga ]);
                 $pedido->save();
                 $grifo->save();
-
-                $pedidos_cl = 
-                    PedidoCliente::join('pedido_proveedor_clientes', 
-                        'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')
-                    ->join('pedidos', 'pedidos.id', '=', 'pedido_proveedor_clientes.pedido_id')
-                    ->select('pedido_clientes.*','pedido_proveedor_clientes.asignacion')
-                    ->where('pedido_id', $request->id_pedido_pr)->get();
-
-                $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')
-                    ->join('pedidos','pedidos.id','=','pedido_grifos.pedido_id')
-                    ->where('pedido_id', $pedido->id)
-                    ->get();
                 Session::flash('alert-type', 'info');
                 Session::flash('status', 'Galones asignados a Grifo');
                 DB::commit();
-            return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
+            return  redirect()->action('PedidoController@ver_distribucion',$pedido->id);
+;
             }
             else //( $galonaje_stock < $asignacion  )
              { 
@@ -461,15 +450,9 @@ class PedidoController extends Controller
 
         }
         DB::commit();
-        $pedidos_cl = PedidoCliente::join('pedido_proveedor_clientes', 'pedido_clientes.id', '=', 'pedido_proveedor_clientes.pedido_cliente_id')->where('pedido_id', $request->id_pedido_pr)->get();
-        $pedidos_grifos = Grifo::join('pedido_grifos','grifos.id','=', 'pedido_grifos.grifo_id')          
-            ->where('pedido_id', $pedido->id)
-            ->get();   
-
         Session::flash('alert-type', 'info');
         Session::flash('status', 'Galones asignados a Pedido de Cliente');
-
-        return view('distribucion.resumen.index', compact('pedido','pedidos_cl','pedidos_grifos'));
+        return  redirect()->action('PedidoController@ver_distribucion',$pedido->id);
         } catch (Exception $e) {          
             DB::rollback();
             return  back()->with('alert-type', 'error')->with('status', 'Ocurrió un error en el servidor.');
