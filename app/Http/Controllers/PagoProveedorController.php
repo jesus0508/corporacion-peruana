@@ -286,11 +286,20 @@ class PagoProveedorController extends Controller
             $asignacion = $pivote->asignacion;//400
             $pedido_id = $pivote->pedido_id;
             $pedido = Pedido::findOrFail($pedido_id);
+            if ($pedido->factura_proveedor_id!=null) {
+              $monto = $pedido->getMonto();
+              $monto_facturado = $pedido->facturaProveedor->monto_factura;
+              $diferencia = round($monto_facturado-$monto,2);
+            }
             $pedido->saldo += $asignacion;//100.12+400
+            $pedido->saldo += $diferencia;
             if ( $pedido->galones_distribuidos == 0 ) {//si no ha sido distribuido
                 $pedido->estado = 2;
             }else {//si ha sido distribuido
                 $pedido->estado = 3;  
+            }
+            if ($this->estaAmortizado($pivote->id,$pedido_id)) {
+              $pedido->estado = 4; 
             }
             $pedido->save();
             PagoPedidoProveedor::findOrFail($pivote->id)->delete();
@@ -300,6 +309,22 @@ class PagoProveedorController extends Controller
         return back()->with('alert-type','success')->with('status','Pago eliminado con exito');
         
     }
+
+    public function estaAmortizado($id_pivote,$pedido_id){
+      $result = false;
+      $pivote_pedido_pago = PagoProveedor::
+                join('pago_pedido_proveedors','pago_pedido_proveedors.pago_proveedor_id',
+                    '=', 'pago_proveedors.id')
+                ->where('pago_pedido_proveedors.pedido_id',$pedido_id)
+                ->where('pago_pedido_proveedors.id','!=',$id_pivote)
+                ->select('pago_pedido_proveedors.*')    
+                ->get();
+      if (count($pivote_pedido_pago)>0) {
+      $result = true;
+      }
+      return $result;
+    }    
+
     /**
      * Update the specified resource in storage.
      *

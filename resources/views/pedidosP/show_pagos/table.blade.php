@@ -38,6 +38,7 @@
                   </tr>
                 @endforeach
               @endif
+                @if(count($extraordinario_pedidos)>0)
                   <tr>
                     <td><b>Pedido Extraordinario(SCOP)</b></td>
                     <td><b>Nro pedido</b></td>
@@ -47,6 +48,7 @@
                     <td></td> 
                     <td><b>Acciones</b></td>
                   </tr>
+                @endif
                   @foreach($extraordinario_pedidos as $pedido)
                     <tr>
                       <td>{{$pedido->scop}}</td>

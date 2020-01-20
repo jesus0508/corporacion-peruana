@@ -41,7 +41,7 @@
                 <div class="callout callout-info">
                   {{--   <h4>I am an info callout!</h4> --}}                  
                   <p><b>Pedido Extraordinario, se ha pagado 
-                    <label for="" class="label label-default" style="font-size: 12px;" >{{$extra}}</label> extra.</b>
+                    <label for="" class="label label-default" style="font-size: 12px;" >{{round($extra,2)}}</label> extra.</b>
                     @if($existe_extraordinario)
                     Monto  amortizado 
                       @foreach($extraordinario_pagos as $pedido)
@@ -79,7 +79,7 @@
         </div>
         <div class="form-group">
           <label for="diferencia"> Diferencia
-            <input type="text" class="form-control" value="{{$pedido->facturaProveedor->monto_factura-$pedido->getMonto()}}" readonly="">
+            <input type="text" class="form-control" value="{{round($pedido->facturaProveedor->monto_factura-$pedido->getMonto(),2)}}" readonly="">
           </label>          
         </div>
       @else
