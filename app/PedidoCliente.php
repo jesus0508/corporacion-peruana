@@ -42,7 +42,7 @@ class PedidoCliente extends Model
 
     public function getPrecioTotal()
     {
-        return $this->precio_galon * $this->galones;
+        return round($this->precio_galon * $this->galones,2);
     }
 
     public function galonesXasignar()

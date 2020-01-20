@@ -18,7 +18,6 @@ class PagoProveedorController extends Controller
     public function resumen_pago($idPago){
 
         $pedidos = Pedido::join('pago_pedido_proveedors', 'pedidos.id', '=', 'pago_pedido_proveedors.pedido_id')->join('pago_proveedors', 'pago_proveedors.id', '=', 'pago_pedido_proveedors.pago_proveedor_id')->where('pago_proveedor_id',$idPago)->get();
-         
         $pedido1 = $pedidos->first();
         $planta = Planta::findOrFail($pedido1->planta_id);
         $pago_proveedor = PagoProveedor::findOrFail($idPago);
@@ -286,6 +285,7 @@ class PagoProveedorController extends Controller
             $asignacion = $pivote->asignacion;//400
             $pedido_id = $pivote->pedido_id;
             $pedido = Pedido::findOrFail($pedido_id);
+            $diferencia=0;
             if ($pedido->factura_proveedor_id!=null) {
               $monto = $pedido->getMonto();
               $monto_facturado = $pedido->facturaProveedor->monto_factura;
@@ -298,8 +298,11 @@ class PagoProveedorController extends Controller
             }else {//si ha sido distribuido
                 $pedido->estado = 3;  
             }
-            if ($this->estaAmortizado($pivote->id,$pedido_id)) {
-              $pedido->estado = 4; 
+
+            if ($pedido->factura_proveedor_id==null) {
+              $pedido->estado = ($pedido->saldo < $pedido->getMonto()) ? 4 : $pedido->estado; 
+            }else{
+              $pedido->estado = ($pedido->saldo < $pedido->facturaProveedor->monto_factura) ? 4 : $pedido->estado; 
             }
             $pedido->save();
             PagoPedidoProveedor::findOrFail($pivote->id)->delete();
@@ -309,21 +312,6 @@ class PagoProveedorController extends Controller
         return back()->with('alert-type','success')->with('status','Pago eliminado con exito');
         
     }
-
-    public function estaAmortizado($id_pivote,$pedido_id){
-      $result = false;
-      $pivote_pedido_pago = PagoProveedor::
-                join('pago_pedido_proveedors','pago_pedido_proveedors.pago_proveedor_id',
-                    '=', 'pago_proveedors.id')
-                ->where('pago_pedido_proveedors.pedido_id',$pedido_id)
-                ->where('pago_pedido_proveedors.id','!=',$id_pivote)
-                ->select('pago_pedido_proveedors.*')    
-                ->get();
-      if (count($pivote_pedido_pago)>0) {
-      $result = true;
-      }
-      return $result;
-    }    
 
     /**
      * Update the specified resource in storage.

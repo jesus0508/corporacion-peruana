@@ -69,7 +69,7 @@
                     } else {
                       if( $pedido->saldo != $pedido->getMonto() ){
                          
-                        echo '<div class = "progress-bar progress-bar-success progress-bar-stripped active" role = "progressbar" aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:' .($pedido->getMonto()-$pedido->saldo)*100/$pedido->getMonto() . '%;">'.'<label style="font-size: 11px!important; color:black!important" class = "" >'.number_format((float)($pedido->asignacion)*100/$pedido->getMonto(),0,'.', '').' % </label>';
+                        echo '<div class = "progress-bar progress-bar-success progress-bar-stripped active" role = "progressbar" aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:' .($pedido->getMonto()-$pedido->saldo)*100/$pedido->getMonto() . '%;">'.'<label style="font-size: 11px!important; color:black!important" class = "" >'.number_format((float)($pedido->getMonto()-$pedido->saldo)*100/$pedido->getMonto() ,0,'.', '').' % </label>';
                       } else{
                         echo '<label class="label label-default">'.($pedido->asignacion).'/'.$pedido->getMonto().' SOLES </label>';
                      }
