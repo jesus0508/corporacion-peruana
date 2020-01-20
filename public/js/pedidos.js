@@ -1,7 +1,31 @@
 
 $(document).ready(function() {
 
-    $('#modal-edit-pedido-proveedor').on('show.bs.modal',function(event){
+    let $input_user         = $('#input_user');
+    let $galones            = $('#galones');
+    let $costo_galon        = $('#costo_galon');
+    let $monto_total        = $('#monto_total');
+
+    $input_user.on('keyup', function (event) {
+
+      let galones     = $galones.val();
+      let costo_galon =  $costo_galon.val();      
+      galones         = (galones)? parseFloat( galones ): 0.00;
+      costo_galon     = (costo_galon)? parseFloat( costo_galon ): 0.00;
+
+      let monto_total = parseFloat(galones*costo_galon).toFixed(2);
+      $monto_total.val(monto_total);      
+      if (monto_total<=0.00) {
+        $('#register-btn').attr("disabled", true);
+      }else{
+        $('#register-btn').attr("disabled", false);
+      }   
+
+  });
+
+
+
+$('#modal-edit-pedido-proveedor').on('show.bs.modal',function(event){
    // $("#planta-edit").val(-1);
   var nro_pedido   = $(event.relatedTarget).data('nro_pedido');
   var scop         = $(event.relatedTarget).data('scop');

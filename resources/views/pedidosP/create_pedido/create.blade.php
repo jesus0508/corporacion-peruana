@@ -52,7 +52,7 @@
           <h3 class="box-title"><b> DIESEL B5 (S50) UV</b> </h3>
         </div><!-- /.box-header -->
         <!-- form start -->
-          <div class="box-body">
+          <div class="box-body" id="input_user">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group @error('galones') has-error @enderror">
@@ -101,9 +101,7 @@
             <div class="form-group">
               <label for="proveedor">Proveedor</label>
               <input id="proveedor" type="text" class="form-control" name="proveedor" placeholder="Proveedor" disabled>
-            </div>            
-        
-
+            </div>          
           </div><!-- /.box-body -->
         {{-- </form> --}}
       </div><!-- /.box -->
@@ -112,7 +110,7 @@
   </div> <!-- /.row-top -->
   <div class="row">
     <div class="col-md-12">
-      <button type="submit" class="btn btn-lg btn-success pull-right">
+      <button type="submit"  id="register-btn" class="btn btn-lg btn-success pull-right">
         <i class="fa fa-plus-square-o"> </i>
         Registrar nuevo Pedido
       </button>
