@@ -17,7 +17,7 @@
             @foreach( $ingresos_egresos as $neto )
               <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{date('d/m/Y', strtotime($neto->fecha_reporte))}}</td>
+                <td>{{$neto->fecha_reporte}}</td>
                 <td>{{date('d/m/Y', strtotime($neto->day))}}</td>
                 <td>{{$neto->grifo}}</td>  
                 <td>

@@ -120,7 +120,7 @@ function validateDates() {
       var sFin = $('#fecha_inicio').val();
       var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
       var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
+      var dia = $.datepicker.parseDate('d/m/yy', data[2]);
       if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }

@@ -35,11 +35,8 @@
 <script>
 $(document).ready(function() {
   $('#tabla-ingresos-netos-zona').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "responsive": true,
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
       "buttons": [
       {
         'extend': 'excelHtml5',
@@ -65,7 +62,7 @@ $(document).ready(function() {
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5,6]
+          columns:[1,2,3,4,5]
         },
         footer: true
       }], 
@@ -74,14 +71,14 @@ $(document).ready(function() {
             var api = this.api(), data;
              // Total over this page
             pageTotal = api
-                .column( 6, { page: 'current'} )
+                .column( 5, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2); 
             // Update footer
-            $( api.column( 6 ).footer() ).html(
+            $( api.column( 5 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -163,7 +160,7 @@ $(document).ready(function() {
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[3];
+      let cell = data[2];
       if (grifo) {
         return grifo === cell;
       }
