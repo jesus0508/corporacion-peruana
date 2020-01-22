@@ -12,10 +12,10 @@
             <i class="fa fa-check"> </i>
             Verificar movimientos
           </a>
-          <a href="{{route('movimientos.exportToExcel')}}" class="btn btn-default">
+{{--           <a href="{{route('movimientos.exportToExcel')}}" class="btn btn-default">
             <i class="fa  fa-file-excel-o"></i>
             Exportar a Excel
-          </a>
+          </a> --}}
         </div>
       </div><!-- /.box-header -->
       <div class="box-body">

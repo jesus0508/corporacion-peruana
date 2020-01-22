@@ -15,6 +15,8 @@ Route::redirect('/', 'login', 301);
 
 Route::middleware(['auth'])->group(function () {
 	Route::get('/home', 'HomeController@index')->name('home');
+
+
 	Route::group(['middleware' => ['role:Ventas']], function () {
 		/* Clientes*/
 		Route::get('/clientes/all', 'ClienteController@getAllClientes');
@@ -42,11 +44,20 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/pago_clientes', 'PagoClienteController');
 	});
 
+
 	Route::middleware(['role:Administrador'])->group(function () {
 		/* Trabajadores*/
 		Route::resource('/trabajadores', 'TrabajadorController');
 		Route::resource('/users', 'UserController');
+	
+		/* EMPRESA */
+		Route::resource('/empresa','EmpresaController');
+		Route::resource('/bancos','BancoController');
+		Route::resource('/cuentas','CuentaController');
+		Route::resource('/stock','StockController');
+
 	});
+
 
 	Route::middleware(['role:Grifos'])->group(function(){
 		/* Grifo */
@@ -74,17 +85,25 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/reporte_clientes_grifos_mensual/{fecha?}','TrasladoGalonesController@reporteGrifosClientesMensualData');
 
 		Route::resource('/traslado_galones','TrasladoGalonesController');
-
-
 		Route::get('/grifos_all','GrifoController@getAllGrifos');
-		Route::get('/clientes_all','ClienteController@getAllClientesSelect');
-		
-		/* Ingresos */
+
+/**/	Route::get('/clientes_all','ClienteController@getAllClientesSelect');
+			
+				/* EGRESOSS -  GASTOS (GRIFOS)*/
+		Route::resource('/categoria_gastos', 'CategoriaGastoController');
+		Route::resource('/sub_categoria_gastos', 'SubCategoriaGastoController');
+		Route::resource('/concepto_gastos', 'ConceptoGastoController');
+		Route::resource('/egresos', 'EgresoController');
+		Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
+		Route::get('/conceptos','ConceptoGastoController@getConceptos');
+		Route::resource('gastos','GastosController');
+		Route::get('egresos_listado','EgresoController@listado')->name('egresos.listado');
+
+		/* Ingresos Grifos */
 		Route::get('/ingreso_grifos/grifo/{id}', 'IngresoGrifoController@getLastIngreso')->name('pago_clientes.lastIngreso');
 		Route::resource('/ingreso_grifos', 'IngresoGrifoController');
 		Route::resource('/ingresos_otros', 'IngresoController');
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
-		//Route::get('/ingresos_otros_dt/{date?}','IngresoController@ingresosDT');
 		Route::get('ingresos_fecha_data/{date?}','IngresoController@getIngresoByDay');
 
 		/* Venta Facturada*/
@@ -97,13 +116,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/movimiento_grifos','MovimientoGrifoController');
 		Route::get('/movimientos_grifos_data_between/{fechaInicio?}/{fechaFin?}', 'MovimientoGrifoController@movimientosDataBetween');
 		Route::get('/movimiento_grifos_verificar', 'MovimientoGrifoController@verificarSinRegistrar')->name('movimiento_grifos.verificar');
-	});
 
-	/* EMPRESA */
-	Route::resource('/empresa','EmpresaController');
-	Route::resource('/bancos','BancoController');
-	Route::resource('/cuentas','CuentaController');
-	Route::resource('/stock','StockController');
+
+	});
 
 	/** DEPOSITOS-.... */
 	Route::resource('/depositos','DepositoController');
@@ -117,21 +132,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('/categoria_egresos', 'CategoriaEgresoController');
 	//Route::get('/egresos_dt/{date?}','SalidaController@egresosDT');
 	Route::get('salidas_fecha_data/{date?}','SalidaController@getSalidasByDay');
-
-
-	/*   COMPROBACIONES  */
-	Route::resource('/comprobaciones','ComprobacionController');
-	Route::get('/comprobaciones_dt/{date?}','ComprobacionController@comprobacionesDT');
-
-	/* EGRESOSS -  GASTOS (GRIFOS)*/
-	Route::resource('/categoria_gastos', 'CategoriaGastoController');
-	Route::resource('/sub_categoria_gastos', 'SubCategoriaGastoController');
-	Route::resource('/concepto_gastos', 'ConceptoGastoController');
-	Route::resource('/egresos', 'EgresoController');
-	Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
-	Route::get('/conceptos','ConceptoGastoController@getConceptos');
-	Route::resource('gastos','GastosController');
-	Route::get('egresos_listado','EgresoController@listado')->name('egresos.listado');
 
 
 	/* INGRESOS NETOS  (GRIFOS)*/	
@@ -190,7 +190,17 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/reporte_mensual_unidades',
 		'TransporteController@reporteMensual')->name('transporte.reporteMensual');
 
+	// REPORTE PROGRAMACION
+	Route::get('/pedidos_programacion', 'PedidoController@programacion')->name('pedidos.programacion');
 
+	/** * TRANSPORTISTASSS */
+		/* Transportista & vehiculo */
+		Route::resource('transportista', 'TransportistaController');
+		Route::resource('vehiculo', 'VehiculoController');
+		Route::resource('flete','FleteController');
+		Route::delete('/flete_grifo/{id}/{id_grifo}','FaltanteController@destroyGrifoFaltante')->name('flete.destroyGrifoFaltante');		
+		Route::resource('faltante','FaltanteController');
+		Route::resource('pago_transportistas','PagoTransportistaController');
 
 
 	Route::group(['middleware' => ['role:Proveedores']], function () {
@@ -199,19 +209,10 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/proveedores_reporte','ProveedorController@reporte')->name('proveedores.reporte');
 		Route::resource('/planta', 'PlantaController');
 	
-		/* Transportista & vehiculo */
-		Route::resource('transportista', 'TransportistaController');
-		Route::resource('vehiculo', 'VehiculoController');
-		Route::resource('flete','FleteController');
-		Route::delete('/flete_grifo/{id}/{id_grifo}','FaltanteController@destroyGrifoFaltante')->name('flete.destroyGrifoFaltante');		
-		Route::resource('faltante','FaltanteController');
-		Route::resource('pago_transportistas','PagoTransportistaController');
-	
 		/* Pedido Proveedor  */					
 		Route::resource('/pedidos', 'PedidoController');
 		Route::resource('factura_proveedor', 'FacturaProveedorController');
 		Route::get('/procesar/{id}', 'PedidoController@confirmarPedido')->name('pedidos.confirmarPedido');
-		Route::get('/pedidos_programacion', 'PedidoController@programacion')->name('pedidos.programacion');
 	
 		/* Pago Proveedor  */	
 		Route::resource('/pago_proveedors', 'PagoProveedorController');
