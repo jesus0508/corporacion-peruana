@@ -3,6 +3,7 @@
 @section('title','Transportistas')
 
 @section('styles')
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
 @include('reporte_excel.excel_select2_css')
 @endsection
 
@@ -141,7 +142,7 @@ $(document).ready(function() {
       "buttons": [
         {
           extend: 'excelHtml5',
-          title: 'Programación Flete Transportistas',
+          title: 'Flete Transportistas',
           attr:  {
                 title: 'Excel',
                 id: 'excelButton'
@@ -156,13 +157,13 @@ $(document).ready(function() {
          }],
       "columnDefs": [
         { "visible": false, "targets": 8 },
-        {"className": "dt-center", "targets":  [4]  }
-        ] ,
-      "order": [[4, 'desc']],
-     // "ordering": false,
-       'rowsGroup':[4], 
-       // "rowGroup": {  dataSrc: 4 } ,
-      "responsive": true,             
+        {"className": "dt-center", "targets":  [4,5,6,7]  }
+        ] ,   
+      "responsive": false,
+      "scrollX": true,
+      //"order": [[4, 'desc']],
+      //"ordering": false,
+       'rowsGroup':[4,5,6,7],             
 
       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
         if ( aData[8] ){

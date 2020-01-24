@@ -305,16 +305,18 @@ class FaltanteController extends Controller
     }
 
     /**
-     * ELIMINA fALTANTE DE Flete a Grifo.
+     * ELIMINA fALTANTE DE Flete a CLiente.
      *
      * @param  \CorporacionPeru\Faltante  $faltante
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+
         $pedido_proveedor_cliente = PedidoProveedorCliente::findOrFail($id);
-        return 
+     //   return 
         $pedido_proveedor_cliente->faltante = null;
+        $pedido_proveedor_cliente->timestamps = false; 
         $pedido_proveedor_cliente->save();
          return back()->with('alert-type', 'success')->with('status', 'Faltante eliminado con éxito');
     }

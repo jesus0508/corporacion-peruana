@@ -13,4 +13,13 @@ class PagoTransportista extends Model
     						'observacion','fecha_pago'];
     
 
+    public function setFechaPagoAttribute($value){ 
+        $this->attributes['fecha_pago'] = Carbon::createFromFormat('d/m/Y',$value);
+    }
+
+    public function getFechaPagoAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    }
+
 }

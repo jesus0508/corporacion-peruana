@@ -30,8 +30,8 @@ class PagoTransportistaController extends Controller
             ->whereNotNull('pedidos.vehiculo_id')
             ->select('pago_transportistas.*','transportistas.nombre_transportista')
             ->groupBy('pago_transportistas.id')
-            ->orderBy('created_at','DESC')
-            ->get();
+            ->orderBy('created_at','DESC');
+            //->get();
 
         $pagos2=PagoTransportista::join('pedido_grifos','pago_transportistas.id','=',
             'pedido_grifos.pago_transportista_id')
@@ -42,12 +42,10 @@ class PagoTransportistaController extends Controller
             ->select('pago_transportistas.*','transportistas.nombre_transportista')
             ->groupBy('pago_transportistas.id')
             ->orderBy('created_at','DESC')
+            ->union($pagos1)
             ->get();
-
-        $collection = collect([$pagos2, $pagos1]);
-        $collapsed = $collection->collapse();
-        $pagos =$collapsed->all(); 
-       //return $pagos;
+        $pagos = $pagos2;//pagos2 es la union
+        //return $pagos2;
         return view('pago_transportistas.pagos_lista.index',compact('pagos','transportistas'));
 
     }
@@ -70,15 +68,13 @@ class PagoTransportistaController extends Controller
      */
     public function store(StorePagoTransportistaRequest $request)
     {  
-        //return $request->fecha_pago;
-        $fecha_pago = Carbon::createFromFormat('d/m/Y',$request->fecha_pago )->format('Y-m-d'); 
+        //Transaction
         $array_selected = $request->array_selected;
         $pago = PagoTransportista::create( $request->validated() ); 
-        $pago->fecha_pago =  $fecha_pago;
-        $pago->save();
-
         $id = $request->transportista_id;
         $transportista = Transportista::findOrFail($id);
+        //modificar aquí si descuento pendiente anterior no se cancela completamente
+        $transportista->descuento_pendiente = 0;
         $transportista->descuento_pendiente += $request->pendiente_dejado;
         $transportista->save();
         //1ero PAGO A SUS PEDIDOS CLIENTE

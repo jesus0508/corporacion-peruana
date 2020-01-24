@@ -35,5 +35,14 @@ $(document).ready(function() {
         "scrollX": true,          
     });
 });
+
+  function confirmar()
+{
+  if(confirm('¿Estás seguro de eliminar el registro ?'))
+    return true;
+  else
+    return false;
+}
+
 </script>
 @endsection

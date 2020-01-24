@@ -50,14 +50,17 @@
             @endforeach
           </tbody>
           <tfoot>
-            <tr>    
-         
+            <tr>   
                 <th colspan="7">TOTAL FALTANTES</th>
                 <th>S/. &nbsp; {{$desc}}</th>
             </tr>
-             <tr>    
+            <tr>
+              <th colspan="7"><center>PENDIENTE POR DESCONTAR ANTERIOR</center></th>
+              <th> <center> S/. &nbsp;{{$transportista->descuento_pendiente}}</center></th>
+            </tr>
+            <tr>    
                 <th colspan="3"></th> 
-                <th colspan="1"><p class="pull-right">TOTAL A PAGAR </p></th>
+                <th colspan="1"><p class="pull-right">TOTAL (Subtotal fletes - faltantes - pendiente) </p></th>
                 <th colspan="3"></th>
                 <th align="center" style="color:red; font-weight: bold; font-size: 15px;"> &nbsp; 
                   S/. &nbsp; {{number_format((float)

@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title','Pagos')
 @section('styles')
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
   @include('reporte_excel.excel_select2_css')
 @endsection
 
@@ -20,12 +21,14 @@
 
 @section('scripts')
 @include('reporte_excel.excel_select2_js')
+<script src="{{ asset('dist/js/datatables/dataTables.rowsGroup.js') }}"></script>
 <script>
 $(document).ready(function() {    
     $('#tabla-pagos_lista').DataTable({
-        "order": [[ 0, "desc" ]],       
+        "order": [[ 2, "desc" ]],       
         "responsive": true,
         "dom": 'Blfrtip',
+        //'rowsGroup': [ 0,1,2,3,4 ],
         "buttons": [
         {
           extend: 'excelHtml5',
@@ -38,24 +41,17 @@ $(document).ready(function() {
           className: 'btn btn-default',
           exportOptions:
             {
-              columns:[1,2,3,4]
+              columns:[0,1,2,3]
             }
 
          }
         ],
      columnDefs: [ 
-    { 
-      orderable: false, 
-      targets: [ -1 ] 
-    },
-    { 
-      searchable: false, 
-      targets: [-1] 
-    },
+      { orderable: false, targets: [ -1 ] },
+      {  searchable: false, targets: [-1] },
+      //{"className": "dt-center", "targets": [ 0,1,2,3 ,4] }
     ] 
-   
-    });
-   
+  });   
 });
 function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);

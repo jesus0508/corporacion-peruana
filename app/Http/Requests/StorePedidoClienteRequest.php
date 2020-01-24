@@ -28,7 +28,7 @@ class StorePedidoClienteRequest extends FormRequest
             'galones'=>'required|numeric|gt:0',
             'precio_galon'=>'required|numeric|gt:0',
             'saldo'=>'required|numeric|gt:0',
-            'fecha_descarga'=>'date_format:"d/m/Y"',
+            'fecha_descarga'=>'nullable|date_format:"d/m/Y"',
             'horario_descarga'=>'max: 255',
             'observacion'=>'max: 255'
         ];

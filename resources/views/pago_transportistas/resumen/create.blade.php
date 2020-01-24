@@ -118,7 +118,8 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <label for="galones"><b>TOTAL A PAGAR</b> </label>
+                <label for="galones"><b>TOTAL PAGADO
+                </b> </label>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">

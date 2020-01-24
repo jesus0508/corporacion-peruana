@@ -52,12 +52,17 @@ class PedidoCliente extends Model
 
     public function setFechaDescargaAttribute($value)
     {
-        $this->attributes['fecha_descarga'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        if (!is_null($value)) {
+            $this->attributes['fecha_descarga'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');    
+        }
     }
 
     public function getFechaDescargaAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+        if (is_null($value))
+            return null;
+        else
+            return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 
     public function isUnconfirmed()

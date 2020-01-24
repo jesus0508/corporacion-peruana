@@ -9,12 +9,12 @@
       </div><!-- /.box-header -->
 
       <div class="box-body">
-        <table id="tabla-flete-pedidos" class="table table-bordered  responsive" style="width:100%" cellspacing="0">
+        <table id="tabla-flete-pedidos" class="table table-bordered select table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>Fecha Descarga</th>
               <th>GRIFO</th>
-              <th>Gls</th>
+              <th>Galones</th>
               <th>Horario desc</th>
               <th>SCOP</th>
               <th>Transportista</th>

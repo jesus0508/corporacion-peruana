@@ -6,6 +6,7 @@ use CorporacionPeru\Transportista;
 use CorporacionPeru\Vehiculo;
 use Illuminate\Http\Request;
 use CorporacionPeru\Http\Requests\StoreTransportistaRequest;
+use DB;
 
 class TransportistaController extends Controller
 {
@@ -16,15 +17,15 @@ class TransportistaController extends Controller
      */
     public function index()
     {
-        $transportistas_tbl = Transportista::leftJoin('vehiculos','vehiculos.transportista_id'
-        ,'=','transportistas.id')
-        ->leftJoin('pedidos','pedidos.vehiculo_id','=','vehiculos.id')
-        ->whereNotNull('pedidos.vehiculo_id')
-        ->where('pedidos.estado_flete',1)
-        ->orWhere('pedidos.vehiculo_id',null)
-        ->groupBy('transportistas.id')//->get()
-        ->selectRaw('transportistas.*, sum(pedidos.costo_flete) as saldo')
-        ->get();
+        
+        $transportistas_tbl = DB::select('select t.*, ifnull(pv.total,0) as saldo from
+    (select transportistas.*  from transportistas) as t 
+    left join 
+    (select  v.transportista_id, sum(p.costo_flete) as total from pedidos p 
+        join vehiculos v ON v.id = p.vehiculo_id where p.estado_flete = 1
+    ) 
+        as pv ON  pv.transportista_id =t.id');
+
 
         return view('transportistas.index',compact('transportistas_tbl'));
     }

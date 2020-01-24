@@ -60,7 +60,8 @@ $(document).ready(function(){
       "paging": false,
       "info": false,
       'searching': false,    
-      "responsive": true,
+      "responsive": false,
+      "scrollX": true,
       'rowsGroup': [ 3,4,5,7]        
     });
        // Handle click on "Select all" control
@@ -73,7 +74,9 @@ $(document).ready(function(){
       "paging":   false,
       "info": false,
       'searching': false,    
-      "responsive": true   
+      "responsive": false,
+      "scrollX": true,  
+
             
     });
 }); 

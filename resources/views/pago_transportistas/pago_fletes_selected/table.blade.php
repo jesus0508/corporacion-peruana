@@ -29,7 +29,7 @@
                   <tr>
                     <td>{{$pedido->id}}-{{$pedido->costo_flete}}</td>
                     <td>{{$pedido->nombre_transportista}}</td>
-                    <td>{{$pedido->created_at}}</td>
+                    <td>{{$pedido->fecha_pedido}}</td>
                     <td>              
                       <a href="{{route('pedidos.ver_distribucion', $pedido->id)}}"> {{$pedido->scop}}
                       </a>                   
