@@ -31,10 +31,7 @@
         </div>
         <div class="col-md-6 pull-right" >
 
-          <button id="clear-fecha" class="btn btn-danger">
-            <i class="fa fa-remove "></i>
-            Limpiar
-          </button>
+         <input type="text" id="datepicker" autocomplete="off" />
         </div>
       </div>
     </div>

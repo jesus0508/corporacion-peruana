@@ -24,7 +24,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-green.min.css') }}">
   {{--   jQuery UI - v1.12.1 --}}
   <link rel="stylesheet" href="{{ asset('dist/css/jquery/jquery-ui.css') }}">
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -283,10 +284,9 @@ desired effect
                       <li><a href="{{route('reporte_general.ingresos.mensual')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
                       </li>
-    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                        Reporte Gastos Anual</a>
-                      </li> -->
-
+                      <li><a href="{{route('reporte_general.ingresos.anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Anual</a>
+                      </li>
                     </ul>
                 </li>  
                 <li id="treeview-reporte-general-egresos" class="treeview">
@@ -310,7 +310,7 @@ desired effect
 
                     </ul>
                 </li>
-                <li id="treeview-reporte-general-ingresos" class="treeview">
+                <li id="treeview-reporte-general-depositos" class="treeview">
                   <a href="#">
                     <i class="glyphicon glyphicon-list-alt"></i>
                       <span>Depósitos </span>
@@ -380,16 +380,15 @@ desired effect
                       <li><a href="{{route('ingreso_grifo_neto.index')}}"><i class="fa fa-listS-alt">D</i> 
                         Diario</a>
                       </li>
-{{--                       <li><a href="{{route('ingreso_grifo_neto.create')}}"><i class="fa fa-taSble">M</i> 
+                      <li><a href="{{route('ingreso_grifo_neto.create')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
-                      </li> --}}
-    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                      </li>
+{{--                       <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
                         Reporte Gastos Anual</a>
-                      </li> -->
-
+                      </li> --}}
                     </ul>
                 </li> 
-{{--                 <li id="treeview-reporte-gastos-grifo" class="treeview">
+                <li id="treeview-reporte-gastos-grifo" class="treeview">
                   <a href="#">
                     <i class="glyphicon glyphicon-list-alt"></i>
                       <span>Gastos Grifos</span>
@@ -404,8 +403,11 @@ desired effect
                       <li><a href="{{route('egresos.create')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
                       </li>
+                      <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Reporte Gastos Anual</a>
+                      </li>
                     </ul>
-                </li>    --}}            
+                </li>               
               </ul>
             </li>
 
@@ -545,21 +547,6 @@ desired effect
                     Modificar </a></li>
                   </ul>
                 </li>
-                {{-- <li id="treeview-comprobacion" class="treeview">
-                  <a href="#">
-                    <i class="fa fa-check-square-o"></i> <span>Comprobación</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{ route('comprobaciones.create') }}"><i class="fa fa-pencil"></i> 
-                    Registro </a></li>
-                    <li><a href="{{ route('comprobaciones.index') }}"><i class="fa fa-th-list"></i> 
-                    Reporte Diario</a>
-                    </li>
-                  </ul>
-                </li> --}}
               </ul>
         </li>
 
@@ -666,6 +653,7 @@ desired effect
 <script src="{{ asset('dist/js/toastr.min.js') }}"></script>
 <!-- jqueri-ui 1.12.1 -->
 <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
@@ -686,7 +674,7 @@ desired effect
   })
   
  $.datepicker.regional['es'] = {
-  closeText: 'Cerrar',
+  closeText: 'Hecho',
   prevText: '< Ant',
   nextText: 'Sig >',
   currentText: 'Hoy',

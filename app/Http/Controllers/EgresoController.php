@@ -60,7 +60,7 @@ class EgresoController extends Controller
                 ->get();
         $this_year = strftime( '%Y',strtotime('now') );
         $semana       =  config('constants.semana_name');//constant            
-        $meses        = config('constants.meses_name');
+        $meses        =  config('constants.meses_name');
         $month_actual = $meses[strftime( '%m',strtotime('now') )-1];
         $month_actual_date = $month_actual.' '.$this_year;
         $last_month = $meses[strftime( '%m',strtotime('first day of -1 month') )-1];
@@ -87,14 +87,13 @@ class EgresoController extends Controller
         $p1 =   Egreso::select( 
                 DB::raw('sum(monto_egreso) as subtotal','MONTH(fecha_egreso) as mes'),DB::raw('MONTH(fecha_egreso) as mes'),'fecha_egreso'
                 )
-                ->whereYear('fecha_egreso','=','2019')
+                ->whereYear('fecha_egreso','=','2020')
                 ->groupBy('mes')
                 ->orderBy('mes')
                 ->get();
         $p=collect([]);
         foreach ($p1 as $ps) {
-           $p->push($ps->subtotal);       
-           
+           $p->push($ps->subtotal);            
         }
         $g = collect([]);
         foreach ($p1 as $gs) {

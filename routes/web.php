@@ -159,6 +159,12 @@ Route::middleware(['auth'])->group(function () {
 			->name('reporte_general.ingresos.mensual');
 	Route::get('reporte_general_ingresos_mensual_data/{date?}',
 		'ReporteGeneralIngresosController@reporteIngresosMensualData');
+	Route::get('reporte_general_ingresos_anual'
+		,'ReporteGeneralIngresosController@reporteIngresosAnual')
+			->name('reporte_general.ingresos.anual');
+	Route::get('reporte_general_ingresos_anual_data/{date?}',
+		'ReporteGeneralIngresosController@reporteIngresosAnualData');
+	Route::get('chart-ingreso-anual-ajax', 'ReporteGeneralIngresosController@reporteIngresosAnualAjax');
 	//EGRESOS
 	Route::get('reporte_general_egresos_diario'
 		,'ReporteGeneralEgresosController@reporteEgresosDiario')

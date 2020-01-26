@@ -4,12 +4,12 @@
       <div class="box-header with-border">
         <div class="row">
           <div class="col-md-6">
-            <h2 class="box-title">Reporte Ingresos Diario</h2>
+            <h2 class="box-title">Reporte Ingresos Mensual</h2>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label for="">Fecha a filtrar </label>
-              <input autocomplete="off" id="fecha_reporte2" type="text" class="tuiker form-control" name="fecha_reporte" placeholder="Fecha ingreso" value="{{$today_date}}" required="">
+              <input autocomplete="off" id="fecha_reporte2" type="text" class="tuiker form-control" name="fecha_reporte" placeholder="Fecha reporte" value="" required="">
             </div>  
           </div>
           <div class="col-md-3">
@@ -18,15 +18,13 @@
         </div>          
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-ingresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-egresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>FECHA REPORTE</th>
+              <th>Fecha Reporte</th>                
               <th>CATEGORIA</th>              
-              <th>Detalles</th>
-              <th>FECHA Ingreso</th>
-              <th>Extra Info</th>
-              <th>Banco</th>
+              <th>Fecha Ingreso</th>    
+              <th>Zona</th>
               <th>Monto</th>
             </tr>
           </thead>

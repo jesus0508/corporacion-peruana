@@ -72,8 +72,10 @@ class ReporteGeneralEgresosController extends Controller
     public function reporteEgresosMensual()    
     {      
        
-        $today_date = strftime( '%d/%m/%Y',strtotime('now') );
-        return view('reporte_general.egresos.diario.index',compact('today_date'));
+        //$today_date = strftime( '%d/%m/%Y',strtotime('now') );
+        return view('reporte_general.egresos.mensual.index',
+          //  compact('today_date')
+        );
     }
 
     /**
@@ -81,7 +83,18 @@ class ReporteGeneralEgresosController extends Controller
      * @param  [date] $date [fecha de reporte]
      * @return [json]       [formato para datatables]
      */
-    public function reporteEgresosMensualData($date = null){
-
+    public function reporteEgresosMensualData($date=null)    
+    {      
+       
+        if ( $date == null ) {
+            $date = Carbon::now()->format('m-Y');
+            }    
+        list($numero_mes, $year) = explode("-", $date);
+        //return $numero_mes;
+         //Ingresos registrados manualmente
+         //
+         //
+        return response()->json(['data' => $egresos]);
     }
+
 }

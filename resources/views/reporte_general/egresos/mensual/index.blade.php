@@ -1,14 +1,22 @@
 @extends('layouts.main')
 @section('title','Reporte General')
 @section('styles')
-@include('reporte_excel.excel_select2_css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Ingresos</a></li>
-  <li><a href="#">Diario</a></li>
+  <li><a href="#">Egresos</a></li>
+  <li><a href="#">Mensual</a></li>
 
 </ol>
 @endsection
@@ -16,22 +24,23 @@
 @section('content')
 <section class="content">
   
-{{--   <form action="">
-    @include('ingresos_otros.header')
-    @include('ingresos_otros.create')
-  </form> --}}
-  	
-  	@include('reporte_general.ingresos.diario.table')
+  	@include('reporte_general.egresos.mensual.table')
 
 </section>
 @endsection
 
 @section('scripts')
-@include('reporte_excel.excel_select2_js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+
 <script>
 $(document).ready(function() {
+  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   var groupColumn = 1;
-  $('#tabla-ingresos').DataTable({
+  $('#tabla-egresos').DataTable({
     'language': {
                'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
           },
@@ -40,12 +49,12 @@ $(document).ready(function() {
       "columnDefs": [
             { "visible": false, "targets": groupColumn }
       ],
-         "order": [[ groupColumn, 'desc' ]],
+         "order": [[ groupColumn, 'asc' ]],
         "scrollX": true,
           "buttons": [
           {
             'extend': 'excelHtml5',
-            'title': 'Lista Ingresos Diario',
+            'title': 'Lista Ingresos Mensual',
             'attr':  {
               title: 'Excel',
               id: 'excelButton'
@@ -54,18 +63,34 @@ $(document).ready(function() {
             'className': 'btn btn-default',
             'exportOptions':
             {
-              columns:[0,1,2,3,4,5,6]
+              columns:[0,1,2,3,4]
             }
           }],
-		'ajax': `./reporte_general_ingresos_diario_data`,
+		'ajax': `./reporte_general_ingresos_mensual_data`,
 		'columns': [
-		  {data: 'fecha_reporte'},
-		  {data: 'categoria'},
-			{data: 'detalle'},
-			{data: 'fecha_ingreso'},
-			{data: 'codigo_operacion'},
-      {data: 'banco'},
-			{data: 'monto_ingreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
+      {data: 'fecha_reporte' ,
+        render: function (data, type, row) {
+          let porciones = data;
+          porciones = porciones.split('-');
+          let mes = porciones[0];
+          let year = porciones[1];
+          mes = meses[Number(mes)-1];    
+          return mes + ' ' + year;
+        }          
+      },    
+      {data: 'categoria'},
+      {data: 'fecha_ingreso' ,
+        render: function (data, type, row) {
+          let porciones = data;
+          porciones = porciones.split('-');
+          let mes = porciones[0];
+          let year = porciones[1];
+          mes = meses[Number(mes)-1];    
+          return mes + ' ' + year;
+        } 
+      },
+      {data: 'zona'},      
+			{data: 'monto'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
     }
 		],
     "drawCallback": function ( settings ) {
@@ -75,12 +100,13 @@ $(document).ready(function() {
  
             api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
               if( i == 0 ) {
+
                 $(rows).eq( i ).before(
                       $("<tr style='background-color: #5F9EA0 !important;'></tr>", { 
 
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 3, 
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
@@ -98,7 +124,7 @@ $(document).ready(function() {
                     "class": "group",
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 3, 
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {
@@ -117,26 +143,30 @@ $(document).ready(function() {
                 let elemento            = document.getElementById("e"+val['categoria']);
                 let elementoTOTAL       = document.getElementById("A");
                 var total               = parseFloat(elementoTOTAL.innerHTML) + 
-                                            parseFloat( val['monto_ingreso']);
+                                            parseFloat( val['monto']);
                 elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
                 let subtotal            = parseFloat(elemento.innerHTML) 
-                                            + parseFloat( val['monto_ingreso']);                  
+                                            + parseFloat( val['monto']);                  
                 elemento.innerHTML      = parseFloat(subtotal).toFixed(2);                       
         });   
     }      
   });  
-  $('#fecha_reporte2').datepicker(); 
+  $('#fecha_reporte2').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'mm-yy',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
+  });
   $('#btn_filter2').click(function() {
     let fecha_reporte =$('#fecha_reporte2').val();
-    fecha_reporte = convertDateFormat(fecha_reporte);
-    RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_diario_data/${fecha_reporte}`);
+    RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_mensual_data/${fecha_reporte}`);
 
   });
 });
-  function convertDateFormat(string) {
-        var info = string.split('/').reverse().join('-');
-        return info;
-  }
+
 
 	function RefreshTable(tableId, urlData){
   	$.getJSON(urlData, null, function( json ){
