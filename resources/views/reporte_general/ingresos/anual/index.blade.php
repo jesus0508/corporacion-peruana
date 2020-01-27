@@ -1,3 +1,4 @@
+
 @extends('layouts.main')
 @section('title','Reporte General')
 @section('styles')
@@ -67,6 +68,7 @@ $(document).ready(function() {
 
   $('#tabla-ingresos').DataTable({
       "pageLength": 12,
+      
       "searching": false,
       "ordering": false,
       "dom": 'Blfrtip',

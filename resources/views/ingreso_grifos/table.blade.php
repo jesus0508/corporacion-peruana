@@ -23,7 +23,8 @@
               <th>Lectura Final</th> 
               <th>Total Galones</th>
               <th>Precio x Galon</th>
-              <th>Monto</th>              
+              <th>Monto</th> 
+              <th>Acciones</th>             
             </tr>
           </thead>
           <tbody>
@@ -37,14 +38,36 @@
                 <td>{{$ingresoGrifo->lectura_final}}</td>
                 <td>{{$ingresoGrifo->lectura_final-$ingresoGrifo->lectura_inicial}}</td>  
                 <td>{{$ingresoGrifo->precio_galon}}</td>            
-                <td>{{$ingresoGrifo->monto_ingreso}}</td>                
-                
+                <td>{{$ingresoGrifo->monto_ingreso}}</td>  
+                <td> 
+                 <!-- Editar -->
+                  <ul class="list-inline">
+                    <li>
+                      <btn class="btn btn-xs btn-warning btn-block" 
+                      href="#modal-edit-ingreso-grifo"  
+                      data-toggle="modal" data-target=" #modal-edit-ingreso-grifo"
+                      data-id="{{$ingresoGrifo->id}}">
+                        <span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Editar                          
+                      </btn> 
+                    </li>
+                    <li>
+                    <!-- Eliminar -->  
+                      <form style="display:inline" method="POST" onsubmit="return confirmarDelete()" action="{{ route('ingreso_grifos.destroy', $ingresoGrifo) }}">
+                      @csrf
+                      @method('DELETE')
+                        <button class="btn btn-xs btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span>                         
+                        </button>
+                      </form> 
+                    </li>
+                  </ul>                            
+                </td>            
               </tr>
             @endforeach
           </tbody>
           <tfoot>
             <tr>
               <th colspan="8" style="text-align:right">TOTAL:</th>
+              <th></th>
               <th></th>
             </tr>
           </tfoot>

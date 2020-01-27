@@ -15,6 +15,7 @@
 <section class="content">
   @include('ingreso_grifos.table')
   @include('ingreso_grifos.create')
+  @include('ingreso_grifos.edit')
 </section>
 @endsection
 
@@ -22,6 +23,45 @@
 @include('reporte_excel.excel_select2_js')
 <script>
 	$(document).ready(function () {
+
+// Edit
+  let $fecha_ingreso_edit = $('#fecha_ingreso-edit');   
+  let $lecturas_edit = $('#lecturas-edit');
+  let $lectura_inicial_edit = $('#lectura_inicial-edit');
+  let $lectura_final_edit = $('#lectura_final-edit');
+  let $total_galones_edit = $('#total-galones-edit');
+  let $venta_edit = $('#galones-edit');
+  let $precio_galon_edit = $('#precio_galon-edit');
+  let $monto_ingreso_edit = $('#monto_ingreso-edit');
+  changeValuesIngreso($lecturas_edit, $total_galones_edit, $venta_edit, $precio_galon_edit, $monto_ingreso_edit,$lectura_inicial_edit, $lectura_final_edit);
+  $fecha_ingreso_edit.datepicker();
+  $('#modal-edit-ingreso-grifo').on('show.bs.modal',function(event){
+    var id= $(event.relatedTarget).data('id');
+    $.ajax({
+      type: 'GET',
+      url:`./ingreso_grifos/${id}/edit`,
+      dataType : 'json',
+      success: (data)=>{    
+      console.log(data);    
+        $(event.currentTarget).find('#fecha_ingreso-edit').val(data.ingresoGrifo.fecha_ingreso);
+        $(event.currentTarget).find('#fecha_reporte-edit').val(data.ingresoGrifo.fecha_reporte);
+        $(event.currentTarget).find('#seletc-grifos-edit').val(data.ingresoGrifo.grifo_id);
+        $(event.currentTarget).find('#lectura_inicial-edit').val(data.ingresoGrifo.lectura_inicial);
+        $(event.currentTarget).find('#lectura_final-edit').val(data.ingresoGrifo.lectura_final);
+        $(event.currentTarget).find('#galones-edit').val(data.ingresoGrifo.galones);
+        $(event.currentTarget).find('#calibracion-edit').val(data.ingresoGrifo.calibracion);
+        $(event.currentTarget).find('#precio_galon-edit').val(data.ingresoGrifo.precio_galon);
+        $(event.currentTarget).find('#monto_ingreso-edit').val(data.ingresoGrifo.monto_ingreso);
+        $(event.currentTarget).find('#id-edit').val(data.ingresoGrifo.id);
+        $venta_edit.val((data.ingresoGrifo.galones*data.ingresoGrifo.precio_galon).toFixed(2));
+      },
+      error: (error)=>{
+        toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+      }
+    });
+  });
+
+
   let $select_grifo = $('#seletc-grifos');
   let $tabla_ingreso_grifos = $('#tabla-ingreso_grifos');
   let $modal_create_ingreso = $('#modal-create-ingreso');
@@ -36,6 +76,7 @@
   let $precio_galon = $('#precio_galon');
   let $fecha_inicio = $('#fecha_inicio');
   let $fecha_fin = $('#fecha_fin');
+  let $monto_ingreso = $('#monto_ingreso');
 
   inicializarDataTable($tabla_ingreso_grifos);
 
@@ -78,27 +119,34 @@
 
   });
 
-  $lecturas.on('keyup', function (event) {
-    let lectura_inicial = $lectura_inicial.val();
-    let lectura_final = $lectura_final.val();
-    let total = parseFloat(lectura_final - lectura_inicial).toFixed(2);
-    $venta.val(total);
-    $total_galones.trigger('keyup');
-  });
+  changeValuesIngreso($lecturas, $total_galones, $venta, $precio_galon, $monto_ingreso);
 
-  $total_galones.on('keyup', function (event) {
-    $precio_galon.trigger('keyup');
-  });
+  function changeValuesIngreso(
+   $lecturas, $total_galones, $venta, $precio_galon, 
+   $monto_ingreso, $lectura_inicial, $lectura_final){
 
-  $precio_galon.on('keyup', function (event) {
-    let venta = parseFloat($venta.val());
-    //let calibracion = parseFloat($calibracion.val());
-    let precio_galon = $precio_galon.val();
-    precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
-		//let totalGalones = venta;
-   	let precioTotal = (venta * precio_galon).toFixed(2);
-    $('#monto_ingreso').val(precioTotal);
-  })
+    $lecturas.on('keyup', function (event) {
+      let lectura_inicial = $lectura_inicial.val();
+      let lectura_final = $lectura_final.val();
+      let total = parseFloat(lectura_final - lectura_inicial).toFixed(2);
+      $venta.val(total);
+      $total_galones.trigger('keyup');
+    });
+
+    $total_galones.on('keyup', function (event) {
+      $precio_galon.trigger('keyup');
+    });
+
+    $precio_galon.on('keyup', function (event) {
+      let venta = parseFloat($venta.val());
+      //let calibracion = parseFloat($calibracion.val());
+      let precio_galon = $precio_galon.val();
+      precio_galon = (precio_galon)?parseFloat(precio_galon):0.00;
+      //let totalGalones = venta;
+      let precioTotal = (venta * precio_galon).toFixed(2);
+      $monto_ingreso.val(precioTotal);
+    });
+  }
 
   function fillSelectGrifos(fecha = '') {
     getAllGrifos(fecha)
@@ -171,6 +219,8 @@ function inicializarSelect2($select, text, data) {
 
 function inicializarDataTable($table) {
   $table.DataTable({
+    'responsive': false,
+    'scrollX': true,
     "dom": 'Blfrtip',
       "buttons": [
       {
@@ -235,6 +285,14 @@ function getIngresoByGrifo(idGrifo = '') {
     url: `./ingreso_grifos/grifo/${idGrifo}`,
     dataType: 'json',
   });
+}
+
+  function confirmarDelete()
+{
+  if(confirm('¿Estás seguro de eliminar el Ingreso Grifo?'))
+    return true;
+  else
+    return false;
 }
 </script>
 @endsection

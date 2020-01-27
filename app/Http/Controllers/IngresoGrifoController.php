@@ -19,7 +19,8 @@ class IngresoGrifoController extends Controller
     {
         //
         $ingresoGrifos = IngresoGrifo::all();
-        return view('ingreso_grifos.index', compact('ingresoGrifos'));
+        $grifos = Grifo::all();
+        return view('ingreso_grifos.index', compact('ingresoGrifos','grifos'));
     }
 
     /**
@@ -80,9 +81,14 @@ class IngresoGrifoController extends Controller
      * @param  \CorporacionPeru\IngresoGrifo  $ingresoGrifo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IngresoGrifo $ingresoGrifo)
+    public function update(StoreIngresoGrifoRequest $request)
     {
-        //
+        //return $request;
+        $ingreso = IngresoGrifo::create($request->validated());
+        //$grifo = $ingreso->grifo;
+        //$grifo->stock += $ingreso->calibracion;
+       // $grifo->save();
+        return back()->with(['alert-type' => 'success', 'status' => 'Ingreso actualizado con exito']);
     }
 
     /**
@@ -93,7 +99,9 @@ class IngresoGrifoController extends Controller
      */
     public function destroy(IngresoGrifo $ingresoGrifo)
     {
-        //
+
+        $ingresoGrifo->delete();
+        return back()->with(['alert-type' => 'success', 'status' => 'Ingreso Grifo eliminado con exito']);
     }
     /**
      * Ultimo ingreso grifo, lectura inicial
