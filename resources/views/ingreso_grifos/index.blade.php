@@ -42,7 +42,7 @@
       url:`./ingreso_grifos/${id}/edit`,
       dataType : 'json',
       success: (data)=>{    
-      console.log(data);    
+      //console.log(data);    
         $(event.currentTarget).find('#fecha_ingreso-edit').val(data.ingresoGrifo.fecha_ingreso);
         $(event.currentTarget).find('#fecha_reporte-edit').val(data.ingresoGrifo.fecha_reporte);
         $(event.currentTarget).find('#seletc-grifos-edit').val(data.ingresoGrifo.grifo_id);
@@ -53,7 +53,7 @@
         $(event.currentTarget).find('#precio_galon-edit').val(data.ingresoGrifo.precio_galon);
         $(event.currentTarget).find('#monto_ingreso-edit').val(data.ingresoGrifo.monto_ingreso);
         $(event.currentTarget).find('#id-edit').val(data.ingresoGrifo.id);
-        $venta_edit.val((data.ingresoGrifo.galones*data.ingresoGrifo.precio_galon).toFixed(2));
+        $(event.currentTarget).find('#galones-edit').val( data.ingresoGrifo.lectura_final -data.ingresoGrifo.lectura_inicial );
       },
       error: (error)=>{
         toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
@@ -119,7 +119,8 @@
 
   });
 
-  changeValuesIngreso($lecturas, $total_galones, $venta, $precio_galon, $monto_ingreso);
+  changeValuesIngreso($lecturas, $total_galones, $venta, $precio_galon, $monto_ingreso,
+    $lectura_inicial, $lectura_final);
 
   function changeValuesIngreso(
    $lecturas, $total_galones, $venta, $precio_galon, 
@@ -203,7 +204,7 @@
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
     $('#fecha_fin').val("");
-    $tabla_pagos_lista.DataTable().draw();    
+    $tabla_ingreso_grifos.DataTable().draw();    
   });
 
 });

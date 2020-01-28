@@ -5,7 +5,7 @@
         <h3 class="box-title">Lista de clientes</h3>
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-clientes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-clientes" class="table table-bordered table-striped responsive display" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>RUC</th>
@@ -25,11 +25,11 @@
                 <td>{{$cliente->direccion}}</td>
                 <th>{{$cliente->correo_cliente}}</th>
                 <td>
-                  <button class="btn btn-info" data-toggle="modal" data-target="#modal-show-cliente"
+                  <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-show-cliente"
                             data-id="{{$cliente->id}}">
                     <span class="glyphicon glyphicon-eye-open"></span>
                   </button>
-                  <button class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-cliente"
+                  <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-edit-cliente"
                             data-id="{{$cliente->id}}">
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>

@@ -1,4 +1,4 @@
-a<div class="modal fade" id="modal-edit-concepto" style="display: none;">
+<div class="modal fade" id="modal-edit-concepto" style="display: none;">
   <div class="modal-dialog">
     <form class="modal-content" action="{{route('concepto_gastos.update',0)}}" method="post">
       @csrf
@@ -17,6 +17,26 @@ a<div class="modal fade" id="modal-edit-concepto" style="display: none;">
             <div class="box box-success">
               <div class="box-body">
                 <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="concepto-edit">CATEGORIA</label>
+                      <input  type="text" class="form-control"
+                           id="categoria-edit-concepto"  readonly="">
+                    </div>  
+                  </div>
+                </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="concepto-edit">SUB-CATEGORIA</label>
+                    <input  type="text" class="form-control"
+                           id="subcategoria-edit-concepto"  readonly="">
+                  </div>  
+                </div>
+              </div>
+
+                </div>
+                <div class="row">
                   <div class="col-md-8">
                     <div class="form-group @error('concepto') has-error @enderror">
                       <label for="concepto-edit">GASTO</label>
@@ -31,8 +51,8 @@ a<div class="modal fade" id="modal-edit-concepto" style="display: none;">
                   </div>   
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="codigo-edit">Código</label>
-                      <input id="codigo-edit" type="text" class="form-control"
+                      <label for="codigo-concepto-edit">Código</label>
+                      <input id="codigo-concepto-edit" type="text" class="form-control"
                           name="codigo"  readonly="">
                     </div>
                   </div>               

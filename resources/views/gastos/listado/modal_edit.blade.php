@@ -43,7 +43,7 @@
                 </div>        
               </div> <!-- end- row-->
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group @error('monto_egreso') has-error @enderror">
                     <label for="monto_egreso">Monto gasto*</label>
                     <input id="monto_egreso-edit" type="text" class="form-control" name="monto_egreso" placeholder=" Ingrese el monto" required>
@@ -54,7 +54,7 @@
                     @enderror
                   </div>
                  </div>
-                 <div class="col-md-4">
+                 <div class="col-md-6">
                   <div class="form-group @error('fecha_egreso') has-error @enderror">
                     <label for="fecha_egreso">Fecha egreso</label>
                     <input autocomplete="off" id="fecha_egreso-edit" type="text" class="tuiker 
@@ -66,13 +66,15 @@
                     @enderror
                   </div>
                 </div> 
-                 <div class="col-md-4">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
                   <div class="form-group @error('grifo_id') has-error @enderror">
                     <label for="grifo_id">Grifo</label>
                     <select name="grifo_id" id="grifo_id" class="form-control">                      
                     </select>
                   </div>
-                </div>        
+                </div>    
               </div> <!-- end-row -->
             </div> 
           </div>

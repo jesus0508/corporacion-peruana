@@ -30,7 +30,7 @@
 <script>
 $(document).ready(function() {
   $('#tabla-gastos-listado').DataTable({   
-      "responsive": true,
+      "responsive": false,
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
  

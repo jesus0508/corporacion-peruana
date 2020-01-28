@@ -13,7 +13,7 @@ class ConceptoGasto extends Model
         return $this->belongsTo(SubCategoriaGasto::class);
     }
 
-    public function egreso(){
+    public function egresos(){
         return $this->hasMany(Egreso::class);
     }
 }

@@ -4,6 +4,8 @@ namespace CorporacionPeru\Http\Controllers;
 
 use Illuminate\Http\Request;
 use CorporacionPeru\CategoriaGasto;
+use CorporacionPeru\SubCategoriaGasto;
+use CorporacionPeru\ConceptoGasto;
 use DB;
 
 class CategoriaGastoController extends Controller
@@ -88,7 +90,9 @@ class CategoriaGastoController extends Controller
     public function destroy(Request $request)    
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        CategoriaGasto::truncate();     
+        CategoriaGasto::truncate();
+        SubCategoriaGasto::truncate();
+        ConceptoGasto::truncate();     
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
        return  back()->with('alert-type','warning')->with('status','Categoría borrada con exito');

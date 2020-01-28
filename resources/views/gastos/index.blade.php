@@ -3,9 +3,7 @@
 @section('title','Egresos Grifos')
 
 @section('styles')
-{{-- select2 4.0.8 --}}
-<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -15,20 +13,15 @@
 </ol>
 @endsection
 
+
 @section('content')
 
 <section class="content">
-	<div class="row">
-		<div class="col-md-12">
-
-		</div>
-		
-	</div>
-	<br>
+  @include('gastos.header')
   @include('gastos.create_categoria')  
   @include('gastos.create_subcategoria')
   @include('gastos.create_gasto')
-
+  @include('gastos.table')
 
 <!--  modales -->
   @include('gastos.modales.modal_add_categoria')
@@ -42,10 +35,46 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
+@include('reporte_excel.excel_select2_js')
 <script>
-  
+  function confirmar(cadena=null){
+    if(confirm('¿Estás seguro de eliminar '+cadena+'?'))
+      return true;
+    else
+      return false;
+  }
+  function enfocarBottom(){
+  var dest = $("#div-table").offset().top;
+  $("html, body").animate({scrollTop: dest},600);  
+}     
+
 $(document).ready(function() {
+
+  $('#tabla-lista-egresos-plantilla').DataTable({
+    'responsive': false,
+    'scrollX': true,
+    columnDefs: [
+          { orderable: false, targets: [-1]},
+          { searchable: false, targets: [-1]},
+      ],
+    "dom": 'Blfrtip',
+      "buttons": [
+      {
+        'extend': 'excelHtml5',
+        'title': 'Lista Gastos Descripción',
+        'attr':  {
+          title: 'Excel',
+          id: 'excelButton'
+        },
+        'text':     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+        'className': 'btn btn-default',
+        'exportOptions':
+        {
+          columns:[0,1,2,3,4]
+        }
+      }], 
+  });
+
         //btn_add_subcat
   $('#btn_add_subcat').on('click', function(e){//store subcat
     let categoria_gasto_id = $('#id_cat-add').val();
@@ -98,14 +127,55 @@ $(document).ready(function() {
        toastr.success(data.status, 'Gasto registrado con éxito', { timeOut: 2000 });
     });    
   });
+  // tabla gastos bottom
+    $("#filter-categoria").prop('selectedIndex', -1);
+    $("#filter-categoria").select2({
+     placeholder: "Elija una categoría",
+     allowClear:true
+    });
+    $("#filter-sub-categoria").prop('selectedIndex', -1);
+    $("#filter-sub-categoria").select2({
+      placeholder: "Elija un una subcateogria",
+      allowClear:true
+    });
+  
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      let categoria = $("#filter-categoria").find('option:selected').text();
+      let cell = data[1];
+      if (categoria) {
+        return categoria === cell;
+      }
+      return true;
+    }
+  );
 
+  $("#filter-categoria").on('change', function () {
+    $('#tabla-lista-egresos-plantilla').DataTable().draw();
+  });
+
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      let sub_categoria = $("#filter-sub-categoria").find('option:selected').text();
+      let cell = data[2];
+      if (sub_categoria) {
+        return sub_categoria === cell;
+      }
+      return true;
+    }
+  );
+
+  $("#filter-sub-categoria").on('change', function () {
+    $('#tabla-lista-egresos-plantilla').DataTable().draw();
+  });
+//end tabla bot
     $("#categoria").select2({
      placeholder: "Elija una categoría",
      allowClear:true
     });
 
     $("#subcategoria").select2({
-      placeholder: "Elija un unasubcateogria",
+      placeholder: "Elija un una subcategoria",
       allowClear:true
     });
 
@@ -174,9 +244,9 @@ $(document).ready(function() {
           dataType : 'json',
 
           success: (data)=>{
-            $(event.currentTarget).find('#codigo-edit').val(data.codigo);
+            $(event.currentTarget).find('#codigo-edit-categoria').val(data.codigo);
             $(event.currentTarget).find('#categoria-edit').val(data.categoria);
-            $(event.currentTarget).find('#id-edit').val(data.id);
+            $(event.currentTarget).find('#id-edit-categoria').val(data.id);
           },
           error: (error)=>{
             toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
@@ -193,9 +263,9 @@ $(document).ready(function() {
 
           success: (data)=>{
            // console.log(data);
-            $(event.currentTarget).find('#codigo-edit').val(data.codigo);
+            $(event.currentTarget).find('#codigo-edit-subcategoria').val(data.codigo);
             $(event.currentTarget).find('#subcategoria-edit').val(data.subcategoria);
-            $(event.currentTarget).find('#id-edit').val(data.id);
+            $(event.currentTarget).find('#id-edit-subcategoria').val(data.id);
           },
           error: (error)=>{
             toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
@@ -203,25 +273,28 @@ $(document).ready(function() {
       });
     });
     $('#modal-edit-concepto').on('show.bs.modal', function (event) {    
-      let cod= $('#cod_concepto_edit').val();//el id
+      let cod= $(event.relatedTarget).data('cod');//tabla id
+      if (!cod) {
+          cod= $('#cod_concepto_edit').val();//registro id
+      }
       $.ajax({
           type: 'GET',
           url:`./concepto_gastos/${cod}`,
           dataType : 'json',
 
           success: (data)=>{
-           // console.log(data);
-            $(event.currentTarget).find('#codigo-edit').val(data.codigo);
-            $(event.currentTarget).find('#concepto-edit').val(data.concepto);
-            $(event.currentTarget).find('#id-edit').val(data.id);
+            $(event.currentTarget).find('#categoria-edit-concepto').val(data.concepto.sub_categoria_gasto.categoria_gasto.categoria);
+            $(event.currentTarget).find('#subcategoria-edit-concepto').val(data.concepto.sub_categoria_gasto.subcategoria);
+            $(event.currentTarget).find('#codigo-concepto-edit').val(data.concepto.codigo);
+            $(event.currentTarget).find('#concepto-edit').val(data.concepto.concepto);
+            $(event.currentTarget).find('#id-edit').val(data.concepto.id);
           },
           error: (error)=>{
             toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
           }
       });
     });
-
-
+});   
 
 
 function categoria_rellenado(){
@@ -275,11 +348,8 @@ function subcategoria_rellenado(){
         $('#btn_subcategoria_delete').attr("disabled", true); 
         $('#btn_subcategoria_edit').attr("disabled", true);   
         $('#btn_concepto_add').attr("disabled", true);  
-
-
       } else{
- 
-          $.ajax({
+           $.ajax({
             type: 'GET',
             url:`./sub_categoria_gastos/${cod}`,
             dataType : 'json',
@@ -327,9 +397,10 @@ function subcategoria_rellenado(){
             url:`./concepto_gastos/${cod}`,
             dataType : 'json',
             success: (data)=>{
+              console.log(data);
               $('#cod_concepto_edit').val(cod);
               $('#id_concepto_delete').val(cod);
-              $('#cod_concepto_right').val(data.codigo);
+              $('#cod_concepto_right').val(data.concepto.codigo);
               $('#btn_concepto_delete').attr("disabled", false); 
               $('#btn_concepto_edit').attr("disabled", false);          
             },
@@ -339,8 +410,6 @@ function subcategoria_rellenado(){
           });        
       } 
    } 
-
- 
 
 
   $('#subcategoria').on('change', function (event) {    
@@ -356,10 +425,9 @@ function subcategoria_rellenado(){
       concepto_rellenado();       
   });
 
-
   $('#tabla-gastos').DataTable({
       "order": [[ 0, "desc" ]]
   });
-} );
+
 </script>    
 @endsection

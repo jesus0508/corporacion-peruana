@@ -3,13 +3,13 @@
       <!-- general form elements -->
       <div class="box box-success " id="">
         <div class="box-header with-border">
-          <h3 class="box-title">GASTO   &nbsp;|  &nbsp;<b>  REGISTRAR & ELIMINAR</b></h3>
+          <h3 class="box-title">GASTO   &nbsp;|  &nbsp;<b>  AGREGAR & EDITAR & ELIMINAR</b></h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="row">
             <div class="col-md-8">
               <div class="form-group @error('concepto') has-error @enderror">
-                <label for="concepto"> Gasto</label>
+                <label for="concepto"> Gasto Descripción</label>
                   <select name="concepto" id="concepto" class="form-control">  
                   </select>
               </div>
@@ -26,12 +26,12 @@
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
                   <!-- edit end -->
-                  <form style="display:inline" method="POST" action="{{ route('concepto_gastos.destroy',0) }}">
-                    @csrf
-                    @method('DELETE')
-                    <input type="hidden" id="id_concepto_delete" name="id">
-                      <button disabled id="btn_concepto_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;</button>
-                  </form>
+                    <form style="display:inline" method="POST" onsubmit="return confirmar('la categoria')" action="{{ route('concepto_gastos.destroy',0) }}">
+                      @csrf
+                      @method('DELETE')
+                      <input type="hidden" id="id_concepto_delete" name="id">
+                        <button disabled id="btn_concepto_delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;</button>
+                    </form>
                 </div>                  
               </div>
             </div>
@@ -46,7 +46,7 @@
       <!-- general form elements -->
       <div class="box box-success" id="">
         <div class="box-header with-border">
-          <h3 class="box-title"> Código  &nbsp;|&nbsp; <b>SUB-CATEGORÍA</b></h3>
+          <h3 class="box-title"> Código  &nbsp;|&nbsp; <b>DESCRIPCIÓN GASTO</b></h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="form-group @error('categoria') has-error @enderror">

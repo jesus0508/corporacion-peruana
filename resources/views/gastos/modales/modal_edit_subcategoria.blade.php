@@ -1,9 +1,9 @@
-a<div class="modal fade" id="modal-edit-subcategoria" style="display: none;">
+<div class="modal fade" id="modal-edit-subcategoria" style="display: none;">
   <div class="modal-dialog">
     <form class="modal-content" action="{{route('sub_categoria_gastos.update',0)}}" method="post">
       @csrf
       @method('PUT')
-      <input type="hidden" name="id" id="id-edit">
+      <input type="hidden" name="id" id="id-edit-subcategoria">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
@@ -21,7 +21,7 @@ a<div class="modal fade" id="modal-edit-subcategoria" style="display: none;">
                     <div class="form-group @error('subcategoria') has-error @enderror">
                       <label for="subcategoria-edit">SUB-CATEGORÍA</label>
                       <input  type="text" class="form-control"
-                          name="subcategoria" id="subcategoria-edit" placeholder="Ingrese la nueva SUB-CATEGORÍA" required>
+                          name="subcategoria" id="subcategoria-edit-" placeholder="Ingrese la nueva SUB-CATEGORÍA" required>
                         @error('subcategoria')
                           <span class="help-block" role="alert">
                             <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@ a<div class="modal fade" id="modal-edit-subcategoria" style="display: none;">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="codigo-edit">Código</label>
-                      <input id="codigo-edit" type="text" class="form-control"
+                      <input id="codigo-edit-subcategoria" type="text" class="form-control"
                           name="codigo"  readonly="">
                     </div>
                   </div>               

@@ -3,7 +3,7 @@
       <!-- general form elements -->
       <div class="box box-success " id="">
         <div class="box-header with-border">
-          <h3 class="box-title">Sub-Categoría     &nbsp;|  &nbsp;<b>  REGISTRAR & ELIMINAR</b></h3>
+          <h3 class="box-title">Sub-Categoría     &nbsp;|  &nbsp;<b> AGREGAR & EDITAR & ELIMINAR</b></h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div class="row">
@@ -24,7 +24,7 @@
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
                   <!-- edit end -->
-                  <form style="display:inline" method="POST" action="{{ route('sub_categoria_gastos.destroy',0) }}">
+                  <form style="display:inline" method="POST" onsubmit="return confirmar('la sub-categoria')" action="{{ route('sub_categoria_gastos.destroy',0) }}">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" id="id_subcategoria_delete" name="id">
@@ -33,11 +33,8 @@
                 </div>                  
               </div>
             </div>
-<!--             <div class="col-md-3"> 
-              <button>Eliminar</button>
-            </div> -->
-          </div>    
-          </div><!-- /.box-body -->
+          </div>  {{--  end.row --}}  
+        </div><!-- /.box-body -->
       </div><!-- /.box -->
   </div>   <!-- left column -->
   <div class="col-md-4">
@@ -54,9 +51,6 @@
         </div><!-- /.box-body -->
       </div><!-- /.box -->
   </div>    <!--/.col (right) -->
-
-    <!--/.col (left) -->
-
 </div> <!-- /.row-top -->
 
 

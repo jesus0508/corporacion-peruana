@@ -3,10 +3,9 @@
       <!-- general form elements -->
       <div class="box box-success " id="">
         <div class="box-header with-border">
-          <h3 class="box-title">Categoría     &nbsp;|  &nbsp;<b>  REGISTRAR & ELIMINAR</b></h3>
+          <h3 class="box-title">Categoría     &nbsp;|  &nbsp;<b>  AGREGAR & EDITAR</b></h3>
       </div><!-- /.box-header -->
         <div class="box-body">
-
           <div class="row">
             <div class="col-md-7">
               <div class="form-group">
@@ -18,7 +17,6 @@
                   </select>
               </div>
             </div>
-
             <div class="col-md-5"> 
               <div class="form-group"> 
                 <label for="" > ACCIONES</label>
@@ -31,7 +29,7 @@
                   </button>
                   <!-- edit end -->
                   @if( count($subcategorias) == 0 )   
-                  <form style="display:inline" method="POST" action="{{ route('categoria_gastos.destroy',0) }}">
+                  <form style="display:inline" method="POST" onsubmit="return confirmar('todos los registros(Categorias, Subcategorias y gastos)')" action="{{ route('categoria_gastos.destroy',0) }}">
                     @csrf
                     @method('DELETE')
                       <input type="hidden" id="id_cat_delete" name="id">
@@ -47,9 +45,8 @@
           </div>    
           </div><!-- /.box-body -->
       </div><!-- /.box -->
-    </form>
-  </div>   <!-- left column -->
-  <div class="col-md-4">
+    </div>   <!-- left column -->
+    <div class="col-md-4">
       <!-- general form elements -->
       <div class="box box-success" id="">
         <div class="box-header with-border">
@@ -63,9 +60,7 @@
         </div><!-- /.box-body -->
       </div><!-- /.box -->
   </div>    <!--/.col (right) -->
-
     <!--/.col (left) -->
-
 </div> <!-- /.row-top -->
 
 

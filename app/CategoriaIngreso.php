@@ -14,7 +14,7 @@ class CategoriaIngreso extends Model
     }
 
     public function pagoClientes(){
-    	return $this->hasMany(PagoCLiente::class);
+    	return $this->hasMany(PagoCliente::class);
     }
 
     public function ingresoGrifos(){

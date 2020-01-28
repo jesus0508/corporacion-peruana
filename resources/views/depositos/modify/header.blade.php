@@ -4,7 +4,8 @@
 			<a href="{{route('depositos.create')}}" class="btn btn-success">
           Registrar Depósitos&nbsp; <span class="fa fa-plus"></span>
       </a>
-			<button class="btn btn-primary">Reporte Diario</button>					
+			<a href="{{route('reporte_general.depositos.diario')}}"><i class="fa fa-list-alt"></i> 
+         Reporte Diario</a>				
 		</div>		
 	</div>	
 </div>

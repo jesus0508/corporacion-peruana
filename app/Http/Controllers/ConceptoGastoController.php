@@ -64,9 +64,11 @@ class ConceptoGastoController extends Controller
      */
     public function show( $cod )
     {
-       $concepto = ConceptoGasto::where('id',$cod)->first();
+       $concepto = ConceptoGasto::where('id',$cod)
+        ->with('subCategoriaGasto.categoriaGasto')
+        ->first();
 
-       return $concepto;
+        return response()->json(['concepto' => $concepto ]);
     }
 
     /**
@@ -97,7 +99,7 @@ class ConceptoGastoController extends Controller
     {
             $id = $request->id;
         ConceptoGasto::findOrFail( $id )->update( $request->all() );
-        return  back()->with('alert-type', 'success')->with('status', 'GASTO editado con exito');
+        return  back()->with('alert-type', 'success')->with('status', 'Gasto editado con exito');
     }
 
     /**
@@ -106,9 +108,16 @@ class ConceptoGastoController extends Controller
      * @param  \CorporacionPeru\ConceptoGasto  $conceptoGasto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request,$id)
     {
-        ConceptoGasto::findOrFail($request->id)->delete();  
-        return  back()->with('alert-type','warning')->with('status','Gasto borrado con exito');
+        if ($id==0) {
+            $id = $request->id;
+        }
+        $conceptoGasto = ConceptoGasto::findOrFail($id);
+        if ( count($conceptoGasto->egresos)==0 ){
+           $conceptoGasto->delete();
+            return  back()->with('alert-type','success')->with('status','Gasto eliminado con exito');
+        }
+        return  back()->with('alert-type','error')->with('status','No se puede eliminar, existen gastos registrados.');
     }
 }

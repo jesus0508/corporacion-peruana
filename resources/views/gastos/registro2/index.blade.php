@@ -21,7 +21,7 @@
     <div class="col-md-12">
       <div class="pull-right ">
         <a  class="btn btn-success"
-         href="http://localhost/C/corporacion-peruana/public/egresos_listado">
+         href="{{route('egresos.listado')}}">
           <i class="fa fa-list"></i> 
             Lista Gastos Grifos
         </a>

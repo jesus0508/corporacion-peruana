@@ -4,7 +4,8 @@
 			<a href="{{route('depositos.modify')}}" class="btn btn-warning">
           Modificar Depósitos&nbsp; <span class="fa fa-pencil"></span>
       </a>&nbsp;
-			<button class="btn btn-primary">Reporte Diario</button>					
+			<a href="{{route('reporte_general.depositos.diario')}}"><i class="fa fa-list-alt"></i> 
+         Reporte Diario</a>				
 		</div>		
 	</div>	
 </div>

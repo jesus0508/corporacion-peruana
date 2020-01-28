@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-body">
-        <table id="tabla-gastos-listado" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-gastos-listado" class="table table-bordered table-striped responsive display " style="width:100%" cellspacing="0">
           <thead>
             <tr>
              <!--  <th>#</th> -->
@@ -43,7 +43,7 @@
                   <form style="display:inline" method="POST" action="{{ route('egresos.destroy', $egreso) }}">
                   @csrf
                   @method('DELETE')
-                  <button class="btn btn-xs btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> &nbsp;&nbsp;Eliminar                          
+                  <button class="btn btn-xs btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span>                          
                   </button>
                   </form> 
                     </li>

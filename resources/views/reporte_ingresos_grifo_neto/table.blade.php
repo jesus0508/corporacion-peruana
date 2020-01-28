@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-body">
-        <table id="tabla-ingresos-netos-diarios" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-ingresos-netos-diarios" class="table table-bordered table-striped responsive display " style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>#</th>

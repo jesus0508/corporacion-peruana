@@ -19,7 +19,8 @@ class GastosController extends Controller
      */
     public function index()
     {
-        
+        $concepto_gastos = ConceptoGasto::with('subCategoriaGasto.categoriaGasto')
+            ->get();
         $categorias = CategoriaGasto::orderBy('id','desc')->get();
         $categorias_asc = CategoriaGasto::all();
         $last_cat   = $categorias_asc->last();
@@ -39,7 +40,7 @@ class GastosController extends Controller
         }    
 
         return view('gastos.index',compact('categorias','new_codigo_categoria',
-                                            'subcategorias','new_codigo_subcategoria'));
+                                            'subcategorias','new_codigo_subcategoria','concepto_gastos'));
     }
 
     /**
