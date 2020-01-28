@@ -32,7 +32,7 @@
 @include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
-
+var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   $('#tabla-ingresos').DataTable({
       "dom": 'Blfrtip',
       'ajax': `./reporte_general_ingresos_mensual_data`,

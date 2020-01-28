@@ -176,6 +176,12 @@ Route::middleware(['auth'])->group(function () {
 			->name('reporte_general.egresos.mensual');
 	Route::get('reporte_general_egresos_mensual_data/{date?}',
 		'ReporteGeneralEgresosController@reporteEgresosMensualData');
+	Route::get('reporte_general_egresos_anual'
+		,'ReporteGeneralEgresosController@reporteEgresosAnual')
+			->name('reporte_general.egresos.anual');
+	Route::get('reporte_general_egresos_anual_data/{date?}',
+		'ReporteGeneralEgresosController@reporteEgresosAnualData');
+	Route::get('chart-egresos-anual-ajax', 'ReporteGeneralEgresosController@reporteEgresosAnualAjax');
 	//DEPOSITOS
 	Route::get('reporte_general_depositos_diario'
 		,'ReporteGeneralDepositosController@reporteDepositosDiario')

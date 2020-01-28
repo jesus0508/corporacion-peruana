@@ -15,8 +15,7 @@ class ReporteGeneralDepositosController extends Controller
 	 * @return [view] 
 	 */
     public function reporteDepositosDiario()    
-    {      
-       
+    {             
         $today = strftime( '%d/%m/%Y',strtotime('now') );
         return view('reporte_general.depositos.diario.index',compact('today'));
     }

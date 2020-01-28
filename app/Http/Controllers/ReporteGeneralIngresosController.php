@@ -100,7 +100,7 @@ class ReporteGeneralIngresosController extends Controller
     }
 
     /**
-     *  Muestra reporte general mensual de Ingresos
+     *  Datos para chart Ingresos Anual
      *
      * @return \Illuminate\Http\Response
      */
@@ -130,7 +130,7 @@ class ReporteGeneralIngresosController extends Controller
 
 
   /**
-     * Datos de Reporte general mensual de ingresos consultados.
+     * Datos de Reporte general anual de ingresos .
      * @param  [string] $date [fecha de reporte, solo mes y año]
      * @return [json]       [formato para datatables]
      */

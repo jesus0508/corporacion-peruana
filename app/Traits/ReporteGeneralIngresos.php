@@ -30,6 +30,7 @@ trait ReporteGeneralIngresos{
             SELECT 11 as IdMes, 'Noviembre'  as Mes UNION
             SELECT 12 as IdMes, 'Diciembre'  as Mes)";
     }
+
 	/**
 	 * [Ingresos Diario Rporte General description]
 	 * @param  [date] $date Día de ingreso format(Y-m-d)
@@ -148,17 +149,14 @@ trait ReporteGeneralIngresos{
      */
     public function ingresosMensual($date){
         
-        list($numero_mes, $year) = explode("-", $date);  
+         list($numero_mes, $year) = explode("-", $date);  
 
-        $ingresosMes = Ingreso::whereMonth('fecha_ingreso',$numero_mes)
-                            ->whereYear('fecha_ingreso',$year)
-                            ->orderBy('fecha_ingreso')
-                            ->get();
-        $contador=1;
+        $nro_dias_mes = cal_days_in_month(CAL_GREGORIAN, $numero_mes,  $year);
         $ingresos_mes = collect([]); 
-        foreach ($ingresosMes as $ingresoMes) {
-            $fecha_ingreso = $ingresoMes->fecha_ingreso;
-            $fecha_ingreso = Carbon::createFromFormat('d/m/Y', $fecha_ingreso)->format('Y-m-d');
+        $contador=1;
+        while ( $contador <= $nro_dias_mes ) {
+                  $fecha_ingreso_dmy = $contador.'/'.$numero_mes.'/'.$year;
+            $fecha_ingreso = Carbon::createFromFormat('d/m/Y', $fecha_ingreso_dmy)->format('Y-m-d');
             $ingresos_fecha_ingreso = $this->ingresosDiario($fecha_ingreso);//trait
             $total_dia = 0;
             foreach ($ingresos_fecha_ingreso as $ingreso_fecha_ingreso) {            
@@ -170,11 +168,11 @@ trait ReporteGeneralIngresos{
             $dia = $semana[strftime('%w',strtotime($fecha_ingreso))].' '.strftime("%d",strtotime($fecha_ingreso) );
             $mes = $meses[($numero_mes) - 1];
             $ingreso_mes =[    
-                    'nro'           => $contador,
-                    'fecha_name'       => $dia.' de '.$mes.' del '.$year,    
-                    'fecha_ingreso' => $ingresoMes->fecha_ingreso, 
+                    'nro'          => $contador,
+                    'fecha_name'   => $dia.' de '.$mes.' del '.$year,    
+                    'fecha_ingreso' => $fecha_ingreso_dmy, 
                     'monto_ingreso' => $total_dia,
-                    'mes'           => $mes
+                    'mes'          => $mes
                     ];  
             $ingreso_mes = (object)$ingreso_mes; 
             $ingresos_mes->push($ingreso_mes);

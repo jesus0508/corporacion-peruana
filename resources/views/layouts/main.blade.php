@@ -304,9 +304,9 @@ desired effect
                       <li><a href="{{route('reporte_general.egresos.mensual')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
                       </li>
-    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                        Reporte Gastos Anual</a>
-                      </li> -->
+                      <li><a href="{{route('reporte_general.egresos.anual')}}"><i class="fa fa-caSlendar">A</i> 
+                        Anual</a>
+                      </li>
 
                     </ul>
                 </li>
@@ -594,7 +594,7 @@ desired effect
               <a href="{{route('traslado_galones.create')}}"><i class="fa fa-pencil"></i> Registro</a>
             </li>            
             <li>
-              <a href="{{route('traslado_galones.reporteGrifosClientesDiario')}}"><i class="fa fa-list"></i> Reporte Totales Diario</a>
+              <a href="{{route('traslado_galones.reporteGrifosClientesDiario')}}"><i class="fa fa-list"></i>Reporte Totales Diario</a>
             </li>
             <li>
               <a href="{{route('traslado_galones.reporteGrifosClientesMensual')}}"><i class="fa fa-list"></i> Reporte Totales Mensual</a>
