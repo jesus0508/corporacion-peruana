@@ -83,9 +83,19 @@
   $fecha_ingreso.datepicker();
   $fecha_reporte.datepicker();
 
+  $("#filter-grifo").prop('selectedIndex', -1);
+  $("#filter-grifo").select2({
+    placeholder: "Elija una grifo",
+    allowClear:true
+  });
+
   validateDates();
 
   $('#filtrar-fecha').on('click', function () {
+    $tabla_ingreso_grifos.DataTable().draw();
+  });
+
+  $("#filter-grifo").on('change', function () {
     $tabla_ingreso_grifos.DataTable().draw();
   });
 
@@ -201,6 +211,18 @@
       return false;
     }
   );
+  // tabla gastos bottom 
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      let grifo = $("#filter-grifo").find('option:selected').text();
+      let cell = data[3];
+      if (grifo) {
+        return grifo === cell;
+      }
+      return true;
+    }
+  );
+
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
     $('#fecha_fin').val("");

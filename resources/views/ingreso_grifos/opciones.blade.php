@@ -1,13 +1,19 @@
 <div class="content-header">
   <div class="row">
-    {{-- <div class="col-md-4">
+    <div class="col-md-4">  
+    </div>
+    <div class="col-md-8">
       <div class="input-group">
         <span class="input-group-addon">Grifo</span>
-        <select class="form-control" id="filter-grifo" name="grifo_id">
-
+        <select class="form-control" id="filter-grifo">
+          @foreach($grifos as $grifo)
+            <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
+          @endforeach
         </select>
       </div>
-    </div> --}}
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-12">
       <label for="">Filtro por fecha ingreso:</label>
       <div class="row filtrado">
@@ -39,10 +45,6 @@
 
       </div>
     </div>
-{{--     <div class="col-md-6">
-      <label for="">asd</label>
-
-    </div> --}}
   </div>
 </div>
 <br>
