@@ -32,9 +32,6 @@
 $(document).ready(function() {
   var groupColumn = 1;
   $('#tabla-ingresos').DataTable({
-    'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "dom": 'Blfrtip',
       "responsive":false,
       "columnDefs": [

@@ -404,7 +404,7 @@ desired effect
                         Mensual</a>
                       </li>
                       <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                        Reporte Gastos Anual</a>
+                        Anual</a>
                       </li>
                     </ul>
                 </li>               

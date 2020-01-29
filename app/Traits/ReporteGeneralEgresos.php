@@ -77,11 +77,11 @@ trait ReporteGeneralEgresos{
             $dia = $semana[strftime('%w',strtotime($fecha_egreso))].' '.strftime("%d",strtotime($fecha_egreso) );
             $mes = $meses[($numero_mes) - 1];
             $egreso_mes =[    
-					'nro'          => $contador,
-					'fecha_name'   => $dia.' de '.$mes.' del '.$year,    
-					'fecha_egreso' => $fecha_egreso_dmy, 
-					'monto_egreso' => $total_dia,
-					'mes'          => $mes
+    					'nro'          => $contador,
+    					'fecha_name'   => $dia.' de '.$mes.' del '.$year,    
+    					'fecha_egreso' => $fecha_egreso_dmy, 
+    					'monto_egreso' => $total_dia,
+    					'mes'          => $mes
                     ];  
             $egreso_mes = (object)$egreso_mes; 
             $egresos_mes->push($egreso_mes);

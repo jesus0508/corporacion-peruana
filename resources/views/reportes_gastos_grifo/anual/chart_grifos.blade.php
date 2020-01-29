@@ -1,9 +1,10 @@
 <div class="row">
-  <div class="col-xs-12">
+	<div class="col-md-12">
     <div class="box box-success">
       <div class="box-body">
-      	   {!! $chart->container() !!}
+      	   {!! $chart_grifos->container() !!}
       </div>
     </div> <!-- end box -->
-  </div>	    
+	</div>	
 </div>
+    

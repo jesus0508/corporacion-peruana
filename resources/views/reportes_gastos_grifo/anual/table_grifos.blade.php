@@ -1,10 +1,11 @@
-  <div class="col-xs-6">
+<div class="row">
+  <div class="col-xs-12">
     <div class="box box-default">
       <div class="box-body">
-        <table id="tabla-egresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-grifos-egresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>                         
-              <th>Mes Año</th> 
+              <th>Grifo</th> 
               <th>Monto Egreso</th>
             </tr>
           </thead>
@@ -20,3 +21,4 @@
       </div>
     </div> <!-- end box -->
   </div>
+</div>  

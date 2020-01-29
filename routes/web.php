@@ -93,7 +93,18 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/categoria_gastos', 'CategoriaGastoController');
 		Route::resource('/sub_categoria_gastos', 'SubCategoriaGastoController');
 		Route::resource('/concepto_gastos', 'ConceptoGastoController');
+		//GASTOS GRIFO REPORTE 
 		Route::resource('/egresos', 'EgresoController');
+		Route::get('reporte_gastos_anual','EgresoController@reporteEgresosGrifoAnual')
+				->name('egresos.reporte_gastos_anual');
+		Route::get('/reporte_egresos_grifos_diario_data/{fecha?}','EgresoController@reporteEgresosGrifoDiarioData');
+		Route::get('/reporte_egresos_grifos_mensual_data/{fecha?}','EgresoController@reporteEgresosGrifoMensualData');
+		Route::get('/reporte_egresos_grifos_anual_data/{fecha?}','EgresoController@reporteEgresosGrifoAnualData');
+		Route::get('/chart-egresos-grifos-anual-ajax','EgresoController@reporteEgresosGrifoAnualAjax');
+		Route::get('/reporte_egresos_x_grifo_anual_data/{fecha?}','EgresoController@reporteEgresosXGrifoAnualData');
+		Route::get('/chart-egresos-x-grifo-anual-ajax','EgresoController@reporteEgresosXGrifoAnualAjax');
+
+
 		Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
 		Route::get('/conceptos','ConceptoGastoController@getConceptos');
 		Route::resource('gastos','GastosController');
@@ -190,11 +201,6 @@ Route::middleware(['auth'])->group(function () {
 		'ReporteGeneralDepositosController@reporteDepositosDiarioData');
 
 
-		// GASTOS GRIFO
-	Route::get('reporte_gastos_anual','EgresoController@reporte_gastos_anual')
-			->name('egresos.reporte_gastos_anual');
-	Route::get('reporte_gastos_general','EgresoController@reporte_gastos_general')
-			->name('egresos.reporte_gastos_general');
 
 		//Reportes Unidades
 	Route::get('/reporte_diario_unidades',

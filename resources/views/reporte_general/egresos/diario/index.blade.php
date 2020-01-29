@@ -12,7 +12,6 @@
   <li><a href="#">Reportes</a></li>
   <li><a href="#">Egresos</a></li>
   <li><a href="#">Diario</a></li>
-
 </ol>
 @endsection
 
@@ -34,10 +33,7 @@
 <script>
 $(document).ready(function() {
   var groupColumn = 1;
-  $('#tabla-ingresos').DataTable({
-    'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
+  $('#tabla-egresos').DataTable({
       "dom": 'Blfrtip',
       "responsive":false,
       "columnDefs": [
@@ -70,8 +66,7 @@ $(document).ready(function() {
 			{data: 'nro_cheque'},
 			{data: 'codigo_operacion'},
       {data: 'nro_cuenta'},
-			{data: 'monto_egreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
-    }
+			{data: 'monto_egreso'}
 		],
     "drawCallback": function ( settings ) {
             var api = this.api();
