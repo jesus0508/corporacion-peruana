@@ -2,8 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header with-border">
-    {{--   @include('transporte.egresos.header_table')  --}} 
-    asdasda     
+      @include('stock_grifos.gestion.header_table')    
       </div><!-- /.box-header -->
       <div class="box-body">
         <table id="tabla-stock-grifos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">

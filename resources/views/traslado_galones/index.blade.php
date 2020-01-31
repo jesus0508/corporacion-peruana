@@ -69,8 +69,8 @@ $(document).ready(function() {
             '<option value="-1">All</option>'+
             '</select> records'
         },
-      "responsive": true, 
-     // "scrollX": true,
+      "responsive": false, 
+      "scrollX": true,
        "dom": 'Bfrtip',
       "buttons": [
       {
@@ -161,9 +161,11 @@ function validateDates() {
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio); 
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
-      if (!inicio || !dia || inicio == dia) {
+      var sFin = $('#fecha_inicio').val();
+      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
+      var fin = $.datepicker.parseDate('d/m/yy', sFin);
+      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
+      if (!inicio || !dia || fin >= dia && inicio <= dia) {
         return true;
       }
       return false;

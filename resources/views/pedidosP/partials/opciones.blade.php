@@ -18,7 +18,8 @@
     </div>
   </div>
 
-        <div class="col-md-7">
+    <div class="col-md-7">
+      <label for="">Filtrado por Fecha Factura</label>
       <div class="row filtrado">
         <div class="col-md-4">
           <div class="form-inline">

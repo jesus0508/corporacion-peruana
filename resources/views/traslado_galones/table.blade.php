@@ -26,7 +26,7 @@
 	      <table id="tabla-traslado-galones" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
 	        <thead>
 	              <tr>
-	                <th>#</th>
+	               {{--  <th>#</th> --}}
 	                <th>Fecha</th>
 	                <th>Tipo </th>
 	                <th>Cliente|Grifo</th>
@@ -40,7 +40,7 @@
 	        <tbody>
 	          @foreach ($traslados as $traslado)
 	            <tr>
-	                  <td>{{$loop->iteration}}</td>
+	                  {{-- <td>{{$loop->iteration}}</td> --}}
 	                  <td>{{$traslado->fecha}}</td>
 	                  <td>{{$traslado->getTipo()}}</td>
 	                  <td>

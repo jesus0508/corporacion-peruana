@@ -22,7 +22,7 @@
         <!-- /.box-header -s-->
         <div class="box-body">
              @include('pedidosP.partials.opciones')
-          <table id="proveedores" class="table table-bordered table-striped responsive  " style="width:100%" cellspacing="0">
+          <table id="proveedores" class="table table-bordered table-striped responsive display " style="width:100%" cellspacing="0">
             <thead>
               <tr>
                 <th>N° de Factura</th>

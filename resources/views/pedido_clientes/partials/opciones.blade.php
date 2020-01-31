@@ -10,11 +10,6 @@
     </div><!-- /input-group -->
   </div>
   <div class="col-md-2">
-    <div class="form-group">
-      <button id="btn-pagar" data-toggle="modal" data-target="#modal-create-pago_bloque" class="btn btn-success" >
-        <i class="fa fa-money"> </i>
-        Pagar en Bloque
-      </button>
-    </div>
+
   </div>
 </div>

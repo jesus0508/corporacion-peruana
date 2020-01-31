@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-7">
       <div class="row filtrado">
+
         <div class="col-md-4">
           <div class="form-inline">
             <label for="fecha_inicio">Desde: </label>

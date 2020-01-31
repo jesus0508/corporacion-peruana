@@ -15,13 +15,14 @@ class StockGrifoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()    
-    {
+    {   
+        $grifos = Grifo::all();
 
         $stock_grifos = StockGrifo::orderBy('id', 'DESC')->get();
         $stock_grifos = StockGrifo::join('grifos','grifos.id','=','stock_grifos.grifo_id')->select('stock_grifos.*','grifos.razon_social','grifos.stock')->get();
 
 //return $stock_grifos;
-        return view('stock_grifos.gestion.index',compact('stock_grifos'));
+        return view('stock_grifos.gestion.index',compact('stock_grifos','grifos'));
     }
 
     /**
