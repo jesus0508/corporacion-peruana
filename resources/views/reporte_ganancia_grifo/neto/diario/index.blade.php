@@ -97,7 +97,6 @@ $(document).ready(function() {
     let fecha_reporte =$('#fecha_inicio').val();
     fecha_reporte = convertDateFormat(fecha_reporte);
     RefreshTable('#tabla-ingresos-netos-diarios',`./reporte_ingresos_grifos_diario_data/${fecha_reporte}`);
-
   });
 });
 

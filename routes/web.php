@@ -124,13 +124,14 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/reporte_ingresos_grifos_anual','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnual')->name('ingreso_grifo_neto.anual');
 		Route::get('/reporte_ingresos_grifos_anual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnualData');
 		Route::get('/reporte_ingresos_x_grifo_anual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresosNetoXGrifoAnualData');
-
 		Route::get('/chart-ingresos-grifos-anual-ajax','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnualAjax');
 		Route::get('/chart-ingresos-x-grifo-anual-ajax','IngresoNetoGrifoController@reporteIngresosNetoXGrifoAnualAjax');
-	
-
-
-		Route::resource('ganancia_grifo_neto','GananciaNetaGrifoController');//grifo Detallado quitar
+	//detallado
+		Route::get('/reporte_ingresos_detallado_diario','IngresoNetoGrifoController@ingresoDetalladoGrifo')
+			->name('ingreso_grifo_neto.detallado');
+		Route::get('/reporte_ingresos_detallado_diario_data/{fecha?}','IngresoNetoGrifoController@ingresoDetalladoGrifoDataI');
+		Route::get('/reporte_egresos_detallado_diario_data/{fecha?}','IngresoNetoGrifoController@ingresoDetalladoGrifoDataE');
+	//
 		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
 		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
 

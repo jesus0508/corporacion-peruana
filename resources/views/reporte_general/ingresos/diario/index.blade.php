@@ -30,7 +30,7 @@
 @include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
-  var groupColumn = 1;
+  var groupColumn = 0;
   $('#tabla-ingresos').DataTable({
       "dom": 'Blfrtip',
       "responsive":false,
@@ -51,12 +51,12 @@ $(document).ready(function() {
             'className': 'btn btn-default',
             'exportOptions':
             {
-              columns:[0,1,2,3,4,5,6]
+              columns:[0,1,2,3,4,5]
             }
           }],
 		'ajax': `./reporte_general_ingresos_diario_data`,
 		'columns': [
-		  {data: 'fecha_reporte'},
+		  // {data: 'fecha_reporte'},
 		  {data: 'categoria'},
 			{data: 'detalle'},
 			{data: 'fecha_ingreso'},
@@ -77,7 +77,7 @@ $(document).ready(function() {
 
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 4, 
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
@@ -95,7 +95,7 @@ $(document).ready(function() {
                     "class": "group",
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 5, 
+                    "colspan": 4, 
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {

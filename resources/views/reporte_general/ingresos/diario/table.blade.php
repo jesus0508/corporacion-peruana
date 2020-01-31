@@ -21,7 +21,7 @@
         <table id="tabla-ingresos" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>FECHA REPORTE</th>
+            {{--   <th>FECHA REPORTE</th> --}}
               <th>CATEGORIA</th>              
               <th>Detalles</th>
               <th>FECHA Ingreso</th>

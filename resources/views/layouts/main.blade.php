@@ -341,7 +341,8 @@ desired effect
                 </span>
               </a>
               <ul class="treeview-menu" style="display: none;">
-                <li><a href="{{route('ganancia_grifo_neto.index')}}"><i class="glyphicon glyphicon-list-alt"></i>Ingreso detallado</a></li>   
+                <li><a href="{{route('ingreso_grifo_neto.detallado')}}"><i class="glyphicon glyphicon-list-alt"></i>Ingreso detallado</a></li>  
+
                 <li><a href="{{route('grifos.reporte_comparacion')}}">
                   <i class="fa fa-list-alt"></i> 
                 Reporte Comparacion</a>

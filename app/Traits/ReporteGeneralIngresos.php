@@ -78,32 +78,32 @@ trait ReporteGeneralIngresos{
             //para mostrar en neto
         $egresos_zona_grifo = Egreso::join('grifos','grifos.id','=','egresos.grifo_id')
                     ->select(
-                        DB::raw('DATE(fecha_reporte) as day'),
+                      //  DB::raw('DATE(fecha_reporte) as day'),
                         'fecha_egreso', 'fecha_reporte',
                         'grifos.zona',
                         DB::raw('-1*(sum(monto_egreso)) as monto'),'egresos.grifo_id'
                             )
                     ->where('egresos.fecha_egreso',$date)
-                    ->groupBy('grifos.zona' ,'day')
+                    ->groupBy('grifos.zona')
                     ->get();
 
         $ingresos_zona_grifo = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
                     ->join('categoria_ingresos','categoria_ingresos.id','=','ingreso_grifos.categoria_ingreso_id')
                     ->where('ingreso_grifos.fecha_ingreso',$date)
                     ->select('ingreso_grifos.fecha_reporte',
-                            'fecha_ingreso',
-                        'ingreso_grifos.fecha_reporte as day','grifos.zona',
+                            'fecha_ingreso','grifos.zona',
                         DB::raw('sum(monto_ingreso) as monto') , 'categoria_ingresos.categoria' ,'ingreso_grifos.grifo_id')
-                    ->groupBy('day','grifos.zona')
+                    ->groupBy('grifos.zona')
                     ->get();
 
         $ingreso_grifos_zonas = collect([]); 
         foreach ($ingresos_zona_grifo as $ingreso) {
             foreach ($egresos_zona_grifo as $egreso ) {
-                if( $ingreso->day == $egreso->day AND $ingreso->zona==$egreso->zona){
+                if( $ingreso->fecha_ingreso == $egreso->fecha_egreso 
+                    AND $ingreso->zona==$egreso->zona){
                         $consolidado = $egreso->monto + $ingreso->monto;
                         $consolidado = round( $consolidado, 2 );
-                        $neto =[    'fecha_reporte'   => $ingreso->fecha_reporte, 
+                        $neto =[   // 'fecha_reporte'   => $ingreso->fecha_reporte, 
                                     'fecha_ingreso'   => $ingreso->fecha_ingreso, 
                                     //'zona' => $egreso->zona,
                                     'categoria' => $ingreso->categoria,
