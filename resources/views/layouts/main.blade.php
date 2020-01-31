@@ -346,7 +346,7 @@ desired effect
                   <i class="fa fa-list-alt"></i> 
                 Reporte Comparacion</a>
                 </li>       
-
+{{-- 
                 <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
                   <a href="#">
                     <i class="glyphicon glyphicon-list-alt"></i>
@@ -359,15 +359,15 @@ desired effect
                       <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> 
                         Diario</a>
                       </li>
-{{--                       <li><a href="{{route('ganancia_zona_neta.create')}}"><i class="fa fa-taSble">M</i> 
+                      <li><a href="{{route('ganancia_zona_neta.create')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
-                      </li> --}}
-    <!--                   <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
+                      </li>
+                      <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
                         Reporte Gastos Anual</a>
-                      </li> -->
+                      </li>
 
                     </ul>
-                </li> 
+                </li>  --}}
                 <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
                   <a href="#">
                     <i class="glyphicon glyphicon-list-alt"></i>
@@ -383,9 +383,9 @@ desired effect
                       <li><a href="{{route('ingreso_grifo_neto.create')}}"><i class="fa fa-taSble">M</i> 
                         Mensual</a>
                       </li>
-{{--                       <li><a href="{{route('egresos.reporte_gastos_anual')}}"><i class="fa fa-caSlendar">A</i> 
-                        Reporte Gastos Anual</a>
-                      </li> --}}
+                      <li><a href="{{route('ingreso_grifo_neto.anual')}}"><i class="fa fa-caSlendar">A</i> 
+                       Anual</a>
+                      </li>
                     </ul>
                 </li> 
                 <li id="treeview-reporte-gastos-grifo" class="treeview">

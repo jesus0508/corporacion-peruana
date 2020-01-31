@@ -1,24 +1,29 @@
 @extends('layouts.main')
 
-@section('title','Gastos Grifos')
+@section('title','Ingresos Grifos')
 
 @section('styles')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
 @include('reporte_excel.excel_select2_css')
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Gastos Grifos</a></li>
-  <li><a href="#">Diario</a></li>
+  <li><a href="#">Ingreso Neto Grifos</a></li>
+  <li><a href="#">Mensual</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('reportes_gastos_grifo.diario.filtrado')
-  @include('reportes_gastos_grifo.diario.table')
+  @include('reporte_ganancia_grifo.neto.mensual.header')
+  @include('reporte_ganancia_grifo.neto.mensual.table')
 
   <!--/.end-modales-->
 </section>
@@ -30,15 +35,16 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-gastos-grifo-diarios').DataTable({
-      'ajax': `./reporte_egresos_grifos_diario_data`,
+  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+  $('#tabla-ingresos-netos-mensual').DataTable({
+      'ajax': `../reporte_ingresos_grifos_mensual_data`,
       'columns': [
-        {data: 'fecha_egreso'},
-        {data: 'grifo.razon_social'},
-        {data: 'concepto_gasto.sub_categoria_gasto.categoria_gasto.categoria'},
-        {data: 'concepto_gasto.sub_categoria_gasto.subcategoria'},
-        {data: 'concepto_gasto.concepto'},
-        {data: 'monto_egreso'}
+          {data: 'fecha_ingreso'},
+          {data: 'grifo'},
+          {data: 'monto_ingreso'},
+          {data: 'monto_egreso'},
+          {data: 'monto_neto'},
         ],
       "responsive": false,
       "scrollX": true,
@@ -46,7 +52,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Gastos Grifos',
+        'title': 'Lista Ingreso Neto Grifos Mensual',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -61,16 +67,16 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=E'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=F'+nRows+'] t', sheet).text( total );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=C'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=D'+nRows+'] t', sheet).text( total );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');             
               
             
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5]
+          columns:[0,1,2,3,4]
         },
         footer: true
       }], 
@@ -79,30 +85,47 @@ $(document).ready(function() {
             var api = this.api(), data;
             // Total over this page
             pageTotal = api
-                .column( 5, { page: 'current'} )
+                .column( 4, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 5 ).footer() ).html(
+            $( api.column( 4 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
       }
   });
 
-  $('#fecha_inicio').datepicker(); 
+  $('#fecha_inicio').datepicker({
+    changeMonth: true,
+    changeYear: true,
+    showButtonPanel: true,
+    dateFormat: 'MM yy',
+    onClose: function(dateText, inst) { 
+        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        },
+    autoclose: true
+  }); 
   $('#filtrar-fecha').click(function() {
     let fecha_reporte =$('#fecha_inicio').val();
-    fecha_reporte = convertDateFormat(fecha_reporte);
-    RefreshTable('#tabla-gastos-grifo-diarios',`./reporte_egresos_grifos_diario_data/${fecha_reporte}`);
+    let porciones = fecha_reporte.split(' ');
+    let mes = porciones[0];
+    let year = porciones[1];
+    meses.forEach( function(valor, indice, array) {
+      if (valor==mes) {
+        mes = indice+1;
+      }
+    });
+    fecha_reporte = mes + '-' + year;
+    RefreshTable('#tabla-ingresos-netos-mensual',`../reporte_ingresos_grifos_mensual_data/${fecha_reporte}`);
 
   });
 });
 
-	function inicializarSelect2($select, text, data) {
+  function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -112,30 +135,30 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-gastos-grifo-diarios');
+  let $tabla_pagos_lista = $('#tabla-ingresos-netos-mensual');
   $('#clear-fecha').on('click', function () {
     $('#filter-grifo').val('').trigger('change');
   });
 
   $('#today-fecha').on('click', function () {
-    let today_date = $('#today-fecha').val();
-    today_date = convertDateFormat(today_date);
-    $('#fecha_inicio').val(today_date);
-    RefreshTable('#tabla-gastos-grifo-diarios',`./reporte_egresos_grifos_diario_data/${today_date}`);
+    let this_month_year_my = $('#month_actual_date_my').val();
+    let this_month_year = $('#month_actual_date').val();
+    $('#fecha_inicio').val(this_month_year);
+    RefreshTable('#tabla-ingresos-netos-mensual',`../reporte_ingresos_grifos_mensual_data/${this_month_year_my}`);
   });
   
   $('#yesterday-fecha').on('click', function () {
-    let yesterday_date = $('#yesterday-fecha').val();
-    yesterday_date = convertDateFormat(yesterday_date);
-    $('#fecha_inicio').val(yesterday_date);
-    RefreshTable('#tabla-gastos-grifo-diarios',`./reporte_egresos_grifos_diario_data/${yesterday_date}`);
+    let last_month_date_my = $('#last_month_date_my').val();
+    let last_month_date = $('#last_month_date').val();
+    $('#fecha_inicio').val(last_month_date);
+    RefreshTable('#tabla-ingresos-netos-mensual',`../reporte_ingresos_grifos_mensual_data/${last_month_date_my}`);
   });
 }
 
 $(document).ready(function() {
     validateDates();
     let $filter_grifo = $('#filter-grifo');
-    let $tabla_egresos_grifo = $('#tabla-gastos-grifo-diarios');
+    let $tabla_egresos_grifo = $('#tabla-ingresos-netos-mensual');
     inicializarSelect2($filter_grifo, 'Seleccione el grifo', '');
     $.fn.dataTable.ext.search.push(
       function (settings, data, dataIndex) {

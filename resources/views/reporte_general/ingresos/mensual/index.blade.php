@@ -43,7 +43,7 @@ var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Ag
         {data: 'monto_ingreso'}
       ],
       "responsive":  true,
-
+      "pageLength": 31,
       "buttons": [
           {
             'extend': 'excelHtml5',

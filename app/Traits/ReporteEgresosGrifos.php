@@ -10,7 +10,7 @@ use Carbon\Carbon;
 trait ReporteEgresosGrifos{
 
 	/**
-	 * [Egreoss Diario Rporte ]
+	 * [Egreoss Diario Grifos Rporte ]
 	 * @param  [date] $date Día de ingreso format(Y-m-d)
 	 * @return [collection]       [ingresos Dia]
 	 */
@@ -38,7 +38,7 @@ trait ReporteEgresosGrifos{
                     DB::raw('sum(monto_egreso) as monto_egreso'), 
                     'grifos.razon_social as grifo'
                 )
-                ->groupBy('fecha_egreso')
+                ->groupBy('fecha_egreso','grifo')
                 ->get();
     
         return $egresos_mes;

@@ -104,7 +104,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/reporte_egresos_x_grifo_anual_data/{fecha?}','EgresoController@reporteEgresosXGrifoAnualData');
 		Route::get('/chart-egresos-x-grifo-anual-ajax','EgresoController@reporteEgresosXGrifoAnualAjax');
 
-
+		//gastos grifo
 		Route::get('/subcategorias','SubCategoriaGastoController@getSubCategorias');
 		Route::get('/conceptos','ConceptoGastoController@getConceptos');
 		Route::resource('gastos','GastosController');
@@ -116,6 +116,23 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/ingresos_otros', 'IngresoController');
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
 		Route::get('ingresos_fecha_data/{date?}','IngresoController@getIngresoByDay');
+
+			/* INGRESOS NETOS  (GRIFOS)*/	
+		Route::resource('ingreso_grifo_neto','IngresoNetoGrifoController');//grifos
+		Route::get('/reporte_ingresos_grifos_diario_data/{fecha?}','IngresoNetoGrifoController@reporteIngresoGrifoNetoDiarioData');
+		Route::get('/reporte_ingresos_grifos_mensual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresoGrifoNetoMensualData');
+		Route::get('/reporte_ingresos_grifos_anual','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnual')->name('ingreso_grifo_neto.anual');
+		Route::get('/reporte_ingresos_grifos_anual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnualData');
+		Route::get('/reporte_ingresos_x_grifo_anual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresosNetoXGrifoAnualData');
+
+		Route::get('/chart-ingresos-grifos-anual-ajax','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnualAjax');
+		Route::get('/chart-ingresos-x-grifo-anual-ajax','IngresoNetoGrifoController@reporteIngresosNetoXGrifoAnualAjax');
+	
+
+
+		Route::resource('ganancia_grifo_neto','GananciaNetaGrifoController');//grifo Detallado quitar
+		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
+		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
 
 		/* Venta Facturada*/
 		Route::resource('/cancelacion','CancelacionController');
@@ -144,11 +161,6 @@ Route::middleware(['auth'])->group(function () {
 	//Route::get('/egresos_dt/{date?}','SalidaController@egresosDT');
 	Route::get('salidas_fecha_data/{date?}','SalidaController@getSalidasByDay');
 
-
-	/* INGRESOS NETOS  (GRIFOS)*/	
-	Route::resource('ingreso_grifo_neto','IngresoNetoGrifoController');//grifos
-	Route::resource('ganancia_grifo_neto','GananciaNetaGrifoController');//X grifo
-	Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
 
 	/* Transporte - Nelida*/
 	Route::resource('/transporte','TransporteController');

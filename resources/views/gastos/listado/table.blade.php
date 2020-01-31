@@ -20,8 +20,8 @@
             @foreach( $egresos as $egreso )
               <tr>
                 <!-- <td>{{$loop->iteration}}</td> -->
-                <td>{{date('d/m/Y', strtotime($egreso->fecha_egreso))}}</td>
-                <td>{{date('d/m/Y', strtotime($egreso->fecha_reporte))}}</td>
+                <td>{{$egreso->fecha_egreso}}</td>
+                <td>{{$egreso->fecha_reporte}}</td>
                 <td>{{$egreso->grifo}}</td>                  
                 <td>{{$egreso->categoria}}</td>
                 <td>{{$egreso->subcategoria}}</td>

@@ -11,8 +11,8 @@ trait ReporteGeneralEgresos{
 
 		/**
 	 * [Ingresos Diario Rporte General description]
-	 * @param  [date] $date Día de ingreso format(Y-m-d)
-	 * @return [collection]       [ingresos Dia]
+	 * @param  [date] $date Día de egreso format(Y-m-d)
+	 * @return [collection]       [egreso Dia]
 	 */
     public function egresosDiario($date) {
 		//Egresos registrados manualmente
@@ -50,11 +50,11 @@ trait ReporteGeneralEgresos{
     }
 
     /**
-     * [egresosMensual description]
+     * [egresosMensual  ]
      *
      * 
      * @param  [type] $date [Fecha mes (m-Y)]
-     * @return [type] array [Ingresos de dias por mes elegido]
+     * @return [type] array [Egresos de dias por mes elegido]
      */
     public function egresosMensual($date){
         

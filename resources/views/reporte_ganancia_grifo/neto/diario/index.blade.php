@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Gastos Grifos')
+@section('title','Ingresos Grifos')
 
 @section('styles')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -10,15 +10,15 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Gastos Grifos</a></li>
+  <li><a href="#">Ingreso Neto Grifos</a></li>
   <li><a href="#">Diario</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('reportes_gastos_grifo.diario.filtrado')
-  @include('reportes_gastos_grifo.diario.table')
+  @include('reporte_ganancia_grifo.neto.diario.header')
+  @include('reporte_ganancia_grifo.neto.diario.table')
 
   <!--/.end-modales-->
 </section>
@@ -30,15 +30,14 @@
 
 <script>
 $(document).ready(function() {
-  $('#tabla-gastos-grifo-diarios').DataTable({
-      'ajax': `./reporte_egresos_grifos_diario_data`,
+  $('#tabla-ingresos-netos-diarios').DataTable({
+      'ajax': `./reporte_ingresos_grifos_diario_data`,
       'columns': [
-        {data: 'fecha_egreso'},
-        {data: 'grifo.razon_social'},
-        {data: 'concepto_gasto.sub_categoria_gasto.categoria_gasto.categoria'},
-        {data: 'concepto_gasto.sub_categoria_gasto.subcategoria'},
-        {data: 'concepto_gasto.concepto'},
-        {data: 'monto_egreso'}
+          {data: 'fecha_ingreso'},
+          {data: 'grifo'},
+          {data: 'monto_ingreso'},
+          {data: 'monto_egreso'},
+          {data: 'monto_neto'},
         ],
       "responsive": false,
       "scrollX": true,
@@ -46,7 +45,7 @@ $(document).ready(function() {
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Gastos Grifos',
+        'title': 'Lista Ingreso Neto Grifos',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -61,16 +60,16 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=E'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=F'+nRows+'] t', sheet).text( total );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=C'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=D'+nRows+'] t', sheet).text( total );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');             
               
             
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5]
+          columns:[0,1,2,3,4]
         },
         footer: true
       }], 
@@ -79,14 +78,14 @@ $(document).ready(function() {
             var api = this.api(), data;
             // Total over this page
             pageTotal = api
-                .column( 5, { page: 'current'} )
+                .column( 4, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 5 ).footer() ).html(
+            $( api.column( 4 ).footer() ).html(
                 pageTotal
                 // +' (S/.'+ total +' total)'
             );
@@ -97,12 +96,12 @@ $(document).ready(function() {
   $('#filtrar-fecha').click(function() {
     let fecha_reporte =$('#fecha_inicio').val();
     fecha_reporte = convertDateFormat(fecha_reporte);
-    RefreshTable('#tabla-gastos-grifo-diarios',`./reporte_egresos_grifos_diario_data/${fecha_reporte}`);
+    RefreshTable('#tabla-ingresos-netos-diarios',`./reporte_ingresos_grifos_diario_data/${fecha_reporte}`);
 
   });
 });
 
-	function inicializarSelect2($select, text, data) {
+  function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -112,30 +111,30 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-gastos-grifo-diarios');
+  let $tabla_pagos_lista = $('#tabla-ingresos-netos-diarios');
   $('#clear-fecha').on('click', function () {
     $('#filter-grifo').val('').trigger('change');
   });
 
   $('#today-fecha').on('click', function () {
-    let today_date = $('#today-fecha').val();
-    today_date = convertDateFormat(today_date);
+    let today_date = $('#today_date').val();
     $('#fecha_inicio').val(today_date);
-    RefreshTable('#tabla-gastos-grifo-diarios',`./reporte_egresos_grifos_diario_data/${today_date}`);
+    today_date = convertDateFormat(today_date);
+    RefreshTable('#tabla-ingresos-netos-diarios',`./reporte_ingresos_grifos_diario_data/${today_date}`);
   });
   
   $('#yesterday-fecha').on('click', function () {
-    let yesterday_date = $('#yesterday-fecha').val();
-    yesterday_date = convertDateFormat(yesterday_date);
+    let yesterday_date = $('#yesterday_date').val();
     $('#fecha_inicio').val(yesterday_date);
-    RefreshTable('#tabla-gastos-grifo-diarios',`./reporte_egresos_grifos_diario_data/${yesterday_date}`);
+    yesterday_date = convertDateFormat(yesterday_date);
+    RefreshTable('#tabla-ingresos-netos-diarios',`./reporte_ingresos_grifos_diario_data/${yesterday_date}`);
   });
 }
 
 $(document).ready(function() {
     validateDates();
     let $filter_grifo = $('#filter-grifo');
-    let $tabla_egresos_grifo = $('#tabla-gastos-grifo-diarios');
+    let $tabla_egresos_grifo = $('#tabla-ingresos-netos-diarios');
     inicializarSelect2($filter_grifo, 'Seleccione el grifo', '');
     $.fn.dataTable.ext.search.push(
       function (settings, data, dataIndex) {

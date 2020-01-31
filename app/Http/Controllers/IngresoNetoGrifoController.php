@@ -8,9 +8,13 @@ use CorporacionPeru\Grifo;
 use CorporacionPeru\IngresoGrifo;
 use Carbon\Carbon;
 use DB;
+use CorporacionPeru\Traits\ReporteIngresosGrifos;
+use CorporacionPeru\Charts\PruebaChart;
 
 class IngresoNetoGrifoController extends Controller
 {
+    use ReporteIngresosGrifos;
+
     /**
      * Display a listing of the resource.
      *
@@ -18,54 +22,28 @@ class IngresoNetoGrifoController extends Controller
      */
     public function index()
     {
-            $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
-                    ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
-                    ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
-                    ->join('grifos','grifos.id','=','egresos.grifo_id')
-
-                    ->select(DB::raw('DATE(fecha_egreso) as day'), 'grifos.razon_social as grifo',
-                        DB::raw('-1*(sum(monto_egreso)) as monto')
-                            )
-                    ->groupBy('egresos.grifo_id' , 'day')
-                    ->get();
-
-            $ingresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
-                    ->select('ingreso_grifos.fecha_ingreso as day',
-                        'ingreso_grifos.fecha_reporte','grifos.razon_social as grifo',
-                     'ingreso_grifos.monto_ingreso as monto' )
-                    ->get();
-
-            $netos = collect([]); 
-            foreach ($ingresos as $ingreso) {
-                foreach ($egresos as $egreso ) {
-                    if( $ingreso->day == $egreso->day AND $ingreso->grifo==$egreso->grifo){
-                        $consolidado = $egreso->monto + $ingreso->monto;
-                        $consolidado = round( $consolidado, 2 );
-                        $neto =[    'day'   => $egreso->day,
-                                    'fecha_reporte' => $ingreso->fecha_reporte, 
-
-                                    'grifo' => $egreso->grifo,
-                                    'monto_ingreso' =>$ingreso->monto,
-                                 
-                                    'monto_egreso' =>$egreso->monto,
-                                    'monto_neto' => $consolidado ];    
-                        $neto = (object)$neto;                  
-                        $netos->push($neto);
-                    }
-                    
-                }
-                
-            }
-
         $grifos = Grifo::all();
         $semana = config('constants.semana_name');
         $today  = $semana[strftime( '%w',strtotime('now') )];
         $today_date = strftime( '%d/%m/%Y',strtotime('now') );
         $yesterday = $semana[strftime( '%w',strtotime('-1 day') )];
         $yesterday_date = strftime( '%d/%m/%Y',strtotime('-1 day') );
-      
 
-        return view('reporte_ingresos_grifo_neto.index',compact('netos','grifos','today','yesterday','today_date','yesterday_date'));
+        return view('reporte_ganancia_grifo.neto.diario.index',compact('grifos','today','yesterday','today_date','yesterday_date'));
+    }
+
+
+    /**
+     * Datos  diario de ingresos grifo consultados.
+     * @param  [date] $date [fecha de egreso]
+     * @return [json]       [formato para datatables]
+     */
+    public function reporteIngresoGrifoNetoDiarioData($date = null){
+        if ( $date == null ) {
+            $date = Carbon::now()->format('Y-m-d');
+        }             
+        $ingresos = $this->ingresosGrifosNetoDiario($date);//trait
+        return response()->json(['data' => $ingresos]);
     }
 
     /**
@@ -75,108 +53,150 @@ class IngresoNetoGrifoController extends Controller
      */
     public function create()
     {
-       $egresos = Egreso::join('concepto_gastos','concepto_gastos.id','=','egresos.concepto_gasto_id')
-                    ->join('sub_categoria_gastos','sub_categoria_gastos.id','=','concepto_gastos.sub_categoria_gasto_id')
-                    ->join('categoria_gastos','categoria_gastos.id','=','sub_categoria_gastos.categoria_gasto_id')
-                    ->join('grifos','grifos.id','=','egresos.grifo_id')
 
-                    ->select(DB::raw('MONTH(fecha_egreso) as month'), 'grifos.razon_social as grifo',
-                        DB::raw('-1*(sum(monto_egreso)) as monto'),DB::raw('DAY(fecha_egreso) as day')
-                            )
-                    ->groupBy('egresos.grifo_id' , 'month')
-                    ->get();
-            
-            $ingresos = IngresoGrifo::join('grifos','grifos.id','=','ingreso_grifos.grifo_id')
-                    ->select(DB::raw('MONTH(fecha_ingreso) as month'),'grifos.razon_social as grifo',
-                     'ingreso_grifos.monto_ingreso as monto' ,DB::raw('DATE(fecha_ingreso) as day'))
-                    ->groupBy('month')
-                    ->get();
-          
-            $netos = collect([]); 
-            foreach ($ingresos as $ingreso) {
-                foreach ($egresos as $egreso ) {
-                    if( $ingreso->month == $egreso->month AND $ingreso->grifo==$egreso->grifo){
-                        $consolidado = $egreso->monto + $ingreso->monto;
-                        $consolidado = round( $consolidado, 2 );
-                        $neto =[    'month'   => $egreso->month, 
-                                    'grifo' => $egreso->grifo,
-                                    'monto_ingreso' =>$ingreso->monto,
-                                    'day' => $ingreso->day,
-                                 
-                                    'monto_egreso' =>$egreso->monto,
-                                    'monto_neto' => $consolidado ];    
-                        $neto = (object)$neto;                  
-                        $netos->push($neto);
-                    }
-                    
-                }
-                
+        $this_year            = strftime( '%Y',strtotime('now') );          
+        $meses                = config('constants.meses_name');
+        $this_month           = strftime( '%m',strtotime('now') );
+        $month_actual         = $meses[$this_month-1];
+        $month_actual_date    = $month_actual.' '.$this_year;      
+        $last_month_my        = strftime( '%m',strtotime('first day of -1 month') );
+        $last_month           = $meses[$last_month_my-1];
+        $last_month_date_my   = $last_month_my.'-'.$this_year;
+        $last_month_date      = $last_month.' '.$this_year;
+        $month_actual_date_my = $this_month.'-'.$this_year;     
+        $grifos = Grifo::all();
+
+        return view('reporte_ganancia_grifo.neto.mensual.index',compact('month_actual','last_month','grifos',
+            'month_actual_date','last_month_date','month_actual_date_my','last_month_date_my'));
+    }
+
+    /**
+     * [reporteIngresoGrifoNetoMensualData description]
+     * @param  [type] $date [date (Y-m))]
+     * @return [type]       [description]
+     */
+    public function reporteIngresoGrifoNetoMensualData($date = null){
+        if ( $date == null ) {
+            $date = Carbon::now()->format('m-Y');            
+        }   
+        list($numero_mes, $year) = explode("-", $date);         
+        $egresos = $this->ingresosGrifosNetoMensual($date);//trait
+        
+        return response()->json(['data' => $egresos]);
+    }
+
+    /**
+     * [reporteIngresoGrifoNetoMensual description]
+     * @return [type]       [description]
+     */
+    public function reporteIngresoGrifoNetoAnual(){
+       
+        $year = strftime('%Y',strtotime('now'));       
+        $last_year = strftime('%Y',strtotime('first day of -1 year'));
+        $meses  = config('constants.meses_name');
+        $api = url('/chart-ingresos-grifos-anual-ajax');
+        $chart = new PruebaChart;
+        $chart->labels($meses)->load($api);
+        $grifos = Grifo::all();
+        $grifos_col = collect([]); 
+        foreach ($grifos as $grifo) {            ;
+            $grifos_col->push($grifo->razon_social);
+        }
+        $api_chart_grifos = url('/chart-ingresos-x-grifo-anual-ajax');
+        $chart_grifos = new PruebaChart;
+        $chart_grifos->labels($grifos_col)->load($api_chart_grifos);
+        return view('reporte_ganancia_grifo.neto.anual.index',compact('year','last_year','chart','chart_grifos'));
+    } 
+
+     /**
+     * [reporteIngresoGrifoNetoMensualData description]
+     * @param  [type] $year [year (Y))]
+     * @return [type]       [description]
+     */
+    public function reporteIngresoGrifoNetoAnualData($year = null){
+       
+       $year = ($year==null) ? date('Y'): $year;  
+        $meses  = config('constants.meses_name');
+        $meses_values = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $ingresos_neto_grifos = collect([]); 
+        foreach ($meses_values as $mes) {
+            $fecha_ingreso = $mes.'-'.$year;
+            $ingresos_fecha_ingreso = $this->ingresosGrifosNetoMensual($fecha_ingreso);//trait
+            $total_mes = 0;
+            $mes_name = $meses[$mes-1];
+            foreach ($ingresos_fecha_ingreso as $egreso_fecha_ingreso) {            
+                $total_mes += $egreso_fecha_ingreso->monto_neto;
             }
-        $grifos         = Grifo::all();
-        $semana       =  config('constants.semana_name');//constant week                  
-        $this_year = strftime( '%Y',strtotime('now') );
-        $meses        = config('constants.meses_name');
-        $month_actual = $meses[strftime( '%m',strtotime('now') )-1];
-        $month_actual_date = $month_actual.' '.$this_year;
-        $last_month = $meses[strftime( '%m',strtotime('first day of -1 month') )-1];
-        $last_month_date = $last_month.' '.$this_year;
-
-        return view('reporte_ingresos_grifo_neto.mensual.index',compact('netos','grifos','month_actual','last_month','semana','month_actual_date','last_month_date'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            $ingreso_neto_year =[   
+                    'mes'           => $mes,
+                    'mes_year'      => $mes_name.' del '.$year,
+                    'monto_egreso' => $total_mes
+                    ];  
+            $ingreso_neto_year = (object)$ingreso_neto_year; 
+            $ingresos_neto_grifos->push($ingreso_neto_year);
+        }
+        return response()->json(['data' => $ingresos_neto_grifos]);
+    } 
 
     /**
-     * Display the specified resource.
+     *  Datos para chart Egresos Grifo Anual
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function reporteIngresoGrifoNetoAnualAjax(Request $request)    
+    {      
+        $year = $request->has('year') ? $request->year : date('Y');
+        $meses  = config('constants.meses_name');
+        $meses_values = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $ingresos_neto_grifos = collect([]); 
+        foreach ($meses_values as $mes) {
+            $fecha_ingreso = $mes.'-'.$year;
+            $ingresos_fecha_ingreso = $this->ingresosGrifosNetoMensual($fecha_ingreso);//trait
+            $total_mes = 0;
+            foreach ($ingresos_fecha_ingreso as $egreso_fecha_ingreso) {            
+                $total_mes += $egreso_fecha_ingreso->monto_neto;
+            }
+            $ingresos_neto_grifos->push($total_mes);
+        }
+        $chart = new PruebaChart; 
+        $chart->dataset('Ingresos Neto Anual - '.$year, 'bar', $ingresos_neto_grifos )->color('#74D46D');
+
+        return $chart->api();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+      /**
+     * Datos de Reporte general mensual de ingresos consultados.
+     * @param  [string] $date [fecha de reporte, solo mes y año]
+     * @return [json]       [formato para datatables]
      */
-    public function edit($id)
-    {
-        //
+    public function reporteIngresosNetoXGrifoAnualData($year=null)    
+    {      
+       
+        $year = ($year==null) ? date('Y'): $year;  
+        $netos = $this->ingresosGrifoNetoAnual($year);
+        return response()->json(['data' => $netos]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+   /**
+     * Datos de Reporte general mensual de ingresos consultados.
+     * @param  [string] $date [fecha de reporte, solo mes y año]
+     * @return [json]       [formato para datatables]
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function reporteIngresosNetoXGrifoAnualAjax(Request $request)    
+    {      
+       
+        $year = $request->has('year') ? $request->year : date('Y');
+        $ingresos_year = $this->ingresosGrifoNetoAnual($year);
+
+        $ingresos_col = collect([]); //ingresos en collection
+        foreach ($ingresos_year as $ingreso) {            
+            $ingresos_col->push($ingreso->monto_neto);
+        } 
+    
+        $chart = new PruebaChart; 
+        $chart->dataset('Ingresos netos por Grifo Anual - '.$year, 'bar', $ingresos_col )->color('#74D46D');
+        return $chart->api();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
 }
