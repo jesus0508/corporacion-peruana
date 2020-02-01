@@ -22,7 +22,7 @@
                   @enderror
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
               <div class="form-group">
                 <label for="grifo_id">Grifo</label>
                 <select class="form-control" id="select_grifos" name="grifo_id" required>                                 
@@ -32,8 +32,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="nro_serie">Número(s) de serie</label>
-                <input id="nro_serie" type="text" class="form-control" 
-                        readonly="">
+                <select name="serie_id" id="select_series" class="form-control"></select>
               </div>
             </div>
           </div>                    

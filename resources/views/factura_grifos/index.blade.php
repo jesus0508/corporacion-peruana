@@ -176,7 +176,7 @@ $(document).ready(function() {
 
   let $select_grifo  = $('#select_grifos');
   let $fecha_ingreso = $('#fecha');
-  let $series        = $('#nro_serie');
+  let $series        = $('#select_series');
   let $venta_factura = $('#venta_factura');
   let $venta_boleta  = $('#venta_boleta');
   let $total_galones = $('#total_galones');
@@ -291,7 +291,7 @@ $(document).ready(function() {
         fecha_ingreso = convertDateFormat(fecha_ingreso);
         id = (id)?id:-1;  
         fillSeries(id,fecha_ingreso);
-        evaluateSeries();//evalua valor series         
+        evaluateSeries();//evalua valor series        
       })
       .fail((error) => {
         toastr.error('Ocurrió un error', 'Error Alert', { timeOut: 2000 });

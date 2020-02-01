@@ -21,8 +21,8 @@
           <tbody>
             @foreach ($ingresos as $ingreso)
               <tr>
-                <td>{{ date('d/m/Y', strtotime($ingreso->fecha_reporte)) }}</td>
-                <td>{{ date('d/m/Y', strtotime($ingreso->fecha_ingreso)) }}</td>
+                <td>{{$ingreso->fecha_reporte }}</td>
+                <td>{{$ingreso->fecha_ingreso }}</td>
                 <td>{{$ingreso->transporte->placa}}</td>
                 <td>
                   @if($ingreso->transporte->chofer)
