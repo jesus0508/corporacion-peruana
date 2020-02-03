@@ -35,7 +35,7 @@ class EgresoTransporteController extends Controller
      */
     public function create()
     {
-        $egresos = EgresoTransporte::all();
+        $egresos = EgresoTransporte::select('egreso_transportes.*','fecha_reporte as date_reporte')->get();
         $transportes = Transporte::all();
         return view('transporte.egresos.index',compact('egresos','transportes'));
     }

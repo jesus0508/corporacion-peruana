@@ -11,30 +11,36 @@
               {{--La fecha de reporte y Alquiler de Buses de titulo en el excel--}}
               <th>Fecha Reporte</th>
               <th>Fecha de egreso</th>
+              <th>Tipo</th>  
               <th>Placa</th>
               <th>Tipo Comprobante</th>
               <th>N° comprobante</th>
               <th>Descripción</th>
-              <th>Monto</th>  
-            
+              <th>Monto</th>
+              <th>Mes reporte</th>            
             </tr>
           </thead>
           <tbody>
+            @php setlocale(LC_TIME, "spanish"); @endphp   
             @foreach ($egresos as $egreso)
               <tr>
                 <td>{{$egreso->fecha_reporte }}</td>
                 <td>{{$egreso->fecha_egreso }}</td>
+                <td>{{$egreso->transporte->getTipo()}}</td>
                 <td>{{$egreso->transporte->placa}}</td>
                 <td>{{$egreso->getTipoComprobante()}}</td>
                 <td>{{$egreso->nro_comprobante}}</td>
                 <td>{{$egreso->descripcion}}</td>
                 <td>{{$egreso->monto_egreso}}</td>
+                <td>{{ ucfirst(strftime("%B %Y",strtotime($egreso->date_reporte)))}}</td>
+
               </tr>
             @endforeach
           </tbody>
           <tfoot>
             <tr>
-              <th colspan="6"  style="text-align:right">TOTAL</th>
+              <th colspan="7"  style="text-align:right">TOTAL</th>
+              <th></th>
               <th></th>
             </tr>
           </tfoot>

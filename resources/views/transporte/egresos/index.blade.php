@@ -69,6 +69,10 @@ function getPlacaByTipo(idTipo) {
 function inicializarDataTable($table, fecha_reporte){
 	 $table.DataTable({
       "responsive": false,
+      "columnDefs": [{
+          "targets": [8],
+          "visible": false
+      }],
       "dom": 'Blfrtip',
       "scrollX": true,
       "buttons": [
@@ -89,14 +93,14 @@ function inicializarDataTable($table, fecha_reporte){
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=F'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=F'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=G'+nRows+'] t', sheet).text( total );
-              $('c[r=G'+nRows+'] t', sheet).attr('s','37');            
+              $('c[r=G'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=G'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=H'+nRows+'] t', sheet).text( total );
+              $('c[r=H'+nRows+'] t', sheet).attr('s','37');            
 			       },
         'exportOptions':
         {
-          columns:[0,1,2,3,4,5,6]
+          columns:[0,1,2,3,4,5,6,7]
         },
         footer: true
       }], 
@@ -104,13 +108,13 @@ function inicializarDataTable($table, fecha_reporte){
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
             pageTotal = api
-                .column( 6, { page: 'current'} )
+                .column( 7, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
-            $( api.column( 6 ).footer() ).html(pageTotal);
+            $( api.column( 7 ).footer() ).html(pageTotal);
       }
   });
 
@@ -137,6 +141,16 @@ function inicializarSelect2($select, text, data) {
       $('#fecha_fin').datepicker('option', 'minDate', selected)
     }
   });
+
+  $('#fecha_inicio2').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
+  });
   $('#fecha_fin').datepicker({
     numberOfMonths: 1,
     onSelect: function (selected) {
@@ -158,11 +172,29 @@ function inicializarSelect2($select, text, data) {
     }
   );
 
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      var sInicio = $('#fecha_inicio2').val();
+      let cell = data[8];
+      if (sInicio) {
+        return sInicio === cell;
+      }
+      return true;
+    }
+  );
+
+
+
   $('#filtrar-fecha').on('click', function () {
     $tabla_pagos_lista.DataTable().draw();
   });
 
+  $('#filtrar-fecha-mes').on('click', function () {
+    $tabla_pagos_lista.DataTable().draw();
+  });
+
   $('#clear-fecha').on('click', function () {
+    $('#fecha_inicio2').val("");   
     $('#fecha_inicio').val("");
     $('#fecha_fin').val("");
     $tabla_pagos_lista.DataTable().draw();
@@ -172,24 +204,38 @@ function inicializarSelect2($select, text, data) {
 }
 $(document).ready(function() {
     validateDates();
-    let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-egreso-transporte');
-    inicializarSelect2($filter_proveedor, 'Ingrese la placa', '');
-      $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[2];
-      if (grifo) {
-        return grifo === cell;
+    let $filter_placa = $('#filter-grifo');
+    let $filter_tipo      = $('#filter-tipo');        
+    let $tabla_egreso_transporte = $('#tabla-egreso-transporte');
+    inicializarSelect2($filter_placa, 'Placa', '');
+    inicializarSelect2($filter_tipo, 'Tipo', '');  
+    //filter placa      
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      let placa = $filter_placa.find('option:selected').text();
+      let cell = data[3];
+      if (placa) {
+        return placa === cell;
       }
       return true;
-    }
+    });
 
-  );
+    //filter tipo      
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      let tipo = $filter_tipo.find('option:selected').text();
+      let cell = data[2];
+      if (tipo) {
+        return tipo === cell;
+      }
+      return true;
+    });   
 
-  $filter_proveedor.on('change', function () {
-    $tabla_pedido_proveedores.DataTable().draw();
+  $filter_placa.on('change', function () {
+    $tabla_egreso_transporte.DataTable().draw();
   });
+
+  $filter_tipo.on('change', function () {
+    $tabla_egreso_transporte.DataTable().draw();
+  });  
 } );
 </script>
 @endsection

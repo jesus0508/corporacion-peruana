@@ -411,21 +411,65 @@ desired effect
                 </li>               
               </ul>
             </li>
-
-
-            <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
+            <li id="treeview-reporte-transportes" class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>
-                  <span>Reporte Unidades</span>
+                  <span>Reporte Transportes</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
               </a>
-              <ul class="treeview-menu" style="display: none;">               
-                  <li><a href="{{route('transporte.reporteDiario')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
-                  <li><a href="{{route('transporte.reporteMensual')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
-                  {{-- <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> Anual </a></li>
-                  <li><a href="{{route('ganancia_zona_neta.index')}}"><i class="fa fa-listS-alt">D</i> General </a></li> --}}
+              <ul class="treeview-menu" style="display: none;"> 
+                <li id="treeview-reporte-unidades" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Unidades(Buses)</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;"> 
+                      <li><a href="{{route('transporte.reporteDiario')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
+                      <li><a href="{{route('transporte.reporteMensual')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
+                  </ul>
+                </li>
+                <li id="treeview-reporte-transporte-general" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>General(Todos)</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;"> 
+                      <li><a href="{{route('transporte.reporteDiarioTotal')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
+                      <li><a href="{{route('transporte.reporteMensualTotal')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
+                  </ul>
+                </li>
+                <li id="treeview-reporte-transporte-general-ingresos" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Ingresos</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;"> 
+                      <li><a href="{{route('transporte.reporteAnualIngresos')}}"><i class="fa fa-listS-alt">A</i> Anual </a></li>
+                  </ul>
+                </li>
+                <li id="treeview-reporte-transporte-general-egresos" class="treeview">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Egresos</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;"> 
+                      <li><a href="{{route('transporte.reporteAnualEgresos')}}"><i class="fa fa-listS-alt">A</i> Anual </a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
           </ul>
