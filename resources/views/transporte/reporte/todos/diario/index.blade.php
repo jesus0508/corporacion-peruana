@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Neto Grifos')
+@section('title','Reporte Transportes')
 
 @section('styles')
 @include('reporte_excel.excel_select2_css')
@@ -9,14 +9,15 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Reportes Diario</a></li>
+  <li><a href="#">Transportes</a></li>
+  <li><a href="#">Diario</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('transporte.reporte.unidades.header')
-  @include('transporte.reporte.unidades.table')
+  @include('transporte.reporte.todos.diario.header')
+  @include('transporte.reporte.todos.diario.table')
   <!--/.end-modales-->
 </section>
 @endsection
@@ -26,13 +27,15 @@
 @include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
-  $('#tabla-ingresos-netos-diarios').DataTable({
+
+  $('#tabla-netos-unidades-diario').DataTable({
       "responsive": true,
       "dom": 'Blfrtip',
+      "iDisplayLength": 50,
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto Unidades(Buses) Transporte',
+        'title': 'Lista Ingreso Neto Diario Transporte',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -43,43 +46,37 @@ $(document).ready(function() {
               var sheet = xlsx.xl.worksheets['sheet1.xml'];
               let rels = xlsx.xl.worksheets['sheet1.xml'];
               var clR = $('row', sheet); 
-              
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=D'+nRows+'] t', sheet).text('TOTAL NETO:' );
               $('c[r=D'+nRows+'] t', sheet).attr('s','37');
               $('c[r=E'+nRows+'] t', sheet).text( total );
               $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5]
+          columns:[0,1,2,3,4]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
-
             // Total over this page
             pageTotal = api
-                .column(5 , { page: 'current'} )
+                .column(4 , { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
-            // Update footer
-            $( api.column( 5 ).footer() ).html(
-                pageTotal
-                // +' (S/.'+ total +' total)'
-            );
+            $( api.column( 4 ).footer() ).html(pageTotal);
       }
   });
 });
 
-	function inicializarSelect2($select, text, data) {
+  function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -89,55 +86,40 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-ingresos-netos-diarios');
-  $('#fecha_inicio').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_fin').datepicker('option', 'minDate', selected)
-    }
-  });
-  $('#fecha_fin').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_inicio').datepicker('option', 'maxDate', selected)
-    }
-  });
-
+  let $tabla_ingresos_diario = $('#tabla-netos-unidades-diario');
+  $('#fecha_inicio').datepicker();
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
-      var sFin = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
+      //console.log(sInicio,data[0]);
+      let cell = data[0];
+      if (sInicio) {
+        return sInicio === cell;
       }
-      return false;
+      return true;
     }
   );
 
   $('#filtrar-fecha').on('click', function () {
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_ingresos_diario.DataTable().draw();
   });
 
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
-    $('#fecha_fin').val("");
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_ingresos_diario.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
   });
 }
 
 $(document).ready(function() {
     validateDates();
-    let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-diarios');
-    inicializarSelect2($filter_proveedor, 'Elija la placa', '');
+    let $filter_placa = $('#filter-grifo');
+    let $tabla_pedido_proveedores = $('#tabla-netos-unidades-diario');
+    inicializarSelect2($filter_placa, 'Elija la placa', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-      let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[3];
+      let grifo = $filter_placa.find('option:selected').text();
+      let cell = data[2];
       if (grifo) {
         return grifo === cell;
       }
@@ -146,7 +128,7 @@ $(document).ready(function() {
 
   );
 
-  $filter_proveedor.on('change', function () {
+  $filter_placa.on('change', function () {
     $tabla_pedido_proveedores.DataTable().draw();
   });
 } );

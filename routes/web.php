@@ -215,17 +215,29 @@ Route::middleware(['auth'])->group(function () {
 		'ReporteGeneralDepositosController@reporteDepositosDiarioData');
 
 
-		//Reportes TRANSPORTES
+	//Reportes TRANSPORTES
 		//UNIDADES
-	Route::get('/reporte_diario_unidades',
-		'TransporteController@reporteDiario')->name('transporte.reporteDiario');
-	Route::get('/reporte_mensual_unidades',
-		'TransporteController@reporteMensual')->name('transporte.reporteMensual');
+	Route::get('/reporte_diario_unidades','TransporteReporteController@reporteDiarioUnidades')
+		->name('transporte.reporteDiarioUnidades');
+
+	
+	Route::get('/reporte_mensual_unidades','TransporteReporteController@reporteMensualUnidades')
+		->name('transporte.reporteMensualUnidades');
+
+	Route::get('/reporte_anual_unidades','TransporteReporteController@reporteAnualUnidades')
+		->name('transporte.reporteAnualUnidades');
+
 		//TODOS
 	Route::get('/reporte_diario_transportes',
-		'TransporteController@reporteDiarioTotal')->name('transporte.reporteDiarioTotal');
+		'TransporteReporteController@reporteDiarioTotal')->name('transporte.reporteDiarioTotal');
+	// Route::get('/reporte_diario_transportes_data',
+	// 	'TransporteReporteController@reporteDiarioTotalData');	
 	Route::get('/reporte_mensual_transportes',
-		'TransporteController@reporteMensualTotal')->name('transporte.reporteMensualTotal');
+		'TransporteReporteController@reporteMensualTotal')->name('transporte.reporteMensualTotal');
+	// Route::get('/reporte_mensual_transportes_data',
+	// 	'TransporteReporteController@reporteMensualTotalData');
+	Route::get('/reporte_anual_transportes',
+		'TransporteReporteController@reporteAnualTotal')->name('transporte.reporteAnualTotal');
 
 	Route::get('/reporte_mensual_ingresos_transportes',
 		'TransporteController@reporteMensual')->name('transporte.reporteMensualIngresos');

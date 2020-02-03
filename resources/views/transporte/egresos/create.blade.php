@@ -36,7 +36,7 @@
           <div class="col-md-6">
                 <div class="form-group @error('fecha_reporte') has-error @enderror">
                   <label for="fecha_reporte">Fecha reporte*</label>
-                  <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control" required="" 
+                  <input autocomplete="off" id="fecha_reporte" type="text" class="tuiker form-control" required="" value="{{old('fecha_reporte')}}" 
                   name="fecha_reporte" placeholder="Ingrese fecha reporte">
                   @error('fecha_reporte')
                   <span class="help-block" role="alert">
@@ -69,7 +69,8 @@
             <div class="col-md-4  ">
               <div class="form-group">
                 <label for="tipo_comprobante">Comprobante*</label>
-                <select id="tipo_comprobante" class="form-control" name="tipo_comprobante" required="">  
+                <select id="tipo_comprobante" class="form-control" 
+                  value="{{old('tipo_comprobante')}}"  name="tipo_comprobante" required="">  
                   <option value="1">Boleta</option>
                   <option value="2">Factura</option>
                   <option value="3">Ticket</option>
@@ -82,7 +83,7 @@
                 <div class="form-group @error('fecha_egreso') has-error @enderror">
                   <label for="fecha_egreso">Fecha de egreso*</label>
                   <input autocomplete="off" id="fecha_egreso" type="text" 
-                  class="tuiker form-control" required="" 
+                  class="tuiker form-control" required="" value="{{old('fecha_egreso')}}"
                   name="fecha_egreso" placeholder="Fecha de egreso">
                   @error('fecha_egreso')
                   <span class="help-block" role="alert">
@@ -95,7 +96,7 @@
             <div class="col-md-4">
               <div class="form-group @error('monto_egreso') has-error @enderror">
                 <label for="monto_egreso">Monto*</label>
-                <input id="monto_egreso" type="number" class="form-control" value="{{old('monto_egreso')}}" required
+                <input id="monto_egreso" type="number" class="form-control" value="{{old('monto_egreso')}}" required step="any" 
                         name="monto_egreso" placeholder="Ingrese el Monto" required>
                 @error('monto_egreso')
                 <span class="help-block" role="alert">

@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-xs-12">
     <div class="box box-success">
@@ -11,18 +12,20 @@
               <th>Subtotal Ingresos</th>
               <th>Subtotal Egresos</th>
               <th>Monto Neto(S/.)</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             @php setlocale(LC_TIME, "spanish"); @endphp
             @foreach( $netos as $neto )
               <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$loop->iteration}}</td>    
                 <td>{{ ucfirst(strftime("%B %Y",strtotime($neto->day) ) )}}</td>
                 <td>{{$neto->placa}}</td>                  
                 <td>{{$neto->monto_ingreso}}</td>
                 <td>{{$neto->monto_egreso}}</td>
                 <td>{{$neto->monto_neto}}</td>
+                <td>{{ ucfirst(strftime("%Y",strtotime($neto->day) ) )}}</td>
               </tr>            
             @endforeach       
 
@@ -30,6 +33,7 @@
             <tfoot>
             <tr>
                 <th colspan="5" style="text-align:right">Total:</th>
+                <th></th>
                 <th></th>
             </tr>
         </tfoot>

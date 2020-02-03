@@ -3,54 +3,46 @@
 @section('title','Reporte Transportes')
 
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
-    <style>
-    .ui-datepicker-calendar {
-        display: none;
-    }
-    </style>
+@include('reporte_excel.excel_select2_css')
+  <style>
+  .ui-datepicker-calendar {
+      display: none;
+  }
+  </style>
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
   <li><a href="#">Transportes</a></li>
-  <li><a href="#">Reportes Mensual</a></li>
+  <li><a href="#">Mensual</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('transporte.reporte.mensual.header')
-  @include('transporte.reporte.mensual.table')
+  @include('transporte.reporte.todos.mensual.header')
+  @include('transporte.reporte.todos.mensual.table')
   <!--/.end-modales-->
 </section>
 @endsection
 
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-
+@include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
   $('#tabla-ingresos-netos-mensual').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "responsive": true,
       "dom": 'Blfrtip',
       "iDisplayLength": 50,
+      "columnDefs":[
+        { targets: [4]  , visible: false  }
+      ],
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto Mensual Unidades Transporte',
+        'title': 'Lista Ingreso Neto Mensual Transportes',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -72,35 +64,22 @@ $(document).ready(function() {
             },
         'exportOptions':
         {
-          columns:[1,2,3,4,5]
+          columns:[0,1,2,3]
         },
         footer: true
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
-            // Total over this page
             pageTotal = api
-                .column( 5, { page: 'current'} )
+                .column( 3, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             // Update footer
-            $( api.column( 5 ).footer() ).html(
-                pageTotal
-                // +' (S/.'+ total +' total)'
-            );
+            $( api.column( 3 ).footer() ).html(  pageTotal  );
       }
   });
 });
@@ -115,7 +94,7 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-ingresos-netos-mensual');
+  let $tabla_neto_mensual_transporte = $('#tabla-ingresos-netos-mensual');
   $('#fecha_inicio').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -135,8 +114,7 @@ function validateDates() {
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
-      var sFin = $('#fecha_inicio').val();
-      let cell = data[1];
+      let cell = data[4];
       if (sInicio) {
         return sInicio === cell;
       }
@@ -145,27 +123,24 @@ function validateDates() {
   );
 
   $('#filtrar-fecha').on('click', function () {
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_neto_mensual_transporte.DataTable().draw();
   });
 
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
-    $('#fecha_fin').val("");
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_neto_mensual_transporte.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
   });
 
   $('#today-fecha').on('click', function () {
     let hoy = $('#month_actual_date').val();
     $('#fecha_inicio').val(hoy);
-    $('#fecha_fin').val(hoy);
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_neto_mensual_transporte.DataTable().draw();
   });
   $('#yesterday-fecha').on('click', function () {
     let ayer = $('#last_month_date').val();
     $('#fecha_inicio').val(ayer);
-    $('#fecha_fin').val(ayer);
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_neto_mensual_transporte.DataTable().draw();
   });
 
 
@@ -173,24 +148,38 @@ function validateDates() {
 
 $(document).ready(function() {
     validateDates();
-    let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-mensual');
-    inicializarSelect2($filter_proveedor, 'Selecciona la placa', '');
-      $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[2];
-      if (grifo) {
-        return grifo === cell;
+    let $filter_placa = $('#filter-grifo');
+    let $filter_tipo      = $('#filter-tipo'); 
+    let $tabla_neto_mensual = $('#tabla-ingresos-netos-mensual');
+    inicializarSelect2($filter_tipo, 'Tipo', '');    
+    inicializarSelect2($filter_placa, 'Placa', '');
+    //placa filter
+    $.fn.dataTable.ext.search.push(
+      function (settings, data, dataIndex) {
+        let placa = $filter_placa.find('option:selected').text();
+        let cell = data[2];
+        if (placa) {
+          return placa === cell;
+        }
+        return true;
+    });
+    //tipo filter  
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      let tipo = $filter_tipo.find('option:selected').text();
+      let cell = data[1];
+      if (tipo) {
+        return tipo === cell;
       }
       return true;
-    }
+    }); 
 
-  );
-
-  $filter_proveedor.on('change', function () {
-    $tabla_pedido_proveedores.DataTable().draw();
+  $filter_placa.on('change', function () {
+    $tabla_neto_mensual.DataTable().draw();
   });
+
+  $filter_tipo.on('change', function () {
+    $tabla_neto_mensual.DataTable().draw();
+  });  
 } );
 
 </script>

@@ -1,49 +1,48 @@
 @extends('layouts.main')
 
-@section('title','Neto Grifos')
+@section('title','Reporte Transportes')
 
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
+@include('reporte_excel.excel_select2_css')
+  <style>
+  .ui-datepicker-calendar {
+      display: none;
+  }
+  </style>
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Reportes Diario General</a></li>
+  <li><a href="#">Transportes - Unidades</a></li>
+  <li><a href="#">Mensual</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('transporte.reporte.general.header')
-  @include('transporte.reporte.general.table')
+  @include('transporte.reporte.unidades.mensual.header')
+  @include('transporte.reporte.unidades.mensual.table')
   <!--/.end-modales-->
 </section>
 @endsection
 
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-
+@include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
-  $('#tabla-ingresos-netos-general-diario').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
+  $('#tabla-ingresos-netos-mensual').DataTable({
       "responsive": true,
-      "dom": 'Bfrtip',
+      "dom": 'Blfrtip',
+      "iDisplayLength": 50,
+      "columnDefs":[
+        { targets: [ 6 ],  visible: false  }
+      ],
       "buttons": [
       {
         'extend': 'excelHtml5',
-        'title': 'Lista Ingreso Neto General Transporte',
+        'title': 'Lista Ingreso Neto Mensual Unidades Transporte',
         'attr':  {
           title: 'Excel',
           id: 'excelButton'
@@ -58,10 +57,10 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=C'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=D'+nRows+'] t', sheet).text( total );
-              $('c[r=D'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
+              $('c[r=E'+nRows+'] t', sheet).text( total );
+              $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
@@ -72,7 +71,15 @@ $(document).ready(function() {
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
-
+ 
+            // Total over all pages
+            total = api
+                .column( 5 )
+                .data()
+                .reduce( function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0 );
+ 
             // Total over this page
             pageTotal = api
                 .column( 5, { page: 'current'} )
@@ -90,7 +97,7 @@ $(document).ready(function() {
   });
 });
 
-	function inicializarSelect2($select, text, data) {
+  function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -100,12 +107,15 @@ $(document).ready(function() {
   }
 
 function validateDates() {
-  let $tabla_pagos_lista = $('#tabla-ingresos-netos-general-diario');
+  let $tabla_neto_mensual_transporte = $('#tabla-ingresos-netos-mensual');
   $('#fecha_inicio').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_fin').datepicker('option', 'minDate', selected)
-    }
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
   });
   $('#fecha_fin').datepicker({
     numberOfMonths: 1,
@@ -117,48 +127,60 @@ function validateDates() {
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
-      var sFin = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[1]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
+      let cell = data[6];
+      if (sInicio) {
+        return sInicio === cell;
       }
-      return false;
+      return true;
     }
   );
 
   $('#filtrar-fecha').on('click', function () {
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_neto_mensual_transporte.DataTable().draw();
   });
 
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
     $('#fecha_fin').val("");
-    $tabla_pagos_lista.DataTable().draw();
+    $tabla_neto_mensual_transporte.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
   });
+
+  $('#today-fecha').on('click', function () {
+    let hoy = $('#month_actual_date').val();
+    $('#fecha_inicio').val(hoy);
+    $('#fecha_fin').val(hoy);
+    $tabla_neto_mensual_transporte.DataTable().draw();
+  });
+  $('#yesterday-fecha').on('click', function () {
+    let ayer = $('#last_month_date').val();
+    $('#fecha_inicio').val(ayer);
+    $('#fecha_fin').val(ayer);
+    $tabla_neto_mensual_transporte.DataTable().draw();
+  });
+
+
 }
 
 $(document).ready(function() {
     validateDates();
-    let $filter_proveedor = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-ingresos-netos-general-diario');
-    inicializarSelect2($filter_proveedor, 'Elija la placa', '');
+    let $filter_placa = $('#filter-grifo');
+    let $tabla_neto_mensual = $('#tabla-ingresos-netos-mensual');
+    inicializarSelect2($filter_placa, 'Selecciona la placa', '');
       $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-      let grifo = $filter_proveedor.find('option:selected').text();
-      let cell = data[3];
-      if (grifo) {
-        return grifo === cell;
+      let placa = $filter_placa.find('option:selected').text();
+      let cell = data[2];
+      if (placa) {
+        return placa === cell;
       }
       return true;
     }
 
   );
 
-  $filter_proveedor.on('change', function () {
-    $tabla_pedido_proveedores.DataTable().draw();
+  $filter_placa.on('change', function () {
+    $tabla_neto_mensual.DataTable().draw();
   });
 } );
 

@@ -3,48 +3,32 @@
 @section('title','Reporte Transportes')
 
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet"></link>
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Transportes</a></li>
-  <li><a href="#">Reportes Diario</a></li>
+  <li><a href="#">Transportes - Unidades</a></li>
+  <li><a href="#">Diario</a></li>
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('transporte.reporte.diario.header')
-  @include('transporte.reporte.diario.table')
+  @include('transporte.reporte.unidades.diario.header')
+  @include('transporte.reporte.unidades.diario.table')
   <!--/.end-modales-->
 </section>
 @endsection
 
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-
+@include('reporte_excel.excel_select2_js')
 <script>
-
-
-
 $(document).ready(function() {
 
-  var fecha_reporte_selected = $('#fecha_inicio').val();
-  console.log('xd');
   $('#tabla-netos-unidades-diario').DataTable({
-      'language': {
-               'url' : '//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json'
-          },
       "responsive": true,
       "dom": 'Blfrtip',
       "iDisplayLength": 50,
@@ -79,7 +63,6 @@ $(document).ready(function() {
 
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
-
             // Total over this page
             pageTotal = api
                 .column(4 , { page: 'current'} )
@@ -88,16 +71,12 @@ $(document).ready(function() {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
-            // Update footer
-            $( api.column( 4 ).footer() ).html(
-                pageTotal
-                // +' (S/.'+ total +' total)'
-            );
+            $( api.column( 4 ).footer() ).html(pageTotal);
       }
   });
 });
 
-	function inicializarSelect2($select, text, data) {
+  function inicializarSelect2($select, text, data) {
   $select.prop('selectedIndex', -1);
   $select.select2({
     placeholder: text,
@@ -108,30 +87,16 @@ $(document).ready(function() {
 
 function validateDates() {
   let $tabla_ingresos_diario = $('#tabla-netos-unidades-diario');
-  $('#fecha_inicio').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_fin').datepicker('option', 'minDate', selected)
-    }
-  });
-  $('#fecha_fin').datepicker({
-    numberOfMonths: 1,
-    onSelect: function (selected) {
-      $('#fecha_inicio').datepicker('option', 'maxDate', selected)
-    }
-  });
-
+  $('#fecha_inicio').datepicker();
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       var sInicio = $('#fecha_inicio').val();
-      var sFin = $('#fecha_inicio').val();
-      var inicio = $.datepicker.parseDate('d/m/yy', sInicio);
-      var fin = $.datepicker.parseDate('d/m/yy', sFin);
-      var dia = $.datepicker.parseDate('d/m/yy', data[0]);
-      if (!inicio || !dia || fin >= dia && inicio <= dia) {
-        return true;
+      //console.log(sInicio,data[0]);
+      let cell = data[0];
+      if (sInicio) {
+        return sInicio === cell;
       }
-      return false;
+      return true;
     }
   );
 
@@ -141,7 +106,6 @@ function validateDates() {
 
   $('#clear-fecha').on('click', function () {
     $('#fecha_inicio').val("");
-    $('#fecha_fin').val("");
     $tabla_ingresos_diario.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
   });

@@ -429,8 +429,9 @@ desired effect
                       </span>
                   </a>
                   <ul class="treeview-menu" style="display: none;"> 
-                      <li><a href="{{route('transporte.reporteDiario')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
-                      <li><a href="{{route('transporte.reporteMensual')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
+                      <li><a href="{{route('transporte.reporteDiarioUnidades')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
+                      <li><a href="{{route('transporte.reporteMensualUnidades')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
+                      <li><a href="{{route('transporte.reporteAnualUnidades')}}"><i class="fa fa-listS-alt">A</i> Anual </a></li>
                   </ul>
                 </li>
                 <li id="treeview-reporte-transporte-general" class="treeview">
@@ -444,6 +445,7 @@ desired effect
                   <ul class="treeview-menu" style="display: none;"> 
                       <li><a href="{{route('transporte.reporteDiarioTotal')}}"><i class="fa fa-listS-alt">D</i> Diario</a></li>
                       <li><a href="{{route('transporte.reporteMensualTotal')}}"><i class="fa fa-listS-alt">M</i> Mensual </a></li>
+                      <li><a href="{{route('transporte.reporteAnualTotal')}}"><i class="fa fa-listS-alt">A</i> Anual </a></li>
                   </ul>
                 </li>
                 <li id="treeview-reporte-transporte-general-ingresos" class="treeview">
