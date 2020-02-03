@@ -116,6 +116,7 @@ function validateDates() {
     $('#datepicker').val("");
     $tabla_neto_anual_transporte.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
+    $('#filter-tipo').val('').trigger('change');
   });
 
  $('#yesterday-fecha1').click(function() {    

@@ -114,23 +114,36 @@ function validateDates() {
 $(document).ready(function() {
     validateDates();
     let $filter_placa = $('#filter-grifo');
-    let $tabla_pedido_proveedores = $('#tabla-netos-unidades-diario');
+    let $filter_tipo      = $('#filter-tipo'); 
+    let $tabla_transportistas_diario_total = $('#tabla-netos-unidades-diario');
     inicializarSelect2($filter_placa, 'Elija la placa', '');
-      $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-      let grifo = $filter_placa.find('option:selected').text();
-      let cell = data[2];
-      if (grifo) {
-        return grifo === cell;
+    inicializarSelect2($filter_tipo, 'Tipo', '');   
+    //placa
+    $.fn.dataTable.ext.search.push(
+      function (settings, data, dataIndex) {
+        let placa = $filter_placa.find('option:selected').text();
+        let cell = data[2];
+        if (placa) {
+          return placa === cell;
+        }
+      return true;
+    });
+    //tipo
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      let tipo = $filter_tipo.find('option:selected').text();
+      let cell = data[3];
+      if (tipo) {
+        return tipo === cell;
       }
       return true;
-    }
-
-  );
-
+    }); 
   $filter_placa.on('change', function () {
-    $tabla_pedido_proveedores.DataTable().draw();
-  });
+    $tabla_transportistas_diario_total.DataTable().draw();
+  });  
+  $filter_tipo.on('change', function () {
+    $tabla_transportistas_diario_total.DataTable().draw();
+  }); 
+
 } );
 
 </script>

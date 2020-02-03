@@ -199,6 +199,7 @@ function inicializarSelect2($select, text, data) {
     $('#fecha_fin').val("");
     $tabla_pagos_lista.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
+    $('#filter-tipo').val('').trigger('change');
   });
 
 }

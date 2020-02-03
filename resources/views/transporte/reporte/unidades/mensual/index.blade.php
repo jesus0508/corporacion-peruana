@@ -144,6 +144,7 @@ function validateDates() {
     $('#fecha_fin').val("");
     $tabla_neto_mensual_transporte.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
+    $('#filter-tipo').val('').trigger('change');
   });
 
   $('#today-fecha').on('click', function () {

@@ -9,7 +9,17 @@
       </select>
     </div><!-- /input-group -->
   </div>
-  <div class="col-md-1"></div>
+  <div class="col-md-3">
+    <div class="input-group">
+      <span class="input-group-addon">Tipo</span>
+      <select class="form-control" id="filter-tipo">
+        <option value="1">Autos</option>
+        <option value="2">Buses</option>
+        <option value="3">Cisternas</option>
+        <option value="4">Administrativo</option>
+      </select>
+    </div><!-- /input-group -->
+  </div>
   <div class="col-md-5">
     <div class="row filtrado">
       <div class="col-md-6">
