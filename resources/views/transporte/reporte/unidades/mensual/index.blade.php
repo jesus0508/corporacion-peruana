@@ -70,16 +70,7 @@ $(document).ready(function() {
       }], 
 
       "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
- 
-            // Total over all pages
-            total = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0 );
- 
+            var api = this.api(), data; 
             // Total over this page
             pageTotal = api
                 .column( 5, { page: 'current'} )
@@ -144,7 +135,6 @@ function validateDates() {
     $('#fecha_fin').val("");
     $tabla_neto_mensual_transporte.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
-    $('#filter-tipo').val('').trigger('change');
   });
 
   $('#today-fecha').on('click', function () {

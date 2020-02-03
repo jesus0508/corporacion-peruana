@@ -108,7 +108,6 @@ function validateDates() {
     $('#fecha_inicio').val("");
     $tabla_ingresos_diario.DataTable().draw();
     $('#filter-grifo').val('').trigger('change');
-    $('#filter-tipo').val('').trigger('change');
   });
 }
 
