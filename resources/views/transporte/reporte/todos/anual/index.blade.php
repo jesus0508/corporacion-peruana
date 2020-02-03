@@ -54,10 +54,8 @@ $(document).ready(function() {
               let nRows = clR.length;//6
               let total = $('c[r=F'+nRows+'] t', sheet).text();                
               $('row:last c t', sheet).text( '' );
-              $('c[r=D'+nRows+'] t', sheet).text('TOTAL:' );
-              $('c[r=D'+nRows+'] t', sheet).attr('s','37');
-              $('c[r=E'+nRows+'] t', sheet).text( total );
-              $('c[r=E'+nRows+'] t', sheet).attr('s','37');             
+              $('c[r=C'+nRows+'] t', sheet).text('TOTAL:' );
+              $('c[r=C'+nRows+'] t', sheet).attr('s','37');             
             },
         'exportOptions':
         {
