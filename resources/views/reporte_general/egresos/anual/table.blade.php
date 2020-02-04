@@ -5,7 +5,7 @@
           <thead>
             <tr>                         
               <th>Mes Año</th> 
-              <th>Monto Ingreso</th>
+              <th>Monto Egreso</th>
             </tr>
           </thead>
           <tfoot>
