@@ -22,7 +22,7 @@ class EgresoTransporte extends Model
     public function getTipoComprobante(){
         $result="";
         switch($this->tipo_comprobante){
-            case 4: 
+            case 5: 
                 $result="Proforma simple";
                 break;  
         	case 4: 

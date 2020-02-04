@@ -32,7 +32,8 @@ class CreateGrifosTable extends Migration
             $table->string('nro_cuenta')->nullable();
             $table->string('cuenta_detraccion')->nullable();
             $table->string('utilidades')->nullable();
-            $table->string('extraordinaria')->nullable();  
+            $table->string('extraordinaria')->nullable();
+            $table->integer('estado')->default(1);                 
             $table->timestamps();
         });
     }

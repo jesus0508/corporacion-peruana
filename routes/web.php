@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/bancos','BancoController');
 		Route::resource('/cuentas','CuentaController');
 		Route::resource('/stock','StockController');
-
+		Route::resource('/egreso_gerencia','EgresoGerenciaController');
 	});
 
 

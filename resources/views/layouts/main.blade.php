@@ -629,7 +629,7 @@ desired effect
         <li>
           <a href="{{route('stock_grifos.create')}}"><i class="fa fa-battery-half"></i>  Stock de Grifos</a>
         </li>
-        <li id="treeview-empresa" class="treeview">
+        <li id="treeview-programacion-pedidos" class="treeview">
           <a href="#">
             <i class="fa fa-square"></i> <span>Programación pedidos</span>
             <span class="pull-right-container">
@@ -657,7 +657,8 @@ desired effect
           </a>
           <ul class="treeview-menu" style="display: none;">
             <li><a href="{{ route('empresa.index') }}"><i class="fa fa-pencil"></i> Gestión</a></li>
-          </ul>
+            <li><a href="{{ route('egreso_gerencia.index') }}"><i class="fa fa-arrow-circle-down"></i> Gastos Gerencia</a></li>
+          </ul>        
         </li>    
       </ul>
       <!-- /.sidebar-menu -->
