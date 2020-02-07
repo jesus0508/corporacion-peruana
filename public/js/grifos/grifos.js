@@ -1,4 +1,3 @@
-$select_zonas = $('#select_zonas');
 $('#modal-edit-grifo').on('show.bs.modal', function (event) {     
   var id= $(event.relatedTarget).data('id');
   $.ajax({
@@ -9,7 +8,7 @@ $('#modal-edit-grifo').on('show.bs.modal', function (event) {
       id : $(`#id`).val(),
     },
     success: (data)=>{
-      console.log(data);
+      //console.log(data);
       $(event.currentTarget).find('#ruc-edit').val(data.grifo.ruc);
       $(event.currentTarget).find('#razon_social-edit').val(data.grifo.razon_social);
       $(event.currentTarget).find('#telefono-edit').val(data.grifo.telefono);
@@ -21,7 +20,7 @@ $('#modal-edit-grifo').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#dni-edit').val(data.grifo.dni);
       $(event.currentTarget).find('#precio_galon-edit').val(data.grifo.precio_galon);
       $(event.currentTarget).find('#correo_grifo-edit').val(data.grifo.correo_grifo);
-      $(event.currentTarget).find('#zona-edit').val(data.grifo.zona);
+      $(event.currentTarget).find('#select_zonas').val(data.grifo.zona);
       $(event.currentTarget).find('#forma_pago-edit').val(data.grifo.forma_pago);  
       $(event.currentTarget).find('#persona_comision-edit').val(data.grifo.persona_comision);     
       $(event.currentTarget).find('#correo_representante-edit').val(data.grifo.correo_representante);     
@@ -29,16 +28,6 @@ $('#modal-edit-grifo').on('show.bs.modal', function (event) {
       $(event.currentTarget).find('#cuenta_detraccion-edit').val(data.grifo.cuenta_detraccion);     
       $(event.currentTarget).find('#utilidades-edit').val(data.grifo.utilidades);  
       $(event.currentTarget).find('#extraordinaria-edit').val(data.grifo.extraordinaria); 
-        let zona = data.grifo.zona;        
-        let lista_zonas = '';
-        data.zonas.forEach((zona) => {
-          lista_zonas += `<option value="${zona.zona}">${zona.zona}</option>`;
-        });
-        $select_zonas.html(lista_zonas);
-        $select_zonas.val(zona);
-        //inicializarSelect2($select_zonas, 'Seleccione la zona');
-        //$select_zonas.val(zona).trigger('change');
-
     },
     error: (error)=>{
       toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
@@ -57,7 +46,7 @@ $('#modal-show-grifo').on('show.bs.modal', function (event) {
       'id' : $(`#id`).val(),
     },
     success: (data)=>{
-      console.log(data);
+      //console.log(data);
       $(event.currentTarget).find('#ruc-show').val(data.grifo.ruc);
       $(event.currentTarget).find('#razon_social-show').val(data.grifo.razon_social);
       $(event.currentTarget).find('#telefono-show').val(data.grifo.telefono);

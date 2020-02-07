@@ -272,9 +272,10 @@
               <div class="form-group">
                 <label for="zona">Zona Grifo*</label>
                 <select class="form-control" id="zona" name="zona" placeholder="Seleccione la zona" required>
-                    <option value="NORTE">NORTE</option>
-                    <option value="SUR">SUR</option>
-                    <option value="ESTE">ESTE</option>
+                  <option value="CENTRO">CENTRO</option>
+                  <option value="ESTE">ESTE</option>
+                  <option value="NORTE">NORTE</option>
+                  <option value="SUR">SUR</option>
                 </select>
               </div>            
             </div>

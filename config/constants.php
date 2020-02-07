@@ -21,10 +21,10 @@ return [
                   "Sábado"
               ],
         'zonas' => [ 
-          ['id'=>1 , 'zona' => 'NORTE'],
-          ['id'=>2 , 'zona' => 'SUR'],
-          ['id'=>3 , 'zona' => 'ESTE'],
-
+          ['id'=>1 , 'zona' => 'CENTRO'],
+          ['id'=>2 , 'zona' => 'ESTE'],
+          ['id'=>3 , 'zona' => 'SUR'],
+          ['id'=>4 , 'zona' => 'SUR'],         
         ],
 
 ];

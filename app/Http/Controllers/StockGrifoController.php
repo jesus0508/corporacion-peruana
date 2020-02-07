@@ -19,7 +19,7 @@ class StockGrifoController extends Controller
         $grifos = Grifo::all();
 
         $stock_grifos = StockGrifo::orderBy('id', 'DESC')->get();
-        $stock_grifos = StockGrifo::join('grifos','grifos.id','=','stock_grifos.grifo_id')->select('stock_grifos.*','grifos.razon_social','grifos.stock')->get();
+        $stock_grifos = StockGrifo::join('grifos','grifos.id','=','stock_grifos.grifo_id')->select('stock_grifos.*','grifos.razon_social','grifos.stock','grifos.zona')->get();
 
 //return $stock_grifos;
         return view('stock_grifos.gestion.index',compact('stock_grifos','grifos'));

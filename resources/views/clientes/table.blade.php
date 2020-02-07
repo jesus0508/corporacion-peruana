@@ -37,7 +37,7 @@
                     <form style="display:inline" method="POST"  onsubmit="return confirmar()" action="{{ route('clientes.destroy', $cliente->id) }}">
                       @csrf
                       @method('DELETE')
-                      <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                      <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                     </form>
                   @endif
                 </td>

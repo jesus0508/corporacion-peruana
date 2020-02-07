@@ -11,6 +11,7 @@
               {{--La fecha de reporte y Alquiler de Buses de titulo en el excel--}}
               <th>FECHA</th>
               <th>Grifo </th>
+              <th>Zona</th>
               <th>Lectura Inicial </th>
               <th>Lectura Final</th>
               <th>Calibracion </th>
@@ -28,6 +29,7 @@
               <tr>
                 <td>{{$stock_grifo->fecha_stock}}</td>
                 <td>{{$stock_grifo->razon_social}}</td>
+                <td>{{$stock_grifo->zona}}</td>
                 <td>{{$stock_grifo->lectura_inicial}}</td>
                 <td>{{$stock_grifo->lectura_final}}</td>
                 <td>{{$stock_grifo->calibracion}}</td>

@@ -249,12 +249,12 @@
               </div> 
                 <div class="form-group">
                   <label for="zona-edit">Zona</label>
-                  <select name="zona" id="select_zonas" class="form-control">   
+                  <select name="zona" id="select_zonas" class="form-control">
+                    <option value="CENTRO">CENTRO</option>
+                    <option value="ESTE">ESTE</option>  
                     <option value="NORTE">NORTE</option>
-                    <option value="SUR">SUR</option>
-                    <option value="ESTE">ESTE</option>             
+                    <option value="SUR">SUR</option>           
                   </select>
-
                 </div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
