@@ -3,9 +3,7 @@
 @section('title','Transportistas')
 
 @section('styles')
-{{-- select2 4.0.8 --}}
-<link rel="stylesheet" href="{{asset('dist/css/select2/select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('dist/css/alt/AdminLTE-select2.min.css')}}">
+@include('reporte_excel.excel_select2_css')
 @endsection
 
 @section('breadcrumb')
@@ -26,13 +24,30 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('dist/js/select2/select2.min.js') }}"></script>
+@include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
     $('#tabla-flete-faltantes').DataTable({  
         "ordering": true, 
         'responsive': false,   
-        "scrollX": true,          
+        "scrollX": true,  
+        "dom": 'Blfrtip',
+        "buttons": [
+          {
+            extend: 'excelHtml5',
+            title: 'Lista Faltante FLetes Transportistas',
+            attr:  {
+                  title: 'Excel',
+                  id: 'excelButton'
+              },
+            text:     '<span class="fa fa-file-excel-o"></span>&nbsp; Exportar Excel',
+            className: 'btn btn-default',
+            exportOptions:
+              {
+                columns:[0,1,2,3,4,5,6,7,8]
+              }
+
+           }],       
     });
 });
 

@@ -7,7 +7,7 @@
       </div><!-- /.box-header -->
 
       <div class="box-body">
-        <table id="tabla-flete-faltantes" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-flete-faltantes" class="table table-bordered table-striped responsive display" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>SCOP</th>
@@ -64,7 +64,7 @@
                        'id_grifo'=>$pedido_cliente->id_grifo]) }}">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span>&nbsp;Eliminar</button>
+                        <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></button>
                       </form>                  
                     @endif
                   @endif

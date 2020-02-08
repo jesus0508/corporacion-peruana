@@ -7,7 +7,7 @@
       </div><!-- /.box-header -->
 
       <div class="box-body">
-        <table id="tabla-flete-pedidos-sin-pagar" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+        <table id="tabla-flete-pedidos-sin-pagar" class="table table-bordered table-striped responsive display" style="width:100%" cellspacing="0">
           <thead>
             <tr>
               <th>Fecha Descarga</th>
