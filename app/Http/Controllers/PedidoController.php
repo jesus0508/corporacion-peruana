@@ -20,9 +20,46 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use CorporacionPeru\Stock;
 use Log;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use CorporacionPeru\Exports\DistribucionExportView;
 
 class PedidoController extends Controller
 {
+
+    
+    public function reportePedidosCombustible($date=null, $idPedido=null): View
+    {
+        $pedidosDistribuidos = Pedido::where('galones_distribuidos','>',0)
+                                ->get();
+        $pedidos = [];
+        if ( $idPedido == 0 ) {
+            $pedidos = $pedidosDistribuidos->pluck('id'); 
+        }else{
+            $pedidos[] = $idPedido;
+        }
+        if ($date == -1) {//get sin fecha
+            $pedidos = Pedido::with('pedidoProveedorClientes')
+                ->with('pedidoProveedorGrifos')
+                ->whereIn('id',$pedidos)
+                ->get(); 
+        }else{
+            $pedidos = Pedido::with('pedidoProveedorClientes')
+                ->with('pedidoProveedorGrifos')
+                ->where('fecha_pedido',$date)
+                ->whereIn('id',$pedidos)
+                ->get();
+        }
+
+
+        $today_date = strftime( '%d/%m/%Y',strtotime('now') );
+        return view('pedidosP.reporte_combustible.index',compact('today_date','pedidos','pedidosDistribuidos'));
+    }
+
+    public function exportView($date=null, $idPedido=null){
+
+        return Excel::download(new DistribucionExportView($date , $idPedido),'PedidosCombustible.xlsx');
+    }
 
     /**
      * Temporal| Pedidos con plantas, ver lista de pedidos

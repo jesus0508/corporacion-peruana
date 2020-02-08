@@ -260,6 +260,9 @@ desired effect
 
             <li><a href="{{route('pedidos.programacion')}}"><i class="fa fa-calendar-minus-o"></i> Reporte Programación</a>
             </li>
+            @php $today = strftime( '%Y-%m-%d',strtotime('now') ); @endphp
+            <li><a href="{{route('pedidos.reportePedidosCombustible', ['day'=>$today, 'idPedido' => 0])}}"><i class="fa  fa-list-alt"></i> Reporte Pedidos Combustible</a>
+            </li>            
             <li id="treeview-reporte-ingresos-netos-grifo" class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>

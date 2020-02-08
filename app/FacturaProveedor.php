@@ -19,7 +19,7 @@ class FacturaProveedor extends Model
         $this->attributes['fecha_factura_proveedor'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 
-    public function getFechaFacturaAttribute($value)
+    public function getFechaFacturaProveedorAttribute($value)
     {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }

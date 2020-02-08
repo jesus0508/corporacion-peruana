@@ -240,9 +240,11 @@ Route::middleware(['auth'])->group(function () {
 		'TransporteReporteController@reporteAnualTotal')->name('transporte.reporteAnualTotal');
 
 	Route::get('/reporte_mensual_ingresos_transportes',
-		'TransporteController@reporteMensual')->name('transporte.reporteMensualIngresos');
+		'TransporteController@reporteMensual')
+		->name('transporte.reporteMensualIngresos');
 	Route::get('/reporte_mensual_egresos_transportes',
-		'TransporteController@reporteMensual')->name('transporte.reporteMensualEgresos');
+		'TransporteController@reporteMensual')
+		->name('transporte.reporteMensualEgresos');
 
 	Route::get('/reporte_anual_ingresos_transportes',
 		'TransporteController@reporteAnualIngresos')->name('transporte.reporteAnualIngresos');
@@ -253,9 +255,13 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/reporte_anual_egresos_transportes_data/{year?}',
 		'TransporteController@reporteAnualEgresosData');
 
+		//reporte PEdidos COMbustible
+	Route::get('reporte_pedidos_combustible/{day?}/{idPedido?}',
+			'PedidoController@reportePedidosCombustible')
+			->name('pedidos.reportePedidosCombustible');
 
-
-
+	Route::get('reporte_pedidos_combustible_export/{day?}/{idPedido?}','PedidoController@exportView')
+		->name('pedidos.export_view');
 	// REPORTE PROGRAMACION
 	Route::get('/pedidos_programacion', 'PedidoController@programacion')->name('pedidos.programacion');
 
@@ -307,6 +313,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('distribuir_grifo/{id}', 'PedidoController@distribuir_grifo')
 				->name('pedidos.distribuir_grifo');
 				//mostrar interfaz distribucion a grifos
+
 	});
 
 
