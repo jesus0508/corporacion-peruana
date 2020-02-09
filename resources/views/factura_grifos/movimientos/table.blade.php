@@ -21,7 +21,7 @@
             <tr>
               <th>Fecha Ingreso</th>
               <th>Fecha Operacion</th>
-              <th>Grifo</th>
+              <th>Tipo</th>
               <th>Codigo Operacion</th>
               <th>Abono</th>
               <th>Banco</th>

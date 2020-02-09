@@ -56,7 +56,8 @@ trait ReporteGeneralIngresos{
                 'movimiento_grifos.monto_operacion as monto_ingreso',
                 'movimiento_grifos.fecha_operacion as fecha_reporte',
                 'movimiento_grifos.fecha_reporte as fecha_ingreso',
-                'banco','categoria_ingresos.categoria','categoria_ingresos.categoria as detalle')
+                'banco','categoria_ingresos.categoria',
+                DB::raw('CONCAT(IF( 0<= 1 ,"Pendiente","Grifo")," ",categoria_ingresos.categoria) as detalle'))
             ->get();
           //  return $ingresos4;
             //Ingresos por transportes, Unidades

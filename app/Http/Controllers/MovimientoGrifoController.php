@@ -56,9 +56,8 @@ class MovimientoGrifoController extends Controller
             $dateFin = Carbon::now()->format('Y-m-d');
         }
 
-        $movimientos = MovimientoGrifo::join('grifos','grifos.id','=','movimiento_grifos.grifo_id')
-                ->whereBetween('fecha_reporte',[$dateInicio,$dateFin])
-                ->select('movimiento_grifos.*','fecha_reporte as fecha_ingreso','grifos.razon_social as grifo')
+        $movimientos = MovimientoGrifo::whereBetween('fecha_reporte',[$dateInicio,$dateFin])
+                ->select('movimiento_grifos.*','fecha_reporte')
                 ->get(); 
         return datatables()->of($movimientos)
             ->addColumn('action', 'factura_grifos.movimientos.action')->make(true);

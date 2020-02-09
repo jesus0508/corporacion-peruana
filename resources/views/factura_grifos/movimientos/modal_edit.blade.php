@@ -37,8 +37,11 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="grifo_id-edit">Grifo</label>
-                      <select name="grifo_id" id="grifo_id-edit" class="form-control"></select>
+                      <label for="tipo-edit">Grifo</label>
+                      <select name="tipo" id="tipo-edit" class="form-control">
+                        <option value="1">Pendiente</option>  
+                        <option value="2">Grifo</option>      
+                      </select>
                     </div>                    
                   </div>
                   <div class="col-md-6">

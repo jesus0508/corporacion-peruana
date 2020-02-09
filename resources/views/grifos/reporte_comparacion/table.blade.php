@@ -21,8 +21,7 @@
         <table id="tabla-comparaciones" class="table table-bordered table-striped responsive display nowrap" style="width:100%" cellspacing="0">
           <thead>
             <tr>
-              <th>FECHA </th>
-              <th>Grifo</th>
+              <th>Fecha </th>
               <th>Ingreso Neto (S/.)</th>
               <th>Movimiento Total (S/.)</th>
               <th>Diferencia (S/.)</th>
@@ -31,7 +30,7 @@
           <tbody></tbody>
           <tfoot>
             <tr>
-              <th colspan="2" style="text-align: right;">Totales</th>
+              <th colspan="1" style="text-align: right;">Totales</th>
               <th></th>
               <th></th>
               <th></th>

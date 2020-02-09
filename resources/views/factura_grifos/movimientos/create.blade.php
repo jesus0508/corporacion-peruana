@@ -42,11 +42,10 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="grifo_id">Grifo </label>
-                      <select class="form-control" id="grifo_id" name="grifo_id" placeholder="Seleccione el grifo" required style="width: 100%;">
-                        @foreach($grifos as $grifo)
-                          <option value="{{$grifo->id}}">{{$grifo->razon_social}}</option>
-                        @endforeach                        
+                      <label for="tipo">Tipo </label>
+                      <select class="form-control" id="tipo" name="tipo" placeholder="Seleccione el grifo" required >
+                        <option value="1">Pendiente</option>  
+                        <option value="2">Grifo</option>                   
                       </select> 
                     </div>
                   </div>
@@ -65,7 +64,7 @@
                       <select class="form-control" id="banco" name="banco" placeholder="Seleccione el banco" required>
                         <option value="BCP">BCP</option>
                         <option value="BBVA">BBVA</option>
-                        <option value="SCOTIBANK">SCOTIBANK</option>
+                        <option value="SCOTIABANK">SCOTIABANK</option>
                       </select>
                     </div>
                   </div>

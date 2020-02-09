@@ -20,8 +20,7 @@ class CreateMovimientoGrifos extends Migration
                 $table->string('codigo_operacion');
                 $table->float('monto_operacion');
                 $table->string('banco');
-                $table->unsignedBigInteger('grifo_id');
-                $table->foreign('grifo_id')->references('id')->on('grifos');
+                $table->integer('tipo');
                 $table->integer('estado')->default(1);
                 $table->unsignedBigInteger('categoria_ingreso_id')->default(4);
                 $table->foreign('categoria_ingreso_id')
@@ -38,7 +37,7 @@ class CreateMovimientoGrifos extends Migration
     public function down()
     {
         Schema::table('movimiento_grifos', function (Blueprint $table) {
-            $table->dropForeign(['categoria_ingreso_id','grifo_id']);                     
+            $table->dropForeign(['categoria_ingreso_id']);                     
         });
         Schema::dropIfExists('movimiento_grifos');
     }

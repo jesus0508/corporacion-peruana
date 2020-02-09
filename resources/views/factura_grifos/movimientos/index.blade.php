@@ -40,26 +40,19 @@ $(document).ready(function () {
   let $fecha_reporte_edit = $('#fecha_reporte-edit');  
   $fecha_operacion_edit.datepicker();
   $fecha_reporte_edit.datepicker();
-  $select_grifos_edit = $('#grifo_id-edit');
+
 $('#modal-edit-movimientos-grifos').on('show.bs.modal',function(event){
     var id= $(event.relatedTarget).data('id');
     $.ajax({
       type: 'GET',
       url:`./movimiento_grifos/${id}/edit`,
       dataType : 'json',
-      success: (data)=>{  
-        console.log(data);
-        let grifos = '';
-        data.grifos.forEach((grifo) => {
-          grifos += `<option value="${grifo.id}">${grifo.razon_social}</option>`;
-        });
-        $select_grifos_edit.html(grifos);
-        inicializarSelect2($select_grifos_edit, 'Seleccione el grifo');
-        $select_grifos_edit.val(data.movimientoGrifo.grifo_id).trigger('change'); 
-
+      success: (data)=>{      
+         
         $(event.currentTarget).find('#monto_operacion-edit').val(data.movimientoGrifo.monto_operacion);    
         $(event.currentTarget).find('#fecha_operacion-edit').val(data.movimientoGrifo.fecha_operacion);
         $(event.currentTarget).find('#fecha_reporte-edit').val(data.movimientoGrifo.fecha_reporte);
+        $(event.currentTarget).find('#tipo-edit').val(data.movimientoGrifo.tipo);        
         $(event.currentTarget).find('#codigo_operacion-edit').val(data.movimientoGrifo.codigo_operacion);
         $(event.currentTarget).find('#banco-edit').val(data.movimientoGrifo.banco);
         $(event.currentTarget).find('#id-edit').val(data.movimientoGrifo.id);
@@ -77,9 +70,11 @@ $('#modal-edit-movimientos-grifos').on('show.bs.modal',function(event){
 
       'ajax': `./movimientos_grifos_data_between/`,
         'columns': [
-          {data: 'fecha_ingreso'},
-          {data: 'fecha_operacion'},
-          {data: 'grifo'},
+          {data: 'fecha_reporte'},//fecha ingreso
+          {data: 'fecha_operacion'},//fecha reporte
+          {data: 'tipo' , 'render': function(data){
+            return getTipo(data);
+          }},
           {data: 'codigo_operacion'},
           {data: 'monto_operacion'},
           {data: 'banco'},          
@@ -172,6 +167,21 @@ $('#modal-edit-movimientos-grifos').on('show.bs.modal',function(event){
         }
         return result;
     }
+  function getTipo(tipo){
+    let result = "";
+        switch (Number(tipo)) {
+            case 2:
+                result = "Grifo";
+                break;
+            case 1:
+                result = "Pendiente";
+                break;
+            default:
+                result = "S/N";
+                break;
+        }
+        return result;
+  }
 
 </script>
 @endsection

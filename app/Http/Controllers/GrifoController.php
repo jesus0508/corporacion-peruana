@@ -51,99 +51,40 @@ class GrifoController extends Controller
             $date = Carbon::now()->format('Y-m-d');
         }
 
-        $ingresos = IngresoGrifo::rightJoin('grifos','grifos.id','=','ingreso_grifos.grifo_id')
+        $ingreso = IngresoGrifo::rightJoin('grifos','grifos.id','=','ingreso_grifos.grifo_id')
                     ->select('ingreso_grifos.fecha_ingreso as fecha',
                                 'grifos.razon_social as grifo',
                      DB::raw('(sum(monto_ingreso)) as monto') ,'grifo_id')
                     ->where('fecha_ingreso',$date)
-                    ->groupBy('grifo_id')->get();
+                    ->groupBy('fecha')->first();
 
-        $egresos = Egreso::rightJoin('grifos','grifos.id','=','egresos.grifo_id')
+        $egreso = Egreso::rightJoin('grifos','grifos.id','=','egresos.grifo_id')
                 ->select('egresos.fecha_egreso as fecha','fecha_reporte', 'grifo_id',
                     'grifos.razon_social as grifo', DB::raw('(sum(monto_egreso)) as monto'))
                 ->where('fecha_egreso',$date)
-                ->groupBy('egresos.grifo_id')->get();
+                ->groupBy('fecha')->first();
 
-       
-        $grifos = Grifo::all();
-        //Creamos el array de grifos sin montos para el reporte
-        $netos = collect([]);  
-        foreach ( $grifos as $grifo ) {
-            $neto =[    
-                'fecha_ingreso' => $date,
-                'grifo'         => $grifo->razon_social,
-                'ingreso'       => 0,
-                'egreso'        => 0,
-                'consolidado'   => 0 
-            ];  
-            $neto = (object)$neto;                  
-            $netos->push($neto); 
-        }       
-        //Agregamos ingreso de grifos al neto 
-        foreach ($netos as $neto) {
-            foreach ($ingresos as $ingreso) {
-                if ( $ingreso->grifo==$neto->grifo ) 
-                {
-                    $neto->ingreso     = $ingreso->monto; 
-                    $neto->consolidado = $ingreso->monto;               
-                }          
-            }
-        }
-        //Agreagamos egresos 
-        foreach ($egresos as $egreso) {
-            foreach ($netos as $neto) {
-                if ( $egreso->grifo==$neto->grifo  ) 
-                {
-                    $neto->egreso      = $egreso->monto;
-                    $consolidado       = $neto->ingreso - $egreso->monto;
-                    $neto->consolidado = $consolidado;
-                }          
-            }
-        }  
+        $ingreso_monto = ($ingreso) ? $ingreso->monto : 0.00;
+        $egreso_monto  = ($egreso) ? $egreso->monto : 0.00;
+        $neto          = $ingreso_monto  - $egreso_monto;
 
-        $movimientos = MovimientoGrifo::rightJoin('grifos','grifos.id','=','movimiento_grifos.grifo_id')
-                ->select('movimiento_grifos.fecha_reporte as fecha', 'grifo_id',
-                    'grifos.razon_social as grifo', DB::raw('(sum(monto_operacion)) as monto'))
+        $movimiento = MovimientoGrifo::select('movimiento_grifos.fecha_reporte as fecha', DB::raw('(sum(monto_operacion)) as monto'))
                 ->where('fecha_reporte',$date)
-                ->groupBy('movimiento_grifos.grifo_id')->get();
+                ->groupBy('fecha')->first();
+        $movimiento_monto = ($movimiento) ? $movimiento->monto : 0.00;
         //Creamos array de Comparaciones
         $comparaciones = collect([]);
         $date = Carbon::createFromFormat('Y-m-d', $date)->format('d/m/Y');
-        foreach ( $grifos as $grifo ) {
-            $comparacion =[    
-                'fecha_ingreso'            => $date,
-                'grifo'                    => $grifo->razon_social,
-                'ingreso_neto'             => 0,
-                'ingreso_movimiento_total' => 0,
-                'diferencia'               => 0 
-            ];  
-            $comparacion = (object)$comparacion;                  
-            $comparaciones->push($comparacion); 
-        } 
+        $comparacion =[    
+            'fecha_ingreso'            => $date,
+            'ingreso_neto'             => $neto,
+            'ingreso_movimiento_total' => $movimiento_monto,
+            'diferencia'               => $neto - $movimiento_monto
+        ];  
+        $comparacion = (object)$comparacion;                  
+        $comparaciones->push($comparacion); 
+    
 
-        //Agregamos ingreso netos de grifos al reporte 
-  
-        foreach ($comparaciones as $comparacion) {
-            foreach ($netos as $neto) {
-                if ( $neto->grifo==$comparacion->grifo ) 
-                {
-                    $comparacion->ingreso_neto = $neto->consolidado; 
-                    $comparacion->diferencia   = $neto->consolidado;               
-                }          
-            }
-        }
-
-        //Agreagamos movimientos grifos a comparar 
-        foreach ($comparaciones as $comparacion) {
-            foreach ($movimientos as $movimiento) {
-                if ( $movimiento->grifo==$comparacion->grifo  ) 
-                {
-                    $comparacion->ingreso_movimiento_total = $movimiento->monto;
-                    $diferencia = $comparacion->ingreso_neto - $movimiento->monto;
-                    $comparacion->diferencia               = $diferencia;
-                }          
-            }
-        } 
         return response()->json(['data' => $comparaciones]);
     }
 

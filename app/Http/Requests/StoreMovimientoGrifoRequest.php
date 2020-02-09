@@ -30,7 +30,7 @@ class StoreMovimientoGrifoRequest extends FormRequest
             'codigo_operacion' => 'required',
             'monto_operacion' => 'required|numeric|gt: 0',
             'banco' => 'required|max: 255',
-            'grifo_id'=> 'required|numeric|gt:0'
+            'tipo'=> 'required|numeric|gt:0'
         ];
     }
 }

@@ -35,7 +35,6 @@ $(document).ready(function() {
 		'ajax': `./reporte_comparacion_grifos_data`,
 		'columns': [
       {data: 'fecha_ingreso'},            
-      {data: 'grifo'},
       {data: 'ingreso_neto'},
       {data: 'ingreso_movimiento_total'},
       {data: 'diferencia' }
@@ -61,7 +60,7 @@ $(document).ready(function() {
             },
         'exportOptions':
         {
-          columns:[0,1,2,3,4]
+          columns:[0,1,2,3]
         },
         footer: true
       }], 
@@ -69,9 +68,9 @@ $(document).ready(function() {
       "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
             // Total over this page
+            getSubtotal(api,1);
             getSubtotal(api,2);
             getSubtotal(api,3);
-            getSubtotal(api,4);
       }
 
         
