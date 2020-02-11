@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class EgresoGerencia extends Model
 {
    	protected $table = 'egreso_gerencias';
-    protected $fillable= ['monto','fecha','nombre','concepto','comprobante_pago','estado'];
+    protected $fillable= ['monto','fecha','nombre','concepto','comprobante_pago','estado','asignacion'];
 
 
  	public function setFechaAttribute($value)
@@ -57,9 +57,12 @@ class EgresoGerencia extends Model
     public function getEstado(){
         $result="";
         switch($this->nombre){
-            case 2: 
+            case 3: 
                 $result="Pagado";
                 break;
+            case 2: 
+                $result="Amortizado";
+                break;                
             case 1:
                 $result="Por pagar";
                 break;

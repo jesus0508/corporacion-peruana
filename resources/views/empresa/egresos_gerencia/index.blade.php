@@ -18,6 +18,7 @@
 <section class="content">
   @include('empresa.egresos_gerencia.create')
   @include('empresa.egresos_gerencia.table')
+  @include('empresa.egresos_gerencia.pagar_modal')
   
 </section>
 @endsection
@@ -28,10 +29,12 @@
 $(document).ready(function() {
   
   let $tabla = $('#tabla-egreso-gerencia');
-  let $fecha = $('#fecha')
+  let $fecha = $('#fecha');
+  let $fecha_egreso = $('#fecha_egreso');
+  
   inicializarDataTable($tabla);
   $fecha.datepicker();
-
+  $fecha_egreso.datepicker();
 });
 
 function inicializarDataTable($table){  

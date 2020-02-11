@@ -56,6 +56,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/cuentas','CuentaController');
 		Route::resource('/stock','StockController');
 		Route::resource('/egreso_gerencia','EgresoGerenciaController');
+		Route::post('/pagar_gastos_gerencia','EgresoGerenciaController@showGastosPago')
+			->name('egreso_gerencia.showGastosPago');
+		
 	});
 
 

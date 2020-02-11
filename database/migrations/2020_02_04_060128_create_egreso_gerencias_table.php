@@ -19,7 +19,8 @@ class CreateEgresoGerenciasTable extends Migration
             $table->integer('nombre');
             $table->string('concepto');
             $table->integer('comprobante_pago');  
-            $table->float('monto');                      
+            $table->float('monto',9, 2);     
+            $table->float('saldo',9, 2);                                
             $table->integer('estado')->default(1); 
             $table->timestamps();
         });
