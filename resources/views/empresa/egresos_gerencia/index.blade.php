@@ -31,10 +31,12 @@ $(document).ready(function() {
   let $tabla = $('#tabla-egreso-gerencia');
   let $fecha = $('#fecha');
   let $fecha_egreso = $('#fecha_egreso');
+  let $fecha_reporte = $('#fecha_reporte');
   
   inicializarDataTable($tabla);
   $fecha.datepicker();
   $fecha_egreso.datepicker();
+  $fecha_reporte.datepicker();  
 });
 
 function inicializarDataTable($table){  
@@ -42,6 +44,8 @@ function inicializarDataTable($table){
       "responsive": false,
       "dom": 'Blfrtip',
       "scrollX": true,
+      columnDefs: [ 
+        { visible: false, targets: [ -1 ] }] ,
       "buttons": [
       {
         'extend': 'excelHtml5',

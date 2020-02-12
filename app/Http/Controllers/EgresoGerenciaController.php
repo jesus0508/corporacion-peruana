@@ -4,6 +4,7 @@ namespace CorporacionPeru\Http\Controllers;
 
 use CorporacionPeru\EgresoGerencia;
 use Illuminate\Http\Request;
+use CorporacionPeru\CategoriaEgreso;
 
 class EgresoGerenciaController extends Controller
 {
@@ -22,6 +23,7 @@ class EgresoGerenciaController extends Controller
     public function showGastosPago(Request $request){
         $pago = $request;
         //return $pago;
+        $categoria = CategoriaEgreso::findOrFail(2);//egreso gerencia
         $egresos = EgresoGerencia::where('estado',1)
             ->orWhere('estado',2)
             ->orderBy('fecha')
@@ -38,8 +40,8 @@ class EgresoGerenciaController extends Controller
 
                 //dinero x pagar >=Dinero en stock 
             if( $restanteXpagar >= $dinero_stock ){
-                $egreso->saldo -=  $dinero_stock;
-                $saldo = $egreso->saldo;
+               // $egreso->saldo -=  $dinero_stock;
+                //$saldo = $egreso->saldo;
                 $asignacion = $dinero_stock;
                 $egreso_temporal = [
                     'fecha'      => $egreso->fecha ,
@@ -84,7 +86,7 @@ class EgresoGerenciaController extends Controller
                     }                         
                 }
             }
-        return view('empresa.egresos_gerencia.pago.index',compact('egresos_pago','pago'));
+        return view('empresa.egresos_gerencia.pago.index',compact('egresos_pago','pago','categoria'));
     }
 
     /**

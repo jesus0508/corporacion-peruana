@@ -21,6 +21,15 @@ class EgresoGerencia extends Model
         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 
+    public function getMonthYear($value){
+        setlocale(LC_ALL,"es_ES"); 
+        Carbon::setLocale('es'); 
+        $fecha = Carbon::parse($value);
+        $fecha->format("F");
+        return $mes = $fecha->formatLocalized('%B');
+        return Carbon::createFromFormat('d/m/Y', $value)->format('F');
+    }
+
     public function getTipoComprobante(){
         $result="";
         switch($this->comprobante_pago){

@@ -4,10 +4,13 @@
       <div class="box-header with-border">   
         <div class="col-md-6"></div>
         <div class="col-md-6">
-          <button class="btn btn-success" data-toggle="modal" 
-          data-target="#modal-pagar-gastos">
-            <span class="fa fa-money"></span>Pagar
-          </button>
+          <div class="pull-right">
+            <button class="btn btn-success" data-toggle="modal" 
+              data-target="#modal-pagar-gastos">
+              <span class="fa fa-money"></span>
+              Pagar Gastos 
+            </button>
+          </div>
         </div>     
       </div><!-- /.box-header -->
       <div class="box-body">
@@ -21,11 +24,14 @@
               <th>Tipo Comprobante</th>
               <th>Estado</th>
               <th>Monto</th>
-             {{--  <th>Mes reporte</th> --}}            
+              <th>Saldo</th>
+              <th>Mes </th>            
             </tr>
           </thead>
           <tbody>
-            @php setlocale(LC_TIME, "spanish"); @endphp   
+            @php setlocale(LC_TIME, "Spanish_Peru");
+                \Carbon\Carbon::setLocale('es');
+            @endphp   
             @foreach ($egresos as $egreso)
               <tr>
                 <td>{{$egreso->fecha }}</td>
@@ -40,13 +46,16 @@
                   @endif
                 </td>
                 <td>{{$egreso->monto}}</td>
-                {{-- <td>{{ ucfirst(strftime("%B %Y",strtotime($egreso->date_reporte)))}}</td> --}}
+                <td>{{$egreso->saldo}}</td>
+                <td>{{$egreso->getMonthYear($egreso->fecha)}}</td>
+                {{-- <td>{{ ucfirst(strftime("%B %Y",strtotime($egreso->fecha)))}}</td> --}}
               </tr>
             @endforeach
           </tbody>
           <tfoot>
             <tr>
               <th colspan="5"  style="text-align:right">TOTAL</th>
+              <th></th>
               <th></th>
               {{-- <th></th> --}}
             </tr>

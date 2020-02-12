@@ -14,5 +14,8 @@ class CategoriaEgresosTableSeeder extends Seeder
         DB::table('categoria_egresos')->insert([
             'categoria' => 'OTRAS SALIDAS POR BANCO',
         ]);
+        DB::table('categoria_egresos')->insert([
+            'categoria' => 'GASTOS GERENCIA',
+        ]);        
     }
 }

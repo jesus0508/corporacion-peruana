@@ -17,10 +17,10 @@
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group @error('fecha_egreso') has-error @enderror">
-                      <label for="fecha_egreso">Fecha egreso*</label>
-                      <input id="fecha_egreso" autocomplete="off" type="text" class="form-control" value="{{old('fecha_egreso')}}" name="fecha_egreso" placeholder="Ingrese fecha de egreso" required>
+                      <label for="fecha_egreso">Fecha egreso</label>
+                      <input id="fecha_egreso" autocomplete="off" type="text" class="form-control" name="fecha_egreso" placeholder="Ingrese fecha de egreso" required>
                       @error('fecha_egreso')
                       <span class="help-block" role="alert">
                         <strong>{{ $message }}</strong>
@@ -28,7 +28,19 @@
                       @enderror
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
+                    <div class="form-group @error('fecha_reporte') has-error @enderror">
+                      <label for="fecha_reporte">Fecha Reporte</label>
+                      <input autocomplete="off" id="fecha_reporte"   type="text"  class="form-control"  
+                            name="fecha_reporte" placeholder="Ingrese fecha reporte">
+                      @error('fecha_reporte')
+                      <span class="help-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="col-md-4">
                     <div class="form-group @error('monto_pago') has-error @enderror">
                       <label for="monto_pago">Monto a pagar</label>
                       <input id="monto_pago" type="number" class="form-control" value="{{old("monto_pago")}}" step="any" min="0" 
@@ -43,11 +55,11 @@
                 </div> 
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group @error('descripcion') has-error @enderror">
-                      <label for="descripcion">Descripción</label>
-                      <input id="descripcion" type="text" class="form-control" value="{{old("descripcion")}}" 
-                            name="descripcion" placeholder="Ingrese la descripción">
-                      @error('descripcion')
+                    <div class="form-group @error('detalle') has-error @enderror">
+                      <label for="detalle">Descripción</label>
+                      <input id="detalle" type="text" class="form-control" value="{{old("detalle")}}" 
+                            name="detalle" placeholder="Ingrese la descripción">
+                      @error('detalle')
                       <span class="help-block" role="alert">
                         <strong>{{ $message }}</strong>
                       </span>
