@@ -22,7 +22,7 @@
         </div>    
       </div><!-- /.box-header -->
       <div class="box-body">
-        <table id="tabla-egresos" class="table table-bordered table-striped display nowrap" >
+        <table id="tabla-egresos" class="table table-bordered table-striped display nowrap" style="width:100%" cellspacing="0" >
           <thead>
             <tr>
               <th>Fecha Reporte</th>
@@ -42,7 +42,11 @@
                 <td>{{$salida->detalle}}</td>
                 <td>{{$salida->nro_cheque}}</td>
                 <td>{{$salida->codigo_operacion}}</td>
-                <td>{{$salida->cuenta->nro_cuenta}}</td>
+                <td>
+                  @if($salida->cuenta)
+                  {{$salida->cuenta->nro_cuenta}}
+                  @endif
+                </td>
                 <td>{{$salida->monto_egreso}}</td>
               </tr>
               @endforeach

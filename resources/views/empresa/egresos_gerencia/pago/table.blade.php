@@ -24,6 +24,7 @@
             @php setlocale(LC_TIME, "spanish"); @endphp   
             @foreach ($egresos_pago as $egreso)
               <tr>
+                <input type="hidden" name="gastos[]" value="{{$egreso->id}}">
                 <td>{{$egreso->fecha }}</td>
                 <td>{{$egreso->nombre }}</td>
                 <td>{{$egreso->concepto}}</td>

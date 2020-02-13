@@ -4,6 +4,7 @@ namespace CorporacionPeru;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+
 class Salida extends Model
 {
 	protected $table = 'salidas';
@@ -13,6 +14,11 @@ class Salida extends Model
     {
     	return $this->belongsTo(Cuenta::class);
     } 
+
+    public function gastosGerencia(){
+        return $this->belongsToMany(GastoGerencia::class,'pago_gastos_gerencia');        
+    }
+
     public function categoria()
     {
     	return $this->belongsTo(CategoriaEgreso::class);

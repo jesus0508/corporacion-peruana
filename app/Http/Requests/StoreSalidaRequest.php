@@ -26,7 +26,7 @@ class StoreSalidaRequest extends FormRequest
         return [
             'monto_egreso'=>'required|numeric|gt:0',
             'fecha_reporte'=>'required|date_format:"d/m/Y"',
-            'fecha_ingreso'=>'required|date_format:"d/m/Y"',
+            'fecha_egreso'=>'required|date_format:"d/m/Y"',
             'detalle' => 'nullable|max:255',
             'codigo_operacion'=> 'nullable|max:255',
             'categoria_egreso_id' => 'required|numeric|gt:0',

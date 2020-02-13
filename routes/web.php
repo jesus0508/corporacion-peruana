@@ -56,11 +56,13 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/cuentas','CuentaController');
 		Route::resource('/stock','StockController');
 		Route::resource('/egreso_gerencia','EgresoGerenciaController');
-		Route::post('/pagar_gastos_gerencia','EgresoGerenciaController@showGastosPago')
-			->name('egreso_gerencia.showGastosPago');
-		
-	});
+		Route::get('/pagar_gastos_gerencia','EgresoGerenciaController@showGastosPago')
+				->name('egreso_gerencia.showGastosPago');
 
+	});
+		Route::post('/pagar_gastos_gerencia_store',
+				'EgresoGerenciaController@storePagoEgreso')
+				->name('egreso_gerencia.storePagoEgreso');
 
 	Route::middleware(['role:Grifos'])->group(function(){
 		/* Grifo */

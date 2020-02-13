@@ -5,6 +5,9 @@ namespace CorporacionPeru\Http\Controllers;
 use CorporacionPeru\EgresoGerencia;
 use Illuminate\Http\Request;
 use CorporacionPeru\CategoriaEgreso;
+use CorporacionPeru\Salida;
+use CorporacionPeru\Http\Requests\StoreSalidaRequest;
+use Illuminate\Support\Facades\Session;
 
 class EgresoGerenciaController extends Controller
 {
@@ -20,30 +23,79 @@ class EgresoGerenciaController extends Controller
         return view('empresa.egresos_gerencia.index',compact('egresos'));
     }
 
-    public function showGastosPago(Request $request){
-        $pago = $request;
-        //return $pago;
-        $categoria = CategoriaEgreso::findOrFail(2);//egreso gerencia
-        $egresos = EgresoGerencia::where('estado',1)
-            ->orWhere('estado',2)
-            ->orderBy('fecha')
-            ->get();
-        $monto_pago= $request->monto_pago;
+    public function storePagoEgreso(StoreSalidaRequest $request){
+
+        //transaction
+        $salida = Salida::create($request->validated());
+        Session::flash('alert-type', 'success');
+        Session::flash('status', 'Pago de gastos registrado con éxito');
+        $egresos = EgresoGerencia::whereIn('id',$request->gastos)
+            ->get();           
+        $monto_pago= $request->monto_egreso;
         $suma_total = 0;
-        $egresos_pago = collect([]);
         $dinero_stock = $monto_pago;//1600
         foreach ($egresos as $egreso) {
             if ($dinero_stock <= 0) {
                 break;
             }
-            $restanteXpagar = $egreso->monto;//1500
-
+            $restanteXpagar = $egreso->saldo;//1500
                 //dinero x pagar >=Dinero en stock 
             if( $restanteXpagar >= $dinero_stock ){
-               // $egreso->saldo -=  $dinero_stock;
-                //$saldo = $egreso->saldo;
+                $egreso->saldo -=  $dinero_stock;
+                $asignacion = $dinero_stock;
+                $egreso->estado = 2; // amortizado
+                if ($restanteXpagar==$dinero_stock) {
+                    $egreso->estado=3;//pagado
+                }                     
+                $dinero_stock = 0;
+                $egreso->pagoGastos()->attach($salida->id,
+                                    ['asignacion'=> $asignacion]);
+                $egreso->save();
+                //asignacion and save
+                break; 
+
+                } else{//si el stockDinero es mayor a lo q se va distribuir
+                    if ($egreso->saldo>0) {
+                        $dinero_stock -= $egreso->saldo;//    = 1600 -1500;
+                        $asignacion = $egreso->saldo; 
+                        $egreso->saldo = 0;                  
+                        $egreso->estado = 3;//isPaid
+                        $egreso->pagoGastos()->attach($salida->id,
+                                    ['asignacion'=> $asignacion]);
+                        $egreso->save();
+                    }                         
+                }
+            }
+
+        return redirect()->route('egreso_gerencia.index');       
+    }
+
+    /**
+     * [showGastosPago description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function showGastosPago(Request $request){
+        $pago = $request;
+        $categoria = CategoriaEgreso::findOrFail(2);//egreso gerencia
+        $egresos = EgresoGerencia::whereIn('estado',[1,2])//sin pagar o amortizado
+            ->orderBy('fecha')
+            ->get();     
+        $monto_pago   = $request->monto_pago;
+        $suma_total   = 0;
+        $egresos_pago = collect([]);
+        $dinero_stock = $monto_pago;//1500
+        foreach ($egresos as $egreso) {
+            if ($dinero_stock <= 0) {
+                break;
+            }
+            $restanteXpagar = $egreso->saldo;//900
+                //dinero x pagar >=Dinero en stock 
+            if( $restanteXpagar >= $dinero_stock ){//900>=1500
+
                 $asignacion = $dinero_stock;
                 $egreso_temporal = [
+                    'id'         => $egreso->id ,
                     'fecha'      => $egreso->fecha ,
                     'nombre'     => $egreso->getNombre(),
                     'concepto'   => $egreso->concepto,
@@ -54,20 +106,16 @@ class EgresoGerenciaController extends Controller
                     'asignacion' => $asignacion
                 ];
                 $egreso_temporal = (object)$egreso_temporal; 
-                $egresos_pago->push($egreso_temporal);
-                // $pedido->estado = 4; // amortizado
-                // if ($restanteXasignar==$dinero_stock) {
-                //     $pedido->estado=5;//pagado
-                // }                     
+                $egresos_pago->push($egreso_temporal);                     
                 $dinero_stock = 0;
-                //asignacion and save
                 break; 
 
                 } else{//si el stockDinero es mayor a lo q se va distribuir
                     if ($egreso->saldo>0) {
-                        $dinero_stock -= $egreso->saldo;//    = 1600 -1500;
+                        $dinero_stock -= $egreso->saldo;//    = 1500 -900;
                         $asignacion = $egreso->saldo;
                         $egreso_temporal = [
+                            'id'         => $egreso->id ,
                             'fecha'      => $egreso->fecha ,
                             'nombre'     => $egreso->getNombre(),
                             'concepto'   => $egreso->concepto,
@@ -79,10 +127,6 @@ class EgresoGerenciaController extends Controller
                         ];
                         $egreso_temporal = (object)$egreso_temporal; 
                         $egresos_pago->push($egreso_temporal);
-                        // $egreso->estado = 5;//isPaid
-                            //se le asigna el pedido proveedor al  pago
-                        //asignacion and save
-                        // $dinero_stock;
                     }                         
                 }
             }

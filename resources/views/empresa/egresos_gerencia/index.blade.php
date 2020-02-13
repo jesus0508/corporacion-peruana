@@ -32,12 +32,59 @@ $(document).ready(function() {
   let $fecha = $('#fecha');
   let $fecha_egreso = $('#fecha_egreso');
   let $fecha_reporte = $('#fecha_reporte');
-  
+  $('#fecha_inicio').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+  });
   inicializarDataTable($tabla);
   $fecha.datepicker();
   $fecha_egreso.datepicker();
   $fecha_reporte.datepicker();  
 });
+
+
+function validateDates() {
+  let $tabla_pagos_lista = $('#tabla-egreso-gerencia');
+  $('#fecha_inicio').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
+  });
+
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      var sInicio = $('#fecha_inicio').val();
+      var sFin = $('#fecha_inicio').val();
+      let cell = data[7];
+      if (sInicio) {
+        return sInicio === cell;
+      }
+      return true;
+    }
+  );
+
+  $('#filtrar-fecha').on('click', function () {
+    $tabla_pagos_lista.DataTable().draw();
+  });
+
+  $('#clear-fecha').on('click', function () {
+    $('#fecha_inicio').val("");
+    $tabla_pagos_lista.DataTable().draw();
+  });
+}
+
+$(document).ready(function() {
+    validateDates();
+} );
 
 function inicializarDataTable($table){  
 	 $table.DataTable({
@@ -84,6 +131,15 @@ function inicializarDataTable($table){
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);
             $( api.column( 5 ).footer() ).html(pageTotal);
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                      return Number(a) + Number(b);
+                }, 0 );
+            pageTotal = pageTotal.toFixed(2);
+            $( api.column( 6 ).footer() ).html(pageTotal);      
+
       }
   });
 

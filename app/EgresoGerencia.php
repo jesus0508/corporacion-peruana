@@ -16,19 +16,18 @@ class EgresoGerencia extends Model
         $this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
 
+    public function pagoGastos(){
+        return $this->belongsToMany(Salida::class,'pago_gastos_gerencia');        
+    }
+
     public function getFechaAttribute($value)
     {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 
-    public function getMonthYear($value){
-        setlocale(LC_ALL,"es_ES"); 
-        Carbon::setLocale('es'); 
-        $fecha = Carbon::parse($value);
-        $fecha->format("F");
-        return $mes = $fecha->formatLocalized('%B');
-        return Carbon::createFromFormat('d/m/Y', $value)->format('F');
-    }
+    public function fechaY($value){
+        return Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }   
 
     public function getTipoComprobante(){
         $result="";
@@ -65,18 +64,33 @@ class EgresoGerencia extends Model
 
     public function getEstado(){
         $result="";
-        switch($this->nombre){
+        switch($this->estado){
             case 3: 
-                $result="Pagado";
+                $result="PAGADO";
                 break;
             case 2: 
-                $result="Amortizado";
+                $result="AMORTIZADO";
                 break;                
             case 1:
-                $result="Por pagar";
+                $result="POR PAGAR";
                 break;
         }
         return $result;
     }
 
+    public function getEstadoLabel(){
+        $result="";
+        switch($this->estado){
+            case 3: 
+                $result="label-success";
+                break;
+            case 2: 
+                $result="label-success";
+                break;                
+            case 1:
+                $result="bg-maroon";
+                break;
+        }
+        return $result;
+    }
 }

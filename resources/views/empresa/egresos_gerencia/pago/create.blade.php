@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-md-12">
-    <h2></h2>
     <!-- general form elements -->
     <div class="box box-success">
       <div class="box-header with-border">
@@ -72,11 +71,12 @@
         <div class="row">
           <div class="col-md-12">
             <div class="pull-right">
-              <button class="btn btn-lg btn-success">CONFIRMAR PAGO</button>
+              <button type="submit" class="btn btn-lg btn-success">CONFIRMAR PAGO</button>
             </div>
           </div>
         </div>
       </div><!-- /.box-body -->
     </div><!-- /.box -->
+
   </div><!--/.col (right) -->
 </div> {{-- end.row --}}

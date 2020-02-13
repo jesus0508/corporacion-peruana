@@ -63,9 +63,11 @@ class SalidaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSalidaRequest $request)
     {      
-        Salida::create($request->all());
+
+        Salida::create($request->validated());
+        
         return back()->with('alert-type','success')->with('status','Egreso registrado con exito'); 
 
     }

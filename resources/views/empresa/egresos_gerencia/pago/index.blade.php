@@ -10,17 +10,21 @@
 <ol class="breadcrumb">
   <li><a href="#">Empresa</a></li>
   <li><a href="#">Gastos Gerencia</a></li>
-  <li><a href="#">Pago Gastos Gerencia</a></li>  
+  <li><a href="#">Pago Gastos Gerencia</a></li> 
+  <li><a href="#">Confirmación</a></li> 
+
 </ol>
 @endsection
 
 
 @section('content')
 <section class="content">
-
-  @include('empresa.egresos_gerencia.pago.create')
-  @include('empresa.egresos_gerencia.pago.table')
- 
+  <form class="" action="{{route('egreso_gerencia.storePagoEgreso')}}" method="post">
+  @csrf
+  @method('post')
+    @include('empresa.egresos_gerencia.pago.create')
+    @include('empresa.egresos_gerencia.pago.table')
+  </form>    
 </section>
 @endsection
 

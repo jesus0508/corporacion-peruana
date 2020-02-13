@@ -2,9 +2,34 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header with-border">   
-        <div class="col-md-6"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <div class="row filtrado">
+              <div class="col-md-6">
+                <div class="form-inline">
+                  <label for="fecha_inicio">FECHA: </label>
+                  <input autocomplete="off" id="fecha_inicio" type="text" class="form-control"
+                      name="fecha_inicio" placeholder="Ingrese mes">
+                </div>
+              </div>
+              <div class="col-md-6 pull-right" >
+                  <button id="filtrar-fecha" class="btn btn-info">
+                    <i class="fa fa-search"></i>
+                    Filtrar
+                  </button>
+                  <button id="clear-fecha" class="btn btn-danger">
+                    <i class="fa fa-remove"></i>
+                    Limpiar
+                  </button>
+              </div>
+            </div>
+        </div> 
         <div class="col-md-6">
           <div class="pull-right">
+            <button class="btn btn-primary">
+              <span class="fa fa-list"></span>
+              Ver Lista de Pagos
+            </button>
             <button class="btn btn-success" data-toggle="modal" 
               data-target="#modal-pagar-gastos">
               <span class="fa fa-money"></span>
@@ -29,9 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            @php setlocale(LC_TIME, "Spanish_Peru");
-                \Carbon\Carbon::setLocale('es');
-            @endphp   
+             @php setlocale(LC_TIME, "spanish"); @endphp  
             @foreach ($egresos as $egreso)
               <tr>
                 <td>{{$egreso->fecha }}</td>
@@ -39,16 +62,12 @@
                 <td>{{$egreso->concepto}}</td>
                 <td>{{$egreso->getTipoComprobante()}}</td>
                 <td>
-                  @if($egreso->estado == 1)
-                    <span class="label bg-maroon">POR PAGAR</span>
-                  @else
-                    <span class="label label-success">PAGADO</span>
-                  @endif
+                    <span class="label {{$egreso->getEstadoLabel()}}" >{{$egreso->getEstado()}}</span>
                 </td>
                 <td>{{$egreso->monto}}</td>
                 <td>{{$egreso->saldo}}</td>
-                <td>{{$egreso->getMonthYear($egreso->fecha)}}</td>
-                {{-- <td>{{ ucfirst(strftime("%B %Y",strtotime($egreso->fecha)))}}</td> --}}
+                {{-- <td>{{$egreso->getMonthYear($egreso->fecha)}}</td> --}}
+                <td>{{ ucfirst(strftime("%B %Y",strtotime($egreso->fechaY($egreso->fecha))))}}</td>
               </tr>
             @endforeach
           </tbody>
@@ -57,7 +76,7 @@
               <th colspan="5"  style="text-align:right">TOTAL</th>
               <th></th>
               <th></th>
-              {{-- <th></th> --}}
+              <th></th>
             </tr>
           </tfoot>
         </table>

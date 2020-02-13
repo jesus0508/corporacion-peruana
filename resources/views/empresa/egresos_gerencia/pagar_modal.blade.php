@@ -1,7 +1,8 @@
 <div class="modal fade" id="modal-pagar-gastos" style="display: none;">
   <div class="modal-dialog ">
-    <form action="{{route('egreso_gerencia.showGastosPago')}}" method="post" class="modal-content">
+    <form action="{{route('egreso_gerencia.showGastosPago')}}" method="get" class="modal-content">
       @csrf
+      @method('GET')
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
