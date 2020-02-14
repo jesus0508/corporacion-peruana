@@ -195,7 +195,7 @@
               <div class="form-group @error('forma_pago') has-error @enderror">
                 <label for="forma_pago">Forma de pago*</label>
                 <input id="forma_pago" type="text" class="form-control" value="{{old("forma_pago")}}"
-                        name="forma_pago" placeholder="Ingrese forma de pago">
+                        name="forma_pago" placeholder="Ingrese forma de pago" required="">
                 @error('forma_pago')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>

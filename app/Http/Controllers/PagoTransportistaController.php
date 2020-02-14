@@ -21,7 +21,6 @@ class PagoTransportistaController extends Controller
     public function index()
     {
         $transportistas = Transportista::all();
-
         $pagos1=PagoTransportista::join('pedido_proveedor_clientes','pago_transportistas.id','=',
             'pedido_proveedor_clientes.pago_transportista_id')
             ->join('pedidos','pedidos.id','pedido_proveedor_clientes.pedido_id')
@@ -124,8 +123,6 @@ class PagoTransportistaController extends Controller
 
         return 
         redirect()->route('pago_transportistas.index')->with('alert-type','success')->with('status','Pago Realizado con éxito');
-    
-
     }
 
     /**
@@ -134,8 +131,7 @@ class PagoTransportistaController extends Controller
      * @param  \CorporacionPeru\$id del pago a transportista
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         $pedidos_cliente
             = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                 ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
@@ -145,9 +141,10 @@ class PagoTransportistaController extends Controller
                 ->join('plantas','plantas.id','=','pedidos.planta_id')
                 ->where('pedido_proveedor_clientes.pago_transportista_id','=',$id)                
                 ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
-                            'pedido_clientes.galones','pedidos.costo_flete',
+                            'pedido_proveedor_clientes.asignacion as galones',
+                            'pedidos.costo_flete',
                             'pedidos.scop','pedidos.nro_pedido',
-                            'plantas.planta', 'pedido_proveedor_clientes.id',
+                            'plantas.planta', 'pedidos.id',
                             'transportistas.id as transportista_id',
                             'transportistas.nombre_transportista')
                 ->get();
@@ -163,21 +160,36 @@ class PagoTransportistaController extends Controller
                             'pedido_grifos.fecha_descarga',
                             'transportistas.id as transportista_id',                                                                                   
                             'pedidos.scop','pedidos.nro_pedido',
-                            'plantas.planta','pedido_grifos.id',
-                            'transportistas.nombre_transportista')
+                            'plantas.planta','pedidos.id',
+                            'transportistas.nombre_transportista',
+                            'pedido_grifos.fecha_descarga')
                     ->get();
-
-        $merged = $pedidos_cliente->merge($pedidos_grifo);
-        $pedidos = $merged->all();   
-        // $collection = collect([$pedidos_grifo, $pedidos_cliente]);
-        // $collapsed = $collection->collapse();
-        // $pedidos =$collapsed->all();
-        $subtotal = 0;
-        foreach ($pedidos as $pedido) {
-            $subtotal += $pedido->costo_flete;
-        }
-        $pago_transportista = PagoTransportista::findOrFail($id); 
+  
+        $collection = collect([$pedidos_grifo, $pedidos_cliente]);
+        $collapsed = $collection->collapse();
+        $pedidos =$collapsed->all();
         $transportista = Transportista::findOrFail( $pedidos[0]->transportista_id );
+        $array_selected = [];
+        foreach ($pedidos as $pedido) {
+            if (!in_array($pedido->id, $array_selected)) {
+                $array_selected[] = $pedido->id;
+            }            
+        }
+        $pedidos = Pedido::with('pedidoProveedorClientes')
+                ->with('pedidoProveedorGrifos')
+                ->whereIn('id',$array_selected)
+                ->get(); 
+                
+        $subtotal = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
+                ->join('transportistas','transportistas.id','vehiculos.transportista_id')
+                ->whereNotNull('pedidos.vehiculo_id')
+                ->where('transportistas.id',$transportista->id)
+                ->where('pedidos.estado_flete',2)//pagado
+                ->whereIn('pedidos.id',$array_selected)  
+                ->sum('pedidos.costo_flete');
+
+        $pago_transportista = PagoTransportista::findOrFail($id); 
+       
 
         $lista_descuento1
 

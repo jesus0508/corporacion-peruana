@@ -134,7 +134,8 @@ class FaltanteController extends Controller
                         ->where('transportistas.id','=',$id) 
                         ->whereIn('pedidos.id',$array_selected)                   
                         ->select('pedido_clientes.fecha_descarga', 'clientes.razon_social',
-                                'pedido_clientes.galones','pedidos.costo_flete',
+                                'pedido_proveedor_clientes.asignacion as galones',
+                                'pedidos.costo_flete',
                                 'pedidos.scop','pedidos.nro_pedido',
                                 'plantas.planta', 'pedidos.id',
                                 'transportistas.nombre_transportista')

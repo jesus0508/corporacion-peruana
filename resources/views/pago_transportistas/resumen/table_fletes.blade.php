@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-8">
-            <h2 class="box-title" align="center">Pago de Flete Sr <label class="label label-primary">{{$transportista->nombre_transportista}}</label> &nbsp; <span>{{date('d/m/Y', strtotime($pago_transportista->fecha_pago))}}</span></h2>  
+            <h2 class="box-title" align="center">Pago de Flete Sr <label class="label label-primary">{{$transportista->nombre_transportista}}</label> &nbsp; <span>{{$pago_transportista->fecha_pago}}</span></h2>  
           </div>          
         </div>    
       </div><!-- /.box-header -->
@@ -25,6 +25,7 @@
             </tr>
           </thead>
           <tbody>
+            @php $suma=0; @endphp
             @foreach ($pedidos as $pedido_cliente)
               <tr>
                 <td>{{$pedido_cliente->nombre_transportista}}</td>
@@ -41,9 +42,11 @@
                   </a>                   
                 </td>
                 <td>{{$pedido_cliente->nro_pedido}}</td>
-                <td>{{$pedido_cliente->planta}}</td>
+                <td>{{$pedido_cliente->planta->planta}}</td>
                 <td>{{$pedido_cliente->galones}}</td>      
-                <td><b> S/. &nbsp;{{$pedido_cliente->costo_flete}}</b></td>
+                <td>
+                  <b> S/. &nbsp;{{$pedido_cliente->costo_flete}}</b>
+                </td>
               </tr>
             @endforeach
           </tbody> 

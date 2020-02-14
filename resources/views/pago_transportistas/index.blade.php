@@ -44,8 +44,8 @@ $(document).ready(function(){
     $('#descuento_calculo').val('S/. '+monto_descuento);
     $('#total_pago').val(total_pago);
     }else{
-      console.log(monto_descuento);
-       console.log(typeof(monto_descuento));
+   //   console.log(monto_descuento);
+   //    console.log(typeof(monto_descuento));
     $('#descuento_calculo').val('valor incorrecto');
     $('#monto_pendiente').val('');
     $('#total_pago').val('');
@@ -67,7 +67,7 @@ $(document).ready(function(){
     $('#descuento_calculo').val('S/. '+monto_descuento);
     $('#total_pago').val(total_pago);
     }else{
-       console.log(typeof(monto_descuento));
+   //    console.log(typeof(monto_descuento));
     $('#descuento_calculo').val('valor incorrecto');
     $('#monto_pendiente').val('');
     $('#total_pago').val('');

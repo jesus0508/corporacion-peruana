@@ -74,7 +74,7 @@ $(document).ready(function() {
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       let planta = $filter_planta.find('option:selected').text();
-      let cell = data[2];
+      let cell = data[3];
       if (planta) {
         return planta === cell;
       }

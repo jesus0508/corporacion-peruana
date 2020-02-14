@@ -14,7 +14,7 @@
               <div class="col-md-4">
                 <div class="form-group @error('fecha_pago') has-error @enderror">
                   <label for="fecha_pago"> Fecha*</label>
-                  <input id="fecha_pago" type="date" class="form-control" 
+                  <input id="fecha_pago" type="text" class="form-control" 
                           name="fecha_pago" value="{{$pago_transportista->fecha_pago}}" readonly="">
                   @error('fecha_pago')
                     <span class="help-block" role="alert">
@@ -55,7 +55,9 @@
               <div class="col-md-8">
                 <div class="form-group @error('observacion') has-error @enderror">
                   <label for="observacion"> Observacion</label>
-                  <textarea class="form-control" name="observacion" cols="30" rows="2" placeholder="Ingrese alguna observación.." value="{{$pago_transportista->observacion}}" readonly=""></textarea>
+                  <textarea class="form-control" name="observacion" cols="30" rows="2" readonly="">
+                    {{$pago_transportista->observacion}}
+                  </textarea>
                   @error('observacion')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

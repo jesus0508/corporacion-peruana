@@ -55,7 +55,7 @@
                 <th colspan="7">TOTAL FALTANTES</th>
                 <th>S/. &nbsp; {{$desc}}</th>
             </tr>
-            <tr>
+            {{-- <tr>
               <th colspan="7"><center>PENDIENTE POR DESCONTAR ANTERIOR</center></th>
               <th> <center> S/. &nbsp;{{$transportista->descuento_pendiente}}</center></th>
             </tr>
@@ -68,7 +68,7 @@
                   $subtotal-$desc-$transportista->descuento_pendiente , 2, '.', '') }} 
              
                 </th>
-            </tr>
+            </tr> --}}
           </tfoot> 
         </table>
       </div>

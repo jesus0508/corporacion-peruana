@@ -12,7 +12,7 @@
       </div><!-- /.box-header -->
       <div class="box-body">       
        
-            <table id="tabla-pago-transportista" class="table table-bordered select table-striped responsive display nowrap" style="width:100%" cellspacing="0">
+            <table id="tabla-pago-transportista" class="table table-bordered select table-striped responsive display " style="width:100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>FLETERO</th>
@@ -21,7 +21,7 @@
                   <th>SCOP</th>
                   <th>N de PEDIDO</th>
                   <th>PLANTA</th>
-                  <th>GLS</th>
+                  <th>Galones asignados</th>
                   <th>PRECIO</th>
                 </tr>
               </thead>

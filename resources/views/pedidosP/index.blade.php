@@ -105,7 +105,7 @@ $(document).ready(function(){
   $("#modal-pagar-proveedor").on("show.bs.modal", function(event) {      
     $.get('pago_proveedors/create', function( data ) {
         var html = "";
-       console.log(data);
+      // console.log(data);
         data.forEach(function(val) {
           var keys = Object.keys(val);
           var prueba = 'futuro valor para saber si hay deuda con el proveedor';
