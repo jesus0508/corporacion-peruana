@@ -278,6 +278,8 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/flete_grifo/{id}/{id_grifo}','FaltanteController@destroyGrifoFaltante')->name('flete.destroyGrifoFaltante');		
 		Route::resource('faltante','FaltanteController');
 		Route::resource('pago_transportistas','PagoTransportistaController');
+		Route::get('pago_transportista_excel/{id}','PagoTransportistaController@exportView')
+			->name('pago_transportistas.exportView');
 
 
 	Route::group(['middleware' => ['role:Proveedores']], function () {

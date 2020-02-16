@@ -51,7 +51,6 @@ class PedidoController extends Controller
                 ->get();
         }
 
-
         $today_date = strftime( '%d/%m/%Y',strtotime('now') );
         return view('pedidosP.reporte_combustible.index',compact('today_date','pedidos','pedidosDistribuidos'));
     }

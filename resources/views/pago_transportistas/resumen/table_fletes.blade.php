@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             @php $suma=0; @endphp
-            @foreach ($pedidos as $pedido_cliente)
+            @foreach ($pedidos2 as $pedido_cliente)
               <tr>
                 <td>{{$pedido_cliente->nombre_transportista}}</td>
                 <td>{{$pedido_cliente->razon_social}}</td>
@@ -42,7 +42,7 @@
                   </a>                   
                 </td>
                 <td>{{$pedido_cliente->nro_pedido}}</td>
-                <td>{{$pedido_cliente->planta->planta}}</td>
+                <td>{{$pedido_cliente->planta}}</td>
                 <td>{{$pedido_cliente->galones}}</td>      
                 <td>
                   <b> S/. &nbsp;{{$pedido_cliente->costo_flete}}</b>

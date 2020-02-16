@@ -2,6 +2,17 @@
 @section('title','Pagos')
 @section('styles')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<style>
+/*  #tabla-resumen {
+  border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid black!important;
+    text-align: center;
+  }
+ */ 
+</style>
 @endsection
 
 @section('breadcrumb')
@@ -17,7 +28,7 @@
 
 <section class="content">
   @include('pago_transportistas.resumen.header')
-{{--   @include('pago_transportistas.resumen.table_resumen') --}}
+  @include('pago_transportistas.resumen.table_resumen')
   @include('pago_transportistas.resumen.create')
   @include('pago_transportistas.resumen.table_fletes')
   @include('pago_transportistas.resumen.table_descuento')

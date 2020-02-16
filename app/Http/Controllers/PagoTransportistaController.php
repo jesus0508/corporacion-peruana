@@ -10,6 +10,9 @@ use CorporacionPeru\Pedido;
 use CorporacionPeru\Http\Requests\StorePagoTransportistaRequest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use CorporacionPeru\Exports\PagoTransportistaExport;
 
 class PagoTransportistaController extends Controller
 {
@@ -126,12 +129,23 @@ class PagoTransportistaController extends Controller
     }
 
     /**
+     * Exportar excel tabla Pago Transportista
+     * @param  $id      [Id del pago transportista]
+     * @return [type]   [description]
+     */
+    public function exportView($id){
+
+        return Excel::download(new PagoTransportistaExport($id),'Pago Transportista.xlsx');
+    }
+
+    /**
      * Mostrar resumen de  1 pago transportista
      *
      * @param  \CorporacionPeru\$id del pago a transportista
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
+    public function show($id): View
+    {
         $pedidos_cliente
             = Pedido::join('vehiculos','pedidos.vehiculo_id','=','vehiculos.id')
                 ->join('transportistas','transportistas.id','=','vehiculos.transportista_id')
@@ -167,10 +181,10 @@ class PagoTransportistaController extends Controller
   
         $collection = collect([$pedidos_grifo, $pedidos_cliente]);
         $collapsed = $collection->collapse();
-        $pedidos =$collapsed->all();
-        $transportista = Transportista::findOrFail( $pedidos[0]->transportista_id );
+        $pedidos2 =$collapsed->all();
+        $transportista = Transportista::findOrFail( $pedidos2[0]->transportista_id );
         $array_selected = [];
-        foreach ($pedidos as $pedido) {
+        foreach ($pedidos2 as $pedido) {
             if (!in_array($pedido->id, $array_selected)) {
                 $array_selected[] = $pedido->id;
             }            
@@ -243,7 +257,7 @@ class PagoTransportistaController extends Controller
  
        // return $lista_descuento2;
         return view('pago_transportistas.resumen.index',
-            compact('pedidos','subtotal','lista_descuento', 'transportista',
+            compact('pedidos','pedidos2','subtotal','lista_descuento', 'transportista',
                 'pago_transportista','desc'));
     }
 
