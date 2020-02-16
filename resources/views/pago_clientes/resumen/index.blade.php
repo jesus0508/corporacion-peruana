@@ -33,7 +33,7 @@ $('#table-pago_cliente-resumen').DataTable({
       "info" : false,
       "scrollX": true,
       "columnDefs": [{
-        "targets": [ 0,1,2,3,4 ],
+        "targets": [ 7,8,9,10,11 ],
         "visible": false
        }],
       "dom": 'Bfrtip',
@@ -67,13 +67,13 @@ $('#table-pago_cliente-resumen').DataTable({
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
             pageTotal = api
-                .column( 8, { page: 'current'} )
+                .column( 3, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);        
-            $( api.column( 8 ).footer() ).html(pageTotal);
+            $( api.column( 3 ).footer() ).html(pageTotal);
       }
   });
 } );

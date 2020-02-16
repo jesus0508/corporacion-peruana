@@ -33,7 +33,7 @@ $('#table-pago_proveedor-resumen').DataTable({
       "info" : false,
       "scrollX": true,
       "columnDefs": [{
-        "targets": [ 0,1,2,3,4 ],
+        "targets": [ 11,12,13,14,15 ],
         "visible": false
        }],
       "dom": 'Bfrtip',
@@ -69,13 +69,13 @@ $('#table-pago_proveedor-resumen').DataTable({
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
             pageTotal = api
-                .column( 12, { page: 'current'} )
+                .column( 7, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                       return Number(a) + Number(b);
                 }, 0 );
             pageTotal = pageTotal.toFixed(2);        
-            $( api.column( 12 ).footer() ).html(pageTotal);
+            $( api.column( 7 ).footer() ).html(pageTotal);
       }
   });
 } );

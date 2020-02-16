@@ -12,34 +12,26 @@
             table-bordered display " width="100%">
             <thead>
               <tr>
-              {{-- //pago proveedor --}}
-                <th>Fecha Operacion</th>
-                <th>Fecha Egreso</th>
-                <th>Número de operación</th>
-                <th>Monto pago</th>
-                <th>Banco</th>
-
-
                 <th>Cantidad galones pedido</th>
                 <th>Precio galon/u</th>
-                <th>Monto Pedido</th>
+                <th>Monto Total Pedido</th>
                 <th>Monto Pagado(S/.)</th> {{-- 8 --}}
                 <th>Saldo Actual</th>
                 <th>Estado</th>
                 <th>Factura - Estado</th>
+
+                  {{-- //pago proveedor --}}
+                <th>Fecha Operacion</th>
+                <th>Fecha Ingreso</th>
+                <th>Número de operación</th>
+                <th>Monto pago</th>
+                <th>Banco</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($pedidos as $pedido)
                 @if( $pedido != null )
                 <tr>
-                  {{-- //pago proveedor --}}
-                  <td>{{date('d/m/Y', strtotime($pagoCliente->fecha_operacion))}}</td>
-                  <td>{{date('d/m/Y', strtotime($pagoCliente->fecha_reporte))}}</td>
-                  <td>{{$pagoCliente->codigo_operacion}}</td>
-                  <td>{{$pagoCliente->monto_operacion}}</td>
-                  <td>{{$pagoCliente->banco}}</td>
-
                   <td>{{$pedido->galones}}</td>
                   <td>S/&nbsp;{{$pedido->precio_galon}}</td>
                   <td>{{$pedido->getPrecioTotal()}}</td>
@@ -58,18 +50,26 @@
                     @else
                     Sin factura
                     @endif
-                  </td>     
+                  </td>
+
+                  {{-- //pago proveedor --}}
+                  <td>{{date('d/m/Y', strtotime($pagoCliente->fecha_operacion))}}</td>
+                  <td>{{date('d/m/Y', strtotime($pagoCliente->fecha_reporte))}}</td>
+                  <td>{{$pagoCliente->codigo_operacion}}</td>
+                  <td>{{$pagoCliente->monto_operacion}}</td>
+                  <td>{{$pagoCliente->banco}}</td>   
+
                 </tr>
                @endif
               @endforeach
             </tbody>
             <tfoot>
               <tr>
-                <th colspan="8" style="text-align: right;">
+                <th colspan="3" style="text-align: right;">
                   MONTO PAGO TOTAL
                 </th>
                 <th></th>
-                <th colspan="3"></th>                
+                <th colspan="7"></th>                
               </tr>
             </tfoot>
           </table>

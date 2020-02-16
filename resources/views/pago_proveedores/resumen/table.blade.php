@@ -12,13 +12,6 @@
             table-bordered display nowrap">
             <thead>
               <tr>
-              {{-- //pago proveedor --}}
-                <th>Fecha Operacion</th>
-                <th>Fecha Egreso</th>
-                <th>Número de operación</th>
-                <th>Monto pago</th>
-                <th>Banco</th>
-
                 <th>Nro pedido</th>
                 <th>Planta</th>
                 <th>SCOP</th>
@@ -26,22 +19,25 @@
                 <th>Precio galon/u</th>
                 <th>Monto</th>
                 <th>Monto Facturado</th>
-                <th>Monto Pagado(S/.)</th> {{-- 12 --}}
+                <th>Monto Pagado(S/.)</th> {{-- 7 --}}
                 <th>Saldo Actual</th>
                 <th>Estado</th>
                 <th>Factura - Estado</th>
+
+              {{-- //pago proveedor --}}
+                <th>Fecha Operacion</th>
+                <th>Fecha Egreso</th>
+                <th>Número de operación</th>
+                <th>Monto pago</th>
+                <th>Banco</th>
+
+
               </tr>
             </thead>
             <tbody>
               @foreach ($pedidos as $pedido)
                 @if( $pedido != null )
                 <tr>
-                  {{-- //pago proveedor --}}
-                  <td>{{date('d/m/Y', strtotime($pago_proveedor->fecha_operacion))}}</td>
-                  <td>{{date('d/m/Y', strtotime($pago_proveedor->fecha_reporte))}}</td>
-                  <td>{{$pago_proveedor->codigo_operacion}}</td>
-                  <td>{{$pago_proveedor->monto_operacion}}</td>
-                  <td>{{$pago_proveedor->banco}}</td>
 
                   <td>{{$pedido->nro_pedido}}</td>
                   <td>{{$pedido->planta->planta}}</td>
@@ -82,18 +78,24 @@
                     @else
                     Sin factura
                     @endif
-                  </td>     
+                  </td>
+                  {{-- //pago proveedor --}}
+                  <td>{{date('d/m/Y', strtotime($pago_proveedor->fecha_operacion))}}</td>
+                  <td>{{date('d/m/Y', strtotime($pago_proveedor->fecha_reporte))}}</td>
+                  <td>{{$pago_proveedor->codigo_operacion}}</td>
+                  <td>{{$pago_proveedor->monto_operacion}}</td>
+                  <td>{{$pago_proveedor->banco}}</td>   
                 </tr>
                @endif
               @endforeach
             </tbody>
             <tfoot>
               <tr>
-                <th colspan="12" style="text-align: right;">
+                <th colspan="7" style="text-align: right;">
                   MONTO TOTAL
                 </th>
                 <th></th>
-                <th colspan="3"></th>                
+                <th colspan="7"></th>                
               </tr>
             </tfoot>
           </table>
