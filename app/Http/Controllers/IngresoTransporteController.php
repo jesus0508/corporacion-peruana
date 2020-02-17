@@ -63,7 +63,7 @@ class IngresoTransporteController extends Controller
      */
     public function edit(IngresoTransporte $ingresoTransporte)
     {
-        //
+       return response()->json(['ingresoTransporte' => $ingresoTransporte]);
     }
 
     /**
@@ -73,9 +73,11 @@ class IngresoTransporteController extends Controller
      * @param  \CorporacionPeru\IngresoTransporte  $ingresoTransporte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IngresoTransporte $ingresoTransporte)
+    public function update(StoreIngresoTransporteRequest $request)
     {
-        //
+        $id = $request->id;
+        IngresoTransporte::findOrFail($id)->update($request->validated());
+        return  back()->with('alert-type', 'success')->with('status', 'Ingreso editado con exito');
     }
 
     /**
@@ -86,6 +88,7 @@ class IngresoTransporteController extends Controller
      */
     public function destroy(IngresoTransporte $ingresoTransporte)
     {
-        //
+        $ingresoTransporte->delete();
+        return  back()->with('alert-type', 'success')->with('status', 'Ingreso eliminado con exito');
     }
 }

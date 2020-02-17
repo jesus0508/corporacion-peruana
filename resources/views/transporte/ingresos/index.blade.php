@@ -18,6 +18,8 @@
 <section class="content">
   @include('transporte.ingresos.create')
   @include('transporte.ingresos.table') 
+  {{-- modal --}}
+  @include('transporte.ingresos.edit')
 </section>
 @endsection
 
@@ -27,14 +29,42 @@
 $(document).ready(function() {
 
   let $select_placa = $('#placa');
+  let $select_placa_edit = $('#placa-edit');
   let $table = $('#tabla-ingreso-transporte');
 	inicializarSelect2($select_placa,'Seleccione placa','');
+  inicializarSelect2($select_placa_edit,'Seleccione placa','');
+  
 	$('#fecha_reporte').datepicker();
  	$('#fecha_ingreso').datepicker();
+  $('#fecha_reporte-edit').datepicker();
+  $('#fecha_ingreso-edit').datepicker();  
  	let fecha_reporte = $('#fecha_reporte').val(); 
-	inicializarDataTable($table,'');
+	inicializarDataTable($table,fecha_reporte);
 
+  $('#modal-edit-ingreso-transporte').on('show.bs.modal',function(event){
+    var id= $(event.relatedTarget).data('id');
+    $.ajax({
+      type: 'GET',
+      url:`./${id}/edit`,
+      dataType : 'json',
+      success: (data)=>{     
+        //console.log(data);  
+        $(event.currentTarget).find('#fecha_reporte-edit').val(data.ingresoTransporte.fecha_reporte);
+        $(event.currentTarget).find('#fecha_ingreso-edit').val(data.ingresoTransporte.fecha_ingreso);
+        $(event.currentTarget).find('#placa-edit').val(data.ingresoTransporte.transporte_id);
+        $(event.currentTarget).find('#placa-edit').trigger('change');
+        $(event.currentTarget).find('#monto_ingreso-edit').val(data.ingresoTransporte.monto_ingreso);
+        $(event.currentTarget).find('#id-edit').val(data.ingresoTransporte.id);
+
+      },
+      error: (error)=>{
+        toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+      }
+    });
+  });
 });
+
+
 
 function inicializarDataTable($table, fecha_reporte){
 	 $table.DataTable({
@@ -97,6 +127,13 @@ function inicializarSelect2($select, text, data) {
     });
   }
 
+  function confirmar()
+{
+  if(confirm('¿Estás seguro de eliminar ?'))
+    return true;
+  else
+    return false;
+}
 function validateDates() {
   let $tabla_pagos_lista = $('#tabla-ingreso-transporte');
   $('#fecha_inicio').datepicker({

@@ -18,7 +18,7 @@
 <section class="content">
   @include('transporte.egresos.create')
   @include('transporte.egresos.table')
-  
+  @include('transporte.egresos.edit')
 </section>
 @endsection
 
@@ -46,6 +46,40 @@ $(document).ready(function() {
     fillSeries(id);       
   });
 
+
+ //EDit
+  $('#fecha_reporte-edit').datepicker();
+  $('#fecha_egreso-edit').datepicker();  
+  let $select_placa_edit = $('#placa-edit');
+  let $select_tipo_edit = $('#tipo-edit');
+  let $select_tipo_comprobante_edit = $('#tipo_comprobante-edit');
+  inicializarSelect2($select_placa_edit,'Seleccione placa','');
+  $('#modal-edit-egreso-transporte').on('show.bs.modal',function(event){
+    var id= $(event.relatedTarget).data('id');
+    $.ajax({
+      type: 'GET',
+      url:`./${id}/edit`,
+      dataType : 'json',
+      success: (data)=>{     
+        console.log(data);  
+        $(event.currentTarget).find('#fecha_reporte-edit').val(data.egresoTransporte.fecha_reporte);
+        $(event.currentTarget).find('#fecha_egreso-edit').val(data.egresoTransporte.fecha_egreso);
+        $(event.currentTarget).find('#tipo-edit').val(data.egresoTransporte.transporte.tipo);
+        $(event.currentTarget).find('#placa-edit').val(data.egresoTransporte.transporte_id);
+        $(event.currentTarget).find('#placa-edit').trigger('change');
+        $(event.currentTarget).find('#tipo_comprobante-edit').val(data.egresoTransporte.tipo_comprobante);
+        $(event.currentTarget).find('#nro_comprobante-edit').val(data.egresoTransporte.nro_comprobante);
+        $(event.currentTarget).find('#descripcion-edit').val(data.egresoTransporte.descripcion);
+        $(event.currentTarget).find('#monto_egreso-edit').val(data.egresoTransporte.monto_egreso);
+        $(event.currentTarget).find('#id-edit').val(data.egresoTransporte.id);
+
+      },
+      error: (error)=>{
+        toastr.error('Ocurrio al cargar los datos', 'Error Alert', {timeOut: 2000});
+      }
+    });
+  });
+
 });
 
 function fillSeries(idTipo){
@@ -66,6 +100,13 @@ function getPlacaByTipo(idTipo) {
       dataType: 'json',
     });
   }
+function confirmar()
+{
+  if(confirm('¿Estás seguro de eliminar ?'))
+    return true;
+  else
+    return false;
+}
 function inicializarDataTable($table, fecha_reporte){
 	 $table.DataTable({
       "responsive": false,

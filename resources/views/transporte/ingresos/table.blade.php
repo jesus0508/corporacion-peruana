@@ -14,7 +14,7 @@
               <th>Placa</th>
               <th>Chofer</th>
               <th>Monto</th>  
-            <!--   <th>Acciones</th> -->
+              <th>Acciones</th>
               
             </tr>
           </thead>
@@ -32,12 +32,26 @@
                   @endif
                   </td>
                 <td>{{$ingreso->monto_ingreso}}</td>
+                <td>
+                  <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-edit-ingreso-transporte"
+                            data-id="{{$ingreso->id}}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Editar
+                  </button>
+                  <form style="display:inline" method="POST"  onsubmit="return confirmar()" action="{{ route('ingreso_transporte.destroy', $ingreso->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                  </form>
+
+                </td>
               </tr>
             @endforeach
           </tbody>
           <tfoot>
             <tr>
               <th colspan="4"  style="text-align:right">TOTAL</th>
+              <th></th>
               <th></th>
             </tr>
           </tfoot>

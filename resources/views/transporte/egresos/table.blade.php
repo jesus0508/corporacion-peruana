@@ -17,7 +17,8 @@
               <th>N° comprobante</th>
               <th>Descripción</th>
               <th>Monto</th>
-              <th>Mes reporte</th>            
+              <th>Mes reporte</th>  
+              <th>Acciones</th>          
             </tr>
           </thead>
           <tbody>
@@ -33,6 +34,19 @@
                 <td>{{$egreso->descripcion}}</td>
                 <td>{{$egreso->monto_egreso}}</td>
                 <td>{{ ucfirst(strftime("%B %Y",strtotime($egreso->date_reporte)))}}</td>
+                <td>
+                  <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-edit-egreso-transporte"
+                            data-id="{{$egreso->id}}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Editar
+                  </button>
+                  <form style="display:inline" method="POST"  onsubmit="return confirmar()" action="{{ route('egreso_transporte.destroy', $egreso->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                  </form>
+
+                </td>
 
               </tr>
             @endforeach
@@ -40,6 +54,7 @@
           <tfoot>
             <tr>
               <th colspan="7"  style="text-align:right">TOTAL</th>
+              <th></th>
               <th></th>
               <th></th>
             </tr>

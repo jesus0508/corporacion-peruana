@@ -71,9 +71,11 @@ class EgresoTransporteController extends Controller
      */
     public function edit(EgresoTransporte $egresoTransporte)
     {
-        //
+        $egresoTransporte = EgresoTransporte::findOrFail($egresoTransporte->id)
+            ->with('transporte')
+            ->get();
+        return response()->json(['egresoTransporte' => $egresoTransporte]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -81,9 +83,11 @@ class EgresoTransporteController extends Controller
      * @param  \CorporacionPeru\EgresoTransporte  $egresoTransporte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EgresoTransporte $egresoTransporte)
+    public function update(StoreEgresoTransporteRequest $request)
     {
-        //
+        $id = $request->id;
+        EgresoTransporte::findOrFail($id)->update($request->validated());
+        return  back()->with('alert-type', 'success')->with('status', 'Egreso editado con exito');
     }
 
     /**
@@ -94,6 +98,7 @@ class EgresoTransporteController extends Controller
      */
     public function destroy(EgresoTransporte $egresoTransporte)
     {
-        //
+        $egresoTransporte->delete();
+        return  back()->with('alert-type', 'success')->with('status', 'Egreso eliminado con exito');
     }
 }
