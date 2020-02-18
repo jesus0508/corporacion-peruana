@@ -21,7 +21,7 @@
                 <div class="col-md-6">
                   <div class="form-group @error('tipo') has-error @enderror">
                     <label for="tipo">Tipo*</label>
-                    <select id="tipo-edit" class="form-control" disabled="">                        
+                    <select id="tipo-edit" class="form-control" >                        
                       <option value="1">Autos</option>
                       <option value="2">Buses</option>
                       <option value="3">Cisternas</option>

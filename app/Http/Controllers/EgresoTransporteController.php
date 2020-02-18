@@ -73,7 +73,7 @@ class EgresoTransporteController extends Controller
     {
         $egresoTransporte = EgresoTransporte::findOrFail($egresoTransporte->id)
             ->with('transporte')
-            ->get();
+            ->first();
         return response()->json(['egresoTransporte' => $egresoTransporte]);
     }
     /**

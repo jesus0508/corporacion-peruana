@@ -43,7 +43,7 @@ $(document).ready(function() {
     //console.log('cambió');
     let id = $select_tipo.val();
       id = (id)?id:-1;   
-    fillSeries(id);       
+    fillSeries(id, $select_placa);       
   });
 
 
@@ -53,7 +53,17 @@ $(document).ready(function() {
   let $select_placa_edit = $('#placa-edit');
   let $select_tipo_edit = $('#tipo-edit');
   let $select_tipo_comprobante_edit = $('#tipo_comprobante-edit');
+
+ // inicializarSelect2($select_tipo_edit,'Seleccione el tipo','');
   inicializarSelect2($select_placa_edit,'Seleccione placa','');
+
+  $select_tipo_edit.on('change', function (event) {
+    //console.log('cambió');
+    let id = $select_tipo_edit.val();
+      id = (id)?id:-1;   
+    fillSeries( id , $select_placa_edit );       
+  });
+
   $('#modal-edit-egreso-transporte').on('show.bs.modal',function(event){
     var id= $(event.relatedTarget).data('id');
     $.ajax({
@@ -82,13 +92,10 @@ $(document).ready(function() {
 
 });
 
-function fillSeries(idTipo){
+function fillSeries( idTipo , $placa ){
     getPlacaByTipo(idTipo).done((data) => {
-    //console.log(data);     
-    $('#placa').html('');
-    inicializarSelect2Less($('#placa'), 'Seleccione la placa', data.transporte);
-    //$('#placa').val(data.transportes);
-    //evaluateSeries();
+    $placa.html('');
+    inicializarSelect2Less($placa , 'Seleccione la placa', data.transporte);
     }).fail((error) => {
       toastr.error('Ocurrio un error en el servidor!', 'Error Alert', { timeOut: 2000 });
     });
