@@ -24,7 +24,7 @@
                 <td>{{$trabajador->dni}}</td>
                 <td>{{$trabajador->nombres}}</td>
                 <td>{{$trabajador->apellido_paterno}}</td>
-                <td>{{date('d/m/Y', strtotime($trabajador->fecha_nacimiento))}}</td>
+                <td>{{$trabajador->fecha_nacimiento}}</td>
                 <td>{{$trabajador->telefono}}</td>
                 <td>
                   <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-show-trabajador"

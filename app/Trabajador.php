@@ -33,4 +33,18 @@ class Trabajador extends Model
     {
         return $value ? Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y') : $value;
     }
+
+    public function getGenero(){
+        $result="";
+        switch($this->genero){
+            case 2: 
+                $result="Femenino";
+                break;
+            case 1:
+                $result="Masculino";
+                break;
+        }
+        return $result;
+    }
+    }
 }
