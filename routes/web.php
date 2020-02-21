@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/traslado_galones','TrasladoGalonesController');
 		Route::get('/grifos_all','GrifoController@getAllGrifos');
 
-/**/	Route::get('/clientes_all','ClienteController@getAllClientesSelect');
+		Route::get('/clientes_all','ClienteController@getAllClientesSelect');
 			
 				/* EGRESOSS -  GASTOS (GRIFOS)*/
 		Route::resource('/categoria_gastos', 'CategoriaGastoController');
@@ -138,8 +138,6 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/reporte_egresos_detallado_diario_data/{fecha?}','IngresoNetoGrifoController@ingresoDetalladoGrifoDataE');
 	//
 		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
-		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
-
 		/* Venta Facturada*/
 		Route::resource('/cancelacion','CancelacionController');
 		Route::get('/cancelaciones/modify','CancelacionController@modify')->name('cancelacion.modify');

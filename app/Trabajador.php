@@ -46,5 +46,4 @@ class Trabajador extends Model
         }
         return $result;
     }
-    }
 }
