@@ -45,37 +45,20 @@ class CategoriaIngresoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\CategoriaIngreso  $categoriaIngreso
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CategoriaIngreso $categoriaIngreso)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \CorporacionPeru\CategoriaIngreso  $categoriaIngreso
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CategoriaIngreso $categoriaIngreso)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \CorporacionPeru\CategoriaIngreso  $categoriaIngreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoriaIngreso $categoriaIngreso)
-    {
-        //
+    public function update(Request $request)
+    {       
+
+        $id = $request->id;
+        CategoriaIngreso::findOrFail($id)->update( $request->validate([
+            'categoria' => 'required|max:255',            
+        ]) );
+        return back()->with('alert-type', 'success')->with('status', 'Categoria actualizada con exito');
     }
 
     /**

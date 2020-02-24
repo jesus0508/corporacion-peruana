@@ -35,7 +35,7 @@ $(document).ready(function() {
   $select_bancos = $('#banco');
   let fecha_inicio =  $('#fecha_inicio').val();
   fecha_inicio = convertDateFormat(fecha_inicio);
-  console.log(fecha_inicio);
+ // console.log(fecha_inicio);
   $('#modal-edit-ingresos').on('show.bs.modal',function(event){
     var id= $(event.relatedTarget).data('id');
     $.ajax({

@@ -19,7 +19,20 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{$categoria->categoria}}</td>
                 <td>
-                  @if(   count( $categoria->egresos )      == 0                     
+                  <button class="btn btn-xs btn-warning" 
+                    data-toggle="modal" data-id="{{$categoria->id}}" data-categoria="{{$categoria->categoria}}" data-target="#modal-edit-categoria">                  
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Editar
+                  </button>
+                  @if( $categoria->id > 2 )
+                    <form style="display:inline" method="POST" action="{{ route('categoria_egresos.destroy', $categoria->id) }}">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
+                    </form>
+                  @endif
+  
+{{--                   @if(   count( $categoria->egresos )      == 0                     
                      )
                   <form style="display:inline" method="POST" action="{{ route('categoria_egresos.destroy', $categoria->id) }}">
                     @csrf
@@ -32,7 +45,7 @@
                     @method('DELETE')
                     <button class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
                   </form>
-                  @endif
+                  @endif --}}
                 </td>              
               </tr>
             @endforeach

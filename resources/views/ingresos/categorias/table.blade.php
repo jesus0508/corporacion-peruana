@@ -19,21 +19,36 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{$categoria->categoria}}</td>
                 <td>
-                  @if(   count( $categoria->ingresos )      == 0 
+                  <button class="btn btn-xs btn-warning" 
+                    data-toggle="modal" data-id="{{$categoria->id}}" data-categoria="{{$categoria->categoria}}" data-target="#modal-edit-categoria">                  
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Editar
+                  </button>
+                  @if($categoria->id > 4)
+                    <form style="display:inline" method="POST" 
+                      action="{{ route('categoria_ingresos.destroy', $categoria->id) }}">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
+                    </form>
+                  @endif
+
+
+{{--                   @if(   count( $categoria->ingresos )      == 0 
                     &&  count( $categoria->ingresoGrifos ) == 0
                     &&  count( $categoria->pagoClientes)   == 0   )
                   <form style="display:inline" method="POST" action="{{ route('categoria_ingresos.destroy', $categoria->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
+                    <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
                   </form>
                   @else
                   <form style="display:inline" method="POST" action="{{ route('categoria_ingresos.destroy', $categoria->id) }}">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
+                    <button class="btn btn-danger btn-sm" disabled><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Eliminar</button>
                   </form>
-                  @endif
+                  @endif --}}
                 </td>              
               </tr>
             @endforeach

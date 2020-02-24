@@ -2,22 +2,26 @@
 @section('title','Reporte General')
 @section('styles')
 @include('reporte_excel.excel_select2_css')
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="#">Reportes</a></li>
-  <li><a href="#">Egresos</a></li>
-  <li><a href="#">Diario</a></li>
+  <li><a href="#">Ingresos</a></li>
+  <li><a href="#">Mensual</a></li>
+
 </ol>
 @endsection
 
 @section('content')
 <section class="content">
-  @include('reporte_general.egresos.mensual.header')   
-  <br>
-  @include('reporte_general.egresos.mensual.table2')
-
+  @include('reporte_general.ingresos.mensual.header')
+  @include('reporte_general.ingresos.mensual.table2')
 </section>
 @endsection
 
@@ -25,20 +29,20 @@
 @include('reporte_excel.excel_select2_js')
 <script>
 $(document).ready(function() {
-  var groupColumn = 1;
   var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  $('#tabla-egresos').DataTable({
+  var groupColumn = 0;
+  $('#tabla-ingresos').DataTable({
       "dom": 'Blfrtip',
       "responsive":false,
       "columnDefs": [
             { "visible": false, "targets": groupColumn }
       ],
-         "order": [[ groupColumn, 'asc' ]],
+         "order": [[ groupColumn, 'desc' ]],
         "scrollX": true,
           "buttons": [
           {
             'extend': 'excelHtml5',
-            'title': 'Lista Egresos Mensual',
+            'title': 'Lista Ingresos Mensual',
             'attr':  {
               title: 'Excel',
               id: 'excelButton'
@@ -47,25 +51,22 @@ $(document).ready(function() {
             'className': 'btn btn-default',
             'exportOptions':
             {
-              columns:[0,1,2,3,4,5,6]
+              columns:[0,1,2,3,4,5]
             }
           }],
-    'ajax': `./reporte_general_egresos_mensual_data`,
-    'columns': [
-      {data: 'fecha_reporte', 'render': function(data){
+		'ajax': `./reporte_general_ingresos_mensual_data`,
+		'columns': [
+		  // {data: 'fecha_reporte'},
+		  {data: 'categoria'},
+			{data: 'detalle'},
+			{data: 'fecha_ingreso','render': function(data){
         return getDate(data);
       } },
-      {data: 'categoria'},
-      {data: 'detalle'},
-      {data: 'fecha_egreso', 'render': function(data){
-        return getDate(data);
-      } },
-      {data: 'nro_comprobante'},                      
-      {data: 'nro_cheque'},
-      {data: 'codigo_operacion'},
-      {data: 'nro_cuenta'},
-      {data: 'monto_egreso'}
-    ],
+			{data: 'codigo_operacion'},
+      {data: 'banco'},
+			{data: 'monto_ingreso'//, render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
+    }
+		],
     "drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();
@@ -78,7 +79,7 @@ $(document).ready(function() {
 
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 7, 
+                    "colspan": 4, 
                     "style": "font-weight:bold;"  ,                
                     "text": "TOTAL: " 
                 })).append($("<td></td>", {
@@ -96,7 +97,7 @@ $(document).ready(function() {
                     "class": "group",
                     "data-id": group
                 }).append($("<td></td>", {
-                    "colspan": 7, 
+                    "colspan": 4, 
                     "style": "font-weight:bold;"  ,                
                     "text": "CATEGORÍA: " + group
                 })).append($("<td></td>", {
@@ -115,14 +116,15 @@ $(document).ready(function() {
                 let elemento            = document.getElementById("e"+val['categoria']);
                 let elementoTOTAL       = document.getElementById("A");
                 var total               = parseFloat(elementoTOTAL.innerHTML) + 
-                                            parseFloat( val['monto_egreso']);
+                                            parseFloat( val['monto_ingreso']);
                 elementoTOTAL.innerHTML = parseFloat(total).toFixed(2); 
                 let subtotal            = parseFloat(elemento.innerHTML) 
-                                            + parseFloat( val['monto_egreso']);                  
+                                            + parseFloat( val['monto_ingreso']);                  
                 elemento.innerHTML      = parseFloat(subtotal).toFixed(2);                       
         });   
     }      
   });  
+
   $('#fecha_reporte2').datepicker({
         changeMonth: true,
         changeYear: true,
@@ -145,21 +147,23 @@ $(document).ready(function() {
       }
     });
     fecha_reporte = mes + '-' + year;
-    RefreshTable('#tabla-egresos',`./reporte_general_egresos_mensual_data/${fecha_reporte}`);
+    RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_mensual_data/${fecha_reporte}`);
   });
 
   $('#today-fecha').on('click', function () {
     let this_month_year_my = $('#month_actual_date_my').val();
     let this_month_year = $('#month_actual_date').val();
     $('#fecha_reporte2').val(this_month_year);
-      RefreshTable('#tabla-egresos',`./reporte_general_egresos_mensual_data/${this_month_year_my}`);
+      RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_mensual_data/${this_month_year_my}`);
   });
+
   $('#yesterday-fecha').on('click', function () {
     let last_month_date_my = $('#last_month_date_my').val();
     let last_month_date = $('#last_month_date').val();
     $('#fecha_reporte2').val(last_month_date);
-      RefreshTable('#tabla-egresos',`./reporte_general_egresos_mensual_data/${last_month_date_my}`);
+      RefreshTable('#tabla-ingresos',`./reporte_general_ingresos_mensual_data/${last_month_date_my}`);
   });
+
 });
 
   function getDate(date){
@@ -178,20 +182,21 @@ $(document).ready(function() {
   function convertDateFormat2(string) {
         var info = string.split('-').reverse().join('/');
         return info;
-  }  
-  function RefreshTable(tableId, urlData){
-    $.getJSON(urlData, null, function( json ){
-      table = $(tableId).dataTable();
-      oSettings = table.fnSettings();
-      table.fnClearTable(this);    
-      for (var i=0; i<json.data.length; i++) {
-        table.oApi._fnAddData(oSettings, json.data[i]);       
-      } 
-      oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();      
-      table.fnDraw();
-   
-    });
   }
+	function RefreshTable(tableId, urlData){
+  	$.getJSON(urlData, null, function( json ){
+    	table = $(tableId).dataTable();
+   		oSettings = table.fnSettings();
+    	table.fnClearTable(this);    
+    	for (var i=0; i<json.data.length; i++) {
+      	table.oApi._fnAddData(oSettings, json.data[i]);      	
+     	} 
+    	oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();    	
+    	table.fnDraw();
+   
+  	});
+	}
+
 
 </script>
 @endsection

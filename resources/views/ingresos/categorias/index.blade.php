@@ -14,6 +14,19 @@
 <section class="content">
   @include('ingresos.categorias.header') 
   @include('ingresos.categorias.table')
+  @include('ingresos.categorias.edit')
 
 </section>
+@endsection
+
+@section('scripts')
+<script>
+	$('#modal-edit-categoria').on('show.bs.modal',function(event){
+		let id        =  $(event.relatedTarget).data('id');
+		let categoria =  $(event.relatedTarget).data('categoria');
+    $(event.currentTarget).find('#id-edit').val(id); 
+    $(event.currentTarget).find('#categoria').val(categoria); 
+  });
+
+</script>
 @endsection

@@ -44,37 +44,19 @@ class CategoriaEgresoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \CorporacionPeru\CategoriaEgreso  $categoriaEgreso
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CategoriaEgreso $categoriaEgreso)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \CorporacionPeru\CategoriaEgreso  $categoriaEgreso
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CategoriaEgreso $categoriaEgreso)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \CorporacionPeru\CategoriaEgreso  $categoriaEgreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoriaEgreso $categoriaEgreso)
+    public function update( Request $request )
     {
-        //
+        $id = $request->id;
+        CategoriaEgreso::findOrFail($id)->update( $request->validate([
+            'categoria' => 'required|max:255',            
+        ]) );
+        return back()->with('alert-type', 'success')->with('status', 'Categoria actualizada con exito');
     }
 
     /**

@@ -62,7 +62,7 @@ class ReporteGeneralIngresosController extends Controller
         $last_month_date      = $last_month.' '.$this_year;
         $month_actual_date_my = $this_month.'-'.$this_year;
 
-        return view('reporte_general.ingresos.mensual.index',compact('month_actual','last_month',
+        return view('reporte_general.ingresos.mensual.index2',compact('month_actual','last_month',
             'month_actual_date','last_month_date','month_actual_date_my','last_month_date_my'));
     }
 
@@ -77,8 +77,7 @@ class ReporteGeneralIngresosController extends Controller
         if ( $date == null ) {
             $date = Carbon::now()->format('m-Y');
         }       
-
-        $ingresos = $this->ingresosMensual($date);//trait
+        $ingresos = $this->ingresosMensualNew($date);//trait
         return response()->json(['data' => $ingresos]);
     }
 
