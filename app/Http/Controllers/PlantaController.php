@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use CorporacionPeru\Planta;
 use CorporacionPeru\Proveedor;
 use CorporacionPeru\Http\Requests;
-use CorporacionPeru\Http\Requests\StorePLantaRequest;
+use CorporacionPeru\Http\Requests\StorePlantaRequest;
 
 class PlantaController extends Controller
 {
