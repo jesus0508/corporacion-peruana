@@ -31,8 +31,8 @@ class StoreClienteRequest extends FormRequest
             'dni'=>'nullable|size:8',
             'correo_cliente'=>'nullable|email',
             'actividad_economica'=>'max:255',
-            'precio_galon'=>'required|numeric|gt:0',
-            'linea_credito'=>'required|numeric|gt:0',
+            'precio_galon'=>'required|numeric|gt:0|lt:100000',
+            'linea_credito'=>'required|numeric|gt:0|lt:100000',
             'distrito'=>'required|max:255',
             'telefono'=>'nullable|min:7|max:9',
             'direccion'=>'required|min:5|max:255',
@@ -45,4 +45,7 @@ class StoreClienteRequest extends FormRequest
             'extraordinaria'=>'nullable|max:255'
         ];
     }
+
+
+
 }
