@@ -11,12 +11,25 @@ class RolesUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // Proveedores-Nati
         DB::table('role_user')->insert([
             'role_id' => 1,
             'user_id' => 2
         ]);
 
+        // Grifos-Chechoo
+        DB::table('role_user')->insert([
+            'role_id' => 2,
+            'user_id' => 4
+        ]);
+
+        // Ventas-Eduxito
+        DB::table('role_user')->insert([
+            'role_id' => 3,
+            'user_id' => 3
+        ]);
+
+        //Admin
         DB::table('role_user')->insert([
             'role_id' => 1,
             'user_id' => 1

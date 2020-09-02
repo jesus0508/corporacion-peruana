@@ -16,7 +16,6 @@ Route::redirect('/', 'login', 301);
 Route::middleware(['auth'])->group(function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 
-
 	Route::group(['middleware' => ['role:Ventas']], function () {
 		/* Clientes*/
 		Route::get('/clientes/all', 'ClienteController@getAllClientes');
@@ -44,7 +43,6 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/pago_clientes', 'PagoClienteController');
 	});
 
-
 	Route::middleware(['role:Administrador'])->group(function () {
 		/* Trabajadores*/
 		Route::resource('/trabajadores', 'TrabajadorController');
@@ -60,9 +58,10 @@ Route::middleware(['auth'])->group(function () {
 				->name('egreso_gerencia.showGastosPago');
 
 	});
-		Route::post('/pagar_gastos_gerencia_store',
-				'EgresoGerenciaController@storePagoEgreso')
-				->name('egreso_gerencia.storePagoEgreso');
+
+	Route::post('/pagar_gastos_gerencia_store',
+			'EgresoGerenciaController@storePagoEgreso')
+			->name('egreso_gerencia.storePagoEgreso');
 
 	Route::middleware(['role:Grifos'])->group(function(){
 		/* Grifo */
@@ -94,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::get('/clientes_all','ClienteController@getAllClientesSelect');
 			
-				/* EGRESOSS -  GASTOS (GRIFOS)*/
+		/* EGRESOSS -  GASTOS (GRIFOS)*/
 		Route::resource('/categoria_gastos', 'CategoriaGastoController');
 		Route::resource('/sub_categoria_gastos', 'SubCategoriaGastoController');
 		Route::resource('/concepto_gastos', 'ConceptoGastoController');
@@ -122,7 +121,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/categoria_ingresos', 'CategoriaIngresoController');
 		Route::get('ingresos_fecha_data/{date?}','IngresoController@getIngresoByDay');
 
-			/* INGRESOS NETOS  (GRIFOS)*/	
+		/* INGRESOS NETOS  (GRIFOS)*/	
 		Route::resource('ingreso_grifo_neto','IngresoNetoGrifoController');//grifos
 		Route::get('/reporte_ingresos_grifos_diario_data/{fecha?}','IngresoNetoGrifoController@reporteIngresoGrifoNetoDiarioData');
 		Route::get('/reporte_ingresos_grifos_mensual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresoGrifoNetoMensualData');
@@ -131,12 +130,12 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/reporte_ingresos_x_grifo_anual_data/{fecha?}','IngresoNetoGrifoController@reporteIngresosNetoXGrifoAnualData');
 		Route::get('/chart-ingresos-grifos-anual-ajax','IngresoNetoGrifoController@reporteIngresoGrifoNetoAnualAjax');
 		Route::get('/chart-ingresos-x-grifo-anual-ajax','IngresoNetoGrifoController@reporteIngresosNetoXGrifoAnualAjax');
-	//detallado
+		//detallado
 		Route::get('/reporte_ingresos_detallado_diario','IngresoNetoGrifoController@ingresoDetalladoGrifo')
 			->name('ingreso_grifo_neto.detallado');
 		Route::get('/reporte_ingresos_detallado_diario_data/{fecha?}','IngresoNetoGrifoController@ingresoDetalladoGrifoDataI');
 		Route::get('/reporte_egresos_detallado_diario_data/{fecha?}','IngresoNetoGrifoController@ingresoDetalladoGrifoDataE');
-	//
+		//
 		Route::resource('ganancia_zona_neta','GananciaNetaZonaController');
 		/* Venta Facturada*/
 		Route::resource('/cancelacion','CancelacionController');
@@ -148,15 +147,13 @@ Route::middleware(['auth'])->group(function () {
 		Route::resource('/movimiento_grifos','MovimientoGrifoController');
 		Route::get('/movimientos_grifos_data_between/{fechaInicio?}/{fechaFin?}', 'MovimientoGrifoController@movimientosDataBetween');
 		Route::get('/movimiento_grifos_verificar', 'MovimientoGrifoController@verificarSinRegistrar')->name('movimiento_grifos.verificar');
-
-
 	});
+
 
 	/** DEPOSITOS-.... */
 	Route::resource('/depositos','DepositoController');
 	Route::get('/modify','DepositoController@modify')->name('depositos.modify');
 	Route::get('depositos_fecha_data/{date?}','DepositoController@getDepositosByDay');
-
 
 
 	/*  EGRESOS OTROS... */
