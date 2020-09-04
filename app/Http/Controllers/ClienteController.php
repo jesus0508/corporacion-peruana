@@ -41,7 +41,7 @@ class ClienteController extends Controller
     {
         //
         Cliente::create($request->validated());
-        return back()->with('alert-type', 'success')->with('status', 'Cliente Registrado con exito');
+        return back()->with('alert-type', 'success')->with('status', 'Cliente Registrado con exito')->setStatusCode(201);
     }
 
 
