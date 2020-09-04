@@ -242,63 +242,6 @@
             </div>
           </div>
 
-          <div class="row">
-            
-            <div class="col-md-6">
-              <div class="form-group @error('nro_cuenta') has-error @enderror">
-                <label for="nro_cuenta">Numero de Cuenta</label>
-                <input id="nro_cuenta" type="text" class="form-control" value="{{old("nro_cuenta")}}"  name="nro_cuenta" placeholder="Ingrese el número de cuenta">
-                @error('nro_cuenta')
-                <span class="help-block" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-            <div class="col-md-6">
-            <div class="form-group @error('cuenta_detraccion') has-error @enderror">
-                <label for="cuenta_detraccion">Cuenta Detraccion</label>
-                <input id="cuenta_detraccion" type="text" step="any" class="form-control" value="{{old("cuenta_detraccion")}}"
-                      name="cuenta_detraccion" placeholder="Ingrese cuenta detraccion">
-                @error('cuenta_detraccion')
-                <span class="help-block" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-                        
-            <div class="col-md-6">
-              <div class="form-group @error('utilidades') has-error @enderror">
-                <label for="utilidades">Utilidad</label>
-                <input id="utilidades" type="text" class="form-control" value="{{old("utilidades")}}"
-                        name="utilidades" placeholder="Forma de pago de las utilidades" >
-                @error('utilidades')
-                <span class="help-block" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-            
-            <div class="col-md-6">
-            <div class="form-group @error('extraordinaria') has-error @enderror">
-                <label for="extraordinaria">Extraordinaria</label>
-                <input id="extraordinaria" type="text" class="form-control" value="{{old("extraordinaria")}}"
-                      name="extraordinaria" placeholder="Ingrese extraordinaria" >
-                @error('extraordinaria')
-                <span class="help-block" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-          </div>
-
           
 
         </div><!-- /.box-body -->
