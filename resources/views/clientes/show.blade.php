@@ -142,36 +142,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">                
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="nro_cuenta-show">Numero de Cuenta</label>
-                    <input id="nro_cuenta-show" type="text" class="form-control"  readonly="">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                <div class="form-group">
-                    <label for="cuenta_detraccion-show">Cuenta Detraccion</label>
-                    <input id="cuenta_detraccion-show" type="text" class="form-control"
-                          readonly="">
-                  </div>
-                </div>
-              </div>
-              <div class="row">           
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="utilidades-show">Utilidad</label>
-                    <input id="utilidades-show" type="text" class="form-control"
-                          readonly="" >
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="extraordinaria-show">Extraordinaria</label>
-                    <input id="extraordinaria-show" type="text" class="form-control" readonly="">
-                  </div>
-                </div>
-              </div>             
+        
             </div><!-- /.box-body -->
           </div><!-- /.box -->
         </div><!--/.col (right) -->
