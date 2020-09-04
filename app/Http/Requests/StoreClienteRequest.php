@@ -37,7 +37,7 @@ class StoreClienteRequest extends FormRequest
             'telefono'=>'nullable|min:7|max:9',
             'direccion'=>'required|min:5|max:255',
             'forma_pago'=>'required|min:5|max:255',
-            'persona_comision'=>'nullable|min:5|max:100',
+            'persona_comision'=>'nullable|min:2|max:100',
             'correo_representante'=>'nullable|email',
             'nro_cuenta'=>'nullable|max:255',
             'cuenta_detraccion'=> 'nullable|max:255',

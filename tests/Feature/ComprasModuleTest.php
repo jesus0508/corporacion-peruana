@@ -5,12 +5,14 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 
 use CorporacionPeru\User;
 use CorporacionPeru\Role;
 
 class ComprasModuleTest extends TestCase
 {
+    const URL_PEDIDOS_CREATE = "/pedidos/create";
     /**
      * Un usuario con un rol Proveedor puede ver la pagina para registrar una compra
      *
@@ -18,9 +20,8 @@ class ComprasModuleTest extends TestCase
      */
     public function testProveedorUserCanSeeCreateComprasPage()
     {
-        $user = User::find(1);
-        $response = $this->actingAs($user)->get('/pedidos/create');
-        $response->assertStatus(200);
+        $response = $this->actingAs(User::findOrFail(1))->get(self::URL_PEDIDOS_CREATE);
+        $response->assertStatus(Response::HTTP_OK);
         $response->assertViewIs('pedidosP.create_pedido.index');
     }
 
@@ -32,10 +33,9 @@ class ComprasModuleTest extends TestCase
     public function testVentasUserCantSeeCreateComprasPage()
     {
         $user = factory(User::class)->make();
-        $role = Role::find(3);
-        $user->roles->add($role);
-        $response = $this->actingAs($user)->get('/pedidos/create');
-        $response->assertStatus(302);
+        $user->roles->add(Role::findOrFail(3));
+        $response = $this->actingAs($user)->get(self::URL_PEDIDOS_CREATE);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     /**
@@ -47,7 +47,7 @@ class ComprasModuleTest extends TestCase
     public function testUserWithOutRoleCantSeeCreateComprasPage()
     {
         $user = factory(User::class)->make();
-        $response = $this->actingAs($user)->get('/pedidos/create');
-        $response->assertStatus(302);
+        $response = $this->actingAs($user)->get(self::URL_PEDIDOS_CREATE);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }

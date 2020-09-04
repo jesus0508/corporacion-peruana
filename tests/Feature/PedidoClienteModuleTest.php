@@ -5,11 +5,13 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 
 use CorporacionPeru\User;
 
 class PedidoClienteModuleTest extends TestCase
 {
+    const URL_PEDIDOS_CLIENTE_CREATE = "/pedido_clientes/create";
     /**
      * A basic feature test example.
      *
@@ -17,23 +19,21 @@ class PedidoClienteModuleTest extends TestCase
      */
     public function testVentasUserCanSeeClientPage()
     {
-        $user = User::find(1);
-        $response = $this->actingAs($user)->get('/pedido_clientes/create');
-        $response->assertStatus(200);
+        $response = $this->actingAs(User::findOrFail(1))->get(self::URL_PEDIDOS_CLIENTE_CREATE);
+        $response->assertStatus(Response::HTTP_OK);
         $response->assertViewIs('pedido_clientes.create');
     }
 
     public function testGrifoUserCantSeeClientPage()
     {
-        $user = User::find(4);
-        $response = $this->actingAs($user)->get('/pedido_clientes/create');
-        $response->assertStatus(302);
+        $response = $this->actingAs(User::findOrFail(4))->get(self::URL_PEDIDOS_CLIENTE_CREATE);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     public function testUserWithOutRoleCantSeeCreateComprasPage()
     {
         $user = factory(User::class)->make();
-        $response = $this->actingAs($user)->get('/pedido_clientes/create');
-        $response->assertStatus(302);
+        $response = $this->actingAs($user)->get(self::URL_PEDIDOS_CLIENTE_CREATE);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }

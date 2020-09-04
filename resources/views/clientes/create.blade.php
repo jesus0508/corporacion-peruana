@@ -43,9 +43,7 @@
                 <label for="razon_social">Razón Social*</label>
                 <textarea id="razon_social" cols="30" rows="2" class="form-control" 
                           name="razon_social" placeholder="Ingrese la razon social"
-                          maxlength="120" required>
-                    {{old("razon_social")}}
-                </textarea>             
+                          maxlength="120" required>{{old("razon_social")}}</textarea>             
                 @error('razon_social')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -116,9 +114,7 @@
                 <label for="actividad_economica">Actividad economica</label>
                 <textarea id="actividad_economica" cols="30" rows="2" class="form-control" 
                           name="actividad_economica" placeholder="Ingrese actividad economica" 
-                          maxlength="255">
-                  {{old("actividad_economica")}}
-                </textarea>          
+                          maxlength="255">{{old("actividad_economica")}}</textarea>          
                 @error('actividad_economica')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -184,10 +180,7 @@
                 <label for="direccion">Dirección*</label>
                 <textarea id="direccion" cols="30" class="form-control" rows="2"
                           name="direccion" placeholder="Ingrese la direccion"
-                          minlength="5" required>
-                  {{old("direccion")}}
-                </textarea>
-
+                          minlength="5" required>{{old("direccion")}}</textarea>
                 @error('direccion')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -198,9 +191,9 @@
             <div class="col-md-6">
               <div class="form-group @error('precio_galon') has-error @enderror">
                   <label for="precio_galon">Precio por galon*</label>
-                  <input id="precio_galon" type="number" class="form-control number-validation" value="{{old("precio_galon")}}" 
-                          name="precio_galon" placeholder="Ingrese precio por galon" 
-                          step="any" min="1" max="999" required>
+                  <input id="precio_galon" type="text" class="form-control" value="{{old("precio_galon")}}" 
+                          name="precio_galon" placeholder="0.00" 
+                          pattern="^[0-9]+(\.[0-9]{1,2})?$" title="Formato: Use 2 decimales" required>
                   @error('precio_galon')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>

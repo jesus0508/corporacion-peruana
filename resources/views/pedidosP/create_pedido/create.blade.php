@@ -12,8 +12,9 @@
           <div class="box-body">
             <div class="form-group @error('nro_pedido') has-error @enderror">
               <label for="numero_pedido">Numero Pedido*</label>
-              <input id="numero_pedido" type="text" class="form-control number-validation" name="nro_pedido" placeholder="Ingrese el número de pedido" value="{{ old('nro_pedido') }}"
-                      minlength="5" required>
+              <input id="numero_pedido" type="text" class="form-control number-validation" 
+                      name="nro_pedido" placeholder="Ingrese el número de pedido" value="{{ old('nro_pedido') }}"
+                      minlength="5" maxlength="5" required>
               @error('nro_pedido')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -25,8 +26,9 @@
             </div>
             <div class="form-group @error('scop') has-error @enderror">
               <label for="scop_pedido">SCOP*</label>
-              <input id="scop_pedido" type="number" class="form-control number-validation" name="scop" placeholder="Ingrese el SCOP" value="{{ old('scop') }}" 
-                         minlength="12" required>
+              <input id="scop_pedido" type="number" class="form-control number-validation" 
+                      name="scop" placeholder="Ingrese el SCOP" value="{{ old('scop') }}" 
+                      minlength="12" maxlength="12" required>
               @error('scop')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -60,7 +62,8 @@
               <div class="col-md-6">
                 <div class="form-group @error('galones') has-error @enderror">
                   <label for="galones">Cantidad de galones del pedido*</label>
-                  <input id="galones" type="number" class="form-control number-validation" name="galones" placeholder="Ingrese  cantidad de galones" value="{{ old('galones') }}"
+                  <input id="galones" type="number" class="form-control number-validation" 
+                          name="galones" placeholder="Ingrese  cantidad de galones" value="{{ old('galones') }}"
                           min="500" step="500" max="5000" required>
                   @error('galones')
                   <span class="help-block" role="alert">
@@ -72,8 +75,9 @@
               <div class="col-md-6">
                 <div class="form-group @error('costo_galon') has-error @enderror">
                   <label for="costo_galon">Precio del galón*</label>
-                  <input id="costo_galon" type="text" class="form-control" name="costo_galon" placeholder="Ingrese precio actual del galon" value="{{ old('costo_galon') }}"
-                  pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
+                  <input id="costo_galon" type="text" class="form-control" 
+                          name="costo_galon" placeholder="Ingrese precio actual del galon" value="{{ old('costo_galon') }}"
+                          pattern="(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{5}))?)" title="Formato: Use 5 decimales" required>
                   @error('costo_galon')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -86,7 +90,9 @@
               <div class="col-md-6">
                 <div class="form-group @error('fecha_pedido') has-error @enderror">
                   <label for="fecha_pedido">Fecha de pedido*</label>
-                  <input id="fecha_pedido" autocomplete="off" type="text" class="form-control" name="fecha_pedido" placeholder="Ingrese la fecha" value="{{ old('fecha_pedido') }}" required>
+                  <input id="fecha_pedido" autocomplete="off" type="text" class="form-control" 
+                          name="fecha_pedido" placeholder="Ingrese la fecha" value="{{ old('fecha_pedido') }}" 
+                          required>
                   @error('fecha_pedido')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
