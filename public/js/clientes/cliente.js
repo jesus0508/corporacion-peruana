@@ -87,6 +87,8 @@ $(document).ready(function() {
     },
     ] 
   });
+
+
   } 
 );
   function confirmar()

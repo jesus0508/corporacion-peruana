@@ -716,6 +716,9 @@ desired effect
 <!-- Datatables  responsive 2.1.0 -->
 <script src="{{ asset('dist/js/datatables/dataTables.responsive.js') }}"></script>
 
+<script src="{{ asset('js/inputValidations.js') }}"></script>
+
+
 <!--  JS entidades -->
 <script>
 
@@ -771,6 +774,9 @@ desired effect
         }
     }           
 } );
+
+
+
 </script>
 @yield('scripts')
 @include('partials.session-status')
