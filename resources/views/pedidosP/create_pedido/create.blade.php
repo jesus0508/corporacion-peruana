@@ -19,7 +19,9 @@
                 <strong>{{ $message }}</strong>
               </span>
               @enderror
-
+              {{-- <input type="password" name="user_password_new" pattern=".{6,}" required
+                oninvalid="setCustomValidity('Minimum length is 6 characters')" 
+                oninput="setCustomValidity('')" /> --}}
             </div>
             <div class="form-group @error('scop') has-error @enderror">
               <label for="scop_pedido">SCOP*</label>
