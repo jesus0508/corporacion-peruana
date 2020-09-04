@@ -39,8 +39,8 @@ class StoreClienteRequest extends FormRequest
             'forma_pago'=>'required|max:255',
             'persona_comision'=>'max:255',
             'correo_representante'=>'nullable|email',
-            'nro_cuenta'=>'max:255',
-            'cuenta_detraccion'=> 'max:255',
+            'nro_cuenta'=>'nullable|max:255',
+            'cuenta_detraccion'=> 'nullable|max:255',
             'utilidades'=>'nullable|max:255',
             'extraordinaria'=>'nullable|max:255'
         ];

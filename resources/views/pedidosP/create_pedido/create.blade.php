@@ -12,8 +12,8 @@
           <div class="box-body">
             <div class="form-group @error('nro_pedido') has-error @enderror">
               <label for="numero_pedido">Numero Pedido*</label>
-              <input id="numero_pedido" type="number" class="form-control" name="nro_pedido" placeholder="Ingrese el número de pedido" min="0" 
-              value="{{ old('nro_pedido') }}" required>
+              <input id="numero_pedido" type="number" class="form-control" name="nro_pedido" placeholder="Ingrese el número de pedido" value="{{ old('nro_pedido') }}"
+                      min="10000" max="99999" required>
               @error('nro_pedido')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -23,7 +23,8 @@
             </div>
             <div class="form-group @error('scop') has-error @enderror">
               <label for="scop_pedido">SCOP*</label>
-              <input id="scop_pedido" type="number" class="form-control" name="scop" placeholder="Ingrese el SCOP" min="0" value="{{ old('scop') }}" required>
+              <input id="scop_pedido" type="number" class="form-control" name="scop" placeholder="Ingrese el SCOP" value="{{ old('scop') }}" 
+                       min="100000000000" min="999999999999" required>
               @error('scop')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
@@ -57,8 +58,8 @@
               <div class="col-md-6">
                 <div class="form-group @error('galones') has-error @enderror">
                   <label for="galones">Cantidad de galones del pedido*</label>
-                  <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" min="0" max="99999" value="{{ old('galones') }}"
-                   required>
+                  <input id="galones" type="number" class="form-control" name="galones" placeholder="Ingrese  cantidad de galones" value="{{ old('galones') }}"
+                          min="500" step="500" max="5000" required>
                   @error('galones')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
