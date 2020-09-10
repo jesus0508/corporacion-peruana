@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Cliente::class, function (Faker $faker) {
     return [
-        'ruc' => $faker->numerify('###########'),
+        'ruc' => $faker->unique()->numerify('###########'),
         'razon_social' => $faker->company,
         'cargo'=> $faker->optional(0.5)->jobTitle,
         'representante'=> $faker->optional(0.5)->name,

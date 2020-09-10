@@ -27,8 +27,7 @@
               <div class="form-group @error('representante') has-error @enderror">
                 <label for="representante">Representante</label>
                 <input id="representante" type="text" class="form-control" value="{{old("representante")}}" 
-                        name="representante" placeholder="Ingrese el nombre del representante" 
-                        maxlength="100">
+                        name="representante" placeholder="Ingrese el nombre del representante" >
                 @error('representante')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -43,7 +42,7 @@
                 <label for="razon_social">Razón Social*</label>
                 <textarea id="razon_social" cols="30" rows="2" class="form-control" 
                           name="razon_social" placeholder="Ingrese la razon social"
-                          maxlength="120" required>{{old("razon_social")}}</textarea>             
+                          required>{{old("razon_social")}}</textarea>             
                 @error('razon_social')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -57,8 +56,7 @@
               <div class="form-group @error('cargo') has-error @enderror">
                 <label for="cargo">Cargo</label>
                 <input id="cargo" type="text" class="form-control" value="{{old("cargo")}}" 
-                        name="cargo" placeholder="Ingrese el cargo" 
-                        maxlength="50">
+                        name="cargo" placeholder="Ingrese el cargo" >
                 @error('cargo')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -113,8 +111,7 @@
               <div class="form-group @error('actividad_economica') has-error @enderror">
                 <label for="actividad_economica">Actividad economica</label>
                 <textarea id="actividad_economica" cols="30" rows="2" class="form-control" 
-                          name="actividad_economica" placeholder="Ingrese actividad economica" 
-                          maxlength="255">{{old("actividad_economica")}}</textarea>          
+                          name="actividad_economica" placeholder="Ingrese actividad economica">{{old("actividad_economica")}}</textarea>          
                 @error('actividad_economica')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -153,7 +150,7 @@
                 <label for="distrito">Distrito*</label>
                 <input id="distrito" type="text" class="form-control" value="{{old("distrito")}}" 
                         name="distrito" placeholder="Ingrese Distrito" 
-                        maxlength="255" required>
+                        required>
                 @error('distrito')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -206,7 +203,7 @@
                 <label for="forma_pago">Forma de pago*</label>
                 <input id="forma_pago" type="text" class="form-control" value="{{old("forma_pago")}}" 
                         name="forma_pago" placeholder="Ingrese forma de pago" 
-                        minlength="5" maxlength="255">
+                        minlength="6">
                 @error('forma_pago')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
@@ -232,7 +229,7 @@
                 <label for="persona_comision">Persona a tratar comision</label>
                 <input id="persona_comision" type="text" class="form-control" value="{{old("persona_comision")}}" 
                         name="persona_comision" placeholder="Ingrese nombre de la persona" 
-                        maxlength="100">
+                        >
                 @error('persona_comision')
                 <span class="help-block" role="alert">
                   <strong>{{ $message }}</strong>
