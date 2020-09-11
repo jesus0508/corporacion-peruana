@@ -27,8 +27,8 @@ class StoreProveedorRequest extends FormRequest
             'razon_social'=>'required|max: 255',
             'ruc' => 'required|digits: 11|unique:proveedores,ruc,'.$this->id,
             'email'=>'nullable|email|unique:proveedores,email,'.$this->id,  
-            'linea_credito'=> 'numeric|gt:0', 
-            'sobregiro' => 'numeric|gt:0'       
+            'linea_credito'=> 'numeric|gt:0|lt:50000', 
+            'sobregiro' => 'numeric|gt:0|lt:10000'       
             ];
     }
 }

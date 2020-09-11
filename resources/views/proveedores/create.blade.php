@@ -52,7 +52,8 @@
             <div class="col-md-6">
               <div class="form-group @error('linea_credito') has-error @enderror">
                 <label for="linea_credito">Línea de Crédito</label>
-                <input id="linea_credito" type="text" class="form-control" name="linea_credito" placeholder="Ingrese linea de crédito" value="{{ old('linea_credito') }}">
+                <input id="linea_credito" type="number" class="form-control number-validation" name="linea_credito" placeholder="Ingrese linea de crédito" value="{{ old('linea_credito') }}"
+                          max="49999">
                 @error('linea_credito')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -63,7 +64,8 @@
             <div class="col-md-6">
               <div class="form-group @error('sobregiro') has-error @enderror">
                 <label for="sobregiro">Sobregiro</label>
-                <input id="sobregiro" type="text" class="form-control" name="sobregiro" placeholder="Ingrese Sobregiro" value="{{ old('sobregiro') }}">
+                <input id="sobregiro" type="number" class="form-control number-validation" name="sobregiro" placeholder="Ingrese Sobregiro" value="{{ old('sobregiro') }}"
+                          max="9999">
                 @error('sobregiro')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
