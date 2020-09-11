@@ -24,13 +24,13 @@ class StorePedidoClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'cliente_id'=>'required|numeric',
-            'galones'=>'required|numeric|gt:0',
-            'precio_galon'=>'required|numeric|gt:0',
-            'saldo'=>'required|numeric|gt:0',
-            'fecha_descarga'=>'nullable|date_format:"d/m/Y"',
-            'horario_descarga'=>'max: 255',
-            'observacion'=>'max: 255'
+            'cliente_id' => 'required|numeric',
+            'galones' => 'required|numeric|gt:0',
+            'precio_galon' => 'required|numeric|gt:0|lt:10000',
+            'saldo' => 'required|numeric|gt:0',
+            'fecha_descarga' => 'nullable|date_format:"d/m/Y"',
+            'horario_descarga' => 'max: 50',
+            'observacion' => 'max: 255'
         ];
     }
 }

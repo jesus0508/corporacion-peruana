@@ -24,7 +24,7 @@ class StoreProveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            'razon_social'=>'required|max: 255',
+            'razon_social'=>'required|max: 99',
             'ruc' => 'required|digits: 11|unique:proveedores,ruc,'.$this->id,
             'email'=>'nullable|email|unique:proveedores,email,'.$this->id,  
             'linea_credito'=> 'numeric|gt:0|lt:50000', 

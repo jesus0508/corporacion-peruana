@@ -107,7 +107,8 @@
                 <div class="form-group @error('galones') has-error @enderror">
                   <label for="galones">Galones*</label>
                   <input id="galones" type="number" class="form-control" 
-                          name="galones" placeholder="Ingrese el numero galones" min="0">
+                          name="galones" placeholder="Ingrese el numero galones" 
+                          min="0" max="9999">
                   @error('galones')
                   <span class="help-block" role="alert">
                     <strong>{{ $message }}</strong>
