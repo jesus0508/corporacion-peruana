@@ -25,7 +25,7 @@ class StorePedidoRequest extends FormRequest
     {
         return [
             'nro_pedido' => 'required|size:6|unique:pedidos,nro_pedido,' . $this->id,
-            'scop' => 'required|regex:/^[1-9]{1}[0-9]{12}/|unique:pedidos,scop,' . $this->id,
+            'scop' => 'required|size:13|regex:/^[1-9]{1}[0-9]{12}/|unique:pedidos,scop,' . $this->id,
             'planta_id' => 'required|numeric',
             'galones' => 'required|numeric|gte:500|regex:/\d*[05]00/|lte:5000',
             'costo_galon' => 'required|numeric|gt:0',
