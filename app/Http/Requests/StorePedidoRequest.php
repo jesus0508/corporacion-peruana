@@ -24,16 +24,17 @@ class StorePedidoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nro_pedido'=>'required|lte:999999999|unique:pedidos,nro_pedido,'.$this->id,
-            'scop'=>'required|regex:/^[1-9]{1}[0-9]{12}/|unique:pedidos,scop,'.$this->id,
-            'planta_id' => 'required|numeric',         
-            'galones'=>'required|numeric|gte:500|regex:/\d*[05]00/|lte:5000',
-            'costo_galon'=>'required|numeric|gt:0',
-            'fecha_pedido'=>'required|date_format:"d/m/Y"'
+            'nro_pedido' => 'required|size:6|unique:pedidos,nro_pedido,' . $this->id,
+            'scop' => 'required|regex:/^[1-9]{1}[0-9]{12}/|unique:pedidos,scop,' . $this->id,
+            'planta_id' => 'required|numeric',
+            'galones' => 'required|numeric|gte:500|regex:/\d*[05]00/|lte:5000',
+            'costo_galon' => 'required|numeric|gt:0',
+            'fecha_pedido' => 'required|date_format:"d/m/Y"'
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'scop.regex' => 'El SCOP debe ser un numero de 13 digitos',
             'galones.regex' => 'La cantidad de galones deben ser (500,1000,1500,...)'

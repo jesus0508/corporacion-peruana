@@ -14,7 +14,7 @@
               <label for="numero_pedido">Numero Pedido*</label>
               <input id="numero_pedido" type="text" class="form-control number-validation" 
                       name="nro_pedido" placeholder="Ingrese el número de pedido" value="{{ old('nro_pedido') }}"
-                      minlength="5" maxlength="5" required>
+                      required>
               @error('nro_pedido')
               <span class="help-block" role="alert">
                 <strong>{{ $message }}</strong>
