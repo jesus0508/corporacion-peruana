@@ -31,7 +31,7 @@
               <div class="col-md-6">
                 <div class="form-group @error('cliente_id') has-error @enderror">
                   <label for="cliente">Cliente*</label>
-                  <select class="form-control" id="cliente" name="cliente_id">
+                  <select class="form-control" id="cliente" name="cliente_id" required>
                     @foreach ( $clientes as $cliente)
                       <option value="{{$cliente->id}}">{{$cliente->razon_social}}</option>
                     @endforeach
